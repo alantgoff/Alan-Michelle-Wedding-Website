@@ -23,20 +23,20 @@ export type Photo = {
 export const photos = {
   /** Home page hero, full bleed. Wide crop from a portrait original. */
   hero: {
-    src: "/photos/golden-water.jpg",
-    alt: "Late sun scattering gold across dark green ocean swell",
+    src: "/photos/windward-coast.jpg",
+    alt: "Lava rock shoreline and a leaning palm above bright open water",
   },
 
   /** Behind the welcome note on the home page. Wide. */
   welcome: {
-    src: "/photos/dusk-horizon.jpg",
-    alt: "Violet and rose clouds over a calm sea at dusk",
+    src: "/photos/wave-at-dusk.jpg",
+    alt: "A clear swell rising under an open sky",
   },
 
   /** Banner across the top of each interior page. Wide. */
   travel: {
-    src: "/photos/windward-coast.jpg",
-    alt: "Lava rock shoreline and a leaning palm under a pink evening sky",
+    src: "/photos/dusk-horizon.jpg",
+    alt: "Wide calm water reaching to the horizon",
   },
   activities: {
     src: "/photos/wave-at-dusk.jpg",
@@ -47,21 +47,21 @@ export const photos = {
     alt: "The sun low on the horizon, its light reflected along the wet sand",
   },
   dressCode: {
-    src: "/photos/dusk-horizon.jpg",
-    alt: "Violet and rose clouds over a calm sea at dusk",
+    src: "/photos/windward-coast.jpg",
+    alt: "Palms and shoreline above bright shallow water",
   },
   faq: {
     src: "/photos/wave-at-dusk.jpg",
     alt: "A swell rising against a pale gold sunset",
   },
   registry: {
-    src: "/photos/sun-on-water.jpg",
-    alt: "The sun low on the horizon, its light reflected along the wet sand",
+    src: "/photos/dusk-horizon.jpg",
+    alt: "Wide calm water reaching to the horizon",
   },
 
   /** Revealed behind the home page section cards on hover. Any shape. */
   card: {
-    src: "/photos/golden-water.jpg",
+    src: "/photos/wave-at-dusk.jpg",
     alt: "",
   },
 

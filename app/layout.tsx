@@ -1,12 +1,14 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cormorant_Garamond, Lora } from "next/font/google";
 import { SiteShell } from "@/components/SiteShell";
 import { site } from "@/content/site";
 
-// Cormorant Garamond ships a variable build, so no `weight` is passed.
+// Both ship variable builds, so no `weight` is passed — that would pin them
+// to static cuts and lose the range. Lora carries body copy, labels, and the
+// navigation: a serif throughout keeps the site elegant rather than blocky.
 const display = Cormorant_Garamond({ subsets: ["latin"], display: "swap", variable: "--font-display" });
-const body = Inter({ subsets: ["latin"], display: "swap", variable: "--font-body" });
+const body = Lora({ subsets: ["latin"], display: "swap", variable: "--font-body" });
 
 export const metadata: Metadata = {
   title: `${site.couple} | ${site.location}`,

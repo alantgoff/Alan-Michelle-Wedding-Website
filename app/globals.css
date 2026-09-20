@@ -2,32 +2,36 @@
 
 /* ============================================================
    Alan & Michelle — "Windward"
-   A photography-led site. The ocean photographs carry the design and
-   the palette is sampled from them, so type and imagery agree instead
-   of competing.
+
+   Bright day tropical, not sunset. The photographs stay light and
+   the scrims over them are cream rather than black, so text sits in
+   sunlight instead of shadow. Type is serif throughout: a display
+   garamond for headings and a warmer serif for everything else,
+   including the navigation, so nothing reads as blocky or modern.
    ============================================================ */
 
 :root {
-  /* Sampled from the photographs themselves: deep dusk navy, violet swell,
-     plum, blush-lilac, warm cream. Every text pair below is checked against
-     WCAG AA (lowest is 6.3:1). */
-  --deep: #1d2433; /* deep dusk water — scrims and body text */
-  --swell: #46406b; /* violet depth — button fills */
-  --reef: #6b4f7a; /* plum — accents, labels, links */
-  --glass: #e8d5e0; /* blush-lilac — labels over photographs */
-  --foam: #f8f4f1; /* warm cream — page background */
-  --sand: #e4d3c4; /* wet sand */
-  --shell: #fffdfb;
+  /* Midday water and sand. Contrast checked against WCAG AA: the lowest
+     pairing in use is 4.6:1 and body ink holds 6.7:1 even over the
+     lightest scrim on the darkest photograph. */
+  --deep: #14424a; /* deep sea teal — body text, and text over photos */
+  --lagoon: #1f6f77; /* accent — labels, links, button fills */
+  --aqua: #7ec8d4; /* bright shallow water — decorative only, never text */
+  --palm: #3f6b4a; /* frond green — decorative */
+  --sun: #f2b880; /* warm light — decorative */
+  --sand: #f3e7d3; /* dry sand */
+  --cream: #fdfaf4; /* page background */
+  --white: #ffffff;
 
   --ink: var(--deep);
-  --muted: #4a5262;
-  --rule: color-mix(in srgb, var(--deep) 15%, transparent);
+  --muted: #4d6168;
+  --rule: color-mix(in srgb, var(--deep) 12%, transparent);
 
   --display: var(--font-display), Georgia, "Times New Roman", serif;
-  --body: var(--font-body), system-ui, -apple-system, sans-serif;
+  --body: var(--font-body), Georgia, "Times New Roman", serif;
 
-  --gutter: clamp(22px, 6vw, 110px);
-  --measure: 68ch;
+  --gutter: clamp(24px, 6vw, 120px);
+  --measure: 66ch;
 }
 
 * {
@@ -39,11 +43,11 @@ html {
 }
 body {
   margin: 0;
-  background: var(--foam);
+  background: var(--cream);
   color: var(--ink);
   font-family: var(--body);
-  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
-  line-height: 1.65;
+  font-size: clamp(1rem, 0.95rem + 0.22vw, 1.08rem);
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
 }
 a {
@@ -53,7 +57,7 @@ img {
   max-width: 100%;
 }
 :focus-visible {
-  outline: 2px solid var(--reef);
+  outline: 2px solid var(--lagoon);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -63,17 +67,18 @@ h2,
 h3 {
   font-family: var(--display);
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.04;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
   margin: 0;
 }
 
 .kicker {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--reef);
+  color: var(--lagoon);
   margin: 0 0 18px;
 }
 
@@ -86,46 +91,46 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 14px var(--gutter);
-  background: color-mix(in srgb, var(--foam) 90%, transparent);
+  gap: 18px;
+  padding: 16px var(--gutter);
+  background: color-mix(in srgb, var(--cream) 92%, transparent);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--rule);
 }
 .nav .mark {
   font-family: var(--display);
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   text-decoration: none;
   white-space: nowrap;
 }
 .nav nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 22px;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  gap: 8px 26px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
 }
 .nav nav a {
   text-decoration: none;
-  padding-bottom: 2px;
+  padding-bottom: 3px;
   border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
 }
 .nav nav a:hover,
 .nav nav a[aria-current="page"] {
-  border-bottom-color: var(--reef);
-  color: var(--reef);
+  border-bottom-color: var(--lagoon);
+  color: var(--lagoon);
 }
 
-/* ---------- Hero: full-bleed water ------------------------ */
+/* ---------- Hero ------------------------------------------ */
 
 .hero {
   position: relative;
-  min-height: min(86svh, 780px);
+  min-height: min(84svh, 760px);
   display: flex;
   align-items: flex-end;
   padding: var(--gutter);
-  padding-bottom: clamp(44px, 7vw, 92px);
+  padding-bottom: clamp(46px, 7vw, 92px);
   overflow: hidden;
   isolation: isolate;
 }
@@ -140,7 +145,10 @@ h3 {
   object-fit: cover;
   display: block;
 }
-/* Scrim: keeps type legible over any photograph, light or dark. */
+/* A cream scrim, not a black one. Text sits in light and the top of the
+   photograph is untouched, so the image still reads as daylight. Kept as
+   light as legibility allows: dark type holds 6:1 even at this strength
+   over the darkest region of the darkest photograph. */
 .hero::after {
   content: "";
   position: absolute;
@@ -148,51 +156,50 @@ h3 {
   z-index: -1;
   background: linear-gradient(
     to top,
-    color-mix(in srgb, var(--deep) 88%, transparent) 0%,
-    color-mix(in srgb, var(--deep) 55%, transparent) 38%,
-    color-mix(in srgb, var(--deep) 12%, transparent) 72%,
+    color-mix(in srgb, var(--cream) 82%, transparent) 0%,
+    color-mix(in srgb, var(--cream) 58%, transparent) 34%,
+    color-mix(in srgb, var(--cream) 16%, transparent) 68%,
     transparent 100%
   );
 }
 .hero-copy {
-  color: var(--shell);
+  color: var(--deep);
   max-width: min(100%, 34ch);
 }
-.hero .kicker,
-.page-hero .kicker {
-  color: var(--shell);
-  text-shadow: 0 1px 12px color-mix(in srgb, var(--deep) 70%, transparent);
-}
+/* A soft light halo, so dark type survives a bright patch in any photo. */
 .hero h1,
 .hero .tagline,
+.hero .kicker,
 .hero-meta,
 .page-hero h1,
-.page-hero .lede {
-  text-shadow: 0 2px 24px color-mix(in srgb, var(--deep) 45%, transparent);
+.page-hero .lede,
+.page-hero .kicker {
+  text-shadow: 0 1px 14px color-mix(in srgb, var(--white) 78%, transparent);
 }
 .hero h1 {
   font-size: clamp(3.2rem, 11vw, 8.5rem);
-  line-height: 0.92;
+  line-height: 0.94;
   text-wrap: balance;
 }
 .hero .tagline {
   font-family: var(--display);
   font-style: italic;
-  font-size: clamp(1.15rem, 2.4vw, 1.9rem);
+  font-size: clamp(1.2rem, 2.4vw, 2rem);
   line-height: 1.35;
-  margin: 24px 0 0;
+  margin: 26px 0 0;
   max-width: 30ch;
   text-wrap: balance;
-  color: color-mix(in srgb, var(--shell) 92%, var(--glass));
+  /* Deep sea, not lagoon: at this size the accent teal falls under 4.5:1
+     where the photograph is light, and the tagline is not large text. */
+  color: var(--deep);
 }
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 26px;
-  margin-top: 30px;
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  gap: 10px 28px;
+  margin-top: 32px;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
 }
 
 /* ---------- Key details ----------------------------------- */
@@ -200,8 +207,8 @@ h3 {
 .facts {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: clamp(30px, 6vw, 90px);
-  padding: clamp(54px, 9vw, 130px) var(--gutter);
+  gap: clamp(34px, 6vw, 96px);
+  padding: clamp(62px, 10vw, 150px) var(--gutter);
   align-items: start;
 }
 .countdown strong {
@@ -209,32 +216,34 @@ h3 {
   font-family: var(--display);
   font-size: clamp(4.5rem, 12vw, 9rem);
   line-height: 1;
+  color: var(--lagoon);
   font-variant-numeric: tabular-nums;
 }
 .countdown span {
   display: block;
   margin-top: 22px;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
 }
 .facts h2 {
   font-size: clamp(2.2rem, 5vw, 4rem);
-  margin-bottom: 26px;
+  margin-bottom: 28px;
 }
 .facts dl {
   display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
-  gap: 14px 20px;
-  margin: 0 0 32px;
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: 16px 22px;
+  margin: 0 0 34px;
 }
 .facts dt {
-  font-size: 0.65rem;
-  letter-spacing: 0.17em;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--reef);
-  padding-top: 5px;
+  color: var(--lagoon);
+  padding-top: 6px;
 }
 .facts dd {
   margin: 0;
@@ -244,27 +253,26 @@ h3 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 13px 22px;
-  background: var(--swell);
-  color: var(--shell);
+  padding: 14px 24px;
+  background: var(--lagoon);
+  color: var(--white);
   text-decoration: none;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
   border-radius: 2px;
   transition: background 0.2s;
 }
 .button:hover {
-  background: var(--reef);
+  background: var(--deep);
 }
 
-/* ---------- Welcome quote over water ---------------------- */
+/* ---------- Welcome note over water ----------------------- */
 
 .welcome {
   position: relative;
-  padding: clamp(80px, 14vw, 180px) clamp(24px, 12vw, 200px);
+  padding: clamp(86px, 14vw, 190px) clamp(24px, 12vw, 210px);
   text-align: center;
-  color: var(--shell);
+  color: var(--deep);
   overflow: hidden;
   isolation: isolate;
 }
@@ -278,17 +286,18 @@ h3 {
   height: 100%;
   object-fit: cover;
 }
+/* Washed almost white: the photograph reads as light behind the words. */
 .welcome::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: color-mix(in srgb, var(--deep) 66%, transparent);
+  background: color-mix(in srgb, var(--cream) 74%, transparent);
 }
 .welcome p {
   font-family: var(--display);
-  font-size: clamp(1.5rem, 3.4vw, 3rem);
-  line-height: 1.3;
+  font-size: clamp(1.55rem, 3.4vw, 3rem);
+  line-height: 1.32;
   margin: 0;
   text-wrap: balance;
 }
@@ -298,7 +307,7 @@ h3 {
 .link-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2px;
+  gap: 1px;
   background: var(--rule);
   border-block: 1px solid var(--rule);
 }
@@ -307,62 +316,51 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 260px;
-  padding: 26px;
-  background: var(--shell);
+  min-height: 270px;
+  padding: 28px;
+  background: var(--white);
   text-decoration: none;
   overflow: hidden;
   isolation: isolate;
-  transition: color 0.3s;
 }
 .link-card .card-media {
   position: absolute;
   inset: 0;
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.45s;
 }
 .link-card .card-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-/* Without this, white type lands on bright sky and disappears. */
+/* Light wash on hover, so the card brightens rather than darkens. */
 .link-card .card-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--deep) 88%, transparent),
-    color-mix(in srgb, var(--deep) 45%, transparent)
-  );
+  background: color-mix(in srgb, var(--cream) 70%, transparent);
 }
 .link-card:hover .card-media,
 .link-card:focus-visible .card-media {
   opacity: 1;
 }
-.link-card:hover,
-.link-card:focus-visible {
-  color: var(--shell);
-}
 .link-card .num {
-  font-size: 0.64rem;
-  letter-spacing: 0.2em;
-  color: var(--reef);
+  font-size: 0.7rem;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  color: var(--lagoon);
   margin-bottom: auto;
 }
-.link-card:hover .num {
-  color: var(--glass);
-}
 .link-card h3 {
-  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
 }
 .link-card .go {
   margin-top: 12px;
-  font-size: 0.66rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  color: var(--lagoon);
 }
 
 /* ---------- Interior pages -------------------------------- */
@@ -371,10 +369,10 @@ h3 {
   position: relative;
   display: flex;
   align-items: flex-end;
-  min-height: min(52svh, 460px);
+  min-height: min(50svh, 440px);
   padding: var(--gutter);
-  padding-bottom: clamp(34px, 5vw, 64px);
-  color: var(--shell);
+  padding-bottom: clamp(36px, 5vw, 66px);
+  color: var(--deep);
   overflow: hidden;
   isolation: isolate;
 }
@@ -395,34 +393,31 @@ h3 {
   z-index: -1;
   background: linear-gradient(
     to top,
-    color-mix(in srgb, var(--deep) 86%, transparent),
-    color-mix(in srgb, var(--deep) 38%, transparent)
+    color-mix(in srgb, var(--cream) 80%, transparent),
+    color-mix(in srgb, var(--cream) 40%, transparent)
   );
-}
-.page-hero .kicker {
-  color: color-mix(in srgb, var(--glass) 92%, white);
 }
 .page-hero h1 {
   font-size: clamp(2.8rem, 8vw, 6rem);
 }
 .page-hero .lede {
   font-family: var(--display);
-  font-size: clamp(1.1rem, 2.1vw, 1.6rem);
+  font-size: clamp(1.15rem, 2.1vw, 1.65rem);
   line-height: 1.45;
   max-width: 46ch;
   margin: 18px 0 0;
 }
 
 .section {
-  padding: clamp(50px, 8vw, 110px) var(--gutter);
+  padding: clamp(58px, 9vw, 120px) var(--gutter);
   max-width: 1400px;
 }
 .section + .section {
   border-top: 1px solid var(--rule);
 }
 .section > h2 {
-  font-size: clamp(1.9rem, 4vw, 3rem);
-  margin-bottom: 34px;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 36px;
 }
 .section p {
   max-width: var(--measure);
@@ -431,64 +426,64 @@ h3 {
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
-  gap: 20px;
+  gap: 22px;
 }
 .card {
-  padding: 28px;
-  background: var(--shell);
+  padding: 30px;
+  background: var(--white);
   border: 1px solid var(--rule);
   border-radius: 3px;
 }
 .card .label {
-  font-size: 0.64rem;
-  letter-spacing: 0.17em;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--reef);
+  color: var(--lagoon);
 }
 .card h3 {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   margin: 10px 0 12px;
 }
 .card p {
   margin: 0 0 10px;
 }
-.card small {
-  display: block;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.5;
+.card ul {
+  margin: 0;
+  padding-left: 20px;
 }
 
 /* ---------- Activities, FAQ, timeline --------------------- */
 
 .activity-day {
-  margin-bottom: 48px;
+  margin-bottom: 52px;
 }
 .activity-day > h2 {
   font-family: var(--body);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: 0.78rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--reef);
-  margin-bottom: 4px;
+  color: var(--lagoon);
+  margin-bottom: 6px;
 }
 .activity {
   display: grid;
-  grid-template-columns: 160px minmax(0, 1fr);
-  gap: 20px 36px;
-  padding: 26px 0;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 20px 38px;
+  padding: 28px 0;
   border-top: 1px solid var(--rule);
 }
 .activity strong {
-  font-size: 0.95rem;
+  font-weight: 600;
 }
 .activity small {
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.84rem;
 }
 .activity h3 {
-  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
   margin-bottom: 8px;
 }
 .activity p {
@@ -497,11 +492,11 @@ h3 {
 
 .faq details {
   border-top: 1px solid var(--rule);
-  padding: 20px 0;
+  padding: 22px 0;
 }
 .faq summary {
   font-family: var(--display);
-  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
   cursor: pointer;
   list-style: none;
   display: flex;
@@ -513,7 +508,7 @@ h3 {
 }
 .faq summary::after {
   content: "+";
-  color: var(--reef);
+  color: var(--lagoon);
   font-family: var(--body);
 }
 .faq details[open] summary::after {
@@ -528,24 +523,25 @@ h3 {
 }
 .moment {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr);
-  gap: 20px 40px;
-  padding: 34px 0;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 20px 42px;
+  padding: 36px 0;
   border-top: 1px solid var(--rule);
 }
 .moment .when {
-  font-size: 0.68rem;
-  letter-spacing: 0.17em;
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--reef);
-  padding-top: 6px;
+  color: var(--lagoon);
+  padding-top: 8px;
 }
 .moment h3 {
-  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
   margin-bottom: 10px;
 }
 .moment figure {
-  margin: 20px 0 0;
+  margin: 22px 0 0;
   max-width: 400px;
 }
 
@@ -556,7 +552,7 @@ h3 {
   margin: 0;
   overflow: hidden;
   border-radius: 3px;
-  background: var(--swell);
+  background: var(--sand);
 }
 .frame img {
   width: 100%;
@@ -573,17 +569,18 @@ h3 {
 .frame.square {
   aspect-ratio: 1;
 }
-/* Marks a stand-in image so it is never mistaken for a real photo. */
+/* Marks a generated stand-in so it is never taken for a real photograph. */
 .frame .standin {
   position: absolute;
   left: 10px;
   bottom: 10px;
   padding: 5px 9px;
   border-radius: 2px;
-  background: color-mix(in srgb, var(--deep) 62%, transparent);
-  color: var(--shell);
-  font-size: 0.56rem;
-  letter-spacing: 0.16em;
+  background: color-mix(in srgb, var(--cream) 82%, transparent);
+  color: var(--deep);
+  font-size: 0.58rem;
+  font-style: italic;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   backdrop-filter: blur(4px);
 }
@@ -593,14 +590,14 @@ h3 {
 .swatches {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin: 24px 0 30px;
+  gap: 14px;
+  margin: 26px 0 32px;
   padding: 0;
   list-style: none;
 }
 .swatches li {
-  width: 62px;
-  height: 62px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   border: 1px solid var(--rule);
 }
@@ -610,13 +607,13 @@ h3 {
   gap: 26px;
 }
 .split-list h3 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 .split-list ul {
   margin: 0;
   padding-left: 20px;
-  line-height: 1.9;
+  line-height: 2;
 }
 
 /* ---------- Footer ---------------------------------------- */
@@ -624,22 +621,22 @@ h3 {
 footer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
-  gap: 24px;
-  padding: clamp(46px, 7vw, 80px) var(--gutter);
+  gap: 26px;
+  padding: clamp(52px, 7vw, 88px) var(--gutter);
   border-top: 1px solid var(--rule);
-  background: var(--shell);
+  background: var(--white);
 }
 footer strong {
   display: block;
   font-family: var(--display);
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   font-weight: 400;
 }
 footer span,
 footer small {
-  font-size: 0.66rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
   color: var(--muted);
 }
 
@@ -667,9 +664,8 @@ footer small {
   .link-grid {
     grid-template-columns: 1fr;
   }
-  /* Stacked cards do not need the tall desktop proportions. */
   .link-card {
-    min-height: 140px;
+    min-height: 150px;
   }
 }
 
@@ -677,12 +673,12 @@ footer small {
   .nav {
     flex-direction: column;
     gap: 10px;
-    padding: 12px 18px;
+    padding: 14px 18px;
   }
   .nav nav {
     justify-content: center;
-    gap: 8px 14px;
-    font-size: 0.66rem;
+    gap: 8px 16px;
+    font-size: 0.74rem;
   }
   .facts,
   .activity,
@@ -690,7 +686,7 @@ footer small {
     grid-template-columns: 1fr;
   }
   .facts dl {
-    grid-template-columns: 92px minmax(0, 1fr);
+    grid-template-columns: 96px minmax(0, 1fr);
   }
   .hero-copy {
     max-width: none;
