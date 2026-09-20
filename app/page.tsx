@@ -3,6 +3,17 @@ import { Countdown } from "@/components/Countdown";
 import { PhotoBackdrop } from "@/components/PhotoFrame";
 import { Reveal } from "@/components/Reveal";
 import { site } from "@/content/site";
+import type { PhotoKey } from "@/content/photos";
+
+// Each card previews the photo from the page it links to.
+const cardPhoto: Record<string, PhotoKey> = {
+  travel: "travel",
+  activities: "activities",
+  story: "story",
+  "dress-code": "dressCode",
+  faq: "faq",
+  registry: "registry",
+};
 
 export default function Home() {
   return (
@@ -64,7 +75,7 @@ export default function Home() {
             .map((item, i) => (
               <Link className="link-card" href={`/${item.href}`} key={item.href}>
                 <div className="card-media">
-                  <PhotoBackdrop name="card" />
+                  <PhotoBackdrop name={cardPhoto[item.href] ?? "card"} />
                 </div>
                 <span className="num">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{item.label}</h3>

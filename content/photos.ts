@@ -1,60 +1,80 @@
 /**
- * PHOTO MANIFEST — the only file you edit to change images.
+ * PHOTO MANIFEST — the only file that points at images.
  *
- * HOW TO ADD A REAL PHOTO
- * 1. Drop the file into  public/photos/   e.g. public/photos/hero.jpg
- * 2. Change the matching line below to  { src: "/photos/hero.jpg", alt: "..." }
- * 3. Commit and push. Vercel redeploys and the photo is live.
+ * TO CHANGE A PHOTO
+ * 1. Put the file in  public/photos/   e.g. public/photos/us-at-the-beach.jpg
+ * 2. Point the entry below at it and write a real `alt` description.
+ * 3. Commit and push. Vercel redeploys and it is live.
  *
- * Anything still pointing at /photos/placeholder/ is a stand-in: a rendered
- * water texture, not a photograph. Stand-ins are visibly labelled on the page
- * so a guest is never shown a fake photo presented as real. The label
- * disappears automatically once you point the entry at your own file.
+ * Keep the shape noted on each entry — wide, portrait, or square — or the
+ * crop changes. Roughly 2000px on the long edge is plenty.
  *
- * Keep the shape (wide / portrait / square) when you swap, or the crop will
- * change. Aim for roughly 2000px on the long edge.
+ * `alt` is read aloud by screen readers and shown if an image fails to load,
+ * so describe what is in the picture rather than naming the file.
  */
 
 export type Photo = {
   src: string;
   alt: string;
-  /** True while this is a generated stand-in rather than a real photograph. */
+  /** Set while an entry is a generated stand-in rather than a real photograph. */
   standin?: boolean;
 };
 
-const ocean = {
-  hero: "/photos/placeholder/ocean-hero.svg",
-  wide: "/photos/placeholder/ocean-wide.svg",
-  portrait: "/photos/placeholder/ocean-portrait.svg",
-  square: "/photos/placeholder/ocean-square.svg",
-};
-
 export const photos = {
-  /** Full-bleed home page hero. Wide. A wave, open water, or the two of you. */
-  hero: { src: ocean.hero, alt: "Open ocean off the windward coast of Oʻahu", standin: true },
+  /** Home page hero, full bleed. Wide crop from a portrait original. */
+  hero: {
+    src: "/photos/golden-water.jpg",
+    alt: "Late sun scattering gold across dark green ocean swell",
+  },
 
-  /** Behind the welcome quote on the home page. Wide. */
-  welcome: { src: ocean.wide, alt: "Sunlight across the surface of the sea", standin: true },
+  /** Behind the welcome note on the home page. Wide. */
+  welcome: {
+    src: "/photos/dusk-horizon.jpg",
+    alt: "Violet and rose clouds over a calm sea at dusk",
+  },
 
-  /** Banner at the top of each interior page. Wide. */
-  travel: { src: ocean.wide, alt: "The sea along the windward coast", standin: true },
-  activities: { src: ocean.wide, alt: "Shallow water over reef", standin: true },
-  story: { src: ocean.wide, alt: "Calm water at first light", standin: true },
-  dressCode: { src: ocean.wide, alt: "Sunlit water", standin: true },
-  faq: { src: ocean.wide, alt: "Rolling swell", standin: true },
-  registry: { src: ocean.wide, alt: "Still water", standin: true },
+  /** Banner across the top of each interior page. Wide. */
+  travel: {
+    src: "/photos/windward-coast.jpg",
+    alt: "Lava rock shoreline and a leaning palm under a pink evening sky",
+  },
+  activities: {
+    src: "/photos/wave-at-dusk.jpg",
+    alt: "A swell rising against a pale gold sunset",
+  },
+  story: {
+    src: "/photos/sun-on-water.jpg",
+    alt: "The sun low on the horizon, its light reflected along the wet sand",
+  },
+  dressCode: {
+    src: "/photos/dusk-horizon.jpg",
+    alt: "Violet and rose clouds over a calm sea at dusk",
+  },
+  faq: {
+    src: "/photos/wave-at-dusk.jpg",
+    alt: "A swell rising against a pale gold sunset",
+  },
+  registry: {
+    src: "/photos/sun-on-water.jpg",
+    alt: "The sun low on the horizon, its light reflected along the wet sand",
+  },
 
-  /** Revealed behind the section cards on hover. Square. */
-  card: { src: ocean.square, alt: "", standin: true },
+  /** Revealed behind the home page section cards on hover. Any shape. */
+  card: {
+    src: "/photos/golden-water.jpg",
+    alt: "",
+  },
 
   /**
-   * Our Story timeline. Add one entry per moment in content/story.ts and
-   * reference it here by the same key. Portrait shape.
+   * Our Story timeline. Portrait shape.
+   *
+   * TODO: these are ocean photographs standing in for pictures of the two of
+   * you. Replace each one with your own photo and rewrite the alt text.
    */
-  story1: { src: ocean.portrait, alt: "TODO: how we met", standin: true },
-  story2: { src: ocean.portrait, alt: "TODO: first trip", standin: true },
-  story3: { src: ocean.portrait, alt: "TODO: making it home", standin: true },
-  story4: { src: ocean.portrait, alt: "TODO: the proposal", standin: true },
+  story1: { src: "/photos/golden-water.jpg", alt: "TODO: replace with a photo of the two of you" },
+  story2: { src: "/photos/wave-at-dusk.jpg", alt: "TODO: replace with a photo of the two of you" },
+  story3: { src: "/photos/sun-on-water.jpg", alt: "TODO: replace with a photo of the two of you" },
+  story4: { src: "/photos/windward-coast.jpg", alt: "TODO: replace with a photo of the two of you" },
 } as const satisfies Record<string, Photo>;
 
 export type PhotoKey = keyof typeof photos;

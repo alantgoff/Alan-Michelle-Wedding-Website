@@ -35,18 +35,28 @@ needs real information. Start with `content/site.ts` — the wedding date there 
 
 ## Photos
 
-Every image on the site is currently a **generated water texture, not a photograph**. Stand-ins are
-labelled "Placeholder" on the page so no guest is shown a fake photo presented as real.
+The site is photography-led: ocean images carry the home page hero, the welcome note, and the
+banner on every interior page. The palette in `app/globals.css` was sampled from those photographs,
+so the type and the imagery agree rather than compete. If you swap in photos with a very different
+cast, resample and adjust those variables.
 
-To use a real photo:
+All images are listed in `content/photos.ts`. That is the only file that points at an image.
 
-1. Put the file in `public/photos/`, for example `public/photos/hero.jpg`.
-2. In `content/photos.ts`, change that entry's `src` to `/photos/hero.jpg`, write a real `alt`
-   description, and delete the `standin: true` line.
-3. Commit and push. The label disappears automatically.
+To change one:
 
-Keep the same shape when you swap — wide, portrait, or square — or the crop changes. Roughly 2000px
-on the long edge is plenty.
+1. Put the file in `public/photos/`, for example `public/photos/us-at-the-beach.jpg`.
+2. Point that entry at it and write a real `alt` description of what is in the picture.
+3. Commit and push.
+
+Keep the shape noted on each entry — wide, portrait, or square — or the crop changes. Roughly
+2000px on the long edge is plenty.
+
+**Still to replace:** the four Our Story photos are ocean images standing in for pictures of the two
+of you. They are marked `TODO` in the manifest.
+
+If an entry is ever pointed back at `public/photos/placeholder/`, those are generated water
+textures rather than photographs. Add `standin: true` to such an entry and it will carry a visible
+"Placeholder" label, so a guest is never shown a generated image presented as a real photo.
 
 ## Invite links
 

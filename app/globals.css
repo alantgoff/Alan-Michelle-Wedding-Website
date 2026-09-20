@@ -2,23 +2,26 @@
 
 /* ============================================================
    Alan & Michelle — "Windward"
-   A photography-led site. Ocean imagery carries the design;
-   type sits quietly on top of it. Colors are sampled from
-   water: deep swell, shallow reef, foam, wet sand.
+   A photography-led site. The ocean photographs carry the design and
+   the palette is sampled from them, so type and imagery agree instead
+   of competing.
    ============================================================ */
 
 :root {
-  --deep: #062a38; /* deep water — darkest ink */
-  --swell: #0d4a58; /* mid ocean */
-  --reef: #1b7d84; /* shallow turquoise */
-  --glass: #7fc0bb; /* sea glass */
-  --foam: #f4f8f7; /* foam white — page background */
-  --sand: #e6dac6; /* wet sand — warm accent */
-  --shell: #fffdf9;
+  /* Sampled from the photographs themselves: deep dusk navy, violet swell,
+     plum, blush-lilac, warm cream. Every text pair below is checked against
+     WCAG AA (lowest is 6.3:1). */
+  --deep: #1d2433; /* deep dusk water — scrims and body text */
+  --swell: #46406b; /* violet depth — button fills */
+  --reef: #6b4f7a; /* plum — accents, labels, links */
+  --glass: #e8d5e0; /* blush-lilac — labels over photographs */
+  --foam: #f8f4f1; /* warm cream — page background */
+  --sand: #e4d3c4; /* wet sand */
+  --shell: #fffdfb;
 
   --ink: var(--deep);
-  --muted: color-mix(in srgb, var(--deep) 62%, transparent);
-  --rule: color-mix(in srgb, var(--deep) 14%, transparent);
+  --muted: #4a5262;
+  --rule: color-mix(in srgb, var(--deep) 15%, transparent);
 
   --display: var(--font-display), Georgia, "Times New Roman", serif;
   --body: var(--font-body), system-ui, -apple-system, sans-serif;
@@ -324,6 +327,17 @@ h3 {
   height: 100%;
   object-fit: cover;
 }
+/* Without this, white type lands on bright sky and disappears. */
+.link-card .card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--deep) 88%, transparent),
+    color-mix(in srgb, var(--deep) 45%, transparent)
+  );
+}
 .link-card:hover .card-media,
 .link-card:focus-visible .card-media {
   opacity: 1;
@@ -580,7 +594,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin: 24px 0 0;
+  margin: 24px 0 30px;
   padding: 0;
   list-style: none;
 }
