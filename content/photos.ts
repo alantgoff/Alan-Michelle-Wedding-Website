@@ -11,6 +11,10 @@
  *
  * `alt` is read aloud by screen readers and shown if an image fails to load,
  * so describe what is in the picture rather than naming the file.
+ *
+ * The earlier sunset set (golden-water, dusk-horizon, wave-at-dusk,
+ * sun-on-water, windward-coast) is still in public/photos if you ever want
+ * it back. Nothing points at it now.
  */
 
 export type Photo = {
@@ -21,47 +25,47 @@ export type Photo = {
 };
 
 export const photos = {
-  /** Home page hero, full bleed. Wide crop from a portrait original. */
+  /** Home page hero, full bleed. Michelle's pick. */
   hero: {
-    src: "/photos/windward-coast.jpg",
-    alt: "Lava rock shoreline and a leaning palm above bright open water",
+    src: "/photos/sunlit-sea.jpg",
+    alt: "Midday sun scattering across open blue-green ocean",
   },
 
   /** Behind the welcome note on the home page. Wide. */
   welcome: {
-    src: "/photos/wave-at-dusk.jpg",
-    alt: "A clear swell rising under an open sky",
+    src: "/photos/shallow-sand.jpg",
+    alt: "Clear shallow water rippling over pale sand",
   },
 
   /** Banner across the top of each interior page. Wide. */
   travel: {
-    src: "/photos/dusk-horizon.jpg",
-    alt: "Wide calm water reaching to the horizon",
+    src: "/photos/shallow-sand.jpg",
+    alt: "Clear shallow water rippling over pale sand",
   },
   activities: {
-    src: "/photos/wave-at-dusk.jpg",
-    alt: "A swell rising against a pale gold sunset",
+    src: "/photos/turquoise-swell.jpg",
+    alt: "Sunlight breaking through a turquoise swell",
   },
   story: {
-    src: "/photos/sun-on-water.jpg",
-    alt: "The sun low on the horizon, its light reflected along the wet sand",
+    src: "/photos/golden-sparkle.jpg",
+    alt: "Warm light glittering across a calm blue sea",
   },
   dressCode: {
-    src: "/photos/windward-coast.jpg",
-    alt: "Palms and shoreline above bright shallow water",
+    src: "/photos/shallow-sand.jpg",
+    alt: "Clear shallow water rippling over pale sand",
   },
   faq: {
-    src: "/photos/wave-at-dusk.jpg",
-    alt: "A swell rising against a pale gold sunset",
+    src: "/photos/turquoise-swell.jpg",
+    alt: "Sunlight breaking through a turquoise swell",
   },
   registry: {
-    src: "/photos/dusk-horizon.jpg",
-    alt: "Wide calm water reaching to the horizon",
+    src: "/photos/sunlit-sea.jpg",
+    alt: "Midday sun scattering across open blue-green ocean",
   },
 
   /** Revealed behind the home page section cards on hover. Any shape. */
   card: {
-    src: "/photos/wave-at-dusk.jpg",
+    src: "/photos/sunlit-sea.jpg",
     alt: "",
   },
 
@@ -71,10 +75,10 @@ export const photos = {
    * TODO: these are ocean photographs standing in for pictures of the two of
    * you. Replace each one with your own photo and rewrite the alt text.
    */
-  story1: { src: "/photos/golden-water.jpg", alt: "TODO: replace with a photo of the two of you" },
-  story2: { src: "/photos/wave-at-dusk.jpg", alt: "TODO: replace with a photo of the two of you" },
-  story3: { src: "/photos/sun-on-water.jpg", alt: "TODO: replace with a photo of the two of you" },
-  story4: { src: "/photos/windward-coast.jpg", alt: "TODO: replace with a photo of the two of you" },
+  story1: { src: "/photos/sunlit-sea.jpg", alt: "TODO: replace with a photo of the two of you" },
+  story2: { src: "/photos/turquoise-swell.jpg", alt: "TODO: replace with a photo of the two of you" },
+  story3: { src: "/photos/shallow-sand.jpg", alt: "TODO: replace with a photo of the two of you" },
+  story4: { src: "/photos/golden-sparkle.jpg", alt: "TODO: replace with a photo of the two of you" },
 } as const satisfies Record<string, Photo>;
 
 export type PhotoKey = keyof typeof photos;

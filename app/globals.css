@@ -3,28 +3,29 @@
 /* ============================================================
    Alan & Michelle — "Windward"
 
-   Bright day tropical, not sunset. The photographs stay light and
-   the scrims over them are cream rather than black, so text sits in
-   sunlight instead of shadow. Type is serif throughout: a display
+   Bright day tropical. Sunlit open water carries the design, the
+   scrims over it are cream rather than black, and the palette is
+   sampled from the photographs, so text sits in sunlight. Type is serif throughout: a display
    garamond for headings and a warmer serif for everything else,
    including the navigation, so nothing reads as blocky or modern.
    ============================================================ */
 
 :root {
-  /* Midday water and sand. Contrast checked against WCAG AA: the lowest
-     pairing in use is 4.6:1 and body ink holds 6.7:1 even over the
-     lightest scrim on the darkest photograph. */
-  --deep: #14424a; /* deep sea teal — body text, and text over photos */
-  --lagoon: #1f6f77; /* accent — labels, links, button fills */
-  --aqua: #7ec8d4; /* bright shallow water — decorative only, never text */
-  --palm: #3f6b4a; /* frond green — decorative */
-  --sun: #f2b880; /* warm light — decorative */
-  --sand: #f3e7d3; /* dry sand */
-  --cream: #fdfaf4; /* page background */
+  /* Sampled from the daytime water photographs: deep teal, lagoon, turquoise,
+     sea green, sky. Contrast checked against WCAG AA — the lowest pairing in
+     use is 5.4:1, and body ink holds 6.1:1 over the lightest scrim on the
+     darkest photograph. */
+  --deep: #123c3e; /* deep teal — body text, and text over photographs */
+  --lagoon: #16696e; /* accent — labels, links, button fills */
+  --aqua: #71a7ac; /* turquoise shallows — decorative only, never text */
+  --sky: #8db6cb; /* sky caught on the surface — decorative */
+  --seagrass: #4c7055; /* sea green over sand — decorative */
+  --sand: #f0e6d6; /* dry sand */
+  --cream: #fbfaf6; /* page background */
   --white: #ffffff;
 
   --ink: var(--deep);
-  --muted: #4d6168;
+  --muted: #46605f;
   --rule: color-mix(in srgb, var(--deep) 12%, transparent);
 
   --display: var(--font-display), Georgia, "Times New Roman", serif;
@@ -156,15 +157,18 @@ h3 {
   z-index: -1;
   background: linear-gradient(
     to top,
-    color-mix(in srgb, var(--cream) 82%, transparent) 0%,
-    color-mix(in srgb, var(--cream) 58%, transparent) 34%,
-    color-mix(in srgb, var(--cream) 16%, transparent) 68%,
-    transparent 100%
+    color-mix(in srgb, var(--cream) 84%, transparent) 0%,
+    color-mix(in srgb, var(--cream) 64%, transparent) 32%,
+    color-mix(in srgb, var(--cream) 42%, transparent) 62%,
+    color-mix(in srgb, var(--cream) 28%, transparent) 100%
   );
 }
 .hero-copy {
   color: var(--deep);
   max-width: min(100%, 34ch);
+}
+.hero .kicker {
+  color: var(--deep);
 }
 /* A soft light halo, so dark type survives a bright patch in any photo. */
 .hero h1,
@@ -174,7 +178,7 @@ h3 {
 .page-hero h1,
 .page-hero .lede,
 .page-hero .kicker {
-  text-shadow: 0 1px 14px color-mix(in srgb, var(--white) 78%, transparent);
+  text-shadow: 0 1px 3px color-mix(in srgb, var(--cream) 92%, transparent);
 }
 .hero h1 {
   font-size: clamp(3.2rem, 11vw, 8.5rem);
