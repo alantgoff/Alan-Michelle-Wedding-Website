@@ -58,6 +58,19 @@ If an entry is ever pointed back at `public/photos/placeholder/`, those are gene
 textures rather than photographs. Add `standin: true` to such an entry and it will carry a visible
 "Placeholder" label, so a guest is never shown a generated image presented as a real photo.
 
+## Design explorations
+
+Ten different ideas about how this site could look, at `/designs`. Open any one and click through
+its pages exactly as a guest would; the picker and a bar inside each design let you move between
+them. They are `noindex` like the rest of the site.
+
+They re-skin the same components and the same content, so nothing there duplicates the real site
+and nothing there can change it. Each is one block in `app/designs/designs.css`, keyed by
+`[data-design="slug"]`, with its entry in `content/designs.ts`.
+
+Once you pick one, its block folds into `app/globals.css` and the whole `app/designs` folder and
+`content/designs.ts` get deleted. Nothing else depends on them.
+
 ## Invite links
 
 Optional group activities are scoped to guest groups. Send each group its own link:
