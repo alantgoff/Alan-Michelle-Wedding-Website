@@ -1,2 +1,0 @@
-import {PageHero,Section} from "@/components/Page";import {faqs} from "@/content/faq";
-export default function FAQ(){return <><PageHero kicker="Good to know" title="Questions" intro="The practical things, answered in one place. We will keep this page updated as plans take shape."/><Section className="faq">{faqs.map(x=><details key={x.q}><summary>{x.q}</summary><p>{x.a}</p></details>)}</Section></>}

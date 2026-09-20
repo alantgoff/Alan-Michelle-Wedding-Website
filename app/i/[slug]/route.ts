@@ -13,7 +13,7 @@ import { groups, COOKIE } from "@/content/groups";
  */
 export async function GET(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const response = NextResponse.redirect(new URL("/v1/activities", req.url));
+  const response = NextResponse.redirect(new URL("/activities", req.url));
 
   if (slug === "reset") {
     response.cookies.delete(COOKIE);

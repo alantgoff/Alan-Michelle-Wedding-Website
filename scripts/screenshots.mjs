@@ -10,7 +10,7 @@ import fs from "node:fs/promises";
 import { existsSync } from "node:fs";
 
 const base = process.env.BASE_URL || "http://localhost:3000";
-const variants = ["v1", "v2", "v3", "v4", "v5"];
+const pages = ["", "travel", "activities", "story", "dress-code", "faq", "registry"];
 const viewports = [
   ["mobile", 390, 844],
   ["desktop", 1440, 1000],
@@ -30,23 +30,14 @@ const browser = await chromium.launch({
   args: ["--no-sandbox", "--disable-dev-shm-usage"],
 });
 
-for (const variant of variants) {
+for (const page of pages) {
   for (const [label, width, height] of viewports) {
-    const page = await browser.newPage({
-      viewport: { width, height },
-      deviceScaleFactor: 1,
-      reducedMotion: "reduce",
-    });
-    await page.goto(`${base}/${variant}`, { waitUntil: "networkidle" });
-    await page.screenshot({ path: `screenshots/${variant}-home-${label}.png`, fullPage: true });
-    await page.close();
+    const tab = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1, reducedMotion: "reduce" });
+    await tab.goto(`${base}/${page}`, { waitUntil: "networkidle" });
+    await tab.screenshot({ path: `screenshots/${page || "home"}-${label}.png`, fullPage: true });
+    await tab.close();
   }
-
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: "reduce" });
-  await page.goto(`${base}/${variant}/activities`, { waitUntil: "networkidle" });
-  await page.screenshot({ path: `screenshots/${variant}-activities-desktop.png`, fullPage: true });
-  await page.close();
 }
 
 await browser.close();
-console.log(`Captured ${variants.length * 3} screenshots in screenshots/`);
+console.log(`Captured ${pages.length * viewports.length} screenshots in screenshots/`);

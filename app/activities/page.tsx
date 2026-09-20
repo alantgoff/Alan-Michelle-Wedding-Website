@@ -24,6 +24,7 @@ export default async function Activities() {
         kicker="Wedding weekend"
         title="Activities"
         intro="Come for the wedding, stay for the island. These are the gatherings planned for your weekend."
+        photo="activities"
       />
       <Section>
         {days.map((day) => (

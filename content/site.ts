@@ -2,6 +2,7 @@ export const site = {
   couple: "Alan & Michelle",
   weddingDate: "October 7, 2028",
   isoDate: "2028-10-07T16:00:00-10:00", // TODO: replace ceremony time when confirmed
+  ceremonyTime: "TODO: ceremony time",
   venue: "Paliku Gardens at Kualoa Ranch",
   location: "Kaʻaʻawa, Oʻahu",
   address: "49-560 Kamehameha Hwy, Kāneʻohe, HI 96744",
