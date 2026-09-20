@@ -7,17 +7,18 @@
     "build": "next build",
     "start": "next start",
     "test:gating": "node scripts/test-gating.mjs",
-    "screenshots": "node scripts/screenshots.mjs"
+    "screenshots": "node scripts/screenshots.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "latest",
+    "@tailwindcss/postcss": "^4.3.3",
     "next": "^16.3.5",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "tailwindcss": "latest"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@playwright/test": "latest",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
