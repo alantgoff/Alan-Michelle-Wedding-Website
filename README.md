@@ -1,18 +1,87 @@
-# Alan & Michelle wedding website
-Five visual directions on one shared Next.js system. Visit `/v1` through `/v5`; all routes share typed content from `/content` and the same server-side activity gating.
+# Alan & Michelle — wedding website
 
-## Local development
-Use Node 22 and npm 10. Run `npm install`, then `npm run dev`. Production check: `npm run build && npm start`. Screenshots: `npm run screenshots`. Gating test (requires the server on port 3000): `npm run test:gating`.
+A photography-led site for our wedding at Pālikū Gardens, Kualoa Ranch, on the windward coast of
+Oʻahu. Built with Next.js and deployed on Vercel. No database, no CMS, no accounts.
 
-## Content
-Search `/content` for `TODO:`. Start with the actual wedding date/time in `content/site.ts`. Photos go in `public/photos` and are mapped in `content/photos.ts`.
+## Running it locally
+
+Node 22 and npm 10.
+
+```
+npm install
+npm run dev          # http://localhost:3000
+npm run build        # production build
+npm run typecheck    # TypeScript, no emit
+npm run test:gating  # privacy test — needs the server running
+npm run screenshots  # every page at phone and desktop width
+```
+
+## Editing content
+
+Everything a guest reads lives in `/content`. Search that folder for `TODO:` to find what still
+needs real information. Start with `content/site.ts` — the wedding date there drives the countdown.
+
+| File | What it holds |
+| --- | --- |
+| `site.ts` | Names, date, ceremony time, venue, welcome note, navigation |
+| `groups.ts` | Guest groups and their private invite slugs |
+| `activities.ts` | Weekend events and who can see each one |
+| `travel.ts` | Getting there, where to stay, recommendations |
+| `faq.ts` | Questions and answers |
+| `story.ts` | Our Story timeline |
+| `dressCode.ts` | Dress code guidance and color swatches |
+| `registry.ts` | Registry links |
+| `photos.ts` | **Photo manifest — the only file that points at images** |
+
+## Photos
+
+The site is photography-led: ocean images carry the home page hero, the welcome note, and the
+banner on every interior page. The palette in `app/globals.css` was sampled from those photographs,
+so the type and the imagery agree rather than compete. If you swap in photos with a very different
+cast, resample and adjust those variables.
+
+All images are listed in `content/photos.ts`. That is the only file that points at an image.
+
+To change one:
+
+1. Put the file in `public/photos/`, for example `public/photos/us-at-the-beach.jpg`.
+2. Point that entry at it and write a real `alt` description of what is in the picture.
+3. Commit and push.
+
+Keep the shape noted on each entry — wide, portrait, or square — or the crop changes. Roughly
+2000px on the long edge is plenty.
+
+**Still to replace:** the four Our Story photos are ocean images standing in for pictures of the two
+of you. They are marked `TODO` in the manifest.
+
+If an entry is ever pointed back at `public/photos/placeholder/`, those are generated water
+textures rather than photographs. Add `standin: true` to such an entry and it will carry a visible
+"Placeholder" label, so a guest is never shown a generated image presented as a real photo.
 
 ## Invite links
-- College friends: `/i/college-7k4m`
-- Family: `/i/family-3f2a`
-- Wedding party: `/i/party-9q8v`
-- Reset for testing: `/i/reset`
-Opening a link stores a group cookie. Activities are filtered on the server; hidden event text is not shipped in HTML. These links are convenience-grade privacy and may be forwarded.
 
-## Deploy
-Connect this repo to Vercel with the standard Next.js preset. No environment variables, database, or CMS are required. Do not deploy until final content, invite slugs, and the chosen design are reviewed.
+Optional group activities are scoped to guest groups. Send each group its own link:
+
+| Group | Link |
+| --- | --- |
+| College friends | `/i/college-7k4m` |
+| Family | `/i/family-3f2a` |
+| Wedding party | `/i/party-9q8v` |
+| Reset (for testing) | `/i/reset` |
+
+Opening a link once stores a cookie holding that invite slug, and the guest then sees their group's
+events. Filtering happens **on the server**, so events a guest cannot see never reach their browser
+in any form. `npm run test:gating` asserts exactly that, including that a forged cookie grants
+nothing.
+
+Treat a slug like a password: anyone who has it can see that group's events, and links can be
+forwarded. To revoke a group, change its slug in `content/groups.ts` and send out the new link.
+This is convenience-grade privacy, not security.
+
+## Deploying
+
+Connect the repository to Vercel and accept the Next.js preset. No environment variables, database,
+or other services are needed. The site is set to `noindex`, so it will not appear in search results,
+but anyone with the URL can open it.
+
+Do not deploy until the real date, the room block, and the registry links are in.
