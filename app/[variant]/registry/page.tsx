@@ -1,0 +1,2 @@
+import {PageHero,Section} from "@/components/Page";import {registries} from "@/content/registry";
+export default function Registry(){return <><PageHero kicker="With gratitude" title="Registry" intro="Celebrating with us is the greatest gift. For those who have asked, our registry details will live here."/><Section><div className="card-grid">{registries.map(x=><article className="card" key={x.name}><h3>{x.name}</h3><p>{x.text}</p><a className="button" href={x.url}>Coming soon</a></article>)}</div></Section></>}

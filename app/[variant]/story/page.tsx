@@ -1,0 +1,2 @@
+import {PageHero,Section} from "@/components/Page";import {story} from "@/content/story";
+export default function Story(){return <><PageHero kicker="Our story" title="The road here" intro="A few moments from the story that brought us to this island, and to all of you."/><Section><div className="timeline">{story.map(x=><article className="moment" key={x.title}><span className="kicker">{x.date}</span><div><h3>{x.title}</h3><p>{x.text}</p></div></article>)}</div></Section></>}

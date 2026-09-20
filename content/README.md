@@ -1,0 +1,2 @@
+# Editing the wedding site
+All guest-facing words live in this folder. Search for `TODO:` to find items that need Alan and Michelle's details. Update `site.ts` first, including `isoDate`, then travel, FAQ, story, dress code, and registry. Activities use an `audience`: `everyone`, `family`, `college`, or `wedding-party`; TypeScript catches invalid values. Add JPG/WebP files under `public/photos`, then reference them in `photos.ts`.

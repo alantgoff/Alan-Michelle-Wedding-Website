@@ -1,0 +1,1 @@
+export const registries = [{name:"Registry coming soon",text:"TODO: Add your registry name, note, and link.",url:"#"},{name:"Honeymoon fund",text:"TODO: Add a fund link or remove this card.",url:"#"}];

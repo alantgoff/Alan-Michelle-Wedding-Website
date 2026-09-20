@@ -1,0 +1,2 @@
+import {NextRequest,NextResponse} from "next/server";import {groups} from "@/content/groups";
+export async function GET(req:NextRequest,{params}:{params:Promise<{slug:string}>}){const {slug}=await params;const url=new URL("/v1/activities",req.url);const response=NextResponse.redirect(url);if(slug==="reset"){response.cookies.delete("wedding_group");return response}const group=groups.find(g=>g.slug===slug);if(group)response.cookies.set("wedding_group",group.id,{httpOnly:true,sameSite:"lax",maxAge:60*60*24*365,path:"/"});return response}
