@@ -50,7 +50,7 @@ type Plate = {
 
 function Plate({ no, name, note, photo, shape, children }: Plate) {
   return (
-    <details className={`album-plate ${shape}`}>
+    <details className={`album-plate ${shape}`} name="album-plate">
       <summary className="album-face">
         <span className="album-shot">
           <Image

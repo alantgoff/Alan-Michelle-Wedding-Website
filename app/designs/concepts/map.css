@@ -303,8 +303,11 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  max-width: 188px;
-  padding: 3px 8px;
+  /* One line each. A three-line label beside a pin reads as a paragraph
+     stuck to the coast rather than a name on a chart. */
+  max-width: none;
+  white-space: nowrap;
+  padding: 3px 9px;
   background: #f6eeda;
   border: 1px solid #c8b795;
   font-family: var(--f-spectral), Georgia, serif;
@@ -342,6 +345,7 @@
 
 @media (max-width: 800px) {
   .map-pin-name {
+    white-space: nowrap;
     position: absolute;
     width: 1px;
     height: 1px;

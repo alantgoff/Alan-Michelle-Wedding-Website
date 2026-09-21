@@ -220,6 +220,13 @@
 
 /* ---------- the opened spread ------------------------------- */
 
+/* A band holding an open spread recomposes rather than breaking: the plates
+   left over shorten into a strip, instead of one of them stretching across
+   the full width at its original height and swamping the composition. */
+.album-band:has(.album-plate[open]) .album-plate:not([open]) {
+  height: clamp(150px, 18vw, 230px);
+}
+
 .album-plate[open] {
   flex: 1 1 100%;
   height: auto;

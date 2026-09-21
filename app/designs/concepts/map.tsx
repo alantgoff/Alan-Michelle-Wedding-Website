@@ -46,10 +46,10 @@ const PLACES: Place[] = [
   {
     id: "airport",
     name: "Honolulu airport",
-    short: "HNL airport",
+    short: "HNL",
     kind: "Where you land",
-    x: 35.6,
-    y: 73.6,
+    x: 50.4,
+    y: 80.5,
     side: "right",
     blurb: "Every guest starts here. Collect the car before you do anything else.",
     notes: travel.gettingThere,
@@ -60,8 +60,8 @@ const PLACES: Place[] = [
     name: "Waikīkī",
     short: "Waikīkī",
     kind: "Where to stay",
-    x: 54,
-    y: 79.2,
+    x: 62,
+    y: 79.5,
     side: "right",
     blurb: "The south shore. Most rooms, most restaurants, longest drive to us.",
     notes: [{ title: travel.stays[0].title, text: travel.stays[0].text }],
@@ -71,8 +71,8 @@ const PLACES: Place[] = [
     name: "North Shore",
     short: "North Shore",
     kind: "Where to stay",
-    x: 30,
-    y: 18.3,
+    x: 43,
+    y: 19.5,
     side: "right",
     blurb: "The far side of the island, quiet and green, and closer than it looks.",
     notes: [{ title: travel.stays[1].title, text: travel.stays[1].text }],
@@ -81,10 +81,10 @@ const PLACES: Place[] = [
   {
     id: "ridge",
     name: "The Koʻolau ridge",
-    short: "Koʻolau ridge",
+    short: "Koʻolau",
     kind: "The wall down the middle",
-    x: 47,
-    y: 45.8,
+    x: 60,
+    y: 44,
     side: "left",
     blurb:
       "The green wall that separates the windward side from town. Every drive to the venue crosses it or runs along its foot, and it is the reason the weather changes in ten minutes.",
@@ -100,8 +100,8 @@ const PLACES: Place[] = [
     name: "Kāneʻohe",
     short: "Kāneʻohe",
     kind: "Where to stay",
-    x: 62.6,
-    y: 53.3,
+    x: 70,
+    y: 47.5,
     side: "right",
     blurb: "The bay town nearest the venue, with a reef flat in front of it.",
     notes: [{ title: travel.stays[2].title, text: travel.stays[2].text }],
@@ -109,10 +109,10 @@ const PLACES: Place[] = [
   {
     id: "beaches",
     name: "Kailua & Lanikai",
-    short: "Kailua & Lanikai",
+    short: "Kailua",
     kind: "Where to spend a morning",
-    x: 66.4,
-    y: 67.5,
+    x: 75.5,
+    y: 58.5,
     side: "right",
     blurb: "Flat turquoise water and pale sand, twenty minutes south of the venue.",
     notes: [
@@ -129,8 +129,8 @@ const PLACES: Place[] = [
     name: site.venue,
     short: "Pālikū Gardens",
     kind: "The wedding",
-    x: 59,
-    y: 34.7,
+    x: 72,
+    y: 33,
     side: "right",
     star: true,
     blurb: site.tagline,
@@ -509,33 +509,40 @@ export default function MapDesign({ activities }: { activities: Activity[] }) {
    ------------------------------------------------------------ */
 
 const ISLAND =
-  // the north point, then down the long north-west shore
-  "M470 92 C366 84 264 120 208 178 " +
-  // the leeward coast and the dry south-west corner
-  "C154 234 142 302 162 370 C182 442 236 508 310 548 " +
-  // the south shore: the airport, town, Waikīkī, and the point at the end
-  "C384 590 472 606 544 594 C612 582 668 548 706 500 " +
-  // the headland, then the long bay bitten into the windward side
-  "C722 478 744 456 742 428 C688 416 634 404 622 330 " +
-  // the point at Kualoa, and back up the windward coast
-  "C610 300 606 268 596 236 C570 168 522 116 470 92 Z";
+  // Kaʻena Point, the sharp western tip, then the North Shore to Kahuku
+  "M122 296 C168 244 240 198 330 168 C424 138 516 122 598 120 " +
+  // Kahuku Point, then south down the windward coast toward Kualoa
+  "C652 124 692 146 716 186 C736 220 744 258 746 294 " +
+  // Kāneʻohe Bay, bitten deep into the windward side
+  "C702 306 684 336 692 366 C700 396 728 410 756 420 " +
+  // Kailua and Lanikai, down to the point at Makapuʻu
+  "C778 430 792 450 788 478 C780 514 750 540 712 558 " +
+  // the south shore: Diamond Head, Waikīkī, town
+  "C666 580 612 592 558 596 C530 598 510 590 496 572 " +
+  // Pearl Harbor, cut up into the plain
+  "C484 556 464 554 454 570 C444 586 426 594 400 594 " +
+  // the ʻEwa plain, then the straight Waiʻanae coast back up to Kaʻena
+  "C340 594 272 568 226 520 C190 482 160 424 140 366 C130 336 124 314 122 296 Z";
 
 function CoastChart() {
+  // The Koʻolau run down the windward side, Kahuku to Makapuʻu.
   const koolau = [
-    [478, 172],
-    [500, 214],
-    [522, 256],
-    [544, 298],
-    [568, 340],
-    [592, 382],
-    [614, 424],
-    [636, 464],
+    [636, 196],
+    [656, 240],
+    [672, 286],
+    [686, 332],
+    [700, 378],
+    [714, 424],
+    [726, 468],
+    [736, 508],
   ];
+  // The Waiʻanae range along the west coast.
+  // The Waiʻanae range, hugging the west coast.
   const waianae = [
-    [212, 268],
-    [238, 318],
-    [266, 368],
-    [296, 416],
+    [196, 344],
+    [220, 396],
+    [248, 444],
+    [278, 490],
   ];
 
   return (
