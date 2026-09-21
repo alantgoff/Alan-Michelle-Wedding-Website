@@ -1,0 +1,813 @@
+/* ============================================================
+   THE BROADSHEET
+   One sheet, set as a front page: masthead, dateline rule,
+   real CSS columns, boxed sidebars, a ruled schedule table,
+   a question column and classified listings.
+   Every rule is scoped under .broadsheet.
+   ============================================================ */
+
+.broadsheet {
+  --bs-paper: #f4f1e8;
+  --bs-shade: #e7e2d3;
+  --bs-ink: #17160f;
+  --bs-soft: #4a4638;
+  --bs-rust: #6f2b1f;
+  --bs-rule: #c6bfab;
+  --bs-hair: #dbd5c4;
+
+  background: var(--bs-paper);
+  color: var(--bs-ink);
+  font-family: var(--f-crimson), Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  line-height: 1.48;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.broadsheet [id] {
+  scroll-margin-top: 56px;
+}
+
+.broadsheet :focus-visible {
+  outline: 2px solid var(--bs-rust);
+  outline-offset: 2px;
+}
+
+.broadsheet a {
+  color: var(--bs-rust);
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
+/* ---------- Masthead ---------------------------------------- */
+
+.broadsheet-masthead {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(16px, 2.6vw, 30px) clamp(14px, 3.2vw, 44px) 0;
+}
+.broadsheet-ears {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bs-soft);
+  border-bottom: 1px solid var(--bs-ink);
+}
+.broadsheet-nameplate {
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-weight: 600;
+  font-size: clamp(2.7rem, 10.5vw, 7.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.015em;
+  text-align: center;
+  margin: 12px 0 6px;
+  color: var(--bs-ink);
+}
+.broadsheet-motto {
+  margin: 0 0 12px;
+  text-align: center;
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.8vw, 1.22rem);
+  color: var(--bs-soft);
+}
+.broadsheet-dateline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 18px;
+  padding: 6px 0;
+  border-top: 3px solid var(--bs-ink);
+  border-bottom: 1px solid var(--bs-ink);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--bs-soft);
+}
+.broadsheet-dateline-place,
+.broadsheet-dateline-date {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: var(--bs-ink);
+}
+.broadsheet-dateline-weather {
+  flex: 1 1 260px;
+  text-align: right;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+.broadsheet-dateline-weather strong {
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.64rem;
+  color: var(--bs-rust);
+}
+
+.broadsheet-inside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--bs-ink);
+  font-size: 0.74rem;
+}
+.broadsheet-inside-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bs-rust);
+}
+.broadsheet-inside ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.broadsheet-inside a {
+  color: var(--bs-ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s ease;
+}
+.broadsheet-inside a:hover {
+  border-bottom-color: var(--bs-ink);
+}
+.broadsheet-inside-mark {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--bs-rust);
+}
+
+/* ---------- The sheet ---------------------------------------- */
+
+.broadsheet-sheet {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(14px, 3.2vw, 44px) clamp(40px, 6vw, 80px);
+}
+
+/* ---------- Lead story --------------------------------------- */
+
+.broadsheet-lead {
+  padding: clamp(16px, 2.4vw, 28px) 0 clamp(18px, 2.6vw, 30px);
+  border-bottom: 3px double var(--bs-ink);
+}
+.broadsheet-leadhead {
+  max-width: 46rem;
+  margin: 0 auto clamp(14px, 2vw, 22px);
+  text-align: center;
+}
+.broadsheet-overline {
+  margin: 0 0 8px;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bs-rust);
+}
+.broadsheet-headline {
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-weight: 600;
+  font-size: clamp(1.9rem, 4.6vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.012em;
+  margin: 0 0 12px;
+  color: var(--bs-ink);
+  text-wrap: balance;
+}
+.broadsheet-deck {
+  margin: 0 0 10px;
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.42;
+  color: var(--bs-soft);
+  font-style: italic;
+}
+.broadsheet-byline {
+  margin: 0;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bs-ink);
+}
+
+.broadsheet-cut {
+  max-width: 62rem;
+  margin: 0 auto clamp(14px, 2vw, 20px);
+}
+.broadsheet-cut-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 1;
+  overflow: hidden;
+  border-top: 1px solid var(--bs-ink);
+  border-bottom: 1px solid var(--bs-ink);
+  background: var(--bs-shade);
+}
+.broadsheet-cut-media img {
+  object-fit: cover;
+  filter: saturate(0.88) contrast(1.03);
+}
+.broadsheet-cut figcaption,
+.broadsheet-thumb figcaption {
+  margin-top: 5px;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--bs-soft);
+}
+.broadsheet-cut figcaption strong {
+  color: var(--bs-ink);
+  font-weight: 600;
+}
+
+.broadsheet-leadbody {
+  columns: 16rem 3;
+  column-gap: clamp(18px, 2.2vw, 32px);
+  column-rule: 1px solid var(--bs-hair);
+  orphans: 2;
+  widows: 2;
+}
+.broadsheet-leadbody p {
+  margin: 0 0 0.62em;
+  text-align: justify;
+  hyphens: auto;
+}
+.broadsheet-drop::first-letter {
+  float: left;
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 3.3em;
+  line-height: 0.8;
+  padding: 0.04em 0.07em 0 0;
+  color: var(--bs-ink);
+}
+.broadsheet-jump {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--bs-soft);
+  break-inside: avoid;
+}
+
+/* ---------- Section heads ------------------------------------ */
+
+.broadsheet-sectionhead {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 8px;
+  padding-top: 6px;
+  border-top: 2px solid var(--bs-ink);
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+.broadsheet-folio {
+  flex: 0 0 auto;
+  font-family: var(--f-crimson), Georgia, serif;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bs-rust);
+}
+.broadsheet-sectionname {
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+}
+.broadsheet-standfirst {
+  margin: 0 0 12px;
+  font-size: 0.88rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--bs-soft);
+  max-width: 62ch;
+}
+
+/* ---------- Fold: schedule well + rail ----------------------- */
+
+.broadsheet-fold {
+  display: grid;
+  grid-template-columns: minmax(0, 2.05fr) minmax(0, 1fr);
+  gap: clamp(18px, 2.4vw, 34px);
+  padding: clamp(18px, 2.6vw, 30px) 0;
+  border-bottom: 3px double var(--bs-ink);
+}
+
+.broadsheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  border: 1px solid var(--bs-ink);
+}
+.broadsheet-caption {
+  caption-side: top;
+  text-align: left;
+  padding-bottom: 5px;
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bs-soft);
+}
+.broadsheet-table thead th {
+  background: var(--bs-ink);
+  color: var(--bs-paper);
+  text-align: left;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 7px 10px;
+}
+.broadsheet-daybreak th {
+  background: var(--bs-shade);
+  text-align: left;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bs-rust);
+  padding: 6px 10px;
+  border-top: 1px solid var(--bs-ink);
+  border-bottom: 1px solid var(--bs-ink);
+}
+.broadsheet-table td {
+  padding: 9px 10px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--bs-hair);
+  line-height: 1.38;
+}
+.broadsheet-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.broadsheet-table td strong {
+  font-weight: 600;
+  display: block;
+}
+.broadsheet-hour {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+.broadsheet-rowtext {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: var(--bs-soft);
+}
+.broadsheet-rowlink {
+  display: inline-block;
+  margin-top: 3px;
+  font-size: 0.76rem;
+  font-style: italic;
+}
+.broadsheet-who {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bs-soft);
+  white-space: nowrap;
+}
+
+/* ---------- Sidebars ----------------------------------------- */
+
+.broadsheet-rail {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 24px);
+  border-left: 1px solid var(--bs-rule);
+  padding-left: clamp(14px, 1.8vw, 26px);
+}
+.broadsheet-box {
+  position: relative;
+  border: 1px solid var(--bs-ink);
+  padding: 14px 15px 16px;
+  background: var(--bs-paper);
+  font-size: 0.88rem;
+}
+.broadsheet-boxhead {
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 1.28rem;
+  line-height: 1.12;
+  letter-spacing: 0;
+  margin: 0 0 4px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--bs-ink);
+  color: var(--bs-ink);
+  max-width: calc(100% - 2.4rem);
+}
+.broadsheet-boxmark {
+  position: absolute;
+  top: 14px;
+  right: 15px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bs-rust);
+}
+.broadsheet-box p {
+  margin: 0 0 8px;
+}
+.broadsheet-item {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--bs-hair);
+}
+.broadsheet-item h4 {
+  margin: 0 0 3px;
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-size: 0.96rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.broadsheet-item p {
+  margin: 0;
+  font-size: 0.84rem;
+  color: var(--bs-soft);
+}
+.broadsheet-subhead {
+  margin: 12px 0 5px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bs-rust);
+}
+.broadsheet-deflist {
+  margin: 0;
+}
+.broadsheet-deflist dt {
+  font-weight: 600;
+  font-size: 0.86rem;
+}
+.broadsheet-deflist dd {
+  margin: 0 0 7px;
+  font-size: 0.82rem;
+  color: var(--bs-soft);
+}
+.broadsheet-ruledlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.84rem;
+}
+.broadsheet-ruledlist li {
+  position: relative;
+  padding: 4px 0 4px 0.95rem;
+  border-bottom: 1px dotted var(--bs-rule);
+}
+.broadsheet-ruledlist li:last-child {
+  border-bottom: 0;
+}
+.broadsheet-ruledlist li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--bs-rust);
+}
+.broadsheet-ruledlist-no li::before {
+  content: "×";
+}
+.broadsheet-dresstitle {
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.broadsheet-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 9px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.broadsheet-chips li {
+  text-align: center;
+}
+.broadsheet-chip {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--bs-ink);
+}
+.broadsheet-chiphex {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  color: var(--bs-soft);
+  font-variant-numeric: tabular-nums;
+}
+.broadsheet-box-wide {
+  margin-top: clamp(16px, 2vw, 24px);
+}
+.broadsheet-dressgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 0 clamp(14px, 1.8vw, 26px);
+}
+.broadsheet-dressgrid > div {
+  min-width: 0;
+}
+.broadsheet-thumb {
+  margin: 14px 0 0;
+}
+.broadsheet-thumb-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid var(--bs-rule);
+  background: var(--bs-shade);
+}
+.broadsheet-thumb-media img {
+  object-fit: cover;
+  filter: saturate(0.88);
+}
+
+/* ---------- From the archive --------------------------------- */
+
+.broadsheet-archive {
+  padding: clamp(18px, 2.6vw, 30px) 0;
+  border-bottom: 3px double var(--bs-ink);
+}
+.broadsheet-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 26px);
+}
+.broadsheet-strip-item {
+  padding-left: clamp(12px, 1.6vw, 22px);
+  border-left: 1px solid var(--bs-hair);
+}
+.broadsheet-strip-item:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+.broadsheet-strip-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  margin-bottom: 8px;
+  border: 1px solid var(--bs-rule);
+  background: var(--bs-shade);
+}
+.broadsheet-strip-media img {
+  object-fit: cover;
+  filter: saturate(0.85) contrast(1.02);
+}
+.broadsheet-strip-date {
+  margin: 0 0 3px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bs-rust);
+}
+.broadsheet-strip-item h3 {
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.16;
+  letter-spacing: 0;
+  margin: 0 0 5px;
+  color: var(--bs-ink);
+}
+.broadsheet-strip-item p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--bs-soft);
+}
+
+/* ---------- Asked & answered --------------------------------- */
+
+.broadsheet-qa {
+  padding: clamp(18px, 2.6vw, 30px) 0;
+  border-bottom: 3px double var(--bs-ink);
+}
+.broadsheet-qabody {
+  columns: 19rem 2;
+  column-gap: clamp(20px, 2.6vw, 38px);
+  column-rule: 1px solid var(--bs-hair);
+}
+.broadsheet-qaitem {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted var(--bs-rule);
+}
+.broadsheet-q {
+  margin: 0 0 3px;
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.22;
+  color: var(--bs-ink);
+}
+.broadsheet-a {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.46;
+  color: var(--bs-soft);
+}
+
+/* ---------- Classified --------------------------------------- */
+
+.broadsheet-classified {
+  padding: clamp(18px, 2.6vw, 30px) 0;
+  border-bottom: 3px double var(--bs-ink);
+}
+.broadsheet-ads {
+  columns: 15rem 4;
+  column-gap: clamp(18px, 2.2vw, 30px);
+  column-rule: 1px solid var(--bs-hair);
+  font-size: 0.83rem;
+}
+.broadsheet-ad {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--bs-hair);
+}
+.broadsheet-ad p {
+  margin: 0 0 4px;
+  color: var(--bs-soft);
+}
+.broadsheet-ad .broadsheet-ad-head {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bs-ink);
+}
+.broadsheet-ad-link {
+  font-style: italic;
+}
+
+/* ---------- Colophon ----------------------------------------- */
+
+.broadsheet-colophon {
+  padding: clamp(18px, 2.6vw, 28px) 0 0;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--bs-soft);
+}
+.broadsheet-colophon p {
+  margin: 0 auto 5px;
+  max-width: 68ch;
+}
+.broadsheet-colophon-name {
+  font-family: var(--f-bodoni), "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--bs-ink);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Narrower sheets ---------------------------------- */
+
+@media (max-width: 1000px) {
+  .broadsheet-fold {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .broadsheet-rail {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--bs-ink);
+    padding-top: clamp(16px, 2vw, 22px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  }
+  .broadsheet-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(18px, 3vw, 28px);
+  }
+  .broadsheet-strip-item:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .broadsheet-leadbody p {
+    text-align: left;
+    hyphens: manual;
+  }
+  .broadsheet-strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .broadsheet-strip-item {
+    padding-left: 0;
+    border-left: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--bs-hair);
+  }
+  .broadsheet-strip-item:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .broadsheet-strip-media {
+    aspect-ratio: 3 / 2;
+  }
+  .broadsheet-cut-media {
+    aspect-ratio: 3 / 2;
+  }
+  .broadsheet-dateline-weather {
+    text-align: left;
+  }
+
+  /* The table becomes a stack of listings. */
+  .broadsheet-table,
+  .broadsheet-table tbody,
+  .broadsheet-table tr,
+  .broadsheet-table td {
+    display: block;
+    width: 100%;
+  }
+  .broadsheet-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .broadsheet-table tr {
+    padding: 0;
+  }
+  .broadsheet-daybreak th {
+    display: block;
+    width: 100%;
+  }
+  .broadsheet-table td {
+    display: grid;
+    grid-template-columns: 4.6rem minmax(0, 1fr);
+    gap: 4px 10px;
+    padding: 5px 10px;
+    border-bottom: 0;
+  }
+  /* the label owns the first column; everything else stacks in the second */
+  .broadsheet-table td > * {
+    grid-column: 2;
+  }
+  .broadsheet-table td::before {
+    content: attr(data-label);
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--bs-rust);
+    padding-top: 0.22em;
+  }
+  .broadsheet-table tbody tr:last-child td:last-child {
+    padding-bottom: 12px;
+  }
+  .broadsheet-table td:last-child {
+    border-bottom: 1px solid var(--bs-hair);
+    padding-bottom: 10px;
+  }
+  .broadsheet-who {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 720px) {
+  /* the exploration bar wraps to two lines on a phone */
+  .broadsheet [id] {
+    scroll-margin-top: 86px;
+  }
+}
+
+@media (max-width: 480px) {
+  .broadsheet-nameplate {
+    letter-spacing: -0.02em;
+  }
+  .broadsheet-inside ul {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .broadsheet,
+  .broadsheet * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

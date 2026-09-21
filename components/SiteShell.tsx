@@ -5,31 +5,19 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { site } from "@/content/site";
 
-/**
- * Sticky header, page body, footer.
- *
- * Navigation is written relative to wherever the shell is mounted. On the
- * real site that is the root, so links read /travel. Inside a design
- * exploration it is /designs/<slug>, so links stay within that design
- * instead of dropping the viewer back onto the live site.
- */
+/** Sticky header, page body, footer. The real site only. */
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const inDesign = pathname.match(/^\/designs\/([^/]+)/);
-  const base = inDesign ? `/designs/${inDesign[1]}` : "";
-
-  const home = base || "/";
-  const hrefFor = (segment: string) => (segment ? `${base}/${segment}` : home);
 
   return (
     <>
       <header className="nav">
-        <Link className="mark" href={home}>
+        <Link className="mark" href="/">
           {site.couple}
         </Link>
         <nav aria-label="Sections">
           {site.nav.map((item) => {
-            const href = hrefFor(item.href);
+            const href = item.href ? `/${item.href}` : "/";
             return (
               <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined}>
                 {item.label}

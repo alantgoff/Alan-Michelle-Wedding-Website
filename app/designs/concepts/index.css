@@ -1,0 +1,572 @@
+/* ============================================================
+   THE INDEX
+   A book's table of contents, and nothing else. No photographs
+   anywhere. The contents page is pure type on paper: numeral,
+   title, dot leaders, folio. A chosen chapter replaces it
+   entirely, with a running head above and a folio below.
+   Everything is prefixed .index-.
+   ------------------------------------------------------------
+   Palette (achromatic, warm paper)
+   #f6f6f0  paper
+   #20211f  ink                       on paper  15.0:1
+   #585a54  secondary ink / labels    on paper   6.4:1
+   #78796f  the "End" marker (18px+)  on paper   4.6:1
+   #d3d4c8  rules      #adaea1  dot leaders (decorative)
+   ============================================================ */
+
+/* The explorations bar above these pages is 41px on a wide screen and
+   wraps to about 92px on a phone; the running head clears it rather than
+   hiding under it, and stops following the page where the height varies. */
+.index-root {
+  --index-bar: 92px;
+  background: #f6f6f0;
+  color: #20211f;
+  font-family: var(--f-ebgaramond), Georgia, serif;
+  font-size: clamp(1.02rem, 0.98rem + 0.2vw, 1.12rem);
+  line-height: 1.7;
+  min-height: calc(100dvh - var(--index-bar));
+}
+
+/* ---------- the contents page ------------------------------- */
+
+.index-contents {
+  max-width: 47rem;
+  margin: 0 auto;
+  padding: clamp(54px, 11vh, 132px) clamp(20px, 6vw, 48px) clamp(72px, 12vh, 150px);
+}
+
+.index-imprint {
+  margin: 0 0 18px;
+  text-align: center;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #585a54;
+}
+.index-halftitle {
+  margin: 0;
+  text-align: center;
+  font-family: var(--f-ebgaramond), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 8.5vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: 0.005em;
+  color: #20211f;
+}
+.index-dateline {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 0.98rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: #585a54;
+}
+.index-dot {
+  padding: 0 0.6em;
+}
+
+.index-label {
+  margin: clamp(48px, 9vh, 96px) 0 20px;
+  text-align: center;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: #585a54;
+}
+
+.index-entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #d3d4c8;
+}
+.index-entries li {
+  border-bottom: 1px solid #e3e3da;
+}
+
+.index-entry {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: clamp(15px, 2.1vw, 21px) 2px;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 220ms ease;
+}
+.index-entry:hover {
+  background-color: #efefe7;
+}
+.index-entry:focus-visible {
+  outline: 2px solid #20211f;
+  outline-offset: -3px;
+}
+
+.index-rule {
+  display: flex;
+  align-items: baseline;
+}
+.index-numeral {
+  flex: 0 0 auto;
+  width: 3em;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: #585a54;
+}
+.index-name {
+  flex: 0 1 auto;
+  font-size: clamp(1.28rem, 3.4vw, 1.8rem);
+  line-height: 1.16;
+  letter-spacing: 0.005em;
+}
+.index-leader {
+  flex: 1 1 auto;
+  min-width: 1.4em;
+  height: 2px;
+  margin: 0 0.7em 0.32em;
+  background-image: linear-gradient(to right, #9d9e91 1.6px, rgba(0, 0, 0, 0) 1.6px);
+  background-size: 6px 2px;
+  background-repeat: repeat-x;
+}
+.index-folio {
+  flex: 0 0 auto;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: #585a54;
+}
+.index-gloss {
+  display: block;
+  margin: 4px 0 0 3em;
+  font-size: 0.92rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: #585a54;
+}
+
+.index-note {
+  margin: clamp(38px, 7vh, 72px) 0 0;
+  text-align: center;
+  font-size: 0.86rem;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: #585a54;
+}
+
+/* ---------- a chapter --------------------------------------- */
+
+.index-reading {
+  display: flex;
+  flex-direction: column;
+}
+
+.index-head {
+  position: static;
+  z-index: 5;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px clamp(18px, 5vw, 48px) 11px;
+  background: #f6f6f0;
+  border-bottom: 1px solid #d3d4c8;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #585a54;
+}
+.index-head-b {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+  color: #20211f;
+}
+.index-head-a {
+  flex: 0 0 auto;
+}
+
+.index-chapter {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: clamp(44px, 8vh, 96px) clamp(20px, 6vw, 48px) clamp(48px, 8vh, 88px);
+}
+.index-chapter-no {
+  margin: 0 0 14px;
+  text-align: center;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #585a54;
+}
+.index-chapter-title {
+  margin: 0 0 clamp(30px, 5vh, 54px);
+  text-align: center;
+  font-family: var(--f-ebgaramond), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 6.4vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: 0.005em;
+  color: #20211f;
+}
+.index-chapter-title:focus {
+  outline: none;
+}
+.index-chapter-title:focus-visible {
+  outline: 2px solid #20211f;
+  outline-offset: 8px;
+}
+.index-chapter-title::after {
+  content: "";
+  display: block;
+  width: 46px;
+  height: 1px;
+  margin: clamp(18px, 3vh, 28px) auto 0;
+  background: #adaea1;
+}
+
+/* ---------- prose ------------------------------------------- */
+
+.index-prose p {
+  margin: 0 0 1em;
+}
+.index-prose a {
+  color: #20211f;
+}
+.index-prose h3 {
+  margin: 2.6em 0 1em;
+  padding-bottom: 0.75em;
+  border-bottom: 1px solid #d3d4c8;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-weight: 400;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #20211f;
+}
+.index-prose > h3:first-child {
+  margin-top: 0;
+}
+.index-prose h4 {
+  margin: 0 0 0.25em;
+  font-family: var(--f-ebgaramond), Georgia, serif;
+  font-weight: 400;
+  font-size: 1.32rem;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+}
+.index-lede {
+  margin: 0 auto 1.6em;
+  max-width: 34em;
+  text-align: center;
+  font-size: 1.14rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: #20211f;
+}
+.index-link {
+  color: #20211f;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.index-link:hover {
+  text-decoration-thickness: 2px;
+}
+.index-prose :focus-visible {
+  outline: 2px solid #20211f;
+  outline-offset: 3px;
+}
+
+.index-marginal {
+  margin: 0 0 0.45em;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #585a54;
+}
+.index-aside {
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+  color: #585a54;
+}
+.index-place {
+  margin: 0 0 0.5em;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #585a54;
+}
+
+.index-moments,
+.index-events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.index-moments > li,
+.index-events > li {
+  padding: 1.4em 0;
+  border-bottom: 1px solid #e3e3da;
+}
+.index-moments > li:last-child,
+.index-events > li:last-child {
+  border-bottom: 0;
+}
+.index-moments h3 {
+  margin: 0 0 0.3em;
+  padding: 0;
+  border: 0;
+  font-family: var(--f-ebgaramond), Georgia, serif;
+  font-size: 1.42rem;
+  line-height: 1.22;
+  letter-spacing: 0.005em;
+  text-transform: none;
+  color: #20211f;
+}
+.index-moments p:last-child,
+.index-events p:last-child {
+  margin-bottom: 0;
+}
+.index-day {
+  margin: 0;
+}
+
+.index-defs {
+  margin: 0 0 1.4em;
+}
+.index-defs > div {
+  padding: 1.1em 0;
+  border-bottom: 1px solid #e3e3da;
+}
+.index-defs > div:last-child {
+  border-bottom: 0;
+}
+.index-defs dt {
+  margin-bottom: 0.2em;
+  font-size: 1.3rem;
+  line-height: 1.24;
+}
+.index-defs dd {
+  margin: 0;
+}
+
+.index-particulars {
+  margin: 1.6em 0 0;
+  border-top: 1px solid #d3d4c8;
+}
+.index-particulars > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.2em 1.8em;
+  padding: 1em 0;
+  border-bottom: 1px solid #e3e3da;
+}
+.index-particulars dt {
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #585a54;
+}
+.index-particulars dd {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.index-runners {
+  list-style: none;
+  margin: 0 0 1.2em;
+  padding: 0;
+}
+.index-runners li {
+  position: relative;
+  padding: 0.35em 0 0.35em 1.7em;
+}
+.index-runners li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.05em;
+  width: 0.75em;
+  height: 1px;
+  background: #8b8d82;
+}
+
+.index-specimen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  list-style: none;
+  margin: 0.4em 0 1.4em;
+  padding: 0;
+}
+.index-specimen li {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #585a54;
+}
+.index-swatch {
+  display: block;
+  width: 20px;
+  height: 20px;
+  box-shadow: inset 0 0 0 1px rgba(32, 33, 31, 0.3);
+}
+
+.index-questions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: index-q;
+}
+.index-questions li {
+  padding: 1.3em 0;
+  border-bottom: 1px solid #e3e3da;
+}
+.index-questions li:last-child {
+  border-bottom: 0;
+}
+.index-questions h3 {
+  counter-increment: index-q;
+  margin: 0 0 0.35em;
+  padding: 0;
+  border: 0;
+  font-family: var(--f-ebgaramond), Georgia, serif;
+  font-size: 1.34rem;
+  line-height: 1.24;
+  letter-spacing: 0.005em;
+  text-transform: none;
+  color: #20211f;
+}
+.index-questions h3::before {
+  content: counter(index-q) ". ";
+  color: #585a54;
+}
+.index-questions p {
+  margin: 0;
+}
+
+/* ---------- the foot ---------------------------------------- */
+
+.index-foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 16px clamp(18px, 5vw, 48px) clamp(24px, 4vh, 38px);
+  border-top: 1px solid #d3d4c8;
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.index-quiet {
+  min-width: 0;
+  margin: 0;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: #585a54;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+.index-quiet::before {
+  content: "\2190\00a0\00a0";
+}
+.index-quiet-b {
+  text-align: right;
+  justify-self: end;
+}
+.index-quiet-b::before {
+  content: none;
+}
+.index-quiet-b::after {
+  content: "\00a0\00a0\2192";
+}
+.index-quiet:hover {
+  color: #20211f;
+}
+.index-quiet:focus-visible {
+  outline: 2px solid #20211f;
+  outline-offset: 3px;
+}
+.index-end {
+  color: #78796f;
+  cursor: default;
+}
+.index-end::after {
+  content: none;
+}
+.index-folio-mark {
+  font-family: var(--f-baskerville), Georgia, serif;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+  color: #20211f;
+}
+
+/* ---------- wider ------------------------------------------- */
+
+@media (min-width: 760px) {
+  .index-root {
+    --index-bar: 41px;
+  }
+  .index-head {
+    position: sticky;
+    top: var(--index-bar);
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+  }
+  .index-moments > li,
+  .index-events > li {
+    display: grid;
+    grid-template-columns: 7.5em minmax(0, 1fr);
+    gap: 0 2em;
+  }
+  .index-marginal {
+    margin: 0;
+    padding-top: 0.42em;
+    text-align: right;
+  }
+  .index-particulars > div {
+    grid-template-columns: 7em minmax(0, 1fr);
+  }
+  .index-particulars dt {
+    padding-top: 0.5em;
+  }
+  .index-foot {
+    font-size: 0.68rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .index-entry,
+  .index-quiet {
+    transition: none;
+  }
+}

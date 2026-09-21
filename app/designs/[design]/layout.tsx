@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { designs, designBySlug } from "@/content/designs";
-import { SiteShell } from "@/components/SiteShell";
 import { allFontVariables } from "../fonts";
 
-export function generateStaticParams() {
-  return designs.map((d) => ({ design: d.slug }));
-}
-
+/**
+ * Only the bar for moving between explorations. Each concept supplies its
+ * own navigation, header and footer — that is the point of them.
+ */
 export default async function DesignLayout({
   children,
   params,
@@ -24,8 +23,7 @@ export default async function DesignLayout({
   const next = designs[(index + 1) % designs.length];
 
   return (
-    <div className={`design ${allFontVariables}`} data-design={design.slug}>
-      {/* Sits above the design's own header so you can always get back out. */}
+    <div className={allFontVariables}>
       <div className="design-bar">
         <span className="which">
           {String(index + 1).padStart(2, "0")} of {designs.length} — {design.name}: {design.idea}
@@ -36,7 +34,7 @@ export default async function DesignLayout({
           <Link href={`/designs/${next.slug}`}>{next.name} →</Link>
         </nav>
       </div>
-      <SiteShell>{children}</SiteShell>
+      {children}
     </div>
   );
 }

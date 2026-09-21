@@ -18,10 +18,31 @@ const browser = await chromium.launch({
   args: ["--no-sandbox", "--disable-dev-shm-usage"],
 });
 
-async function shoot(url, file, width, height, full = true) {
+/**
+ * Several concepts are viewport-height surfaces (the deck scrolls sideways,
+ * the window never scrolls at all). A full-page capture forces those to
+ * expand and photographs a layout no guest ever sees, so only pages that
+ * genuinely scroll are captured full-page.
+ */
+async function shoot(url, file, width, height) {
   const page = await browser.newPage({ viewport: { width, height }, reducedMotion: "reduce" });
   await page.goto(url, { waitUntil: "networkidle" });
-  await page.screenshot({ path: file, fullPage: full });
+  const scrolls = await page.evaluate(
+    (h) => document.documentElement.scrollHeight > h * 1.3,
+    height,
+  );
+  if (scrolls) {
+    // Walk the page so lazy images below the fold actually load.
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 600) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 100));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForTimeout(1200);
+  }
+  await page.screenshot({ path: file, fullPage: scrolls });
   await page.close();
 }
 

@@ -1,0 +1,655 @@
+/* ============================================================
+   THE DECK — full-height panels that snap sideways.
+
+   The page itself never scrolls. The root is exactly the height the
+   design bar leaves behind, the track scrolls horizontally inside it,
+   and a panel with more to say scrolls within its own edges.
+   ============================================================ */
+
+.deck {
+  /* Fallback; deck.tsx measures the real bar and overwrites this. */
+  --deck-bar: 38px;
+
+  --deck-ink: #0d272c;
+  --deck-ink-deep: #0a1f23;
+  --deck-paper: #f7fbf8;
+  --deck-mist: #e2ede8;
+  --deck-accent: #0e5f5f;
+  --deck-accent-lit: #89cfc0;
+  --deck-body: #24403f;
+  --deck-on-ink: #dfeee8;
+  --deck-on-ink-muted: #a9c6c0;
+  --deck-hair: rgba(13, 39, 44, 0.18);
+  --deck-hair-lit: rgba(223, 238, 232, 0.24);
+
+  --deck-display: var(--f-bodoni), Georgia, "Times New Roman", serif;
+  --deck-text: var(--f-spectral), Georgia, "Times New Roman", serif;
+
+  height: calc(100svh - var(--deck-bar));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--deck-ink-deep);
+  color: var(--deck-body);
+  font-family: var(--deck-text);
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  line-height: 1.68;
+}
+
+.deck :focus-visible {
+  outline: 2px solid var(--deck-accent-lit);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- the sideways track ------------------------------ */
+
+.deck-track {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.deck-track::-webkit-scrollbar {
+  display: none;
+}
+.deck-track:focus {
+  outline: none;
+}
+
+.deck-panel {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-content: safe center;
+  padding: clamp(22px, 3.4vw, 56px) clamp(20px, 5vw, 76px);
+}
+
+.deck-inner {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+}
+.deck-centered {
+  max-width: 860px;
+  text-align: center;
+}
+.deck-centered .deck-lede,
+.deck-centered .deck-copy {
+  margin-inline: auto;
+}
+
+/* ---------- panel tones ------------------------------------- */
+
+.deck-tone-paper {
+  background: var(--deck-paper);
+  color: var(--deck-body);
+}
+.deck-tone-mist {
+  background: var(--deck-mist);
+  color: var(--deck-body);
+}
+.deck-tone-ink {
+  background: var(--deck-ink);
+  color: var(--deck-on-ink);
+}
+.deck-tone-photo {
+  padding: 0;
+  background: var(--deck-ink);
+  color: #ffffff;
+}
+
+/* ---------- opening plate ----------------------------------- */
+
+.deck-plate {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 100%;
+  display: flex;
+  align-items: flex-end;
+  isolation: isolate;
+}
+.deck-plate img {
+  z-index: 0;
+}
+.deck-plate-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(8, 38, 43, 0.86) 0%,
+    rgba(8, 38, 43, 0.74) 46%,
+    rgba(8, 38, 43, 0.5) 78%,
+    rgba(8, 38, 43, 0.38) 100%
+  );
+}
+.deck-plate-copy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: clamp(28px, 5vw, 70px) clamp(20px, 5vw, 76px) clamp(30px, 5vw, 72px);
+}
+.deck-names {
+  font-family: var(--deck-display);
+  font-weight: 500;
+  font-size: clamp(2.7rem, 9vw, 6.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  margin: 10px 0 0;
+  color: #ffffff;
+}
+.deck-date {
+  font-family: var(--deck-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.7rem);
+  margin: 16px 0 0;
+  color: #ffffff;
+}
+.deck-tagline {
+  font-style: italic;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  max-width: 34ch;
+  margin: 10px 0 0;
+  color: #cfe4dd;
+}
+.deck-hint {
+  margin: clamp(18px, 3vw, 34px) 0 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: #cfe4dd;
+  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  padding-top: 12px;
+  max-width: 44ch;
+}
+
+/* ---------- shared type ------------------------------------- */
+
+.deck-eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--deck-accent);
+}
+.deck-tone-ink .deck-eyebrow,
+.deck-tone-photo .deck-eyebrow {
+  color: var(--deck-accent-lit);
+}
+
+.deck-title {
+  font-family: var(--deck-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 4.4vw, 3.3rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: inherit;
+}
+.deck-sub {
+  font-family: var(--deck-display);
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.9vw, 1.5rem);
+  line-height: 1.2;
+  margin: 0 0 12px;
+  color: inherit;
+}
+/* The smallest headings drop to the text face: a Bodoni hairline at this
+   size reads lighter than the paragraph under it and inverts the order. */
+.deck-note-title {
+  font-family: var(--deck-text);
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  margin: 0 0 4px;
+  color: inherit;
+}
+.deck-lede {
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.6;
+  max-width: 46ch;
+  margin: 16px 0 0;
+}
+.deck-copy {
+  margin: 0;
+  max-width: 44ch;
+}
+.deck-when {
+  margin: 0 0 2px;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--deck-accent);
+}
+.deck-tone-ink .deck-when {
+  color: var(--deck-accent-lit);
+}
+.deck-where {
+  margin: 0 0 4px;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--deck-body);
+}
+.deck-tone-ink .deck-where {
+  color: var(--deck-on-ink-muted);
+}
+.deck-link {
+  color: var(--deck-accent);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.deck-tone-ink .deck-link,
+.deck-tone-photo .deck-link {
+  color: var(--deck-accent-lit);
+}
+.deck-signoff {
+  margin: clamp(26px, 4vw, 44px) 0 0;
+  font-family: var(--deck-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: var(--deck-on-ink-muted);
+}
+
+/* ---------- 2 · the invitation ------------------------------ */
+
+.deck-two {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(26px, 4vw, 64px);
+  align-items: start;
+}
+.deck-spec {
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+.deck-spec > div {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 0 18px;
+  padding: 13px 0;
+  border-top: 1px solid var(--deck-hair);
+}
+.deck-spec dt {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--deck-accent);
+  padding-top: 5px;
+}
+.deck-spec dd {
+  margin: 0;
+}
+
+/* ---------- 3 · our story ----------------------------------- */
+
+.deck-chapters {
+  list-style: none;
+  margin: clamp(20px, 3vw, 36px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 34px);
+}
+.deck-chapter-shot {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  margin-bottom: 14px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--deck-ink-deep);
+  box-shadow: 0 10px 30px rgba(6, 22, 25, 0.35);
+}
+.deck-chapter-shot img {
+  object-fit: cover;
+}
+.deck-chapter .deck-copy {
+  font-size: 0.92rem;
+  color: var(--deck-on-ink-muted);
+}
+
+/* ---------- 4 · travel · 6 · dress -------------------------- */
+
+.deck-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 46px);
+  margin-top: clamp(20px, 3vw, 36px);
+}
+.deck-columns-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0;
+}
+.deck-note + .deck-note {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--deck-hair);
+}
+.deck-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.deck-list li {
+  position: relative;
+  padding: 7px 0 7px 20px;
+  border-top: 1px solid var(--deck-hair);
+}
+.deck-list li:first-child {
+  border-top: 0;
+}
+.deck-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.05em;
+  width: 9px;
+  height: 1px;
+  background: var(--deck-accent);
+}
+.deck-list-skip li::before {
+  width: 9px;
+  height: 9px;
+  top: 0.95em;
+  background: none;
+  border-top: 1px solid var(--deck-accent);
+  border-bottom: 1px solid var(--deck-accent);
+  transform: rotate(45deg);
+}
+
+.deck-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: clamp(20px, 3vw, 32px) 0 0;
+  padding: 0;
+}
+.deck-chips li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.deck-chip {
+  display: block;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(13, 39, 44, 0.3);
+}
+.deck-chip-label {
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--deck-body);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 5 · the weekend --------------------------------- */
+
+.deck-days {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: clamp(18px, 2.6vw, 38px);
+  margin-top: clamp(20px, 3vw, 36px);
+}
+.deck-day-name {
+  font-family: var(--deck-display);
+  font-weight: 500;
+  font-size: 1.45rem;
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--deck-hair-lit);
+  color: inherit;
+}
+.deck-events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+}
+.deck-event .deck-copy {
+  font-size: 0.9rem;
+  color: var(--deck-on-ink-muted);
+}
+.deck-badge {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 3px 9px;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--deck-ink);
+  background: var(--deck-accent-lit);
+  border-radius: 2px;
+}
+
+/* ---------- 7 · questions ----------------------------------- */
+
+.deck-faq {
+  margin: clamp(20px, 3vw, 36px) 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(26px, 4vw, 60px);
+}
+.deck-faq > div {
+  padding: 14px 0;
+  border-top: 1px solid var(--deck-hair);
+}
+.deck-faq dt {
+  font-family: var(--deck-display);
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+.deck-faq dd {
+  margin: 0;
+  font-size: 0.93rem;
+  max-width: 48ch;
+}
+
+/* ---------- 8 · registry ------------------------------------ */
+
+.deck-registry {
+  list-style: none;
+  margin: clamp(22px, 3vw, 40px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 32px);
+}
+.deck-registry li {
+  padding: clamp(18px, 2.4vw, 28px);
+  border: 1px solid var(--deck-hair-lit);
+  border-radius: 2px;
+}
+.deck-registry .deck-copy {
+  margin-inline: auto;
+  color: var(--deck-on-ink-muted);
+}
+.deck-registry .deck-link {
+  display: inline-block;
+  margin-top: 12px;
+}
+
+/* ---------- the helm ---------------------------------------- */
+
+.deck-helm {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(10px, 2vw, 28px);
+  padding: 9px clamp(14px, 3vw, 40px);
+  background: var(--deck-ink-deep);
+  color: var(--deck-on-ink);
+  border-top: 1px solid var(--deck-hair-lit);
+}
+.deck-helm-middle {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.deck-step {
+  flex: 0 0 auto;
+  appearance: none;
+  border: 1px solid var(--deck-hair-lit);
+  background: none;
+  color: var(--deck-on-ink);
+  font-family: var(--deck-text);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.deck-step:hover:not(:disabled) {
+  background: rgba(223, 238, 232, 0.12);
+  border-color: var(--deck-accent-lit);
+}
+.deck-step:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.deck-progress {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+.deck-tick {
+  appearance: none;
+  border: 0;
+  background: none;
+  padding: 7px 2px;
+  cursor: pointer;
+  display: block;
+}
+.deck-tick span {
+  display: block;
+  width: clamp(16px, 3.6vw, 34px);
+  height: 2px;
+  background: rgba(223, 238, 232, 0.3);
+  transition: background-color 0.3s ease, height 0.3s ease;
+}
+.deck-tick:hover span {
+  background: rgba(223, 238, 232, 0.6);
+}
+.deck-tick[aria-current="true"] span {
+  height: 4px;
+  background: var(--deck-accent-lit);
+}
+
+.deck-readout {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.deck-readout-num {
+  color: var(--deck-accent-lit);
+  font-variant-numeric: tabular-nums;
+}
+.deck-readout-label {
+  color: var(--deck-on-ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- narrower screens -------------------------------- */
+
+@media (max-width: 1000px) {
+  .deck-chapters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .deck-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .deck-faq {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .deck-panel {
+    padding: 24px 20px 32px;
+    justify-content: flex-start;
+  }
+  .deck-two,
+  .deck-columns,
+  .deck-columns-two,
+  .deck-chapters,
+  .deck-registry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .deck-chapter-shot {
+    aspect-ratio: 16 / 10;
+  }
+  .deck-spec > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+  .deck-spec dt {
+    padding-top: 0;
+  }
+  .deck-title {
+    font-size: clamp(1.75rem, 7.5vw, 2.3rem);
+  }
+  .deck-helm {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .deck-step {
+    padding: 7px 9px;
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+  }
+  .deck-readout-label {
+    display: none;
+  }
+  .deck-plate {
+    align-items: flex-end;
+  }
+  .deck-hint {
+    font-size: 0.76rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-track {
+    scroll-behavior: auto;
+  }
+  .deck-step,
+  .deck-tick span {
+    transition: none;
+  }
+}

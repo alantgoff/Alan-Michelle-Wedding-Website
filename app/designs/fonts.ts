@@ -17,7 +17,6 @@ import {
   Cormorant_Garamond,
   Crimson_Pro,
   EB_Garamond,
-  Fraunces,
   Libre_Baskerville,
   Lora,
   Playfair_Display,
@@ -42,12 +41,6 @@ export const playfair = Playfair_Display({
   display: "swap",
   preload: false,
   variable: "--f-playfair",
-});
-export const fraunces = Fraunces({
-  subsets: ["latin"],
-  display: "swap",
-  preload: false,
-  variable: "--f-fraunces",
 });
 export const bodoni = Bodoni_Moda({
   subsets: ["latin"],
@@ -84,7 +77,6 @@ export const allFontVariables = [
   lora.variable,
   ebGaramond.variable,
   playfair.variable,
-  fraunces.variable,
   bodoni.variable,
   crimson.variable,
   spectral.variable,

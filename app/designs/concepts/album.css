@@ -1,0 +1,620 @@
+/* ============================================================
+   THE ALBUM
+   A mosaic of photographic plates on a near-black surround.
+   No navigation, no scaffolding: each plate is a <details> whose
+   <summary> is the picture. Opening one lets it break the mosaic
+   and unfold as a full-width spread — plate on the left, text on
+   the right. Everything is prefixed .album-.
+   ------------------------------------------------------------
+   Palette
+   #0b0c0e  surround / gallery wall
+   #14161a  leaf (the printed side of the spread)
+   #eef1f3  body text on the leaf            13.4:1
+   #b3bdc6  secondary text on the leaf        9.7:1
+   #d8c6a8  rules, links, plate numbers      11.0:1
+   ============================================================ */
+
+.album-root {
+  /* Clears the explorations bar above these pages: 41px wide, ~92px wrapped. */
+  --album-bar: 92px;
+  background: #0b0c0e;
+  color: #eef1f3;
+  font-family: var(--f-spectral), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.06rem);
+  line-height: 1.7;
+  min-height: calc(100dvh - var(--album-bar));
+  overflow-x: hidden;
+}
+
+/* ---------- the wall ----------------------------------------
+   Bands rather than one grid: an opened plate takes a whole line
+   of its own band and its neighbours close ranks beside it,
+   instead of the entire mosaic cascading out of alignment.
+   ------------------------------------------------------------ */
+
+.album-mosaic {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #0b0c0e;
+}
+.album-band {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.album-band-a {
+  --album-h: clamp(270px, 32vw, 430px);
+}
+.album-band-b {
+  --album-h: clamp(230px, 23vw, 320px);
+}
+.album-band-c {
+  --album-h: clamp(240px, 25vw, 350px);
+}
+
+.album-title,
+.album-plate,
+.album-colophon {
+  position: relative;
+  overflow: hidden;
+  background: #101216;
+}
+
+.album-title {
+  height: clamp(350px, 44vw, 600px);
+}
+.album-plate {
+  flex: var(--album-g, 1) 1 0;
+  min-width: min(100%, 250px);
+  height: var(--album-h);
+}
+.album-g3 {
+  --album-g: 3;
+}
+.album-g4 {
+  --album-g: 4;
+}
+.album-g5 {
+  --album-g: 5;
+}
+.album-g7 {
+  --album-g: 7;
+}
+.album-g8 {
+  --album-g: 8;
+}
+
+/* ---------- the face of a plate ----------------------------- */
+
+.album-face {
+  display: block;
+  cursor: pointer;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.album-face::-webkit-details-marker {
+  display: none;
+}
+.album-plate:not([open]) > .album-face {
+  position: absolute;
+  inset: 0;
+}
+
+.album-shot {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+}
+.album-shot img {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 700ms ease, filter 700ms ease;
+}
+.album-plate:not([open]) > .album-face:hover .album-shot img {
+  transform: scale(1.035);
+  filter: brightness(1.06);
+}
+
+.album-veil {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(8, 9, 11, 0.96) 0%,
+    rgba(8, 9, 11, 0.93) 36%,
+    rgba(8, 9, 11, 0.8) 48%,
+    rgba(8, 9, 11, 0.42) 64%,
+    rgba(8, 9, 11, 0.04) 84%,
+    rgba(8, 9, 11, 0.2) 100%
+  );
+}
+.album-veil-deep {
+  background: linear-gradient(
+    to top,
+    rgba(8, 9, 11, 0.95) 0%,
+    rgba(8, 9, 11, 0.9) 34%,
+    rgba(8, 9, 11, 0.78) 52%,
+    rgba(8, 9, 11, 0.3) 70%,
+    rgba(8, 9, 11, 0) 88%,
+    rgba(8, 9, 11, 0.2) 100%
+  );
+}
+
+.album-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  padding: clamp(16px, 2.2vw, 28px) clamp(18px, 2.4vw, 32px);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+}
+.album-no {
+  display: block;
+  font-family: var(--f-spectral), Georgia, serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #d8c6a8;
+}
+.album-name {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--f-bodoni), Didot, Georgia, serif;
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.08;
+  color: #ffffff;
+}
+.album-note {
+  display: block;
+  margin-top: 8px;
+  max-width: 34ch;
+  font-size: 0.86rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: #dbe2e7;
+}
+
+.album-cue {
+  position: absolute;
+  top: clamp(14px, 2vw, 24px);
+  right: clamp(14px, 2vw, 24px);
+  width: 26px;
+  height: 26px;
+  display: block;
+  transition: transform 400ms ease;
+}
+.album-cue i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  background: #f2f4f6;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.55);
+}
+.album-cue-h {
+  width: 20px;
+  height: 1.5px;
+  margin: -0.75px 0 0 -10px;
+}
+.album-cue-v {
+  width: 1.5px;
+  height: 20px;
+  margin: -10px 0 0 -0.75px;
+}
+.album-plate[open] > .album-face .album-cue {
+  transform: rotate(45deg);
+}
+
+.album-face:focus-visible {
+  outline: 2px solid #d8c6a8;
+  outline-offset: -5px;
+}
+
+/* ---------- the opened spread ------------------------------- */
+
+.album-plate[open] {
+  flex: 1 1 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: #14161a;
+}
+.album-plate[open] > .album-face {
+  position: relative;
+  min-height: clamp(210px, 46vw, 320px);
+}
+/* Open, the plate runs as tall as its text, so the scrim is measured from
+   the bottom edge in pixels instead of as a share of the height — the
+   caption stays legible and the rest of the photograph stays a photograph. */
+.album-plate[open] > .album-face .album-veil {
+  background: linear-gradient(
+    to top,
+    rgba(8, 9, 11, 0.96) 0px,
+    rgba(8, 9, 11, 0.94) 110px,
+    rgba(8, 9, 11, 0.86) 165px,
+    rgba(8, 9, 11, 0.35) 250px,
+    rgba(8, 9, 11, 0.1) 330px,
+    rgba(8, 9, 11, 0.1) 100%
+  );
+}
+
+.album-leaf {
+  background: #14161a;
+  padding: clamp(26px, 3.2vw, 54px) clamp(20px, 3.2vw, 54px) clamp(36px, 4vw, 64px);
+  border-top: 1px solid rgba(216, 198, 168, 0.22);
+}
+.album-measure {
+  max-width: 62ch;
+  margin: 0 auto;
+}
+
+/* ---------- the half title ---------------------------------- */
+
+.album-plaque {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: clamp(22px, 4vw, 54px) clamp(20px, 4vw, 56px);
+}
+.album-plaque > * {
+  margin: 0;
+}
+.album-overline {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #e6dcc8;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+.album-title h1 {
+  margin: 10px 0 14px;
+  font-family: var(--f-bodoni), Didot, Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.7rem, 9vw, 5.6rem);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+.album-stamp {
+  font-size: clamp(0.92rem, 1.3vw, 1.06rem);
+  letter-spacing: 0.02em;
+  color: #f0f3f5;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+}
+.album-hint {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  color: #d8c6a8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- type inside a leaf ------------------------------ */
+
+.album-leaf h2 {
+  margin: 0 0 4px;
+  font-family: var(--f-bodoni), Didot, Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+  color: #ffffff;
+}
+.album-leaf h3 {
+  margin: 34px 0 12px;
+  font-family: var(--f-spectral), Georgia, serif;
+  font-weight: 600;
+  font-size: 0.74rem;
+  line-height: 1.45;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #d8c6a8;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(216, 198, 168, 0.24);
+}
+.album-leaf h4 {
+  margin: 0 0 4px;
+  font-family: var(--f-bodoni), Didot, Georgia, serif;
+  font-weight: 400;
+  font-size: 1.24rem;
+  line-height: 1.25;
+  color: #ffffff;
+}
+.album-leaf p {
+  margin: 0 0 12px;
+  color: #dfe5ea;
+}
+.album-leaf .album-lede {
+  font-size: 1.08rem;
+  font-style: italic;
+  line-height: 1.62;
+  color: #eef1f3;
+  margin-bottom: 20px;
+}
+.album-link {
+  color: #d8c6a8;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.album-link:hover {
+  color: #f0e5d1;
+}
+.album-leaf :focus-visible {
+  outline: 2px solid #d8c6a8;
+  outline-offset: 2px;
+}
+
+/* ---------- the weekend ------------------------------------- */
+
+.album-day {
+  margin-top: 4px;
+}
+.album-entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.album-entry {
+  display: grid;
+  gap: 2px 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.album-entry:last-child {
+  border-bottom: 0;
+}
+.album-leaf .album-when {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b3bdc6;
+}
+.album-leaf .album-where {
+  margin: 0 0 6px;
+  font-style: italic;
+  font-size: 0.94rem;
+  color: #b3bdc6;
+}
+.album-tag {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 9px;
+  border: 1px solid rgba(216, 198, 168, 0.4);
+  border-radius: 999px;
+  font-family: var(--f-spectral), Georgia, serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  vertical-align: 0.28em;
+  color: #d8c6a8;
+}
+
+/* ---------- our story --------------------------------------- */
+
+.album-moments {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  counter-reset: album-moment;
+}
+.album-moment {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 18px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.album-moment h3 {
+  margin: 2px 0 8px;
+  padding: 0;
+  border: 0;
+  font-family: var(--f-bodoni), Didot, Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #ffffff;
+}
+.album-inset {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #0b0c0e;
+}
+.album-inset img {
+  object-fit: cover;
+}
+
+/* ---------- definition lists -------------------------------- */
+
+.album-defs {
+  margin: 0;
+}
+.album-defs > div {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.album-defs > div:last-child {
+  border-bottom: 0;
+}
+.album-defs dt {
+  font-family: var(--f-bodoni), Didot, Georgia, serif;
+  font-size: 1.14rem;
+  line-height: 1.3;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+.album-defs dd {
+  margin: 0;
+  color: #dfe5ea;
+}
+
+/* ---------- lists ------------------------------------------- */
+
+.album-ticks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.album-ticks li {
+  position: relative;
+  padding: 5px 0 5px 20px;
+  color: #dfe5ea;
+}
+.album-ticks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.92em;
+  width: 9px;
+  height: 1px;
+  background: #d8c6a8;
+}
+.album-ticks-skip li::before {
+  width: 9px;
+  height: 9px;
+  top: 0.68em;
+  background: none;
+  border: 1px solid #a9968f;
+  border-radius: 50%;
+}
+
+.album-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px 36px;
+}
+
+.album-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 0;
+}
+.album-chips li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.album-chip {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+.album-hex {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b3bdc6;
+}
+
+.album-gifts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.album-gifts li {
+  padding: 18px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.album-gifts h3 {
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  font-family: var(--f-bodoni), Didot, Georgia, serif;
+  font-size: 1.24rem;
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #ffffff;
+}
+
+/* ---------- colophon ---------------------------------------- */
+
+.album-colophon {
+  display: block;
+  min-height: clamp(180px, 26vw, 260px);
+}
+.album-plaque-quiet {
+  text-align: center;
+  padding-bottom: clamp(28px, 4vw, 52px);
+}
+.album-plaque-quiet .album-stamp {
+  margin-top: 10px;
+}
+
+/* ---------- wider ------------------------------------------- */
+
+@media (min-width: 640px) {
+  .album-root {
+    --album-bar: 41px;
+  }
+  .album-columns {
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+  .album-moment {
+    grid-template-columns: 132px 1fr;
+    gap: 26px;
+  }
+}
+
+@media (min-width: 900px) {
+  .album-plate[open] {
+    grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+  }
+  .album-plate[open] > .album-face {
+    min-height: 380px;
+  }
+  .album-leaf {
+    border-top: 0;
+    border-left: 1px solid rgba(216, 198, 168, 0.22);
+  }
+  .album-entry {
+    grid-template-columns: 7.5em minmax(0, 1fr);
+  }
+  .album-leaf .album-when {
+    margin-bottom: 0;
+    padding-top: 0.42em;
+  }
+}
+
+@media (min-width: 1040px) {
+  .album-measure {
+    max-width: 66ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .album-shot img,
+  .album-cue {
+    transition: none;
+  }
+  .album-plate:not([open]) > .album-face:hover .album-shot img {
+    transform: none;
+    filter: none;
+  }
+}
