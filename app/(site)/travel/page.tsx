@@ -1,5 +1,6 @@
 import { PageHero, Section } from "@/components/Page";
 import { CoastMap } from "@/components/CoastMap";
+import { PackingList } from "@/components/PackingList";
 import { travel } from "@/content/travel";
 import { visibleActivities } from "@/content/visibleActivities";
 
@@ -60,6 +61,25 @@ export default async function Travel() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      <Section title="Say it like a local">
+        <ul className="say-it">
+          {travel.sayIt.map((entry) => (
+            <li key={entry.word}>
+              <span className="say-word" lang="haw">
+                {entry.word}
+              </span>
+              <span className="say-how">{entry.say}</span>
+              <span className="say-means">{entry.means}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="say-note">{travel.sayItNote}</p>
+      </Section>
+
+      <Section title="What to pack">
+        <PackingList items={travel.packing} />
       </Section>
     </>
   );

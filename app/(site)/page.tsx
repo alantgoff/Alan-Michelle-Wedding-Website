@@ -1,9 +1,17 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { Countdown } from "@/components/Countdown";
+import { NowAtKualoa } from "@/components/NowAtKualoa";
 import { PhotoBackdrop } from "@/components/PhotoFrame";
 import { Reveal } from "@/components/Reveal";
+import { Tide } from "@/components/Tide";
 import { site } from "@/content/site";
+import { groupBySlug, COOKIE } from "@/content/groups";
 import type { PhotoKey } from "@/content/photos";
+import { hawaiiClock, hawaiiNoon, sunTimes } from "@/lib/sun";
+
+// Greets guests by their invite group, so it reads the cookie per request.
+export const dynamic = "force-dynamic";
 
 // Each card previews the photo from the page it links to.
 const cardPhoto: Record<string, PhotoKey> = {
@@ -15,7 +23,16 @@ const cardPhoto: Record<string, PhotoKey> = {
   registry: "registry",
 };
 
-export default function Home() {
+/** Sunset at the venue on the wedding day, from the date in content/site.ts. */
+function weddingSunset() {
+  const [year, month, day] = site.isoDate.slice(0, 10).split("-").map(Number);
+  return hawaiiClock(sunTimes(hawaiiNoon(year, month, day), site.coordinates.lat, site.coordinates.lng).sunset);
+}
+
+export default async function Home() {
+  const group = groupBySlug((await cookies()).get(COOKIE)?.value);
+  const sunset = weddingSunset();
+
   return (
     <>
       <section className="hero">
@@ -23,6 +40,7 @@ export default function Home() {
           <PhotoBackdrop name="hero" priority />
         </div>
         <div className="hero-copy">
+          {group ? <p className="hero-aloha">Aloha, {group.name.toLowerCase()}</p> : null}
           <p className="kicker">Where the mountains meet the sea</p>
           <h1>
             Alan
@@ -37,7 +55,10 @@ export default function Home() {
       </section>
 
       <section className="facts">
-        <Countdown target={site.isoDate} />
+        <div>
+          <Countdown target={site.isoDate} />
+          <NowAtKualoa />
+        </div>
         <div>
           <p className="kicker">The celebration</p>
           <h2>Pālikū Gardens</h2>
@@ -54,12 +75,25 @@ export default function Home() {
               <br />
               {site.location}
             </dd>
+            <dt>Sunset</dt>
+            <dd>
+              About {sunset}
+              <br />
+              <span className="aside">It slips behind the Koʻolau a little before that.</span>
+            </dd>
           </dl>
-          <a className="button" href={site.mapUrl}>
-            View map
-          </a>
+          <div className="facts-actions">
+            <a className="button" href={site.mapUrl}>
+              View map
+            </a>
+            <a className="button button-quiet" href="/wedding.ics" download>
+              Add to calendar
+            </a>
+          </div>
         </div>
       </section>
+
+      <Tide />
 
       <section className="welcome">
         <div className="welcome-media">

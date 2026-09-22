@@ -58,18 +58,16 @@ If an entry is ever pointed back at `public/photos/placeholder/`, those are gene
 textures rather than photographs. Add `standin: true` to such an entry and it will carry a visible
 "Placeholder" label, so a guest is never shown a generated image presented as a real photo.
 
-## Design explorations
+## Small things guests may notice
 
-Ten different ideas about how this site could look, at `/designs`. Open any one and click through
-its pages exactly as a guest would; the picker and a bar inside each design let you move between
-them. They are `noindex` like the rest of the site.
-
-They re-skin the same components and the same content, so nothing there duplicates the real site
-and nothing there can change it. Each is one block in `app/designs/designs.css`, keyed by
-`[data-design="slug"]`, with its entry in `content/designs.ts`.
-
-Once you pick one, its block folds into `app/globals.css` and the whole `app/designs` folder and
-`content/designs.ts` get deleted. Nothing else depends on them.
+- The home page greets guests who arrived through their invite link by group, and shows the
+  time and the light at the venue right now.
+- Sunrise and sunset come from `lib/sun.ts`, computed for the venue's coordinates in
+  `content/site.ts`; the wedding-day sunset on the home page needs no editing.
+- `/wedding.ics` is the "Add to calendar" file. It is an all-day event until the ceremony time is
+  confirmed in `content/site.ts`.
+- The packing list on Travel remembers ticks in the guest's own browser. Nothing is sent anywhere.
+- A wrong URL lands on a "past the reef" page rather than a bare 404.
 
 ## Invite links
 

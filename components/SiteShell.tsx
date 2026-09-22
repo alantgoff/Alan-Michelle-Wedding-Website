@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { site } from "@/content/site";
+import { Tide } from "./Tide";
 
 /** Sticky header, page body, footer. The real site only. */
 export function SiteShell({ children }: { children: ReactNode }) {
@@ -29,6 +30,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
       <main>{children}</main>
 
+      <Tide className="tide-footer" />
       <footer>
         <div>
           <strong>{site.couple}</strong>

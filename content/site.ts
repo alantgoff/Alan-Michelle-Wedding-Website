@@ -7,6 +7,8 @@ export const site = {
   location: "Kaʻaʻawa, Oʻahu",
   address: "49-560 Kamehameha Hwy, Kāneʻohe, HI 96744",
   mapUrl: "https://maps.google.com/?q=Paliku+Gardens+Kualoa+Ranch",
+  /** Where the sun rises and sets from: Pālikū Gardens, on the bay. */
+  coordinates: { lat: 21.5205, lng: -157.8378 },
   tagline: "A celebration where the mountains meet the sea.",
   welcome: "We cannot wait to gather our favorite people on Oʻahu. This site will hold everything you need for the weekend; for now, details marked TODO are still being finalized.",
   nav: [{href:"",label:"Home"},{href:"travel",label:"Travel"},{href:"activities",label:"Activities"},{href:"story",label:"Our story"},{href:"dress-code",label:"Dress code"},{href:"faq",label:"FAQ"},{href:"registry",label:"Registry"}]

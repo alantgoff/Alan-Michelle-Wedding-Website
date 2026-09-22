@@ -1,5 +1,5 @@
 /**
- * Capture home + activities screenshots for every design variant.
+ * Capture every page at phone and desktop widths.
  *
  * CHROMIUM_PATH lets a sandboxed environment point at a preinstalled browser
  * instead of downloading one. Locally you can ignore it: Playwright finds its
