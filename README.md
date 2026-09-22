@@ -69,6 +69,16 @@ textures rather than photographs. Add `standin: true` to such an entry and it wi
 - The packing list on Travel remembers ticks in the guest's own browser. Nothing is sent anywhere.
 - A wrong URL lands on a "past the reef" page rather than a bare 404.
 
+## The weather panel
+
+Travel carries a weather panel that changes itself. Until the wedding is about two weeks out it
+shows what early October typically does on the windward coast, from `content/weather.ts`. Inside
+that window it shows the real forecast for the day, fetched hourly from Open-Meteo — a free
+service that needs no API key, so there is nothing to configure or keep secret. If the fetch fails
+for any reason, the typical panel simply stays up and no guest sees an error.
+
+Nothing has to be switched on closer to the date, and nothing has to be taken down afterwards.
+
 ## Invite links
 
 Optional group activities are scoped to guest groups. Send each group its own link:

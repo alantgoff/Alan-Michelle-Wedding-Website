@@ -1,6 +1,7 @@
 import { PageHero, Section } from "@/components/Page";
 import { CoastMap } from "@/components/CoastMap";
 import { PackingList } from "@/components/PackingList";
+import { WeatherPanel } from "@/components/WeatherPanel";
 import { travel } from "@/content/travel";
 import { visibleActivities } from "@/content/visibleActivities";
 
@@ -76,6 +77,10 @@ export default async function Travel() {
           ))}
         </ul>
         <p className="say-note">{travel.sayItNote}</p>
+      </Section>
+
+      <Section title="Weather on the day">
+        <WeatherPanel />
       </Section>
 
       <Section title="What to pack">
