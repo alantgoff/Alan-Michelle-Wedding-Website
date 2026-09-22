@@ -1,0 +1,415 @@
+/* ============================================================
+   The windward coast, drawn — styled in the site's own language.
+   Colours come from the site tokens in globals.css so the chart
+   reads as part of the same page as everything around it.
+   ============================================================ */
+
+.coast {
+  display: grid;
+  gap: clamp(26px, 3.5vw, 48px);
+  align-items: start;
+}
+@media (min-width: 980px) {
+  .coast {
+    grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+  }
+}
+
+/* ---------- The chart ---------------------------------------- */
+
+.coast-chart-column {
+  min-width: 0;
+}
+.coast-canvas {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  aspect-ratio: 1000 / 720;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.coast-chart {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.coast-chart-land {
+  fill: var(--sand);
+  stroke: var(--deep);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+}
+.coast-chart-outline {
+  fill: none;
+  stroke: var(--deep);
+  stroke-width: 1;
+  opacity: 0.32;
+  stroke-linejoin: round;
+}
+.coast-chart-reef {
+  fill: none;
+  stroke: var(--deep);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 7;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+.coast-chart-speck {
+  fill: var(--deep);
+  opacity: 0.45;
+}
+.coast-chart-ridge path {
+  fill: none;
+  stroke: var(--seagrass);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.coast-chart-wave path {
+  fill: none;
+  stroke: var(--lagoon);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  opacity: 0.45;
+}
+.coast-chart-water {
+  fill: color-mix(in srgb, var(--sky) 30%, var(--white));
+}
+.coast-chart-swell {
+  fill: none;
+  stroke: var(--sky);
+  stroke-width: 1;
+}
+.coast-chart-text {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 30px;
+  letter-spacing: 0.22em;
+  fill: var(--lagoon);
+  opacity: 0.7;
+}
+.coast-chart-n {
+  font-style: normal;
+  font-size: 34px;
+  letter-spacing: 0;
+  fill: var(--deep);
+  opacity: 1;
+}
+.coast-chart-compass {
+  stroke: var(--deep);
+  fill: var(--white);
+}
+.coast-chart-needle {
+  fill: var(--lagoon);
+}
+
+/* ---------- Pins on the chart -------------------------------- */
+
+.coast-pin {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  margin: -17px 0 0 -17px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--deep);
+}
+.coast-pin-mark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--deep);
+  transition: background 0.2s, transform 0.2s;
+}
+.coast-pin[data-star="true"] .coast-pin-mark {
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-width: 3px;
+  border-color: var(--lagoon);
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+.coast-pin-name {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  padding: 3px 9px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  font-family: var(--body);
+  font-size: 0.78rem;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--deep);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.coast-pin[data-side="right"] .coast-pin-name {
+  left: calc(50% + 15px);
+}
+.coast-pin[data-side="left"] .coast-pin-name {
+  right: calc(50% + 15px);
+}
+.coast-pin:hover .coast-pin-name,
+.coast-pin:focus-visible .coast-pin-name {
+  border-color: var(--lagoon);
+}
+.coast-pin[aria-pressed="true"] .coast-pin-mark {
+  background: var(--lagoon);
+  border-color: var(--deep);
+}
+.coast-pin[aria-pressed="true"] .coast-pin-name {
+  background: var(--deep);
+  border-color: var(--deep);
+  color: var(--white);
+}
+.coast-pin:focus-visible {
+  outline: 2px solid var(--lagoon);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* ---------- The index under the chart ------------------------ */
+
+.coast-index {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 8px;
+  margin-top: 20px;
+}
+.coast-index-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 13px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--deep);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.coast-index-kind {
+  display: block;
+  font-size: 0.64rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.coast-index-name {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  margin-top: 2px;
+}
+.coast-index-item:hover,
+.coast-index-item:focus-visible {
+  border-color: var(--lagoon);
+}
+.coast-index-item[aria-pressed="true"] {
+  background: var(--deep);
+  border-color: var(--deep);
+  color: var(--white);
+}
+.coast-index-item[aria-pressed="true"] .coast-index-kind {
+  color: var(--aqua);
+}
+
+/* ---------- The open place ----------------------------------- */
+
+.coast-panel {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: clamp(22px, 3vw, 36px);
+}
+.coast-panel:focus {
+  outline: none;
+}
+.coast-panel-kind {
+  margin: 0;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.coast-panel-name {
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  margin: 8px 0 0;
+}
+.coast-panel-blurb {
+  margin: 12px 0 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  line-height: 1.4;
+  color: var(--muted);
+}
+.coast-panel-sub {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.35rem;
+  margin: 28px 0 12px;
+}
+.coast-facts {
+  display: grid;
+  gap: 10px 0;
+  margin: 24px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--rule);
+}
+.coast-facts div {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 14px;
+}
+.coast-facts dt {
+  font-size: 0.66rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+  padding-top: 5px;
+}
+.coast-facts dd {
+  margin: 0;
+}
+.coast-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--lagoon);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 45%, transparent);
+  padding-bottom: 1px;
+}
+.coast-link:hover {
+  border-bottom-color: var(--lagoon);
+}
+.coast-schedule,
+.coast-schedule-list,
+.coast-here,
+.coast-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.coast-schedule > li + li {
+  margin-top: 16px;
+}
+.coast-schedule-day {
+  margin: 0 0 6px;
+  font-size: 0.7rem;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.coast-schedule-list li,
+.coast-here li {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+}
+.coast-here li {
+  grid-template-columns: 1fr;
+  gap: 2px;
+}
+.coast-schedule-time,
+.coast-here-when {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.coast-schedule-body {
+  display: grid;
+  gap: 2px;
+}
+.coast-schedule-place,
+.coast-schedule-text,
+.coast-here-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.coast-note {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+.coast-note h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.35rem;
+  margin: 0 0 8px;
+}
+.coast-note p {
+  margin: 0;
+}
+.coast-bullets li {
+  padding: 5px 0 5px 18px;
+  position: relative;
+}
+.coast-bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.85em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--aqua);
+}
+.coast-panel-photo {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-top: 26px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--sand);
+}
+.coast-panel-photo img {
+  object-fit: cover;
+}
+
+@media (max-width: 800px) {
+  .coast-pin-name {
+    font-size: 0.7rem;
+    padding: 2px 7px;
+  }
+}
+/* On a phone the chart is narrow enough that two labels want the same
+   water: the venue's runs off the right edge and the airport's crosses the
+   Waikīkī pin. Both read from the left side down here. */
+@media (max-width: 560px) {
+  .coast-pin[data-place="venue"] .coast-pin-name,
+  .coast-pin[data-place="airport"] .coast-pin-name {
+    left: auto;
+    right: calc(50% + 13px);
+  }
+  .coast-facts div,
+  .coast-schedule-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coast-pin-mark,
+  .coast-pin-name,
+  .coast-index-item {
+    transition: none;
+  }
+}

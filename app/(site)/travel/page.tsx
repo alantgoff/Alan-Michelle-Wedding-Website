@@ -1,7 +1,15 @@
 import { PageHero, Section } from "@/components/Page";
+import { CoastMap } from "@/components/CoastMap";
 import { travel } from "@/content/travel";
+import { visibleActivities } from "@/content/visibleActivities";
 
-export default function Travel() {
+// The chart lists what happens at each place, filtered by the visitor's
+// invite group, so this page is rendered per request like Activities is.
+export const dynamic = "force-dynamic";
+
+export default async function Travel() {
+  const activities = await visibleActivities();
+
   return (
     <>
       <PageHero
@@ -10,6 +18,16 @@ export default function Travel() {
         intro="The windward side of Oʻahu rewards a little planning. Here is the honest version of getting there, staying nearby, and making a trip of it."
         photo="travel"
       />
+
+      <Section title="Where everything is">
+        <p className="coast-intro">
+          An illustration, not a navigational chart. The coastline is drawn by feel and the distances
+          are invented, so please do not use it to find your way. Choose a point to read what happens
+          there.
+        </p>
+        <CoastMap activities={activities} />
+      </Section>
+
       <Section title="Getting there">
         <div className="card-grid">
           {travel.gettingThere.map((item) => (
@@ -21,6 +39,7 @@ export default function Travel() {
           ))}
         </div>
       </Section>
+
       <Section title="Where to stay">
         <div className="card-grid">
           {travel.stays.map((item) => (
@@ -31,14 +50,16 @@ export default function Travel() {
           ))}
         </div>
       </Section>
+
       <Section title="While you are here">
-        <div className="card">
-          <ul>
-            {travel.explore.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
+        <ul className="explore-list">
+          {travel.explore.map((item, i) => (
+            <li key={item}>
+              <span className="explore-num">{String(i + 1).padStart(2, "0")}</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
       </Section>
     </>
   );
