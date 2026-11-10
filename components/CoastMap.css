@@ -13,7 +13,12 @@
   .coast {
     grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
   }
-  /* The venue panel runs long; the chart stays in view beside it. */
+}
+/* The venue panel runs long; the chart stays in view beside it, but only
+   where the chart and its index fit under the header. On a shorter laptop
+   the index's last row (and keyboard focus on it) would be stuck below the
+   fold, so there the column scrolls normally. */
+@media (min-width: 980px) and (min-height: 880px) {
   .coast-chart-column {
     position: sticky;
     top: calc(var(--nav-h) + 20px);
@@ -239,8 +244,6 @@
   border: 1px solid var(--rule);
   border-radius: 3px;
   padding: clamp(22px, 3vw, 36px);
-  /* Brought into view below the sticky header, not under it. */
-  scroll-margin-top: calc(var(--nav-h) + 20px);
 }
 /* Focus moves here when a place is chosen; keyboard users see where it went. */
 .coast-panel:focus-visible {

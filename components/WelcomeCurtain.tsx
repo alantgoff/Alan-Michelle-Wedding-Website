@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
 
 // Module scope: survives client-side navigation, resets on a real page load.
@@ -22,6 +22,16 @@ export function WelcomeCurtain({ greeting }: { greeting: string }) {
   const [alreadyPlayed] = useState(() => played);
   const [skipped, setSkipped] = useState(false);
   const [done, setDone] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  // A skip only means something before the timed lift begins. Once the lift
+  // is running, or over, restarting it would drop the card back over the page.
+  const skip = () => {
+    const el = ref.current;
+    if (!el || getComputedStyle(el).display === "none") return;
+    const lifting = el.getAnimations().some((a) => a.effect?.getComputedTiming().progress != null);
+    if (!lifting) setSkipped(true);
+  };
 
   useEffect(() => {
     played = true;
@@ -32,18 +42,26 @@ export function WelcomeCurtain({ greeting }: { greeting: string }) {
 
   useEffect(() => {
     if (done || alreadyPlayed) return;
-    const skip = () => setSkipped(true);
+    // On a slow connection the CSS lift can finish before React is listening,
+    // so its animationend is never heard: notice that here instead.
+    if (ref.current && getComputedStyle(ref.current).visibility === "hidden") {
+      setDone(true);
+      return;
+    }
     window.addEventListener("keydown", skip, { once: true });
     return () => window.removeEventListener("keydown", skip);
+    // skip only reads the ref, so it never goes stale.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [done, alreadyPlayed]);
 
   if (done || alreadyPlayed) return null;
 
   return (
     <div
+      ref={ref}
       className={`curtain${skipped ? " curtain-skipped" : ""}`}
       aria-hidden="true"
-      onClick={() => setSkipped(true)}
+      onClick={skip}
       // Only the card's own lift ends it; the logo and words animate too and
       // their events bubble up here. An interrupted lift fires animationcancel.
       onAnimationEnd={(e) => {

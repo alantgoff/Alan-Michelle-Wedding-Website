@@ -301,8 +301,10 @@ h3 {
   text-decoration: none;
   border-bottom: 1px solid var(--lagoon);
 }
+/* Over the photograph lagoon text drops to ~3:1, so hover shows in the rule. */
 .hero-first a:hover {
-  color: var(--lagoon);
+  border-bottom-width: 2px;
+  border-bottom-color: var(--deep);
 }
 .hero-weekend {
   text-decoration: none;
@@ -755,11 +757,16 @@ h3 {
    lagoon rule that stays. Under reduced motion only the rule remains. */
 .activity:target {
   box-shadow: inset 3px 0 0 var(--lagoon);
-  animation: own-glow 2.6s ease-out;
+  animation: own-glow 3s ease-out;
+  /* Room above for the day's heading, on top of the page's scroll padding. */
+  scroll-margin-top: 3.5rem;
 }
 @keyframes own-glow {
-  from {
-    background-color: color-mix(in srgb, var(--sand) 95%, var(--white));
+  /* A cool shallows tint held while the scroll lands, settling into the sand
+     wash. Text on the peak tint: deep 9.3:1, muted 5.2:1, lagoon 4.95:1. */
+  0%,
+  20% {
+    background-color: color-mix(in srgb, var(--aqua) 25%, var(--cream));
   }
 }
 .activity strong {
@@ -1617,17 +1624,28 @@ footer {
     break-inside: avoid;
   }
   h2,
-  h3 {
+  h3,
+  .kicker {
     break-after: avoid;
+  }
+  .facts dl {
+    break-inside: avoid;
   }
 
   /* Colour that carries meaning should survive "print backgrounds: off". */
   .swatch,
   .activity-mine,
   .activity-sun::before,
-  .plumeria-mark {
+  .plumeria-mark,
+  .coast-index-item[aria-pressed="true"],
+  .coast-pin[aria-pressed="true"] .coast-pin-name {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+  /* The sand wash stays inside the page box on paper. */
+  .activity-mine {
+    margin-inline: 0;
+    padding-inline: 14px;
   }
 
   /* Links print where they go. */
@@ -1642,7 +1660,8 @@ footer {
   details::details-content {
     content-visibility: visible;
   }
-  .faq summary::after {
+  .faq summary::after,
+  .faq details[open] summary::after {
     content: none;
   }
 

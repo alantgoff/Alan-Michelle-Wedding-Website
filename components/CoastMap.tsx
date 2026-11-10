@@ -169,7 +169,8 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
     if (!panel) return;
     panel.focus({ preventScroll: true });
     const top = panel.getBoundingClientRect().top;
-    const clearance = parseFloat(getComputedStyle(panel).scrollMarginTop) || 0;
+    // The page's own scroll padding is what keeps things clear of the header.
+    const clearance = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
     if (top < clearance || top > window.innerHeight * 0.6) panel.scrollIntoView({ block: "start" });
   }
 
