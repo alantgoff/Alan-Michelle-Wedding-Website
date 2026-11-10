@@ -1,3 +1,4 @@
+import { Logo } from "@/components/Logo";
 import { PageHero } from "@/components/Page";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { Reveal } from "@/components/Reveal";
@@ -53,6 +54,7 @@ export default function Story() {
               Which brings us to a lawn at the foot of the Koʻolau, and to you. Thank you for coming
               this far with us.
             </p>
+            <Logo className="story-sign" sizes="130px" />
           </div>
         </section>
       </div>

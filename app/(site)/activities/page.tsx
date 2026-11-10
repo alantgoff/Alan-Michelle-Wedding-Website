@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { PageHero, Section } from "@/components/Page";
 import { activities } from "@/content/activities";
 import { groupBySlug, COOKIE } from "@/content/groups";
+import { minutesOf, offsetFromWedding, weekendDay } from "@/lib/weekend";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +17,12 @@ export default async function Activities() {
   const visible = activities.filter(
     (a) => a.audience === "everyone" || (group !== undefined && a.audience === group.id),
   );
-  const days = [...new Set(visible.map((a) => a.date))];
+  // Days in calendar order around the wedding, and events in clock order
+  // within each day; anything still marked TODO sorts to the end of its day.
+  const days = [...new Set(visible.map((a) => a.date))].sort(
+    (a, b) => (offsetFromWedding(a) ?? 99) - (offsetFromWedding(b) ?? 99),
+  );
+  const byTime = (a: { time: string }, b: { time: string }) => minutesOf(a.time) - minutesOf(b.time);
 
   return (
     <>
@@ -27,26 +33,33 @@ export default async function Activities() {
         photo="activities"
       />
       <Section>
-        {days.map((day) => (
-          <div className="activity-day" key={day}>
-            <h2>{day}</h2>
-            {visible
-              .filter((a) => a.date === day)
-              .map((a) => (
-                <article className="activity" key={a.title}>
-                  <div>
-                    <strong>{a.time}</strong>
-                    <br />
-                    <small>{a.location}</small>
-                  </div>
-                  <div>
-                    <h3>{a.title}</h3>
-                    <p>{a.description}</p>
-                  </div>
-                </article>
-              ))}
-          </div>
-        ))}
+        {days.map((day) => {
+          const when = weekendDay(day);
+          return (
+            <div className="activity-day" key={day}>
+              <div className="activity-day-head">
+                <h2>{when ? when.label : day}</h2>
+                {when ? <p className="activity-sun">Sunset {when.sunset}</p> : null}
+              </div>
+              {visible
+                .filter((a) => a.date === day)
+                .sort(byTime)
+                .map((a) => (
+                  <article className="activity" key={a.title}>
+                    <div>
+                      <strong>{a.time}</strong>
+                      <br />
+                      <small>{a.location}</small>
+                    </div>
+                    <div>
+                      <h3>{a.title}</h3>
+                      <p>{a.description}</p>
+                    </div>
+                  </article>
+                ))}
+            </div>
+          );
+        })}
       </Section>
     </>
   );

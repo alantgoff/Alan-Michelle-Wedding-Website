@@ -23,6 +23,7 @@
   --sand: #f0e6d6; /* dry sand */
   --cream: #fbfaf6; /* page background */
   --white: #ffffff;
+  --sun: #f0c76a; /* plumeria centre and the setting sun — decorative only, never text */
 
   --ink: var(--deep);
   --muted: #46605f;
@@ -100,10 +101,23 @@ h3 {
   border-bottom: 1px solid var(--rule);
 }
 .nav .mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--display);
   font-size: 1.3rem;
   text-decoration: none;
   white-space: nowrap;
+}
+.mark-logo {
+  display: block;
+  height: 36px;
+  width: auto;
+  transform-origin: 50% 100%;
+  transition: transform 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.nav .mark:hover .mark-logo {
+  transform: rotate(-5deg);
 }
 .nav nav {
   display: flex;
@@ -164,26 +178,58 @@ h3 {
     color-mix(in srgb, var(--cream) 28%, transparent) 100%
   );
 }
+/* No width cap here: the names are set as two lines on purpose, and a cap
+   in body-text units broke "& Michelle" in two on wide screens. The tagline
+   keeps its own measure. */
 .hero-copy {
   color: var(--deep);
-  max-width: min(100%, 34ch);
 }
-.hero .kicker {
-  color: var(--deep);
+/* The logo, which is also a button: tap it and plumeria spill out. It rocks
+   on its tail under the pointer, like boards stood in the sand. */
+.hero-mark {
+  display: block;
+  margin: 0 0 20px -4px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
 }
-/* Only guests who arrived through an invite link see this line. */
+.hero-logo {
+  display: block;
+  height: clamp(118px, 14vw, 178px);
+  width: auto;
+  /* A cream glow that follows the brush strokes, so the line art holds
+     over bright sparkling water. */
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--cream) 95%, transparent))
+    drop-shadow(0 0 16px color-mix(in srgb, var(--cream) 80%, transparent));
+  transform-origin: 50% 100%;
+  transition: transform 0.55s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.hero-mark:hover .hero-logo,
+.hero-mark:focus-visible .hero-logo {
+  transform: rotate(-3deg);
+}
+.hero-mark:active .hero-logo {
+  transform: rotate(2deg) scale(0.97);
+}
+.hero-mark:focus-visible {
+  outline: 2px solid var(--lagoon);
+  outline-offset: 6px;
+}
+/* Only guests who arrived through an invite link see this line. Deep ink,
+   not the accent: it sits over the photograph at body-text sizes. */
 .hero-aloha {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   font-family: var(--display);
   font-style: italic;
-  font-size: clamp(1.25rem, 2.4vw, 1.8rem);
-  color: var(--lagoon);
-  text-shadow: 0 1px 3px color-mix(in srgb, var(--cream) 92%, transparent);
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  color: var(--deep);
 }
 /* A soft light halo, so dark type survives a bright patch in any photo. */
 .hero h1,
 .hero .tagline,
-.hero .kicker,
+.hero-aloha,
 .hero-meta,
 .page-hero h1,
 .page-hero .lede,
@@ -215,6 +261,14 @@ h3 {
   font-size: 0.78rem;
   letter-spacing: 0.12em;
 }
+.hero-weekend {
+  text-decoration: none;
+  border-bottom: 1px solid var(--lagoon);
+  padding-bottom: 2px;
+}
+.hero-weekend:hover {
+  color: var(--lagoon);
+}
 
 /* ---------- Key details ----------------------------------- */
 
@@ -240,6 +294,37 @@ h3 {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
+}
+.countdown-turn {
+  display: block;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.countdown-turn strong {
+  animation: count-turn 0.5s ease-out;
+}
+.countdown-turn:hover span {
+  color: var(--lagoon);
+}
+.countdown-turn:focus-visible {
+  outline: 2px solid var(--lagoon);
+  outline-offset: 8px;
+}
+@keyframes count-turn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .countdown .countdown-word {
   font-size: clamp(3.4rem, 9vw, 6.5rem);
@@ -544,7 +629,16 @@ h3 {
 .activity-day {
   margin-bottom: 52px;
 }
-.activity-day > h2 {
+.activity-day-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 24px;
+  margin-bottom: 6px;
+}
+.activity-day-head h2 {
+  margin: 0;
   font-family: var(--body);
   font-size: 0.78rem;
   font-style: italic;
@@ -552,7 +646,24 @@ h3 {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--lagoon);
-  margin-bottom: 6px;
+}
+/* A small sun half-sunk into the horizon. */
+.activity-sun {
+  margin: 0;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--muted);
+}
+.activity-sun::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 7px;
+  margin-right: 9px;
+  border-radius: 7px 7px 0 0;
+  background: var(--sun);
+  box-shadow: 0 1px 0 0 var(--aqua);
+  vertical-align: 1px;
 }
 .activity {
   display: grid;
@@ -687,6 +798,14 @@ h3 {
   font-style: italic;
   font-size: clamp(1.45rem, 2.6vw, 2rem);
   line-height: 1.3;
+}
+.story-sign {
+  display: block;
+  height: 118px;
+  width: auto;
+  margin-top: 32px;
+  transform: rotate(-4deg);
+  transform-origin: 50% 100%;
 }
 
 /* ---------- Travel: chart intro and the explore list ------ */
@@ -935,16 +1054,31 @@ h3 {
 .swatches {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 20px 24px;
   margin: 26px 0 32px;
   padding: 0;
   list-style: none;
 }
 .swatches li {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.swatch {
   width: 64px;
   height: 64px;
   border-radius: 50%;
   border: 1px solid var(--rule);
+  transition: transform 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.swatches li:hover .swatch {
+  transform: translateY(-5px) scale(1.06);
+}
+.swatch-name {
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  color: var(--muted);
 }
 .split-list {
   display: grid;
@@ -964,25 +1098,156 @@ h3 {
 /* ---------- Footer ---------------------------------------- */
 
 footer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
-  gap: 26px;
   padding: clamp(52px, 7vw, 88px) var(--gutter);
   border-top: 1px solid var(--rule);
   background: var(--white);
 }
-footer strong {
+.footer-seal {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  margin-bottom: clamp(36px, 5vw, 56px);
+  text-align: center;
+}
+.footer-logo {
+  display: block;
+  height: 120px;
+  width: auto;
+}
+.footer-farewell {
+  margin: 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.4rem;
+}
+.footer-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 26px;
+  padding-top: clamp(28px, 4vw, 40px);
+  border-top: 1px solid var(--rule);
+}
+.footer-row strong {
   display: block;
   font-family: var(--display);
   font-size: 1.9rem;
   font-weight: 400;
 }
-footer span,
-footer small {
+.footer-row span,
+.footer-row small {
   font-size: 0.72rem;
   font-style: italic;
   letter-spacing: 0.1em;
   color: var(--muted);
+}
+
+/* ---------- The welcome card ------------------------------ */
+
+/* Shown once, to a guest arriving from their invite link: the logo rises out
+   of its own waves, the greeting fades up, then the card lifts away. All CSS,
+   so it clears itself even without JavaScript. */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 45%,
+    var(--white) 0%,
+    var(--cream) 62%,
+    color-mix(in srgb, var(--sky) 20%, var(--cream)) 100%
+  );
+  cursor: pointer;
+  animation: curtain-lift 1s cubic-bezier(0.76, 0, 0.24, 1) 2.9s forwards;
+}
+.curtain-skipped {
+  animation: curtain-lift-now 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+.curtain-card {
+  text-align: center;
+}
+/* A tall gradient mask slides up the logo, so the waves appear first and the
+   boards rise out of them. */
+.curtain-logo {
+  display: block;
+  height: min(44vh, 320px);
+  width: auto;
+  margin: 0 auto;
+  -webkit-mask-image: linear-gradient(to top, #000 42%, transparent 58%);
+  mask-image: linear-gradient(to top, #000 42%, transparent 58%);
+  -webkit-mask-size: 100% 300%;
+  mask-size: 100% 300%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 0 0%;
+  mask-position: 0 0%;
+  animation: curtain-rise 1.7s cubic-bezier(0.33, 0, 0.2, 1) 0.2s forwards;
+}
+.curtain-aloha {
+  margin: 26px 0 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  opacity: 0;
+  animation: curtain-word 0.9s ease-out 1.15s forwards;
+}
+.curtain-line {
+  margin: 12px 0 0;
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  animation: curtain-word 0.9s ease-out 1.5s forwards;
+}
+@keyframes curtain-rise {
+  to {
+    -webkit-mask-position: 0 100%;
+    mask-position: 0 100%;
+  }
+}
+@keyframes curtain-word {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes curtain-lift {
+  to {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
+}
+/* Same motion under another name, so a skip starts it fresh rather than
+   jumping to wherever the timed lift would have been. */
+@keyframes curtain-lift-now {
+  to {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
+}
+
+/* ---------- Plumeria ---------------------------------------- */
+
+.plumeria-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow: hidden;
+  pointer-events: none;
+}
+.plumeria {
+  position: absolute;
+  display: block;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 2px 3px color-mix(in srgb, var(--deep) 16%, transparent));
 }
 
 /* ---------- Motion ---------------------------------------- */
@@ -1067,9 +1332,6 @@ footer small {
   .facts dl {
     grid-template-columns: 96px minmax(0, 1fr);
   }
-  .hero-copy {
-    max-width: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1086,5 +1348,8 @@ footer small {
   .reveal-armed {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .curtain {
+    display: none;
   }
 }

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { groups, COOKIE } from "@/content/groups";
 
-
-
 /**
  * Invite links. Opening /i/<slug> remembers the guest's group on this device.
  *
@@ -13,14 +11,17 @@ import { groups, COOKIE } from "@/content/groups";
  */
 export async function GET(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const response = NextResponse.redirect(new URL("/activities", req.url));
 
   if (slug === "reset") {
+    const response = NextResponse.redirect(new URL("/", req.url));
     response.cookies.delete(COOKIE);
     return response;
   }
 
+  // A real invite lands on the home page with ?aloha, which plays the welcome
+  // card once. An unknown slug lands there too, quietly, with nothing set.
   const group = groups.find((g) => g.slug === slug);
+  const response = NextResponse.redirect(new URL(group ? "/?aloha" : "/", req.url));
   if (group) {
     response.cookies.set(COOKIE, group.slug, {
       httpOnly: true,

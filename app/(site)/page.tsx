@@ -1,16 +1,20 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { Countdown } from "@/components/Countdown";
+import { Logo } from "@/components/Logo";
 import { NowAtKualoa } from "@/components/NowAtKualoa";
 import { PhotoBackdrop } from "@/components/PhotoFrame";
 import { Reveal } from "@/components/Reveal";
+import { PlumeriaBurst } from "@/components/PlumeriaBurst";
 import { Tide } from "@/components/Tide";
+import { WelcomeCurtain } from "@/components/WelcomeCurtain";
 import { site } from "@/content/site";
 import { groupBySlug, COOKIE } from "@/content/groups";
 import type { PhotoKey } from "@/content/photos";
 import { hawaiiClock, hawaiiNoon, sunTimes } from "@/lib/sun";
 
 // Greets guests by their invite group, so it reads the cookie per request.
+// Arriving from an invite link adds ?aloha, which plays the welcome card once.
 export const dynamic = "force-dynamic";
 
 // Each card previews the photo from the page it links to.
@@ -29,19 +33,29 @@ function weddingSunset() {
   return hawaiiClock(sunTimes(hawaiiNoon(year, month, day), site.coordinates.lat, site.coordinates.lng).sunset);
 }
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const group = groupBySlug((await cookies()).get(COOKIE)?.value);
+  const arriving = group !== undefined && "aloha" in (await searchParams);
+  const greeting = group ? `Aloha, ${group.name.toLowerCase()}` : null;
   const sunset = weddingSunset();
 
   return (
     <>
+      {arriving && greeting ? <WelcomeCurtain greeting={greeting} /> : null}
+
       <section className="hero">
         <div className="hero-media">
           <PhotoBackdrop name="hero" priority />
         </div>
         <div className="hero-copy">
-          {group ? <p className="hero-aloha">Aloha, {group.name.toLowerCase()}</p> : null}
-          <p className="kicker">Where the mountains meet the sea</p>
+          <PlumeriaBurst className="hero-mark">
+            <Logo className="hero-logo" sizes="(max-width: 820px) 110px, 160px" priority />
+          </PlumeriaBurst>
+          {greeting ? <p className="hero-aloha">{greeting}</p> : null}
           <h1>
             Alan
             <br />& Michelle
@@ -50,6 +64,11 @@ export default async function Home() {
           <div className="hero-meta">
             <span>{site.weddingDate}</span>
             <span>{site.location}</span>
+            {group ? (
+              <Link className="hero-weekend" href="/activities">
+                See your weekend →
+              </Link>
+            ) : null}
           </div>
         </div>
       </section>

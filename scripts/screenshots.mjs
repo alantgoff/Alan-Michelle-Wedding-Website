@@ -19,7 +19,7 @@ const viewports = [
 // Prefer an explicitly provided browser, then a known preinstalled location.
 const candidates = [
   process.env.CHROMIUM_PATH,
-  "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
+  "/opt/pw-browsers/chromium",
 ].filter(Boolean);
 const executablePath = candidates.find((p) => existsSync(p));
 

@@ -58,6 +58,17 @@ If an entry is ever pointed back at `public/photos/placeholder/`, those are gene
 textures rather than photographs. Add `standin: true` to such an entry and it will carry a visible
 "Placeholder" label, so a guest is never shown a generated image presented as a real photo.
 
+## The logo
+
+`public/logo.png` is the wedding logo with its white paper removed, so it sits on any background in
+its own navy ink. It appears in the navigation, at the top of the home page, at the end of Our
+Story, and as a seal in the footer of every page. The browser-tab icon (`app/icon.png`), the
+home-screen icon (`app/apple-icon.png`) and the link-preview card shown when someone texts or posts
+a link to the site (`app/opengraph-image.png`) are all made from it.
+
+To swap in a new version of the artwork, replace `public/logo.png` and update the width and height
+in `components/Logo.tsx`. The three images in `app/` are flat files and need regenerating to match.
+
 ## Small things guests may notice
 
 - The home page greets guests who arrived through their invite link by group, and shows the
@@ -68,6 +79,12 @@ textures rather than photographs. Add `standin: true` to such an entry and it wi
   confirmed in `content/site.ts`.
 - The packing list on Travel remembers ticks in the guest's own browser. Nothing is sent anywhere.
 - A wrong URL lands on a "past the reef" page rather than a bare 404.
+- Opening an invite link plays a short welcome: the logo rises out of its own waves, greets the
+  guest's group by name, and lifts away to the home page. It plays once, a tap skips it, and anyone
+  who has asked their device for reduced motion goes straight to the page.
+- Tapping the logo at the top of the home page scatters plumeria down the screen.
+- Tapping the countdown counts in weeks, then in full moons, then back to days.
+- Activities shows each day's real date and that evening's sunset, and lists events in time order.
 
 ## The weather panel
 
@@ -90,7 +107,8 @@ Optional group activities are scoped to guest groups. Send each group its own li
 | Wedding party | `/i/party-9q8v` |
 | Reset (for testing) | `/i/reset` |
 
-Opening a link once stores a cookie holding that invite slug, and the guest then sees their group's
+Opening a link once stores a cookie holding that invite slug and lands the guest on the home page,
+where they are welcomed by group and pointed to their weekend; from then on they see their group's
 events. Filtering happens **on the server**, so events a guest cannot see never reach their browser
 in any form. `npm run test:gating` asserts exactly that, including that a forged cookie grants
 nothing.

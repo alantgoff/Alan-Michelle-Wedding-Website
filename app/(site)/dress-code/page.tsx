@@ -8,7 +8,10 @@ export default function Dress() {
       <Section title="Color, texture, ease">
         <ul className="swatches">
           {dressCode.colors.map((color) => (
-            <li key={color} style={{ background: color }} />
+            <li key={color.hex}>
+              <span className="swatch" style={{ background: color.hex }} aria-hidden="true" />
+              <span className="swatch-name">{color.name}</span>
+            </li>
           ))}
         </ul>
         <p>
