@@ -2,22 +2,49 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { site } from "@/content/site";
 import { Logo } from "./Logo";
+import { PrintReady } from "./PrintReady";
 import { Tide } from "./Tide";
 
 /** Sticky header, page body, footer. The real site only. */
 export function SiteShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const header = useRef<HTMLElement>(null);
+
+  // Sticky things (the Our Story date bar, the coast chart, anything scrolled
+  // into view) sit just under the header, so they need its real height. The
+  // CSS carries good guesses; this measures the actual one as the header
+  // wraps, fonts load or the text is enlarged. Rounded down, so whatever
+  // tucks under it never leaves a sliver of gap.
+  useEffect(() => {
+    const el = header.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const root = document.documentElement;
+    const observer = new ResizeObserver(() => {
+      root.style.setProperty("--nav-h", `${Math.floor(el.getBoundingClientRect().height)}px`);
+    });
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--nav-h");
+    };
+  }, []);
 
   return (
     <>
-      <header className="nav">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <header className="nav" ref={header}>
         <Link className="mark" href="/">
           <Logo className="mark-logo" sizes="40px" priority />
           <span>{site.couple}</span>
         </Link>
+        <p className="print-letterhead">
+          {site.weddingDate} · {site.venue}
+        </p>
         <nav aria-label="Sections">
           {site.nav.map((item) => {
             const href = item.href ? `/${item.href}` : "/";
@@ -30,7 +57,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </nav>
       </header>
 
-      <main>{children}</main>
+      <main id="main" tabIndex={-1}>
+        {children}
+      </main>
 
       <Tide className="tide-footer" />
       <footer>
@@ -53,6 +82,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <small>Made with love for our favorite people</small>
         </div>
       </footer>
+      <PrintReady />
     </>
   );
 }

@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { PageHero, Section } from "@/components/Page";
 import { dressCode } from "@/content/dressCode";
+
+export const metadata: Metadata = { title: "Dress code" };
 
 export default function Dress() {
   return (

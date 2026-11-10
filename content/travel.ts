@@ -1,13 +1,21 @@
 export const travel = {
- gettingThere:[{title:"Fly into Honolulu",text:"Daniel K. Inouye International Airport (HNL) is roughly 40–60 minutes from Paliku Gardens, depending on traffic."},{title:"Plan on a car",text:"The windward coast has limited transit and rideshare availability. A rental car is the most flexible option. TODO: Add shuttle details if arranged."}],
- stays:[{title:"Waikīkī",text:"The most hotel choice and nightlife, about 45–60 minutes from the venue."},{title:"North Shore",text:"Turtle Bay and Lāʻie are calmer and closer, roughly 30–45 minutes away."},{title:"Kāneʻohe",text:"A small number of legal bayfront stays put you nearest the venue."}],
- explore:["Swim at Lanikai or Kailua Beach","Drive the windward coast","Try local plate lunches and shave ice","Pack reef-safe sunscreen and a light rain layer"],
+ gettingThere:[{title:"Fly into Honolulu",text:"Daniel K. Inouye International Airport (HNL) is roughly 40–⁠60 minutes from Pālikū Gardens, depending on traffic."},{title:"Plan on a car",text:"The windward coast has limited transit and rideshare availability. A rental car is the most flexible option. TODO: Add shuttle details if arranged."}],
+ stays:[{title:"Waikīkī",text:"The widest choice of hotels and the most nightlife, about 45–⁠60 minutes from the venue."},{title:"North Shore",text:"Turtle Bay and Lāʻie are calmer and closer, roughly 30–⁠45 minutes away."},{title:"Kāneʻohe",text:"A small number of legal bayfront stays put you nearest the venue."}],
+ explore:["Swim at Lanikai or Kailua Beach","Drive the windward coast","Try local plate lunches and shave ice"],
+
+ /**
+  * Two practical notes that also appear on the coast chart. Kept here so the
+  * page can print them as plain text too: the chart needs JavaScript to open
+  * a place, and these are worth knowing whether or not it runs.
+  */
+ crossing:{title:"Allow for the crossing",text:"The H-3, the Likelike and the Pali Highway are the only quick ways over the mountains. Traffic stacks up on weekday mornings and again at the end of the afternoon."},
+ beachParking:{title:"Go early",text:"Parking around Lanikai is residential and fills by mid-morning. Kailua Beach Park has a proper lot and the same water."},
 
  /** Place names guests will hear all weekend, and how to say them. */
  sayIt:[
   {word:"Kualoa",say:"koo-ah-LOH-ah",means:"“long back” — the ridge that rises behind the ranch"},
   {word:"Kaʻaʻawa",say:"kah-ah-AH-vah",means:"named for the ʻaʻawa, a wrasse that lives on the reef"},
-  {word:"Koʻolau",say:"koh-oh-LOW",means:"“windward” — the mountains, and this whole side of the island"},
+  {word:"Koʻolau",say:"koh-oh-LOW (rhymes with “now”)",means:"“windward” — the mountains, and this whole side of the island"},
   {word:"Kāneʻohe",say:"KAH-neh-OH-heh",means:"“bamboo man” — the bay and the town you drive through"},
   {word:"Mokoliʻi",say:"moh-koh-LEE-ee",means:"“little lizard” — the islet off the point, in every photo"},
   {word:"Mahalo",say:"mah-HAH-loh",means:"thank you — the word you will use most"},

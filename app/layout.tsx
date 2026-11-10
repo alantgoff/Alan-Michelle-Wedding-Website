@@ -10,8 +10,10 @@ const display = Cormorant_Garamond({ subsets: ["latin"], display: "swap", variab
 const body = Lora({ subsets: ["latin"], display: "swap", variable: "--font-body" });
 
 export const metadata: Metadata = {
-  title: `${site.couple} | ${site.location}`,
-  description: `Wedding weekend at ${site.venue}`,
+  // Each page names itself ("Travel | Alan & Michelle"), which is also what
+  // screen readers announce when a guest moves between pages.
+  title: { default: `${site.couple} | ${site.location}`, template: `%s | ${site.couple}` },
+  description: `Wedding weekend at Pālikū Gardens, Kualoa Ranch, ${site.location}`,
   // Keeps the site off search engines while still being shareable by link.
   robots: { index: false, follow: false, nocache: true },
 };

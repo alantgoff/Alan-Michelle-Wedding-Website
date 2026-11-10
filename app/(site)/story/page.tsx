@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import { Logo } from "@/components/Logo";
 import { PageHero } from "@/components/Page";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { Reveal } from "@/components/Reveal";
 import { story } from "@/content/story";
+
+export const metadata: Metadata = { title: "Our story" };
 
 /**
  * Our Story, on a spine.
@@ -27,7 +30,7 @@ export default function Story() {
             <div className="story-rail">
               <div className="story-marker">
                 <span className="story-marker-when">{moment.date}</span>
-                <span className="story-marker-index">{String(i + 1).padStart(2, "0")}</span>
+                <span className="story-marker-index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               </div>
             </div>
             <div className="story-track">

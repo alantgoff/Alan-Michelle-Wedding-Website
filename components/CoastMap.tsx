@@ -1,12 +1,14 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import Image from "next/image";
 import "./CoastMap.css";
 import type { Activity } from "@/content/activities";
 import { site } from "@/content/site";
 import { travel } from "@/content/travel";
 import { photos, type PhotoKey } from "@/content/photos";
+import { minutesOf } from "@/lib/weekend";
 
 /**
  * The windward coast, drawn — a chart of where everything happens.
@@ -48,7 +50,8 @@ const PLACES: Place[] = [
     kind: "Where you land",
     x: 50.4,
     y: 80.5,
-    side: "right",
+    // Left at every width: on the right it runs into the Waikīkī pin.
+    side: "left",
     blurb: "Every guest starts here. Collect the car before you do anything else.",
     notes: travel.gettingThere,
     photo: "travel",
@@ -62,7 +65,7 @@ const PLACES: Place[] = [
     y: 79.5,
     side: "right",
     blurb: "The south shore. Most rooms, most restaurants, longest drive to us.",
-    notes: [{ title: travel.stays[0].title, text: travel.stays[0].text }],
+    notes: [{ title: "Staying here", text: travel.stays[0].text }],
   },
   {
     id: "northshore",
@@ -73,7 +76,7 @@ const PLACES: Place[] = [
     y: 19.5,
     side: "right",
     blurb: "The far side of the island, quiet and green, and closer than it looks.",
-    notes: [{ title: travel.stays[1].title, text: travel.stays[1].text }],
+    notes: [{ title: "Staying here", text: travel.stays[1].text }],
     photo: "activities",
   },
   {
@@ -86,12 +89,7 @@ const PLACES: Place[] = [
     side: "left",
     blurb:
       "The green wall that separates the windward side from town. Every drive to the venue crosses it or runs along its foot, and it is the reason the weather changes in ten minutes.",
-    notes: [
-      {
-        title: "Allow for the crossing",
-        text: "The tunnels and the pali road are the only quick ways through. Traffic stacks up on weekday mornings and again at the end of the afternoon.",
-      },
-    ],
+    notes: [travel.crossing],
   },
   {
     id: "kaneohe",
@@ -102,7 +100,7 @@ const PLACES: Place[] = [
     y: 47.5,
     side: "right",
     blurb: "The bay town nearest the venue, with a reef flat in front of it.",
-    notes: [{ title: travel.stays[2].title, text: travel.stays[2].text }],
+    notes: [{ title: "Staying here", text: travel.stays[2].text }],
   },
   {
     id: "beaches",
@@ -113,12 +111,7 @@ const PLACES: Place[] = [
     y: 58.5,
     side: "right",
     blurb: "Flat turquoise water and pale sand, twenty minutes south of the venue.",
-    notes: [
-      {
-        title: "Go early",
-        text: "Parking around Lanikai is residential and fills by mid-morning. Kailua Beach Park has a proper lot and the same water.",
-      },
-    ],
+    notes: [travel.beachParking],
     list: { heading: "While you are on this coast", items: [...travel.explore] },
     photo: "welcome",
   },
@@ -167,9 +160,17 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
   const here = activities.filter((a) => placeOf(a) === place.id);
   const days = sortedDays(activities);
 
+  // Show the new place before measuring, then bring the panel into view only
+  // when it is not already there: on a phone it sits below the chart; on a
+  // wide screen it is beside it, unless the guest has scrolled down it.
   function open(id: PlaceId) {
-    setSelected(id);
-    panelRef.current?.focus();
+    flushSync(() => setSelected(id));
+    const panel = panelRef.current;
+    if (!panel) return;
+    panel.focus({ preventScroll: true });
+    const top = panel.getBoundingClientRect().top;
+    const clearance = parseFloat(getComputedStyle(panel).scrollMarginTop) || 0;
+    if (top < clearance || top > window.innerHeight * 0.6) panel.scrollIntoView({ block: "start" });
   }
 
   return (
@@ -196,7 +197,7 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
           ))}
         </div>
 
-        <nav className="coast-index" aria-label="Places on the chart">
+        <div className="coast-index" role="group" aria-label="Places on the chart">
           {PLACES.map((p) => (
             <button
               key={p.id}
@@ -210,10 +211,10 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
               <span className="coast-index-name">{p.name}</span>
             </button>
           ))}
-        </nav>
+        </div>
       </div>
 
-      <div className="coast-panel" id="coast-place-panel" ref={panelRef} tabIndex={-1} aria-live="polite">
+      <div className="coast-panel" id="coast-place-panel" ref={panelRef} tabIndex={-1}>
         <p className="coast-panel-kind">{place.kind}</p>
         <h3 className="coast-panel-name">{place.name}</h3>
         <p className="coast-panel-blurb">{place.blurb}</p>
@@ -247,6 +248,7 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
                       <ul className="coast-schedule-list">
                         {activities
                           .filter((a) => a.date === day)
+                          .sort((a, b) => minutesOf(a.time) - minutesOf(b.time))
                           .map((a) => (
                             <li key={a.title + a.time}>
                               <span className="coast-schedule-time">{a.time}</span>

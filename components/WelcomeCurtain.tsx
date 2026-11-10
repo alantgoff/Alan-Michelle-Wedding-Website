@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 
+// Module scope: survives client-side navigation, resets on a real page load.
+// Stops the card replaying when Back returns to the home page this session.
+let played = false;
+
 /**
  * The first thing a guest sees when they open their invite link: the logo
  * rising out of its own waves, a greeting by name of their group, and then
@@ -14,17 +18,38 @@ import { Logo } from "./Logo";
  * Visitors who ask for reduced motion never see it at all.
  */
 export function WelcomeCurtain({ greeting }: { greeting: string }) {
+  // Read once: false during hydration on a real load, so it matches the server.
+  const [alreadyPlayed] = useState(() => played);
   const [skipped, setSkipped] = useState(false);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    window.history.replaceState(null, "", window.location.pathname);
+    played = true;
+    // Keep Next's own history state: with null, the router ignores Back to
+    // this entry and the previous page stays on screen.
+    window.history.replaceState(window.history.state, "", window.location.pathname);
+  }, []);
+
+  useEffect(() => {
+    if (done || alreadyPlayed) return;
     const skip = () => setSkipped(true);
     window.addEventListener("keydown", skip, { once: true });
     return () => window.removeEventListener("keydown", skip);
-  }, []);
+  }, [done, alreadyPlayed]);
+
+  if (done || alreadyPlayed) return null;
 
   return (
-    <div className={`curtain${skipped ? " curtain-skipped" : ""}`} aria-hidden="true" onClick={() => setSkipped(true)}>
+    <div
+      className={`curtain${skipped ? " curtain-skipped" : ""}`}
+      aria-hidden="true"
+      onClick={() => setSkipped(true)}
+      // Only the card's own lift ends it; the logo and words animate too and
+      // their events bubble up here. An interrupted lift fires animationcancel.
+      onAnimationEnd={(e) => {
+        if (e.target === e.currentTarget) setDone(true);
+      }}
+    >
       <div className="curtain-card">
         <Logo className="curtain-logo" sizes="(max-width: 600px) 46vw, 240px" priority />
         <p className="curtain-aloha">{greeting}</p>

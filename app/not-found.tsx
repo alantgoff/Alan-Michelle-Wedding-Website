@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PageHero, Section } from "@/components/Page";
 import { SiteShell } from "@/components/SiteShell";
 
-export const metadata: Metadata = { title: "Past the reef" };
+export const metadata: Metadata = { title: { absolute: "Past the reef" } };
 
 /** Wrong URL. Sits outside the (site) group, so it brings its own shell. */
 export default function NotFound() {

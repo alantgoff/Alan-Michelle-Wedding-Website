@@ -3,7 +3,7 @@ export const site = {
   weddingDate: "Friday, October 6, 2028",
   isoDate: "2028-10-06T16:00:00-10:00", // TODO: confirm ceremony time
   ceremonyTime: "TODO: ceremony time",
-  venue: "Paliku Gardens at Kualoa Ranch",
+  venue: "Pālikū Gardens at Kualoa Ranch",
   location: "Kaʻaʻawa, Oʻahu",
   address: "49-560 Kamehameha Hwy, Kāneʻohe, HI 96744",
   mapUrl: "https://maps.google.com/?q=Paliku+Gardens+Kualoa+Ranch",

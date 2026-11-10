@@ -24,6 +24,9 @@ export const weather = {
   standin:
     "No one can forecast a day this far out. Until about two weeks before the wedding, this is what early October usually does here — then the real forecast takes its place automatically.",
 
+  /** The line under the panel once the wedding day has passed. */
+  after: "The day has come and gone. This is what early October usually brings to this side of the island.",
+
   /** Practical notes, shown whichever panel is up. */
   notes: [
     "A shower on the windward coast is usually five minutes and then sun again. Nobody runs for cover.",

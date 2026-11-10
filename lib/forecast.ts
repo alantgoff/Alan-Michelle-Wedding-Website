@@ -9,6 +9,8 @@
  * missing forecast simply leaves the typical-conditions panel in place.
  */
 
+import { hawaiiToday } from "./sun";
+
 /** How far ahead the model actually forecasts. */
 const FORECAST_HORIZON_DAYS = 16;
 const ENDPOINT = "https://api.open-meteo.com/v1/forecast";
@@ -21,11 +23,15 @@ export type Forecast = {
   windMph: number;
 };
 
-/** Days between today and a YYYY-MM-DD date, in whole days. */
+/**
+ * Days between today IN HAWAIʻI and a YYYY-MM-DD date, in whole days. The
+ * server runs on UTC, which turns over at 2 PM in Hawaiʻi — using it would
+ * drop the wedding-day forecast two hours before the ceremony.
+ */
 export function daysUntil(isoDay: string, now = new Date()): number {
   const target = Date.parse(`${isoDay}T00:00:00Z`);
-  const today = Date.parse(`${now.toISOString().slice(0, 10)}T00:00:00Z`);
-  return Math.round((target - today) / 86_400_000);
+  const { year, month, day } = hawaiiToday(now);
+  return Math.round((target - Date.UTC(year, month - 1, day)) / 86_400_000);
 }
 
 /** True once a forecast for that day could exist at all. */

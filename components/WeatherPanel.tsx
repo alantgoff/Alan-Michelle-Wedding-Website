@@ -53,6 +53,8 @@ export async function WeatherPanel() {
             </strong>
             , updated through the day.
           </>
+        ) : away < 0 ? (
+          weather.after
         ) : (
           weather.standin
         )}

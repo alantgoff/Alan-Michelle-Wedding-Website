@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { PageHero, Section } from "@/components/Page";
 import { registries } from "@/content/registry";
+
+export const metadata: Metadata = { title: "Registry" };
 
 export default function Registry() {
   return (
@@ -15,7 +18,7 @@ export default function Registry() {
           {registries.map((registry) => (
             <div className="card" key={registry.name}>
               <p className="label">Registry</p>
-              <h3>{registry.name}</h3>
+              <h2>{registry.name}</h2>
               <p>{registry.text}</p>
               {registry.url && registry.url !== "#" ? (
                 <a className="button" href={registry.url}>

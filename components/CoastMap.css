@@ -13,6 +13,11 @@
   .coast {
     grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
   }
+  /* The venue panel runs long; the chart stays in view beside it. */
+  .coast-chart-column {
+    position: sticky;
+    top: calc(var(--nav-h) + 20px);
+  }
 }
 
 /* ---------- The chart ---------------------------------------- */
@@ -234,9 +239,12 @@
   border: 1px solid var(--rule);
   border-radius: 3px;
   padding: clamp(22px, 3vw, 36px);
+  /* Brought into view below the sticky header, not under it. */
+  scroll-margin-top: calc(var(--nav-h) + 20px);
 }
-.coast-panel:focus {
-  outline: none;
+/* Focus moves here when a place is chosen; keyboard users see where it went. */
+.coast-panel:focus-visible {
+  outline-offset: -2px;
 }
 .coast-panel-kind {
   margin: 0;
@@ -249,6 +257,7 @@
 .coast-panel-name {
   font-size: clamp(1.7rem, 3.4vw, 2.4rem);
   margin: 8px 0 0;
+  text-wrap: balance;
 }
 .coast-panel-blurb {
   margin: 12px 0 0;
@@ -390,12 +399,10 @@
     padding: 2px 7px;
   }
 }
-/* On a phone the chart is narrow enough that two labels want the same
-   water: the venue's runs off the right edge and the airport's crosses the
-   Waikīkī pin. Both read from the left side down here. */
+/* On a phone the venue's label would run off the right edge of the chart,
+   so it reads from the left down here. */
 @media (max-width: 560px) {
-  .coast-pin[data-place="venue"] .coast-pin-name,
-  .coast-pin[data-place="airport"] .coast-pin-name {
+  .coast-pin[data-place="venue"] .coast-pin-name {
     left: auto;
     right: calc(50% + 13px);
   }
@@ -411,5 +418,25 @@
   .coast-pin-name,
   .coast-index-item {
     transition: none;
+  }
+}
+
+/* Windows high-contrast mode drops the custom colours, so the chosen place
+   keeps a system highlight there. */
+@media (forced-colors: active) {
+  .coast-index-item[aria-pressed="true"],
+  .coast-pin[aria-pressed="true"] .coast-pin-name {
+    forced-color-adjust: none;
+    background: Highlight;
+    border-color: Highlight;
+    color: HighlightText;
+  }
+  .coast-index-item[aria-pressed="true"] .coast-index-kind {
+    color: HighlightText;
+  }
+  .coast-pin[aria-pressed="true"] .coast-pin-mark {
+    forced-color-adjust: none;
+    background: Highlight;
+    border-color: CanvasText;
   }
 }

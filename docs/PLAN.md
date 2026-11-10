@@ -201,8 +201,9 @@ through `next/image` for automatic sizing and lazy loading.
 
 ## Privacy
 
-Site-wide `noindex, nofollow` via App Router metadata, plus a `robots` file disallowing all
-crawlers. No guest names, addresses, or phone numbers appear anywhere in the content scaffolding.
+Site-wide `noindex, nofollow` via App Router metadata and an `X-Robots-Tag` header on every
+response. `robots.txt` lets crawlers in, so they can read that instruction rather than being kept
+from seeing it. No guest names, addresses, or phone numbers appear anywhere in the content scaffolding.
 
 ## Verification
 

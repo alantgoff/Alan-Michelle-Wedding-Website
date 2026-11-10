@@ -53,3 +53,13 @@ export function minutesOf(time: string): number {
   const hour = (Number(m[1]) % 12) + (m[3].toUpperCase() === "PM" ? 12 : 0);
   return hour * 60 + Number(m[2]);
 }
+
+/** A stable page anchor for an event title: "Family dinner" → "family-dinner". */
+export function anchorFor(title: string): string {
+  return title
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}

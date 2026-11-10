@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import { PageHero, Section } from "@/components/Page";
 import { CoastMap } from "@/components/CoastMap";
 import { PackingList } from "@/components/PackingList";
+import { PrintButton } from "@/components/PrintButton";
 import { WeatherPanel } from "@/components/WeatherPanel";
 import { travel } from "@/content/travel";
 import { visibleActivities } from "@/content/visibleActivities";
@@ -8,6 +10,7 @@ import { visibleActivities } from "@/content/visibleActivities";
 // The chart lists what happens at each place, filtered by the visitor's
 // invite group, so this page is rendered per request like Activities is.
 export const dynamic = "force-dynamic";
+export const metadata: Metadata = { title: "Travel" };
 
 export default async function Travel() {
   const activities = await visibleActivities();
@@ -32,7 +35,7 @@ export default async function Travel() {
 
       <Section title="Getting there">
         <div className="card-grid">
-          {travel.gettingThere.map((item) => (
+          {[...travel.gettingThere, travel.crossing].map((item) => (
             <article className="card" key={item.title}>
               <p className="label">Plan ahead</p>
               <h3>{item.title}</h3>
@@ -62,6 +65,9 @@ export default async function Travel() {
             </li>
           ))}
         </ul>
+        <p className="explore-note">
+          <strong>{travel.beachParking.title}.</strong> {travel.beachParking.text}
+        </p>
       </Section>
 
       <Section title="Say it like a local">
@@ -85,6 +91,7 @@ export default async function Travel() {
 
       <Section title="What to pack">
         <PackingList items={travel.packing} />
+        <PrintButton>Print a copy for the glovebox</PrintButton>
       </Section>
     </>
   );

@@ -98,23 +98,21 @@ Nothing has to be switched on closer to the date, and nothing has to be taken do
 
 ## Invite links
 
-Optional group activities are scoped to guest groups. Send each group its own link:
-
-| Group | Link |
-| --- | --- |
-| College friends | `/i/college-7k4m` |
-| Family | `/i/family-3f2a` |
-| Wedding party | `/i/party-9q8v` |
-| Reset (for testing) | `/i/reset` |
+Optional group activities are scoped to guest groups. Each group has its own link,
+`https://<your-site>/i/<slug>`, with the slugs kept in `content/groups.ts`. `/i/reset` clears a
+device's invites (useful for testing).
 
 Opening a link once stores a cookie holding that invite slug and lands the guest on the home page,
 where they are welcomed by group and pointed to their weekend; from then on they see their group's
-events. Filtering happens **on the server**, so events a guest cannot see never reach their browser
+events. A guest sent two links (a sister who is also a bridesmaid) keeps both. The cookie is renewed
+on every visit by `proxy.ts`, so it lasts until the wedding even though browsers cap cookies at 400
+days. Filtering happens **on the server**, so events a guest cannot see never reach their browser
 in any form. `npm run test:gating` asserts exactly that, including that a forged cookie grants
 nothing.
 
 Treat a slug like a password: anyone who has it can see that group's events, and links can be
-forwarded. To revoke a group, change its slug in `content/groups.ts` and send out the new link.
+forwarded. **Keep this repository private.** Everything in `content/` — the slugs and the private
+events themselves — is readable by anyone who can read the repository, whatever the site does. To revoke a group, change its slug in `content/groups.ts` and send out the new link.
 This is convenience-grade privacy, not security.
 
 ## Deploying

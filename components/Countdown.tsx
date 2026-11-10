@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { fullMoonsBetween } from "@/lib/moon";
+import { hawaiiToday } from "@/lib/sun";
 
 const DAY_MS = 86_400_000;
 
@@ -10,6 +11,10 @@ type Unit = { value: number; label: string };
 /**
  * Days until the wedding, computed in the browser so the server's clock is
  * never baked into the page. Knows what to say on the day and afterwards.
+ *
+ * Counts Hawaiʻi calendar days, not 24-hour blocks to the ceremony, so it
+ * reads "1" all day before, "Today" all through the wedding day and
+ * "Married" from midnight after, wherever the guest happens to be.
  *
  * A small surprise for anyone who taps it: the count turns into weeks, then
  * into full moons over the Koʻolau, then back to days.
@@ -20,13 +25,16 @@ export function Countdown({ target }: { target: string }) {
   const [turn, setTurn] = useState(0);
 
   useEffect(() => {
+    const [ty, tm, td] = target.slice(0, 10).split("-").map(Number);
     const update = () => {
       const now = new Date();
-      setDays(Math.ceil((new Date(target).getTime() - now.getTime()) / DAY_MS));
+      const { year, month, day } = hawaiiToday(now);
+      setDays(Math.round((Date.UTC(ty, tm - 1, td) - Date.UTC(year, month - 1, day)) / DAY_MS));
       setMoons(fullMoonsBetween(now, new Date(target)));
     };
     update();
-    const id = setInterval(update, 3_600_000);
+    // Every minute, so the count turns over at Hawaiʻi midnight, not up to an hour later.
+    const id = setInterval(update, 60_000);
     return () => clearInterval(id);
   }, [target]);
 

@@ -42,6 +42,9 @@
 }
 html {
   scroll-behavior: smooth;
+  /* Anything scrolled into view — a focused control, a #link target — lands
+     below the sticky header rather than under it. */
+  scroll-padding-top: calc(var(--nav-h) + 12px);
   -webkit-text-size-adjust: 100%;
 }
 body {
@@ -86,6 +89,31 @@ h3 {
 }
 
 /* ---------- Navigation ------------------------------------ */
+
+/* First stop for keyboard users: straight past the header to the page. */
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  z-index: 60;
+  padding: 10px 18px;
+  background: var(--deep);
+  color: var(--cream);
+  text-decoration: none;
+  border-radius: 0 0 6px 6px;
+  transform: translateY(-110%);
+  transition: transform 0.2s;
+}
+.skip-link:focus {
+  transform: none;
+}
+#main:focus {
+  outline: none;
+}
+/* Shown only on paper, under the logo: see the print styles at the end. */
+.print-letterhead {
+  display: none;
+}
 
 .nav {
   position: sticky;
@@ -230,6 +258,7 @@ h3 {
 .hero h1,
 .hero .tagline,
 .hero-aloha,
+.hero-first,
 .hero-meta,
 .page-hero h1,
 .page-hero .lede,
@@ -260,6 +289,20 @@ h3 {
   margin-top: 32px;
   font-size: 0.78rem;
   letter-spacing: 0.12em;
+}
+/* For invited guests: their own first gathering, as a link to it. */
+.hero-first {
+  margin: 0 0 16px;
+  max-width: 36ch;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+.hero-first a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--lagoon);
+}
+.hero-first a:hover {
+  color: var(--lagoon);
 }
 .hero-weekend {
   text-decoration: none;
@@ -521,7 +564,7 @@ h3 {
   font-size: 0.7rem;
   font-style: italic;
   letter-spacing: 0.16em;
-  color: var(--lagoon);
+  color: var(--deep);
   margin-bottom: auto;
 }
 .link-card h3 {
@@ -531,7 +574,7 @@ h3 {
   margin-top: 12px;
   font-size: 0.74rem;
   letter-spacing: 0.1em;
-  color: var(--lagoon);
+  color: var(--deep);
 }
 
 /* ---------- Interior pages -------------------------------- */
@@ -577,6 +620,11 @@ h3 {
   line-height: 1.45;
   max-width: 46ch;
   margin: 18px 0 0;
+  text-wrap: balance;
+}
+/* Over the photograph the accent teal drops under AA; deep ink holds it. */
+.page-hero .kicker {
+  color: var(--deep);
 }
 
 .section {
@@ -612,12 +660,14 @@ h3 {
   text-transform: uppercase;
   color: var(--lagoon);
 }
+.card h2,
 .card h3 {
   font-size: 1.7rem;
   margin: 10px 0 12px;
 }
 .card p {
   margin: 0 0 10px;
+  text-wrap: pretty;
 }
 .card ul {
   margin: 0;
@@ -647,6 +697,12 @@ h3 {
   text-transform: uppercase;
   color: var(--lagoon);
 }
+@media (max-width: 400px) {
+  .activity-day-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 /* A small sun half-sunk into the horizon. */
 .activity-sun {
   margin: 0;
@@ -671,6 +727,40 @@ h3 {
   gap: 20px 38px;
   padding: 28px 0;
   border-top: 1px solid var(--rule);
+}
+/* A guest's own group event: a pressed plumeria and a sand wash. Text on
+   the wash: deep 10.5:1, muted 5.9:1, lagoon 5.6:1. */
+.activity-mine {
+  background: color-mix(in srgb, var(--sand) 55%, var(--cream));
+  margin-inline: -18px;
+  padding-inline: 18px;
+  border-radius: 3px;
+}
+.activity-for {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: var(--lagoon);
+}
+.plumeria-mark {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+/* Arriving from the home page's link to it: a brief glow that settles, and a
+   lagoon rule that stays. Under reduced motion only the rule remains. */
+.activity:target {
+  box-shadow: inset 3px 0 0 var(--lagoon);
+  animation: own-glow 2.6s ease-out;
+}
+@keyframes own-glow {
+  from {
+    background-color: color-mix(in srgb, var(--sand) 95%, var(--white));
+  }
 }
 .activity strong {
   font-weight: 600;
@@ -756,7 +846,7 @@ h3 {
   font-size: clamp(2.8rem, 5vw, 4.2rem);
   line-height: 1;
   color: var(--deep);
-  opacity: 0.2;
+  opacity: 0.6;
 }
 .story-track {
   position: relative;
@@ -780,6 +870,7 @@ h3 {
 }
 .story-body p {
   max-width: 58ch;
+  text-wrap: pretty;
 }
 .story-body .frame {
   margin-top: 28px;
@@ -840,6 +931,22 @@ h3 {
   color: var(--lagoon);
 }
 
+.explore-note {
+  margin: 22px 0 0;
+  max-width: 62ch;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.explore-note strong {
+  font-weight: 600;
+  color: var(--deep);
+}
+.print-button {
+  margin-top: 30px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 /* ---------- Travel: weather -------------------------------- */
 
 .weather-status {
@@ -853,7 +960,8 @@ h3 {
 }
 .weather-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr));
+  /* At most three across, so six tiles always fill whole rows. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(185px, 30%)), 1fr));
   gap: 14px;
   margin: 0;
 }
@@ -917,7 +1025,8 @@ h3 {
 
 .say-it {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  /* At most three across, so the six names always fill whole rows. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(230px, 30%)), 1fr));
   gap: 14px;
   margin: 0;
   padding: 0;
@@ -1092,7 +1201,14 @@ h3 {
 .split-list ul {
   margin: 0;
   padding-left: 20px;
-  line-height: 2;
+  list-style: disc;
+  line-height: 1.6;
+}
+.split-list li + li {
+  margin-top: 8px;
+}
+.split-list li::marker {
+  color: var(--lagoon);
 }
 
 /* ---------- Footer ---------------------------------------- */
@@ -1279,9 +1395,11 @@ footer {
   }
 }
 
-@media (max-width: 820px) {
+/* The header's real height is measured and written to --nav-h by
+   SiteShell; these are the values before that script runs, or without it. */
+@media (max-width: 860px) {
   :root {
-    --nav-h: 134px;
+    --nav-h: 100px;
   }
   .nav {
     flex-direction: column;
@@ -1293,6 +1411,17 @@ footer {
     gap: 8px 16px;
     font-size: 0.74rem;
   }
+}
+@media (max-width: 491px) {
+  :root {
+    --nav-h: 133px;
+  }
+  .nav nav {
+    max-width: 20rem;
+  }
+}
+
+@media (max-width: 820px) {
   .facts,
   .activity,
   .story-moment {
@@ -1316,7 +1445,6 @@ footer {
   }
   .story-marker-index {
     font-size: 1.6rem;
-    opacity: 0.35;
   }
   .story-track {
     border-left: 0;
@@ -1351,5 +1479,193 @@ footer {
   }
   .curtain {
     display: none;
+  }
+}
+
+/* ---------- On paper -------------------------------------- */
+
+/* Guests who print Travel or Activities for the trip get something like the
+   wedding stationery: the logo as letterhead, no navigation, photographs or
+   moving parts, nothing split across a page, and every answer unfolded. */
+@media print {
+  @page {
+    margin: 0.6in 0.65in;
+    @bottom-center {
+      content: "A hui hou · Alan & Michelle · page " counter(page);
+      font: italic 8pt Georgia, serif;
+      color: #46605f;
+    }
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  body {
+    background: var(--white);
+  }
+  /* Scroll-reveal sections that were never scrolled to would print blank. */
+  .reveal,
+  .reveal-armed {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .skip-link,
+  .nav nav,
+  .tide,
+  .hero-media,
+  .page-hero-media,
+  .welcome-media,
+  .hero-mark,
+  .link-grid,
+  .facts-actions,
+  .hero-weekend,
+  .coast-panel-photo,
+  .print-button,
+  .plumeria-layer,
+  .curtain,
+  .footer-row {
+    display: none !important;
+  }
+  .hero::after,
+  .page-hero::after,
+  .welcome::after {
+    display: none;
+  }
+
+  /* The header becomes a letterhead. */
+  .nav {
+    position: static;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 0 0 12px;
+    background: none;
+    backdrop-filter: none;
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav .mark {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 16pt;
+  }
+  .mark-logo {
+    height: 0.9in;
+  }
+  .print-letterhead {
+    display: block;
+    margin: 0;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11pt;
+    color: var(--muted);
+  }
+
+  .hero,
+  .page-hero {
+    min-height: 0;
+    padding: 22px 0 6px;
+  }
+  .hero h1,
+  .hero .tagline,
+  .hero-aloha,
+  .hero-first,
+  .hero-meta,
+  .page-hero h1,
+  .page-hero .lede,
+  .page-hero .kicker {
+    text-shadow: none;
+  }
+  .welcome {
+    padding: 18px 0;
+  }
+  .section,
+  .facts,
+  .story-spine {
+    padding-inline: 0;
+    padding-block: 16px;
+  }
+  .coast-chart-column,
+  .story-marker {
+    position: static;
+  }
+  /* Small enough to share the first sheet with the page title. (Doubled
+     class: CoastMap.css loads later and would otherwise win.) */
+  .coast .coast-canvas {
+    max-width: 5.4in;
+    margin-inline: 0;
+  }
+  /* As plain blocks the chart can share a sheet with what comes before it;
+     as a grid row it moves to the next page whole. */
+  .coast {
+    display: block;
+  }
+  .coast-panel {
+    margin-top: 18px;
+  }
+
+  .card,
+  .activity,
+  .activity-day-head,
+  .say-it li,
+  .weather-grid > div,
+  .faq details,
+  .explore-list li,
+  .packing li,
+  .story-moment,
+  .swatches,
+  footer {
+    break-inside: avoid;
+  }
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  /* Colour that carries meaning should survive "print backgrounds: off". */
+  .swatch,
+  .activity-mine,
+  .activity-sun::before,
+  .plumeria-mark {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Links print where they go. */
+  main a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: var(--muted);
+    word-break: break-all;
+  }
+
+  /* Every answer printed open: Chrome from CSS, other browsers via PrintReady. */
+  details::details-content {
+    content-visibility: visible;
+  }
+  .faq summary::after {
+    content: none;
+  }
+
+  /* A packing list for a pen. (The width cap is in ch, which is zero at
+     font-size 0, so it has to go too.) */
+  .packing-wrap .packing-count {
+    max-width: none;
+    font-size: 0;
+  }
+  .packing-wrap .packing-count::before {
+    content: "Tick as you pack";
+    font-size: 0.72rem;
+  }
+
+  footer {
+    padding: 18px 0 0;
+    background: none;
+    border-top: 0;
+  }
+  .footer-seal {
+    margin-bottom: 0;
+  }
+  .footer-logo {
+    height: 0.7in;
   }
 }

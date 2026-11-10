@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { PageHero, Section } from "@/components/Page";
 import { faqs } from "@/content/faq";
+
+export const metadata: Metadata = { title: "Q&A" };
 
 export default function Faq() {
   return (
