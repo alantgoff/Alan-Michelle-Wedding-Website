@@ -33,9 +33,9 @@ needs real information. Start with `content/site.ts` — the wedding date there 
 | `flying.ts` | The cities in the "How far you are coming" picker on Travel |
 | `weather.ts` | Typical early-October weather, shown until the real forecast arrives |
 | `faq.ts` | Questions and answers, in groups |
-| `story.ts` | Our Story timeline |
-| `dressCode.ts` | Dress code guidance and color swatches |
-| `registry.ts` | Registry links |
+| `story.ts` | Our Story timeline, with optional photo captions and margin notes in each of your voices |
+| `dressCode.ts` | Dress code guidance, the palette's sample cards, the flowers guests will meet |
+| `registry.ts` | One postcard per registry, each with a note, a link and a stamp word |
 | `photos.ts` | **Photo manifest — the only file that points at images** |
 
 ## Facts, and how they were checked
@@ -114,6 +114,12 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - Travel's "How far you are coming" draws a guest's crossing from their home city and says what
   their watch will do. The choice is remembered in their own browser only.
 - A guest in another time zone sees their own clock beside Kualoa's on the home page.
+- Our story is set like a small book: each moment opens with a drop cap, photographs are mounted
+  as plates, and if you add `notes` to a moment in `content/story.ts` they appear in the margin,
+  initialled, one voice each.
+- Dress code shows the palette as pinked cloth samples and has a plumeria that moves from ear to ear.
+- On The island, tap the kōlea and it takes a few steps.
+- Each registry is a postcard, postmarked Kualoa on the wedding day.
 
 ## The weather panel
 
