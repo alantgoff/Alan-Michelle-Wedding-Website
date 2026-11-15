@@ -133,7 +133,7 @@ export default async function Home({
             <dd>
               About {sunset}
               <br />
-              <span className="aside">It slips behind the Koʻolau a little before that.</span>
+              <span className="aside">It drops behind the ridge an hour or more before that.</span>
             </dd>
             <dt>Moonrise</dt>
             <dd>

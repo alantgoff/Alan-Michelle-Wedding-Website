@@ -33,19 +33,19 @@ function skylineAt(az: number): number {
 
 /** Where each name is written, as an offset from its star. */
 const LABELS: Record<string, { text: string; dx: number; dy: number; anchor?: "start" | "middle" | "end" }> = {
-  polaris: { text: "Polaris", dx: 9, dy: 5 },
+  polaris: { text: "Hōkūpaʻa", dx: 9, dy: 5 },
   vega: { text: "Vega", dx: 9, dy: -4 },
   deneb: { text: "Deneb", dx: -8, dy: -7, anchor: "end" },
   altair: { text: "Altair", dx: 9, dy: 9 },
   fomalhaut: { text: "Fomalhaut", dx: 9, dy: 5 },
   saturn: { text: "Saturn", dx: 13, dy: 5 },
-  alcyone: { text: "Pleiades", dx: 11, dy: -3 },
+  alcyone: { text: "Makaliʻi", dx: 11, dy: -3 },
 };
 /** Names for the drawn figures, placed by hand where the chart has room. */
 const FIGURES: { text: string; x: number; y: number; anchor?: "start" | "middle" | "end" }[] = [
   { text: "Cassiopeia", x: -94, y: -137 },
   { text: "Great Square", x: -84, y: 34, anchor: "middle" },
-  { text: "Scorpius", x: 126, y: 126, anchor: "end" },
+  { text: "The fishhook", x: 128, y: 126, anchor: "end" },
 ];
 
 const byId = new Map(skyChart.bodies.map((b) => [b.id, b]));

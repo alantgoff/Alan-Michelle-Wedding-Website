@@ -144,7 +144,7 @@ const PLACES: Place[] = [
     notes: [
       {
         title: "About this place",
-        text: "Palikū means “vertical cliff”, an old name for this side of the ridge. The voyaging canoe Hōkūleʻa, the “Star of Gladness”, first met the sea just below it in 1975. There is more on The island page.",
+        text: "Palikū means “vertical cliff”, an old name for this side of the ridge. The voyaging canoe Hōkūleʻa, the “Star of Gladness”, first met the sea on the shore nearby in 1975. There is more on The island page.",
       },
     ],
     photo: "hero",

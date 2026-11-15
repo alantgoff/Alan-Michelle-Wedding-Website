@@ -24,7 +24,7 @@ export async function WeatherPanel() {
   const stats = forecast
     ? [
         { label: "High", value: `${forecast.high}°F`, note: "On the lawn, in the afternoon sun." },
-        { label: "Low", value: `${forecast.low}°F`, note: "After dark, with the breeze off the bay." },
+        { label: "Low", value: `${forecast.low}°F`, note: "After dark, with the breeze off the water." },
         {
           label: "Rain",
           value: `${forecast.rainChance}%`,

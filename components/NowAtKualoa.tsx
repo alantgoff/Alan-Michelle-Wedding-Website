@@ -30,7 +30,7 @@ export function NowAtKualoa() {
         const m = minutesLeft % 60;
         light = `${h} hour${h === 1 ? "" : "s"}${m >= 15 ? ` and ${m} minutes` : ""} of daylight left.`;
       } else if (minutesLeft > 0) {
-        light = `Golden hour. The sun sets at ${hawaiiClock(sunset)}.`;
+        light = `The sun sets at ${hawaiiClock(sunset)}, and drops behind the ridge at Kualoa before that.`;
       } else {
         light = `The sun went down at ${hawaiiClock(sunset)}; the bay is under stars.`;
       }

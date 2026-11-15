@@ -13,7 +13,8 @@ export function PageHero({
   scene,
 }: {
   kicker: string;
-  title: string;
+  /** Usually a string; a page may pass its headline set in two lines. */
+  title: ReactNode;
   intro: string;
   photo: PhotoKey;
   /** Which stretch of the drawn coast closes the banner. */

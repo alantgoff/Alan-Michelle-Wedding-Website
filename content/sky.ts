@@ -23,11 +23,12 @@ export const sky = {
   moonPhrase: "nine-tenths full",
 
   /**
-   * When the sun drops behind the ridge and the lawn falls into shade. An
-   * estimate from a coarse terrain model, good to a quarter of an hour at
-   * best: worth checking on the lawn itself before the timeline is fixed.
+   * Roughly when the sun drops behind the ridge and the lawn falls into
+   * shade. An estimate from a terrain model: two independent runs put it an
+   * hour or more before sunset, and earlier the nearer the cliff you stand.
+   * Stand on the lawn one afternoon before the timeline is fixed.
    */
-  ridgeShade: "5:15 PM",
+  ridgeShade: "5:00 PM",
 
   /**
    * The tide in Kāneʻohe Bay on the day: NOAA’s predictions for Mokuoloʻe
@@ -68,18 +69,31 @@ export const sky = {
       "Tide times are NOAA’s predictions for Mokuoloʻe (Coconut Island) in Kāneʻohe Bay, in feet above the average of the day’s lowest tides. The curve between them is drawn by rule of thumb.",
     moonsTitle: "The moon, night by night",
     moonsText:
-      "The moon was full on the Tuesday before. Each night of the weekend it rises about three-quarters of an hour later and a little slimmer.",
+      "That year’s Harvest Moon is full over Kualoa on the Tuesday before we marry. Each night of the weekend it rises about three-quarters of an hour later and a little slimmer. In the Hawaiian moon calendar our night falls among the three Lāʻau nights; by one Oʻahu count it is the first of them, Lāʻau Kūkahi.",
     chartTitle: "Overhead at nine",
     chartText:
       "Hold this over your head with the ridge behind you and it matches the sky above the lawn at nine o’clock. East is on the left because you are looking up, not down. A bright moon and the lights of a party hide the faint stars; these are the ones that hold their own.",
     lookFor: [
       { name: "The moon", text: "Low over the sea to the east-northeast, nine-tenths full, up since 8:12." },
       { name: "Saturn", text: "Above the moon and to its right. It shines steadily where the stars around it twinkle." },
-      { name: "The Pleiades", text: "The little cluster just below the moon, rising with it. Beside so bright a moon it is a faint smudge; binoculars help." },
+      { name: "Makaliʻi, the Pleiades", text: "The little cluster below the moon and to its left, up from the sea at about half past eight. Beside so bright a moon you may need binoculars and a little patience." },
       { name: "The Summer Triangle", text: "Vega, Deneb and Altair, three bright stars high in the west, over the ridge." },
-      { name: "Scorpius", text: "Low in the southwest, the Scorpion’s curled tail is sinking toward the ridge. Its red heart, Antares, has already gone behind it." },
+      { name: "Ka Makau Nui o Māui", text: "The big fishhook of Māui, which is Scorpius. Low in the southwest, its curled point is sinking toward the mountains; its red heart, Antares, has already gone behind them." },
       { name: "Fomalhaut", text: "The one bright star in an otherwise empty stretch of the southern sky." },
-      { name: "Polaris", text: "Due north and low: about as many degrees above the horizon as Kualoa is north of the equator, twenty-one and a half." },
+      { name: "Hōkūpaʻa, the North Star", text: "The immovable star, to Hawaiian navigators. Due north and low: about as many degrees above the horizon as Kualoa is north of the equator, twenty-one and a half." },
+    ],
+    /** The Hawaiian star names are the ones taught by the Polynesian Voyaging Society. */
+    namesCredit:
+      "Hawaiian star names as taught by the Polynesian Voyaging Society, whose star lines are a modern arrangement by the navigator Nainoa Thompson.",
+    passages: [
+      {
+        title: "Makaliʻi",
+        text: "When Makaliʻi rises at sunset, in mid-November, the Makahiki season begins: a time of peace, games and harvest, kept for the god Lono. On our evening it rises a little after half past eight, out of the sea to the east-northeast. It will reach the sunset, and Makahiki, about six weeks later.",
+      },
+      {
+        title: "The star that is not on the chart",
+        text: "Hōkūleʻa, the clear or happy star, is Arcturus, which passes almost straight over Hawaiʻi. The voyaging canoe that carries its name first met the sea here at Kualoa in 1975; its designer chose the name after dreaming of that star growing so bright that it woke him. On our evening it slips behind the cliffs before the sky is dark enough to see it.",
+      },
     ],
   },
 };

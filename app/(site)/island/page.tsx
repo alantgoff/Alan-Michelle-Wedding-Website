@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Chapter, Contents, Passages, type ChapterRef } from "@/components/Guide";
 import { Almanac } from "@/components/ink/Almanac";
 import { MoonGlyph } from "@/components/ink/MoonGlyph";
+import { Kolea } from "@/components/Kolea";
 import { SkyDisc } from "@/components/ink/SkyDisc";
 import { PageHero } from "@/components/Page";
 import { island } from "@/content/island";
@@ -26,7 +27,7 @@ const chapter = (id: string) => CHAPTERS.find((c) => c.id === id)!;
 const DAY: { time: string; what: string; about?: boolean }[] = [
   ...sky.tides.map((t) => ({ time: t.time, what: `${t.kind === "high" ? "High" : "Low"} tide, ${t.feet.toFixed(1)} ft` })),
   { time: sky.sunrise, what: "Sunrise, out of the sea" },
-  { time: sky.ridgeShade, what: "The sun slips behind the ridge and the lawn is in shade", about: true },
+  { time: sky.ridgeShade, what: "The sun slips behind the ridge, by our estimate, and the lawn is in shade", about: true },
   { time: sky.sunset, what: "Sunset" },
   { time: sky.lastLight, what: "The last light goes" },
   { time: skyChart.events.saturnRise, what: "Saturn rises" },
@@ -98,7 +99,11 @@ export default function Island() {
                 </div>
               ))}
             </dl>
+            <p className="fine-print">{sky.chapter.namesCredit}</p>
           </div>
+        </div>
+        <div className="sky-passages">
+          <Passages items={sky.chapter.passages} />
         </div>
       </Chapter>
 
@@ -138,6 +143,8 @@ export default function Island() {
         </div>
         <Passages items={island.manners.passages} />
       </Chapter>
+
+      <Kolea title={island.kolea.title} text={island.kolea.text} />
 
       <Chapter chapter={chapter("say-it")}>
         <ul className="say-it">

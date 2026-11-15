@@ -26,7 +26,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: "What will the weather be like?",
-        a: "Warm and humid, with brief showers possible, and a breeze off the bay in the evening. The Travel page carries a weather panel that turns into the real forecast for the day in the last couple of weeks.",
+        a: "Warm and humid, with brief showers possible, and a breeze off the water in the evening. The Travel page carries a weather panel that turns into the real forecast for the day in the last couple of weeks.",
       },
     ],
   },

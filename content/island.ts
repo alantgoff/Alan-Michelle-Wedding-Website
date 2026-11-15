@@ -186,7 +186,7 @@ export const island = {
       },
       {
         title: "On the reef",
-        text: "The reef in Kāneʻohe Bay is alive, so we float above it: no standing on coral, no touching fish, no reaching into holes. Give a honu (sea turtle) at least ten feet and a monk seal at least fifty, in the water as on the sand. Bring a sun shirt and a non-nano mineral sunscreen. Since 2021 Hawaiʻi has not allowed the sale of sunscreens containing oxybenzone or octinoxate, and NOAA considers mineral sunscreen the better choice for the reef.",
+        text: "The reef in Kāneʻohe Bay is alive, so we float above it: no standing on coral, no touching fish, no reaching into holes. Give a honu (sea turtle) at least ten feet and a monk seal at least fifty, in the water as on the sand. Bring a sun shirt and a non-nano mineral sunscreen. Since 2021 Hawaiʻi has not allowed the sale of sunscreens containing oxybenzone or octinoxate, and NOAA considers mineral sunscreen the better choice for the reef. If spinner dolphins, naiʻa, appear while you are on the water, federal law keeps swimmers and boats alike at least fifty yards away, so enjoy them from a distance.",
       },
       {
         title: "Ten feet for the honu",
@@ -212,6 +212,16 @@ export const island = {
     { word: "Hōkūleʻa", say: "HOH-koo-LEH-ah", means: "“star of gladness” — the voyaging canoe, first launched at Kualoa in 1975" },
     { word: "Mahalo", say: "mah-HAH-loh", means: "thank you — the word you will use most" },
   ],
+  /**
+   * A bird guests will meet on the lawn. Keep this about the bird: "kōlea"
+   * is also an old, unkind word for a newcomer who takes and leaves, so it
+   * must never be turned into a comparison with the guests.
+   */
+  kolea: {
+    title: "Look down: the kōlea",
+    text: "On almost any lawn this side of the island you will see a small, speckled-gold bird standing very still. It is a kōlea, the Pacific golden plover. It flies about three thousand miles nonstop from Alaska, some three days on the wing, to spend the winter here, and it comes back to the same patch of grass year after year. The adults arrive in August, and the young make their first crossing in October.",
+  },
+
   /**
    * Everyday words, with the meanings the Hawaiʻi Tourism Authority and the
    * Hawaiian Dictionary give. No pronunciations here on purpose: ours would

@@ -16,7 +16,7 @@ export const weather = {
     { label: "Daytime high", value: "Mid 80s°F", note: "About 29°C. Humid, with real warmth in the sun." },
     { label: "Evening low", value: "Low 70s°F", note: "About 22°C. Pleasant once the sun is off the lawn." },
     { label: "Ocean", value: "About 80°F", note: "Warm enough to swim without thinking about it." },
-    { label: "Wind", value: "10–15 mph", note: "Trade winds out of the northeast, straight off the bay." },
+    { label: "Wind", value: "10–15 mph", note: "Trade winds out of the northeast, straight off the ocean." },
     { label: "Rain", value: "Brief showers", note: "The windward side catches them; they rarely last." },
   ],
 
@@ -35,6 +35,7 @@ export const weather = {
     "Most October rain on this coast falls at night. At the Kāneʻohe Bay weather station about three-fifths of it arrives between 8 PM and 8 AM, and only about one late-afternoon hour in twenty brings measurable rain. The ranch, tucked under the cliffs, gets a good deal more, but a shower there is usually a passing one.",
     "Humidity is the thing to dress for, more than heat. Linen and anything loose will serve you well.",
     "The trade wind blows from the east-northeast most days and is strongest in the early afternoon. After dark it eases, so a light layer is for comfort rather than cold.",
+    "Pluck a lehua blossom, a well-loved island story goes, and you part the lovers ʻŌhiʻa and Lehua, and their tears bring rain that same day. We will be leaving every lehua on its tree.",
   ],
 
   /** The wind here has a name of its own. */

@@ -2073,6 +2073,54 @@ h3 {
   color: var(--muted);
 }
 
+/* ---------- The island: the kōlea --------------------------- */
+
+/* A bird on a stroke of lawn, between two chapters, with a note beside it. */
+.kolea {
+  display: grid;
+  grid-template-columns: clamp(130px, 18vw, 230px) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 64px);
+  align-items: center;
+  max-width: 1400px;
+  padding: clamp(36px, 5vw, 64px) var(--gutter);
+  border-top: 1px solid var(--rule);
+}
+.kolea-bird {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.kolea-bird svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.kolea h3 {
+  margin: 0 0 8px;
+  font-size: clamp(1.45rem, 2.2vw, 1.75rem);
+}
+.kolea p {
+  max-width: 62ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+.sky-passages {
+  margin-top: clamp(34px, 5vw, 56px);
+}
+@media (max-width: 620px) {
+  .kolea {
+    grid-template-columns: 1fr;
+  }
+  .kolea-bird {
+    width: 170px;
+  }
+}
+
 /* ---------- The island: words on the menu ------------------ */
 
 .menu-words {
@@ -2248,34 +2296,86 @@ h3 {
 
 /* ---------- Dress code ------------------------------------ */
 
+/* The palette as a tailor's sample cards: pinked cloth on a small white card,
+   numbered like mill samples. Colour never carries meaning alone: each card
+   names its colour in words. */
 .swatches {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px 24px;
-  margin: 26px 0 32px;
+  gap: 22px 20px;
+  margin: 30px 0 36px;
   padding: 0;
   list-style: none;
 }
-.swatches li {
+.swatch-card {
   display: grid;
-  justify-items: center;
-  gap: 10px;
+  width: 158px;
+  padding: 10px 10px 14px;
+  background: var(--white);
+  box-shadow:
+    0 1px 2px rgb(18 60 62 / 0.12),
+    0 8px 20px -10px rgb(18 60 62 / 0.22);
+  transition: translate 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
 }
-.swatch {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 1px solid var(--rule);
-  transition: transform 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+.swatch-card:hover {
+  translate: 0 -5px;
 }
-.swatches li:hover .swatch {
-  transform: translateY(-5px) scale(1.06);
+/* A hairline of shadow that follows the cut edge, so pale cloth shows on white. */
+.swatch-edge {
+  display: block;
+  filter: drop-shadow(0 0 0.6px rgb(18 60 62 / 0.45));
+}
+.swatch-cloth {
+  --z: 7px;
+  display: block;
+  height: 118px;
+  /* A faint weave, and edges cut with pinking shears. */
+  background-image:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.09) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgb(0 0 0 / 0.05) 0 1px, transparent 1px 3px);
+  -webkit-mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--z)) 100%,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--z)) 100%;
+  -webkit-mask-composite: source-in;
+  mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--z)) 100%,
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--z)) 100%;
+  mask-composite: intersect;
+}
+.swatch-no {
+  margin-top: 10px;
+  font-size: 0.64rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
 }
 .swatch-name {
-  font-size: 0.72rem;
+  font-family: var(--display);
+  font-size: 1.4rem;
+  line-height: 1.15;
+}
+.swatch-fabric {
+  font-size: 0.8rem;
   font-style: italic;
-  letter-spacing: 0.1em;
+  line-height: 1.4;
   color: var(--muted);
+}
+/* The headline's second line, in italic: "or, aloha attire". */
+.title-tail {
+  display: block;
+  font-size: 0.62em;
+  line-height: 1.1;
+}
+@media (max-width: 620px) {
+  .swatches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 14px;
+  }
+  .swatch-card {
+    width: auto;
+  }
 }
 .split-list {
   display: grid;
@@ -2297,6 +2397,39 @@ h3 {
 }
 .split-list li::marker {
   color: var(--lagoon);
+}
+
+/* The page opens on a saying, under the bird it names. */
+.dress-epigraph {
+  display: grid;
+  grid-template-columns: clamp(90px, 14vw, 190px) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 60px);
+  align-items: center;
+}
+.dress-epigraph .saying {
+  margin-top: 0;
+}
+.epigraph-iwa {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+@media (max-width: 620px) {
+  .dress-epigraph {
+    grid-template-columns: 1fr;
+  }
+  .epigraph-iwa {
+    width: 110px;
+  }
+}
+.menu-words.plain {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.menu-words.plain dl > div {
+  grid-template-columns: 5.4em minmax(0, 1fr);
 }
 
 /* A flower to move from ear to ear, beside two short asides. */
@@ -2871,6 +3004,7 @@ footer {
   .say-it li,
   .weather-grid > div,
   .faq details,
+  .kolea,
   .crossing,
   .wind-name,
   .almanac-strip,
@@ -2894,8 +3028,127 @@ footer {
     break-inside: avoid;
   }
 
+  /* The guide pages are set tighter on paper, in two columns, so a glovebox
+     copy is a few sheets and not a pamphlet. The distance picker needs a
+     screen, so it stays behind. */
+  .flying {
+    display: none !important;
+  }
+  body {
+    font-size: 10pt;
+  }
+  .passages {
+    grid-template-columns: 1fr 1fr;
+    gap: 0 0.35in;
+  }
+  .dress-asides .passages {
+    grid-template-columns: 1fr;
+  }
+  .passage {
+    padding: 9px 0 11px;
+  }
+  .passage h3,
+  .stay h3,
+  .crossing h4 {
+    margin-bottom: 4px;
+    font-size: 13pt;
+  }
+  .passage p,
+  .chapter > p,
+  .section-intro,
+  .chapter-lede {
+    max-width: none;
+  }
+  .chapter-lede {
+    margin-bottom: 12px;
+    font-size: 12.5pt;
+  }
+  .chapter-head {
+    margin-bottom: 10px;
+  }
+  .chapter-head h2 {
+    font-size: 19pt;
+  }
+  .crossings-block,
+  .almanac,
+  .moons,
+  .sky-chart,
+  .menu-words,
+  .aloha-five,
+  .water-notes,
+  .stay-notes,
+  .wind-name {
+    margin-top: 12px;
+    margin-bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 0;
+  }
+  .crossings {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .crossing,
+  .stay {
+    padding: 10px 12px 12px;
+  }
+  .crossing-glyph {
+    width: 62%;
+    margin-bottom: 4px;
+  }
+  .stays {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .stay-number {
+    font-size: 20pt;
+  }
+  .weather-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+  }
+  .weather-grid > div {
+    padding: 8px 10px 10px;
+  }
+  .weather-figure {
+    font-size: 13pt;
+  }
+  .weather-lines {
+    max-width: none;
+    margin-top: 12px;
+  }
+  .sky-chart {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 0.3in;
+    align-items: start;
+  }
+  .almanac-list {
+    columns: 3;
+    column-gap: 0.3in;
+  }
+  .almanac-list li,
+  .look-for > div,
+  .menu-words dl > div,
+  .own-time > div {
+    padding: 5px 0;
+  }
+  .menu-words dl {
+    columns: 2;
+  }
+  .moon-row {
+    max-width: 5.6in;
+    margin-top: 10px;
+  }
+  .moon-row .moon-glyph {
+    width: 0.62in;
+  }
+  .packing {
+    columns: 2;
+    column-gap: 0.35in;
+  }
+
   /* Colour that carries meaning should survive "print backgrounds: off". */
-  .swatch,
+  .swatch-cloth,
   .activity-mine,
   .activity-sun::before,
   .plumeria-mark,
