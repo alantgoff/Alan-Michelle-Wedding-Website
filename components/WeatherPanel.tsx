@@ -77,6 +77,23 @@ export async function WeatherPanel() {
           <li key={note}>{note}</li>
         ))}
       </ul>
+
+      <figure className="wind-name">
+        <svg viewBox="0 0 120 44" aria-hidden="true" focusable="false">
+          <g filter="url(#ink)">
+            <path className="ink fine" d="M4 14 C28 6 44 20 66 12 C80 7 92 8 98 14 C104 20 96 26 90 21" />
+            <path className="ink fine" d="M10 28 C36 20 56 34 82 26 C96 22 110 24 116 30" />
+            <path className="ink hair" d="M22 40 C40 34 54 42 72 37" />
+          </g>
+        </svg>
+        <div>
+          <p className="wind-name-word" lang="haw">
+            {weather.wind.name}
+          </p>
+          <p>{weather.wind.text}</p>
+          <figcaption>{weather.wind.credit}</figcaption>
+        </div>
+      </figure>
     </div>
   );
 }

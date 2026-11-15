@@ -16,8 +16,80 @@ export type Stay = {
   text: string;
 };
 
+export type Crossing = { id: "h3" | "likelike" | "pali"; title: string; label: string; text: string };
+
 export const travel = {
- gettingThere:[{title:"Fly into Honolulu",text:"Daniel K. Inouye International Airport (HNL) is roughly 40–⁠60 minutes from Palikū Gardens, depending on traffic."},{title:"Plan on a car",text:"The windward coast has limited transit and rideshare availability. A rental car is the most flexible option. TODO: Add shuttle details if arranged."}],
+ /**
+  * Arriving. Also shown on the coast chart, under the airport.
+  * TODO: add shuttle details here if one is arranged.
+  */
+ gettingThere: [
+  {
+   title: "Land, then collect the car",
+   text: "You will fly into Honolulu (HNL). The airport’s ten rental companies share one building: a short walk from most of Terminal 2’s baggage claim, and a shuttle ride from everywhere else. From there to Kualoa is about twenty-one miles, around forty minutes on a clear road and longer at the wrong hour. A car is the easiest way to manage this side of the island.",
+  },
+  {
+   title: "Before you set out",
+   text: "GoAkamai.org, the state’s traffic site, shows live cameras all over Oʻahu, including the roads over the Koʻolau. It is worth a look before any drive across the island.",
+  },
+ ],
+
+ /** The three roads over the mountains. `id` picks the little drawing. */
+ crossingsIntro:
+  "The Koʻolau stand between the airport and us, and there are three ways over. All three end up on the same coast road.",
+ crossings: [
+  {
+   id: "h3",
+   title: "The H-3",
+   label: "The dramatic one",
+   text: "The newest way over the mountains, opened in 1997. It runs through the longest road tunnels in Hawaiʻi and comes out high above Haʻikū Valley, with Kāneʻohe Bay laid out in front of you.",
+  },
+  {
+   id: "likelike",
+   title: "The Likelike",
+   label: "The ranch’s own route",
+   text: "What Kualoa Ranch suggests from Waikīkī: up through the Wilson Tunnel, opened in 1960, down into Kāneʻohe, then north along Kahekili Highway.",
+  },
+  {
+   id: "pali",
+   title: "The Pali",
+   label: "The one with a view",
+   text: "Worth taking once, in daylight. Stop at the Nuʻuanu Pali lookout, twelve hundred feet up, where the wind is usually strong enough to lean on. It is open from six in the morning to six at night, and visitors pay a small fee to park.",
+  },
+ ] satisfies Crossing[],
+ /** A piece of local lore, set under the three crossings. */
+ crossingLore: {
+  title: "And leave the pork at home",
+  text: "Local lore says never to carry pork over the Pali, out of respect for an old quarrel between Pele and the pig demigod Kamapuaʻa. The storyteller Lopaka Kapanui says the tunnels are safe enough; it is the old road up by the lookout that minds.",
+ },
+
+ /** The road itself, the wedding afternoon, and the way home. */
+ road: [
+  {
+   title: "The last ten minutes",
+   text: "At the Hygienic Store in Kahaluʻu, Kahekili Highway becomes Kamehameha Highway and the coast opens up. About ten minutes on, the road rounds the point past Mokoliʻi and the ranch is on your left. Kualoa has long been held among the most sacred places on Oʻahu; when a chief was here, passing canoes lowered their masts. Slowing down here feels right. We will send the exact turn for the gardens, and where to park, closer to the day.",
+  },
+  {
+   title: "On the wedding afternoon",
+   text: "For the island, our wedding day is an ordinary Friday. Schools are in session, and the afternoon traffic over the mountains flows toward the windward side, the same way you will be going. Along this coast there is one road and little way around a slow stretch, so please leave more time than your map suggests. Once the ceremony time is set, we will tell you when to leave Waikīkī.",
+  },
+  {
+   title: "Getting home",
+   text: "The ranch asks that music end by ten. Please settle your way home before you come: a designated driver or a shared car is safest. Rideshare cars are few out here at night, and even one reserved ahead is not guaranteed to arrive. When we checked in 2026, the last town-bound bus on Route 60 passed Kualoa a little after eleven; it is a long ride to Ala Moana, with a transfer for Waikīkī.",
+  },
+  {
+   title: "Driving with aloha",
+   text: "Once you reach the coast road it is mostly one lane each way and rarely faster than thirty-five. Let people in, wave a car or two out of a side street, and thank anyone who does the same for you with a shaka: thumb and little finger out, three middle fingers curled. It has been Hawaiʻi’s official state gesture since 2024. Let a city bus merge and its rear sign may flash one back. Locals go easy on the horn.",
+  },
+  {
+   title: "Two rules worth knowing",
+   text: "In Hawaiʻi a driver may not hold a phone at all, even at a red light. Children under ten ride in a car seat or booster unless they are at least seven and taller than four feet nine, and babies under two ride rear-facing. If little ones are coming, please bring their seats or reserve them with the car.",
+  },
+  {
+   title: "Island time, quite literally",
+   text: "Hawaiʻi never changes its clocks. In early October the mainland is still on daylight time, so Kualoa runs three hours behind the West Coast and six behind the East. If you wake before dawn that first morning, take it as an invitation: on the windward side the sun comes up out of the sea at about 6:24.",
+  },
+ ],
 
  /** Where to stay, nearest first. Drive times are without traffic, from two routing services. */
  stayIntro:
@@ -71,16 +143,34 @@ export const travel = {
   },
  ],
 
- explore:["Swim at Lanikai or Kailua Beach","Drive the windward coast","Try local plate lunches and shave ice"],
+ /** A short list for the coast chart. The full guide is on The island page. */
+ explore: ["Swim at Kailua Beach", "Drive the windward coast", "Try a plate lunch and a shave ice"],
 
  /**
-  * Two practical notes that also appear on the coast chart. Kept here so the
-  * page can print them as plain text too: the chart needs JavaScript to open
-  * a place, and these are worth knowing whether or not it runs.
+  * Two practical notes that appear on the coast chart: the chart needs
+  * JavaScript to open a place, so both are also said in full on the pages.
   */
- crossing:{title:"Allow for the crossing",text:"The H-3, the Likelike and the Pali Highway are the only quick ways over the mountains. Traffic stacks up on weekday mornings and again at the end of the afternoon."},
- beachParking:{title:"Go early",text:"Parking around Lanikai is residential and fills by mid-morning. Kailua Beach Park has a proper lot and the same water."},
+ crossing: {
+  title: "Allow for the crossing",
+  text: "The H-3, the Likelike and the Pali Highway are the only quick ways over the mountains. On weekday afternoons the traffic flows toward the windward side, the same way you will be driving to us.",
+ },
+ beachParking: {
+  title: "Start at Kailua Beach",
+  text: "Kailua Beach has a parking lot and lifeguards every day from 8 AM to 6:30 PM. Lanikai, around the point, has no lifeguard and almost no parking, so park in Kailua and walk.",
+ },
+
+ /** The sea that week. Shown beside the weather. */
+ water: [
+  {
+   title: "The water in October",
+   text: "Early October is a change of seasons on the water. Waikīkī’s summer swells are winding down, the North Shore’s first winter swells can begin to arrive, and our windward side keeps its steady trade-wind chop. Kāneʻohe Bay, behind one of only two barrier reefs in the state, is Hawaiʻi’s largest sheltered body of water. The water is about 80°F, sometimes a little warmer.",
+  },
+  {
+   title: "A note from the moon",
+   text: "If you are staying in Waikīkī: its box jellyfish keep to a lunar timetable, usually arriving eight to twelve days after the full moon. That October the moon is full on the 3rd, so they are not expected until the week after the wedding. Lifeguard signs always have the last word.",
+  },
+ ],
 
  /** The packing list. Ticks are remembered on each guest’s own device. */
- packing:["Sunscreen without oxybenzone or octinoxate, which Hawaiʻi no longer sells","A light rain layer; showers pass in minutes","Shoes that like grass, for the ceremony lawn","Swimsuit, and a sarong or towel for the beach morning","A hat and sunglasses","Something light and warm for the breeze off the bay at night","Insect repellent for the lawn at dusk; mosquitoes are busiest around sunrise and sunset","Your outfit for the wedding, something that breathes","Your invite link, saved on your phone"]
+ packing:["Sunscreen without oxybenzone or octinoxate, which Hawaiʻi no longer sells; the state suggests mineral ones","A light rain layer; showers pass in minutes","Shoes that like grass, for the ceremony lawn","Swimsuit, and a sarong or towel for the beach morning","A hat and sunglasses","Something light and warm for the breeze off the bay at night","Insect repellent for the lawn at dusk; mosquitoes are busiest around sunrise and sunset","Your outfit for the wedding, something that breathes","Your invite link, saved on your phone"]
 };

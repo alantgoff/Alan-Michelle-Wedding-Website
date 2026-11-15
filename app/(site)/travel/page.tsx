@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { PageHero, Section } from "@/components/Page";
+import Link from "next/link";
 import { CoastMap } from "@/components/CoastMap";
+import { Chapter, Contents, Passages, type ChapterRef } from "@/components/Guide";
+import { CrossingGlyph } from "@/components/ink/CrossingGlyph";
 import { PackingList } from "@/components/PackingList";
+import { PageHero } from "@/components/Page";
 import { PrintButton } from "@/components/PrintButton";
 import { WeatherPanel } from "@/components/WeatherPanel";
 import { travel } from "@/content/travel";
@@ -11,6 +14,16 @@ import { visibleActivities } from "@/content/visibleActivities";
 // invite group, so this page is rendered per request like Activities is.
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Travel" };
+
+const NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+const CHAPTERS: ChapterRef[] = [
+  { id: "the-coast", title: "Where everything is" },
+  { id: "getting-there", title: "Getting there" },
+  { id: "stay", title: "Where to stay" },
+  { id: "weather", title: "Weather and water" },
+  { id: "pack", title: "What to pack" },
+].map((c, i) => ({ ...c, numeral: NUMERALS[i] }));
+const chapter = (id: string) => CHAPTERS.find((c) => c.id === id)!;
 
 export default async function Travel() {
   const activities = await visibleActivities();
@@ -24,29 +37,42 @@ export default async function Travel() {
         photo="travel"
         scene="travel"
       />
+      <Contents chapters={CHAPTERS} />
 
-      <Section title="Where everything is">
+      <Chapter chapter={chapter("the-coast")}>
         <p className="coast-intro">
           An illustration, not a navigational chart. The coastline is drawn by feel and the distances
           are invented, so please do not use it to find your way. Choose a point to read what happens
           there.
         </p>
         <CoastMap activities={activities} />
-      </Section>
+      </Chapter>
 
-      <Section title="Getting there">
-        <div className="card-grid">
-          {[...travel.gettingThere, travel.crossing].map((item) => (
-            <article className="card" key={item.title}>
-              <p className="label">Plan ahead</p>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </article>
-          ))}
+      <Chapter chapter={chapter("getting-there")}>
+        <Passages items={travel.gettingThere} />
+
+        <div className="crossings-block">
+          <h3>Choose your crossing</h3>
+          <p>{travel.crossingsIntro}</p>
+          <ol className="crossings">
+            {travel.crossings.map((c) => (
+              <li className="crossing" key={c.id}>
+                <CrossingGlyph id={c.id} />
+                <p className="label">{c.label}</p>
+                <h4>{c.title}</h4>
+                <p>{c.text}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="crossing-lore">
+            <strong>{travel.crossingLore.title}.</strong> {travel.crossingLore.text}
+          </p>
         </div>
-      </Section>
 
-      <Section title="Where to stay">
+        <Passages items={travel.road} />
+      </Chapter>
+
+      <Chapter chapter={chapter("stay")}>
         <p className="section-intro">{travel.stayIntro}</p>
         <div className="stays">
           {travel.stays.map((item) => (
@@ -68,30 +94,29 @@ export default async function Travel() {
             </article>
           ))}
         </div>
-      </Section>
+      </Chapter>
 
-      <Section title="While you are here">
-        <ul className="explore-list">
-          {travel.explore.map((item, i) => (
-            <li key={item}>
-              <span className="explore-num">{String(i + 1).padStart(2, "0")}</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <p className="explore-note">
-          <strong>{travel.beachParking.title}.</strong> {travel.beachParking.text}
-        </p>
-      </Section>
-
-      <Section title="Weather on the day">
+      <Chapter chapter={chapter("weather")}>
         <WeatherPanel />
-      </Section>
+        <div className="water-notes">
+          <Passages items={travel.water} />
+        </div>
+      </Chapter>
 
-      <Section title="What to pack">
+      <Chapter chapter={chapter("pack")}>
         <PackingList items={travel.packing} />
         <PrintButton>Print a copy for the glovebox</PrintButton>
-      </Section>
+      </Chapter>
+
+      <aside className="onward">
+        <p className="label">With a free day</p>
+        <p className="onward-text">
+          Where to eat, what to see and how to be a good guest are in a short guide of their own.
+        </p>
+        <Link className="button button-quiet" href="/island#eat">
+          Open The island
+        </Link>
+      </aside>
     </>
   );
 }

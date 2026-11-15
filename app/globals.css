@@ -524,13 +524,15 @@ h3 {
   margin: 0 0 28px;
   color: var(--muted);
 }
-.facts-place a {
+.facts-place a,
+.night-words p a {
   white-space: nowrap;
   color: var(--lagoon);
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 45%, transparent);
 }
-.facts-place a:hover {
+.facts-place a:hover,
+.night-words p a:hover {
   border-bottom-color: var(--lagoon);
 }
 .facts dl {
@@ -996,6 +998,235 @@ h3 {
   text-wrap: pretty;
 }
 
+/* ---------- The island: sun, moon and tide ----------------- */
+
+/* Three drawn things in one chapter, each under its own small heading. */
+.almanac,
+.moons,
+.sky-chart {
+  margin-top: clamp(40px, 6vw, 76px);
+  padding-top: clamp(26px, 3.4vw, 40px);
+  border-top: 1px solid var(--rule);
+}
+.chapter-lede + .almanac {
+  margin-top: 0;
+}
+.almanac h3,
+.moons h3,
+.sky-chart h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+.almanac > p,
+.moons > p,
+.sky-chart-text > p {
+  max-width: 62ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+.fine-print {
+  margin-top: 18px !important;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* The day as one line: the tide, with the sun and moon marked over it. */
+.almanac-strip {
+  margin: clamp(22px, 3vw, 36px) 0 6px;
+}
+.almanac-strip svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.almanac-strip .almanac-narrow {
+  display: none;
+}
+.almanac-night {
+  stop-color: var(--ink-line);
+  stop-opacity: 0.1;
+}
+.almanac-night.almanac-clear {
+  stop-opacity: 0;
+}
+.almanac-water {
+  fill: color-mix(in srgb, var(--sky) 26%, transparent);
+}
+.almanac-course {
+  stroke-dasharray: 1 7;
+}
+.almanac-drop {
+  stroke-dasharray: 2 5;
+  opacity: 0.6;
+}
+.almanac-sun {
+  fill: var(--sun);
+}
+.almanac-hours text {
+  font-family: var(--body);
+  font-size: 13px;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  fill: var(--muted);
+}
+/* In columns that read downward, so the day stays in order. */
+.almanac-list {
+  columns: 3 300px;
+  column-gap: clamp(28px, 5vw, 72px);
+  margin: clamp(18px, 2.4vw, 28px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.almanac-list li {
+  display: grid;
+  grid-template-columns: 8.2em minmax(0, 1fr);
+  gap: 14px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-top: 1px solid var(--rule);
+  break-inside: avoid;
+}
+.almanac-time {
+  font-family: var(--display);
+  font-size: 1.22rem;
+  color: var(--ink-line);
+  white-space: nowrap;
+}
+
+/* Four moons in a row, each a little slimmer than the last. */
+.moon-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(10px, 2.4vw, 34px);
+  max-width: 860px;
+  margin: clamp(24px, 3.4vw, 40px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.moon-row li {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: clamp(14px, 2vw, 22px) 6px clamp(14px, 2vw, 20px);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  text-align: center;
+}
+.moon-row .moon-glyph {
+  width: clamp(52px, 9vw, 92px);
+  height: auto;
+  margin-bottom: 10px;
+}
+.moon-row .moon-ours {
+  background: var(--paper);
+  border-color: color-mix(in srgb, var(--ink-line) 26%, transparent);
+}
+.moon-day {
+  font-family: var(--display);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.15;
+}
+.moon-rise {
+  font-size: 0.95rem;
+  color: var(--ink-line);
+}
+.moon-lit {
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* The sky chart, with what to look for set beside it. */
+.sky-chart {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(30px, 5vw, 80px);
+  align-items: center;
+}
+.sky-disc {
+  display: block;
+  width: 100%;
+  max-width: 620px;
+  height: auto;
+  justify-self: center;
+}
+.sky-paper {
+  fill: var(--paper);
+}
+.sky-land {
+  fill: var(--sand);
+}
+.sky-ring {
+  stroke-dasharray: 1 6;
+  opacity: 0.55;
+}
+.sky-figure {
+  opacity: 0.6;
+}
+.sky-hidden {
+  opacity: 0.75;
+}
+.sky-names text {
+  font-family: var(--display);
+  font-size: 17px;
+  font-style: italic;
+  fill: var(--ink-line);
+  paint-order: stroke;
+  stroke: var(--paper);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.sky-names .sky-figure-name {
+  font-size: 14px;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  fill: var(--lagoon);
+}
+.sky-compass text {
+  font-family: var(--body);
+  font-size: 12.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  fill: var(--lagoon);
+}
+.look-for {
+  margin: clamp(18px, 2.4vw, 28px) 0 0;
+}
+.look-for > div {
+  padding: 12px 0;
+  border-top: 1px solid var(--rule);
+}
+.look-for dt {
+  font-family: var(--display);
+  font-size: 1.28rem;
+  color: var(--ink-line);
+}
+.look-for dd {
+  margin: 2px 0 0;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+@media (max-width: 900px) {
+  .sky-chart {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 620px) {
+  .almanac-strip .almanac-wide {
+    display: none;
+  }
+  .almanac-strip .almanac-narrow {
+    display: block;
+  }
+  .moon-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* ---------- Activities, FAQ, timeline --------------------- */
 
 .activity-day {
@@ -1256,7 +1487,7 @@ h3 {
   transform-origin: 50% 100%;
 }
 
-/* ---------- Travel: chart intro and the explore list ------ */
+/* ---------- Travel: chart intro ---------------------------- */
 
 .coast-intro {
   max-width: 62ch;
@@ -1264,30 +1495,6 @@ h3 {
   font-size: 0.95rem;
   color: var(--muted);
 }
-.explore-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: 760px;
-}
-.explore-list li {
-  display: grid;
-  grid-template-columns: 52px minmax(0, 1fr);
-  gap: 18px;
-  align-items: baseline;
-  padding: 18px 0;
-  border-top: 1px solid var(--rule);
-}
-.explore-list li:last-child {
-  border-bottom: 1px solid var(--rule);
-}
-.explore-num {
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 1.35rem;
-  color: var(--lagoon);
-}
-
 /* An opening paragraph under a section heading. */
 .section-intro {
   max-width: 62ch;
@@ -1343,20 +1550,98 @@ h3 {
   margin-top: clamp(34px, 5vw, 56px);
 }
 
-.explore-note {
-  margin: 22px 0 0;
-  max-width: 62ch;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-.explore-note strong {
-  font-weight: 600;
-  color: var(--deep);
-}
 .print-button {
   margin-top: 30px;
   font-family: inherit;
   cursor: pointer;
+}
+
+/* ---------- Travel: the three crossings -------------------- */
+
+.crossings-block {
+  margin: clamp(30px, 4.4vw, 56px) 0;
+  padding: clamp(28px, 4vw, 48px) 0 clamp(8px, 1vw, 12px);
+  border-top: 1px solid var(--rule);
+}
+.crossings-block h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+.crossings-block > p {
+  max-width: 62ch;
+  margin: 0;
+}
+.crossings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+  gap: 14px;
+  margin: clamp(22px, 3vw, 34px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.crossing {
+  padding: 22px 26px 26px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+.crossing-glyph {
+  display: block;
+  width: min(100%, 250px);
+  height: auto;
+  margin: 0 0 14px -4px;
+}
+/* The stretch that runs inside the mountain. */
+.crossing-bore {
+  stroke-dasharray: 3 5;
+}
+.crossing .label,
+.onward .label {
+  margin: 0;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.crossing h4 {
+  margin: 8px 0 10px;
+  font-family: var(--display);
+  font-size: 1.7rem;
+  font-weight: 500;
+  line-height: 1.15;
+}
+.crossing p:last-child {
+  margin: 0;
+  text-wrap: pretty;
+}
+.crossing-lore {
+  max-width: 64ch !important;
+  margin: 22px 0 0 !important;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.crossing-lore strong {
+  font-weight: 600;
+  color: var(--deep);
+}
+.water-notes {
+  margin-top: clamp(34px, 5vw, 56px);
+}
+
+/* Sends a reader on to the next page of the guide. */
+.onward {
+  max-width: 1400px;
+  padding: clamp(40px, 6vw, 72px) var(--gutter) clamp(58px, 9vw, 110px);
+  border-top: 1px solid var(--rule);
+}
+.onward-text {
+  max-width: 30ch;
+  margin: 10px 0 22px;
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  line-height: 1.25;
+  text-wrap: balance;
 }
 
 /* ---------- Travel: weather -------------------------------- */
@@ -1431,6 +1716,76 @@ h3 {
   height: 8px;
   border-radius: 50%;
   background: var(--aqua);
+}
+
+/* The wind's own name, under the weather. */
+.wind-name {
+  display: grid;
+  grid-template-columns: clamp(64px, 9vw, 110px) minmax(0, 1fr);
+  gap: clamp(16px, 2.6vw, 34px);
+  align-items: start;
+  max-width: 760px;
+  margin: clamp(30px, 4vw, 46px) 0 0;
+  padding-top: clamp(22px, 3vw, 32px);
+  border-top: 1px solid var(--rule);
+}
+.wind-name svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 6px;
+}
+.wind-name p {
+  margin: 0;
+}
+.wind-name-word {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  line-height: 1.1;
+  color: var(--ink-line);
+}
+.wind-name figcaption {
+  margin-top: 8px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------- The island: words on the menu ------------------ */
+
+.menu-words {
+  margin-top: clamp(30px, 4.4vw, 56px);
+  padding-top: clamp(26px, 3.4vw, 40px);
+  border-top: 1px solid var(--rule);
+}
+.menu-words h3 {
+  margin: 0 0 clamp(16px, 2vw, 24px);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+.menu-words dl {
+  columns: 2 340px;
+  column-gap: clamp(32px, 6vw, 88px);
+  margin: 0;
+}
+.menu-words dl > div {
+  display: grid;
+  grid-template-columns: 7.4em minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-top: 1px solid var(--rule);
+  break-inside: avoid;
+}
+.menu-words dt {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  color: var(--ink-line);
+}
+.menu-words dd {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.55;
 }
 
 /* ---------- Travel: say it like a local, packing ---------- */
@@ -1891,10 +2246,6 @@ footer {
   .story-track::before {
     display: none;
   }
-  .explore-list li {
-    grid-template-columns: 40px minmax(0, 1fr);
-    gap: 12px;
-  }
   .facts dl {
     grid-template-columns: 96px minmax(0, 1fr);
   }
@@ -1962,6 +2313,7 @@ footer {
   .print-button,
   .plumeria-layer,
   .curtain,
+  .onward,
   .footer-row {
     display: none !important;
   }
@@ -2062,7 +2414,14 @@ footer {
   .say-it li,
   .weather-grid > div,
   .faq details,
-  .explore-list li,
+  .crossing,
+  .wind-name,
+  .almanac-strip,
+  .almanac-list li,
+  .moon-row,
+  .sky-disc,
+  .look-for > div,
+  .menu-words dl > div,
   .packing li,
   .story-moment,
   .swatches,

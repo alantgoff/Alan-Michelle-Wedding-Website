@@ -168,7 +168,9 @@ export default async function Home({
           <div className="night-words">
             <p className="kicker">The sky that night</p>
             <h2 id="night-title">{sky.heading}</h2>
-            <p>{sky.text}</p>
+            <p>
+              {sky.text} <Link href="/island#sky">The whole sky that night</Link>
+            </p>
             <figure className="saying">
               <blockquote lang="haw">{sky.saying}</blockquote>
               <figcaption>

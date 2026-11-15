@@ -13,6 +13,12 @@ export type Audience = "everyone" | GroupId;
  *   - Snorkel charter         (put on Saturday below; move it if you like)
  * Change the "date" values below to whatever you actually plan.
  *
+ * ONE RULE FOR THE SNORKEL CHARTER: state law bars every commercial boat
+ * from Kāneʻohe Bay on Sundays and on federal holidays. That weekend it
+ * rules out Sunday, October 8 and Monday, October 9 (Columbus Day), so the
+ * charter has to be Saturday, or a weekday before the wedding. Ask the
+ * operator for their Kāneʻohe Bay permit when you book.
+ *
  * The charter is open to everyone for now. If it turns out to be a smaller
  * group, change its "audience" to "family", "college" or "wedding-party" and
  * it will quietly disappear for everyone else — they are never told it exists.

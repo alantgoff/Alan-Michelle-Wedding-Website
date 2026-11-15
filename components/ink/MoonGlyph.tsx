@@ -8,8 +8,21 @@ import { useId } from "react";
  * `lit` is the fraction of the face that is lit (0–1). `tilt` turns the
  * shadowed edge: 0 puts it on the right, negative values lift it toward the
  * top, which is how a waning moon looks as it rises in the east from Hawaiʻi.
+ *
+ * Give `at` to set the moon inside another drawing: its centre and its width
+ * there, in that drawing's own units.
  */
-export function MoonGlyph({ lit, tilt = -40, className = "moon-glyph" }: { lit: number; tilt?: number; className?: string }) {
+export function MoonGlyph({
+  lit,
+  tilt = -40,
+  className = "moon-glyph",
+  at,
+}: {
+  lit: number;
+  tilt?: number;
+  className?: string;
+  at?: { x: number; y: number; size: number };
+}) {
   const id = useId();
   const r = 26;
   // The terminator is half an ellipse whose width follows the phase.
@@ -24,7 +37,13 @@ export function MoonGlyph({ lit, tilt = -40, className = "moon-glyph" }: { lit: 
   }).join(" ");
 
   return (
-    <svg className={className} viewBox="-32 -32 64 64" aria-hidden="true" focusable="false">
+    <svg
+      className={className}
+      viewBox="-32 -32 64 64"
+      aria-hidden="true"
+      focusable="false"
+      {...(at ? { x: at.x - at.size / 2, y: at.y - at.size / 2, width: at.size, height: at.size } : {})}
+    >
       <defs>
         <clipPath id={id}>
           <path d={shadow} />
