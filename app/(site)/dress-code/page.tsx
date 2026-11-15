@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FlowerEar } from "@/components/FlowerEar";
 import { PageHero, Section } from "@/components/Page";
 import { dressCode } from "@/content/dressCode";
 
@@ -40,6 +41,17 @@ export default function Dress() {
               ))}
             </ul>
           </article>
+        </div>
+      </Section>
+      <Section className="dress-asides">
+        <FlowerEar {...dressCode.flower} />
+        <div className="passages">
+          {dressCode.asides.map((aside) => (
+            <article className="passage" key={aside.title}>
+              <h3>{aside.title}</h3>
+              <p>{aside.text}</p>
+            </article>
+          ))}
         </div>
       </Section>
     </>

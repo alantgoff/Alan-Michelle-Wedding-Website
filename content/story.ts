@@ -35,3 +35,18 @@ export const story: StoryMoment[] = [
     photo: "story4",
   },
 ];
+
+/**
+ * The last words on the page. The three Hawaiian words are from the Hawaiian
+ * Dictionary: kāua and māua are both "we two", one including the person
+ * spoken to and one not; kākou is all of us.
+ */
+export const storyClosing = {
+  thanks: "Which brings us to a lawn at the foot of the Koʻolau, and to you. Thank you for coming this far with us.",
+  words: [
+    { word: "kāua", means: "the two of us: you and I" },
+    { word: "māua", means: "the two of us, but not you" },
+    { word: "kākou", means: "all of us" },
+  ],
+  line: "Hawaiian has more than one word for we. For one weekend in October, we would much rather say kākou.",
+};

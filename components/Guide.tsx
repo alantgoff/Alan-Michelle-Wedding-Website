@@ -12,7 +12,7 @@ export type ChapterRef = { id: string; numeral: string; title: string };
 /** "In this guide: I Kualoa · II Eating · …", each a link to its chapter. */
 export function Contents({ chapters, label = "In this guide" }: { chapters: ChapterRef[]; label?: string }) {
   return (
-    <nav className="contents" aria-label={label}>
+    <nav className="contents" id="contents" aria-label={label}>
       <p className="contents-label">{label}</p>
       <ol>
         {chapters.map((c) => (
@@ -51,6 +51,10 @@ export function Chapter({
         </header>
         {lede ? <p className="chapter-lede">{lede}</p> : null}
         {children}
+        {/* These pages are long, on a phone especially: a way back up. */}
+        <p className="chapter-back">
+          <a href="#contents">Back to the contents</a>
+        </p>
       </section>
     </Reveal>
   );

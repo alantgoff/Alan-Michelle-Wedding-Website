@@ -151,18 +151,50 @@ export const island = {
   manners: {
     lede:
       "Hawaiʻi is a home before it is a holiday, and people here are generous with visitors who notice that. None of this is difficult. It is mostly a matter of slowing down and leaving things as you found them.",
+    /**
+     * Aloha is written into state law (Hawaiʻi Revised Statutes §5-7.5, 1986),
+     * which spells it out in these five words. The statute prints them
+     * without marks; the spellings here follow the Hawaiian Dictionary.
+     */
+    aloha: {
+      title: "Aloha, by statute",
+      text: "Aloha is written into Hawaiʻi law. Since 1986 a state statute has spelled out the aloha spirit in five words.",
+      words: [
+        { word: "Akahai", means: "kindness" },
+        { word: "Lōkahi", means: "unity" },
+        { word: "ʻOluʻolu", means: "agreeable" },
+        { word: "Haʻahaʻa", means: "humility" },
+        { word: "Ahonui", means: "patience" },
+      ],
+    },
     passages: [
       {
+        title: "At the door and on the sand",
+        text: "Slip off your shoes at the door of anyone’s home. Leave the sand, rocks and coral where they lie; taking them from the shore is against state law. (The same law lets you keep an empty shell, a piece of sea glass or driftwood, though not in marine reserves or where a sign says otherwise.) Leave Pidgin to the people who grew up speaking it; borrowed, it can come across as mockery. And mālama ʻāina: care for the land as the people who love it do.",
+      },
+      {
         title: "Kapu means keep out",
-        text: "A sign that reads kapu means forbidden, sacred, keep out, and we ask you to honor it. Stay on marked trails. And please leave the Haʻikū Stairs to the photographs: they have been closed since 1987, climbing them is illegal, and the city began dismantling them in 2024.",
+        text: "A sign that reads kapu means forbidden, keep out; the word also means sacred, and we ask you to honor it. Stay on marked trails. And please leave the Haʻikū Stairs to the photographs: they have been closed since 1987, climbing them is illegal, and the city began dismantling them in 2024.",
+      },
+      {
+        title: "If you are given a lei",
+        text: "A lei is aloha you can wear, and in Hawaiian the word also means a beloved person: a sweetheart, a husband, a wife, a child carried on the shoulders. If you are given one, receive it with thanks and keep it on while the giver is near. Wear it draped over your shoulders, falling in front and behind. A closed lei is considered a bad omen for a mother-to-be, so hers is made open-ended. When it fades, please don’t throw it away. Take the flowers off the string and return them to the land, buried in a garden or hung in a tree.",
+      },
+      {
+        title: "Taking a lei home",
+        text: "Flying home with yours? Show it at the agriculture inspection at the airport. Most lei may travel, but not those with jade vine, maunaloa flowers, citrus or mock orange leaves, berries or hala fruit.",
+      },
+      {
+        title: "On the reef",
+        text: "The reef in Kāneʻohe Bay is alive, so we float above it: no standing on coral, no touching fish, no reaching into holes. Give a honu (sea turtle) at least ten feet and a monk seal at least fifty, in the water as on the sand. Bring a sun shirt and a non-nano mineral sunscreen. Since 2021 Hawaiʻi has not allowed the sale of sunscreens containing oxybenzone or octinoxate, and NOAA considers mineral sunscreen the better choice for the reef.",
       },
       {
         title: "Ten feet for the honu",
         text: "Green sea turtles haul out to bask on the sand at Laniākea, on the North Shore, some days a few and some days none. Please give them at least ten feet, on the beach and in the water, and never touch, chase or feed one: they are protected by state and federal law. Volunteers from Mālama i nā Honu are on the beach most days and love to talk turtles. Hawaiian monk seals need more room: fifty feet, and 150 for a mother and pup. You have to cross Kamehameha Highway between the parking and the beach, so take care.",
       },
       {
-        title: "What goes in the water",
-        text: "Hawaiʻi has banned the sale of sunscreens with oxybenzone or octinoxate since 2021, and the state suggests mineral ones, made with zinc oxide or titanium dioxide. Nothing may be taken from a marine reserve, and the fish do not need feeding.",
+        title: "The shaka’s best-known story",
+        text: "It starts up this coast, in Lāʻie. Hamana Kalili, the story goes, lost fingers in a sugar-mill accident and waved with his thumb and little finger. A statue of him has stood at Lāʻie’s Hukilau Marketplace since 2015.",
       },
     ] satisfies Passage[],
   },
@@ -180,6 +212,32 @@ export const island = {
     { word: "Hōkūleʻa", say: "HOH-koo-LEH-ah", means: "“star of gladness” — the voyaging canoe, first launched at Kualoa in 1975" },
     { word: "Mahalo", say: "mah-HAH-loh", means: "thank you — the word you will use most" },
   ],
+  /**
+   * Everyday words, with the meanings the Hawaiʻi Tourism Authority and the
+   * Hawaiian Dictionary give. No pronunciations here on purpose: ours would
+   * be guesses, and these deserve a Hawaiian speaker's ear before printing.
+   */
+  wordsTitle: "Words you will hear",
+  words: [
+    { word: "E komo mai", means: "come in; welcome" },
+    { word: "ʻOhana", means: "family, and the wider circle of kin" },
+    { word: "Keiki", means: "child" },
+    { word: "Mauka, makai", means: "toward the mountains, toward the sea: how directions are given here" },
+    { word: "Kamaʻāina", means: "a local; literally, child of the land" },
+    { word: "Malihini", means: "a visitor, a newcomer, a guest" },
+    { word: "Pūpū", means: "appetizers; also the word for shells" },
+    { word: "Pau", means: "finished, all done" },
+    { word: "Hana hou", means: "do it again; encore" },
+    { word: "Hoʻomaikaʻi", means: "congratulations" },
+    { word: "A hui hou", means: "until we meet again" },
+  ],
+  wordsNote:
+    "Hawaiian has a verb, hoʻomalihini, that can mean to reveal that guests are on their way, as an omen does. The dictionary’s example is a chicken that lets the household know company is coming. Consider this website ours.",
+
+  /** Why the site spells Hawaiian words with their marks. */
+  whyMarks:
+    "Hawaiian is one of the two official languages of the State of Hawaiʻi, and its marks are part of the spelling. Drop them and the words change: pau is finished, paʻu is soot, and pāʻū is a skirt. In the early 1980s fewer than fifty children were growing up fluent in Hawaiian. Today it is taught from preschool to doctorate, so we spell every word with care.",
+
   /** The ʻokina and the kahakō, explained once. */
   sayItNote:
     "The ʻ in Oʻahu is the ʻokina, a real consonant: a quick catch in the throat, like the middle of “uh-oh”. The bar in Kāneʻohe is a kahakō and simply stretches the vowel. Every vowel is said; nothing is silent.",

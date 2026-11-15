@@ -979,6 +979,23 @@ h3 {
 .chapter > p {
   max-width: var(--measure);
 }
+.chapter > .chapter-back {
+  margin: clamp(30px, 4vw, 48px) 0 0;
+  font-size: 0.86rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+.chapter-back a {
+  color: var(--lagoon);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 45%, transparent);
+}
+.chapter-back a::before {
+  content: "↑ ";
+}
+.chapter-back a:hover {
+  border-bottom-color: var(--lagoon);
+}
 .passages {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
@@ -1335,6 +1352,37 @@ h3 {
   margin: 0;
 }
 
+/* Under the schedule: what each day allows, set like the day list above it. */
+.own-time {
+  max-width: 920px;
+  margin: 0;
+}
+.own-time > div {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.24fr) minmax(0, 1fr);
+  gap: 6px clamp(18px, 3vw, 44px);
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+}
+.own-time dt {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  line-height: 1.25;
+  color: var(--ink-line);
+}
+.own-time dd {
+  margin: 0;
+  text-wrap: pretty;
+}
+.own-time-more {
+  margin: 26px 0 0;
+}
+@media (max-width: 620px) {
+  .own-time > div {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Questions in groups: the group's name on the left, its questions beside
    it, the way an index is set. On phones the name sits above. */
 .faq {
@@ -1477,6 +1525,61 @@ h3 {
   font-style: italic;
   font-size: clamp(1.45rem, 2.6vw, 2rem);
   line-height: 1.3;
+}
+/* Three words for "we", arriving one after another. */
+.story-we {
+  max-width: 560px;
+  margin-top: clamp(30px, 4vw, 46px);
+  padding-top: clamp(22px, 3vw, 30px);
+  border-top: 1px solid var(--rule);
+}
+.story-we ol {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+.story-we li {
+  display: grid;
+  grid-template-columns: 5.2em minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+}
+.story-we-word {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.1;
+  color: var(--ink-line);
+}
+.story-we-means {
+  color: var(--muted);
+}
+.story-we li:last-child .story-we-means {
+  color: var(--deep);
+}
+.story-we p {
+  margin: 0;
+  max-width: 44ch;
+}
+.reveal-armed .story-we li,
+.reveal-armed .story-we p {
+  opacity: 0;
+  transition: opacity 0.9s ease-out;
+}
+.reveal-armed.shown .story-we li,
+.reveal-armed.shown .story-we p {
+  opacity: 1;
+}
+.reveal-armed.shown .story-we li:nth-child(2) {
+  transition-delay: 0.6s;
+}
+.reveal-armed.shown .story-we li:nth-child(3) {
+  transition-delay: 1.2s;
+}
+.reveal-armed.shown .story-we p {
+  transition-delay: 1.9s;
 }
 .story-sign {
   display: block;
@@ -1927,6 +2030,49 @@ h3 {
   color: var(--muted);
 }
 
+/* ---------- The island: aloha in five words ---------------- */
+
+.aloha-five {
+  margin-bottom: clamp(30px, 4.4vw, 56px);
+}
+.aloha-five h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+.aloha-five > p {
+  max-width: 62ch;
+  margin: 0;
+}
+.aloha-five ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 14px clamp(14px, 2.4vw, 34px);
+  max-width: 1040px;
+  margin: clamp(20px, 3vw, 32px) 0 0;
+  padding: clamp(20px, 3vw, 30px) 0;
+  border-top: 1px solid var(--ink-line);
+  border-bottom: 1px solid var(--ink-line);
+  list-style: none;
+}
+.aloha-five li {
+  display: grid;
+  gap: 2px;
+}
+.aloha-word {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  line-height: 1.1;
+  color: var(--ink-line);
+}
+.aloha-means {
+  font-size: 0.78rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 /* ---------- The island: words on the menu ------------------ */
 
 .menu-words {
@@ -2151,6 +2297,71 @@ h3 {
 }
 .split-list li::marker {
   color: var(--lagoon);
+}
+
+/* A flower to move from ear to ear, beside two short asides. */
+.dress-asides {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.34fr) minmax(0, 1fr);
+  gap: clamp(26px, 5vw, 80px);
+  align-items: start;
+}
+.dress-asides .passages {
+  grid-template-columns: 1fr;
+}
+.flower-ear {
+  margin: 0;
+}
+.flower-ear button {
+  display: block;
+  width: min(100%, 250px);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.flower-ear svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.flower-ear-petal {
+  fill: var(--paper);
+  stroke: var(--ink-line);
+  stroke-width: 2.6;
+  stroke-linejoin: round;
+}
+/* The flower crosses from one ear to the other. */
+.flower-ear-bloom {
+  transform: translate(57px, 62px) rotate(-14deg);
+  transition: transform 0.55s cubic-bezier(0.3, 1.3, 0.5, 1);
+}
+.flower-ear-bloom.flower-ear-right {
+  transform: translate(143px, 62px) rotate(14deg);
+}
+.flower-ear figcaption {
+  display: grid;
+  gap: 6px;
+  max-width: 30ch;
+  margin-top: 14px;
+}
+.flower-ear-says {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  color: var(--ink-line);
+}
+.flower-ear-hint {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+@media (max-width: 720px) {
+  .dress-asides {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ---------- Footer ---------------------------------------- */
@@ -2532,7 +2743,9 @@ footer {
   }
   /* Scroll-reveal sections that were never scrolled to would print blank. */
   .reveal,
-  .reveal-armed {
+  .reveal-armed,
+  .reveal-armed .story-we li,
+  .reveal-armed .story-we p {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -2553,6 +2766,11 @@ footer {
   .plumeria-layer,
   .curtain,
   .onward,
+  .chapter-back,
+  .own-time-more,
+  .flower-ear-hint,
+  .flying-pick,
+  .flying-prompt,
   .footer-row {
     display: none !important;
   }

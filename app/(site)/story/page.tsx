@@ -3,7 +3,7 @@ import { Logo } from "@/components/Logo";
 import { PageHero } from "@/components/Page";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { Reveal } from "@/components/Reveal";
-import { story } from "@/content/story";
+import { story, storyClosing } from "@/content/story";
 
 export const metadata: Metadata = { title: "Our story" };
 
@@ -54,10 +54,22 @@ export default function Story() {
             </div>
           </div>
           <div className="story-track">
-            <p className="story-close">
-              Which brings us to a lawn at the foot of the Koʻolau, and to you. Thank you for coming
-              this far with us.
-            </p>
+            <p className="story-close">{storyClosing.thanks}</p>
+            <Reveal>
+              <div className="story-we">
+                <ol>
+                  {storyClosing.words.map((w) => (
+                    <li key={w.word}>
+                      <span className="story-we-word" lang="haw">
+                        {w.word}
+                      </span>
+                      <span className="story-we-means">{w.means}</span>
+                    </li>
+                  ))}
+                </ol>
+                <p>{storyClosing.line}</p>
+              </div>
+            </Reveal>
             <Logo className="story-sign" sizes="130px" />
           </div>
         </section>

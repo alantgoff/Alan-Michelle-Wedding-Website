@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHero, Section } from "@/components/Page";
 import { Plumeria } from "@/components/Plumeria";
 import { PrintButton } from "@/components/PrintButton";
+import { ownTime } from "@/content/activities";
+import { sky } from "@/content/sky";
 import { heldGroups, visibleActivities } from "@/content/visibleActivities";
 import { anchorFor, minutesOf, offsetFromWedding, weekendDay } from "@/lib/weekend";
 
@@ -31,6 +34,10 @@ export default async function Activities() {
       ? INTRO
       : `${INTRO} ${own === 1 ? "The one marked with a plumeria is" : "The ones marked with a plumeria are"} just for you.`;
 
+  // The moon's times are looked up for the wedding weekend's own dates, so
+  // they show only while the schedule still falls on those dates.
+  const moonrise = (iso: string) => sky.moons.find((m) => m.date === iso)?.moonrise;
+
   return (
     <>
       <PageHero kicker="Wedding weekend" title="Activities" intro={intro} photo="activities" scene="activities" />
@@ -41,7 +48,12 @@ export default async function Activities() {
             <div className="activity-day" key={day}>
               <div className="activity-day-head">
                 <h2>{when ? when.label : day}</h2>
-                {when ? <p className="activity-sun">Sunset {when.sunset}</p> : null}
+                {when ? (
+                  <p className="activity-sun">
+                    Sunset {when.sunset}
+                    {moonrise(when.iso) ? ` · Moonrise ${moonrise(when.iso)}` : ""}
+                  </p>
+                ) : null}
               </div>
               {visible
                 .filter((a) => a.date === day)
@@ -76,6 +88,23 @@ export default async function Activities() {
           );
         })}
         <PrintButton>Print the weekend</PrintButton>
+      </Section>
+
+      <Section title={ownTime.title}>
+        <p className="section-intro">{ownTime.intro}</p>
+        <dl className="own-time">
+          {ownTime.tips.map((tip) => (
+            <div key={tip.text}>
+              <dt>{tip.when}</dt>
+              <dd>{tip.text}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="own-time-more">
+          <Link className="button button-quiet" href="/island#explore">
+            {ownTime.link}
+          </Link>
+        </p>
       </Section>
     </>
   );

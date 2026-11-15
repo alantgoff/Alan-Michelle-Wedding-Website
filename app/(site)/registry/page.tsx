@@ -18,7 +18,7 @@ export default function Registry() {
         <div className="card-grid">
           {registries.map((registry) => (
             <div className="card" key={registry.name}>
-              <p className="label">Registry</p>
+              <p className="label">{registry.label}</p>
               <h2>{registry.name}</h2>
               <p>{registry.text}</p>
               {registry.url && registry.url !== "#" ? (

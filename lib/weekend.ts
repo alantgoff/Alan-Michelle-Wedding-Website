@@ -26,8 +26,8 @@ export function offsetFromWedding(dayName: string): number | null {
   return forward > 3 ? forward - 7 : forward;
 }
 
-/** "Friday, October 6" and "6:14 PM" for a day name, or null if it is not one. */
-export function weekendDay(dayName: string): { label: string; sunset: string } | null {
+/** "Friday, October 6", "6:14 PM" and "2028-10-06" for a day name, or null if it is not one. */
+export function weekendDay(dayName: string): { label: string; sunset: string; iso: string } | null {
   const offset = offsetFromWedding(dayName);
   if (offset === null) return null;
   const { year, month, day } = weddingParts();
@@ -43,7 +43,7 @@ export function weekendDay(dayName: string): { label: string; sunset: string } |
     site.coordinates.lat,
     site.coordinates.lng,
   );
-  return { label, sunset: hawaiiClock(sunset) };
+  return { label, sunset: hawaiiClock(sunset), iso: date.toISOString().slice(0, 10) };
 }
 
 /** Minutes past midnight for "5:30 PM"; unparseable times ("TODO") sort last. */

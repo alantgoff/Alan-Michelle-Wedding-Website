@@ -122,6 +122,20 @@ export default function Island() {
       </Chapter>
 
       <Chapter chapter={chapter("manners")} lede={island.manners.lede}>
+        <div className="aloha-five">
+          <h3>{island.manners.aloha.title}</h3>
+          <p>{island.manners.aloha.text}</p>
+          <ol>
+            {island.manners.aloha.words.map((w) => (
+              <li key={w.word}>
+                <span className="aloha-word" lang="haw">
+                  {w.word}
+                </span>
+                <span className="aloha-means">{w.means}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
         <Passages items={island.manners.passages} />
       </Chapter>
 
@@ -138,6 +152,20 @@ export default function Island() {
           ))}
         </ul>
         <p className="say-note">{island.sayItNote}</p>
+        <p className="say-note">{island.whyMarks}</p>
+
+        <div className="menu-words">
+          <h3>{island.wordsTitle}</h3>
+          <dl>
+            {island.words.map((entry) => (
+              <div key={entry.word}>
+                <dt lang="haw">{entry.word}</dt>
+                <dd>{entry.means}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="fine-print">{island.wordsNote}</p>
+        </div>
       </Chapter>
     </>
   );

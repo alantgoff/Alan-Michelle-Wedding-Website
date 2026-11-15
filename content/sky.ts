@@ -8,7 +8,7 @@
  */
 
 export type Tide = { time: string; kind: "high" | "low"; feet: number };
-export type MoonNight = { day: string; sunset: string; moonrise: string; lit: number; ours?: boolean };
+export type MoonNight = { date: string; day: string; sunset: string; moonrise: string; lit: number; ours?: boolean };
 
 export const sky = {
   /** Start of civil twilight: when the sky first lightens. */
@@ -42,10 +42,10 @@ export const sky = {
 
   /** The moon over the weekend: it rises later and a little slimmer each night. */
   moons: [
-    { day: "Thursday", sunset: "6:15 PM", moonrise: "7:29 PM", lit: 0.94 },
-    { day: "Friday", sunset: "6:14 PM", moonrise: "8:12 PM", lit: 0.88, ours: true },
-    { day: "Saturday", sunset: "6:13 PM", moonrise: "8:59 PM", lit: 0.81 },
-    { day: "Sunday", sunset: "6:12 PM", moonrise: "9:52 PM", lit: 0.72 },
+    { date: "2028-10-05", day: "Thursday", sunset: "6:15 PM", moonrise: "7:29 PM", lit: 0.94 },
+    { date: "2028-10-06", day: "Friday", sunset: "6:14 PM", moonrise: "8:12 PM", lit: 0.88, ours: true },
+    { date: "2028-10-07", day: "Saturday", sunset: "6:13 PM", moonrise: "8:59 PM", lit: 0.81 },
+    { date: "2028-10-08", day: "Sunday", sunset: "6:12 PM", moonrise: "9:52 PM", lit: 0.72 },
   ] satisfies MoonNight[],
 
   heading: "A moon for the dancing",
