@@ -30,7 +30,7 @@ export const travel = {
   },
   {
    title: "The agriculture form, now on your phone",
-   text: "Hawaiʻi asks everyone flying in from the mainland to declare any fresh fruit, vegetables, plants, seeds or animals they carry. The form is digital now, called Akamai Arrival, on every domestic flight. Fill it in up to five days before you fly, or on the plane if you have Wi-Fi, and send it even if you have nothing to declare. One adult can file for a household that shares an address and a place to stay. Hawaiʻi has guarded its plants for a long time: in 1888 King Kalākaua barred new coffee plants from the islands to protect the crop already here, and the declaration, created in 1973, comes from that same care.",
+   text: "Hawaiʻi asks everyone flying in from the mainland to declare any fresh fruit, vegetables, plants, seeds or animals they carry. The form is digital now, called Akamai Arrival, on every domestic flight. Fill it out up to five days before you fly, or on the plane if you have Wi-Fi, and send it even if you have nothing to declare. One adult can file for a household that shares an address and a place to stay. Hawaiʻi has guarded its plants for a long time: in 1888 King Kalākaua barred new coffee plants from the islands to protect the crop already here, and the declaration, created in 1973, comes from that same care.",
   },
  ],
 
@@ -89,7 +89,7 @@ export const travel = {
    text: "For the island, our wedding day is an ordinary Friday. Schools are in session, and the afternoon traffic over the mountains flows toward the windward side, the same way you will be going. Along this coast there is one road and little way around a slow stretch, so please leave more time than your map suggests. Once the ceremony time is set, we will tell you when to leave Waikīkī.",
   },
   {
-   title: "Getting home",
+   title: "Getting home from the reception",
    text: "The ranch asks that music end by ten. Please settle your way home before you come: a designated driver or a shared car is safest. Rideshare cars are few out here at night, and even one reserved ahead is not guaranteed to arrive. When we checked in 2026, the last town-bound bus on Route 60 passed Kualoa a little after eleven; it is a long ride to Ala Moana, with a transfer for Waikīkī.",
   },
   {
@@ -105,14 +105,14 @@ export const travel = {
    text: "Hawaiʻi never changes its clocks. In early October the mainland is still on daylight time, so Kualoa runs three hours behind the West Coast and six behind the East. Flying west is the gentle direction: your body catches up by about an hour and a half a day. Spend your first afternoon outside in real daylight, keep naps short, drink plenty of water, and stay up until a local bedtime. If you wake before dawn anyway, take it as an invitation: on the windward side the sun comes up out of the sea at about 6:24.",
   },
   {
-   title: "Going home",
+   title: "Flying home",
    text: "On the way back, your bags go through a USDA agricultural check before you reach the airline counter, so leave yourself a little extra time at the airport. Fresh flower lei are welcome as long as they hold no berries or hala (pandanus) fruit, no jade vine or maunaloa flowers, and nothing from citrus or its relatives. That includes mock orange, whose flowers and leaves are sometimes used in lei, so ask the lei maker. Pineapple and coconut can come too, and coffee beans in any amount. Most other fresh fruit stays on the island; papaya and banana travel only if treated at a USDA-approved facility and packed in sealed, stamped boxes.",
   },
  ],
 
  /** Where to stay, nearest first. Drive times are without traffic, from two routing services. */
  stayIntro:
-  "There is no hotel at Kualoa itself, so all of us will be driving in on the day. This is the honest version: where the beds are, what is legal to rent, and how long the road is from each. Drive times are without traffic. On a Friday afternoon, give yourself more.",
+  "There is no hotel at Kualoa itself, so all of us will be driving in on the day. Here is where the beds are, what is legal to rent, and how long the road is from each. Drive times are without traffic. On a Friday afternoon, give yourself more.",
  stays: [
   {
    // Recheck before the invitations go out: in late 2026 Paradise Bay Resort
@@ -138,7 +138,7 @@ export const travel = {
    id: "waikiki",
    title: "Waikīkī",
    minutes: "45",
-   text: "“Spouting water.” Waikīkī has the most rooms, restaurants and evenings out on the island. Kualoa Ranch puts the drive at about 45 minutes, over the Likelike Highway and through the Wilson Tunnel. Allow an hour on the wedding afternoon. Most hotels add a nightly resort fee and parking on top of the room; at one we checked in late 2026, each was $45 before tax.",
+   text: "“Spouting water.” Waikīkī has the most rooms, restaurants and evenings out on the island. Kualoa Ranch puts the drive at about 45 minutes, over the Likelike Highway and through the Wilson Tunnel. On the wedding afternoon it will take longer; we will tell you when to leave once the ceremony time is set. Most hotels add a nightly resort fee and parking on top of the room; at one we checked in late 2026, each was $45 before tax.",
   },
   {
    id: "ko-olina",
@@ -199,5 +199,5 @@ export const travel = {
  ],
 
  /** The packing list. Ticks are remembered on each guest’s own device. */
- packing:["Sunscreen without oxybenzone or octinoxate, which Hawaiʻi no longer sells; the state suggests mineral ones","A light rain layer; showers pass in minutes","Shoes that like grass, for the ceremony lawn","Swimsuit, and a sarong or towel for the beach morning","A hat and sunglasses","Something light and warm for the breeze off the water at night","Insect repellent for the lawn at dusk; mosquitoes are busiest around sunrise and sunset","Your outfit for the wedding, something that breathes","Your REAL ID or passport","A folding tote; Oʻahu stores charge at least 15 cents for a checkout bag","A refillable water bottle","Any prescriptions, with a copy of the prescription","Your invite link, saved on your phone"]
+ packing:["Sunscreen without oxybenzone or octinoxate, which Hawaiʻi no longer sells; the state suggests mineral ones","A light rain layer; showers pass in minutes","Shoes that like grass, for the ceremony lawn","Swimsuit, and a sarong or towel for the beach morning","A hat and sunglasses","Something light and warm for the breeze off the water at night","Insect repellent for the lawn at dusk; mosquitoes are busiest around sunrise and sunset","Your outfit for the wedding, something that breathes","Your REAL ID or passport","A folding tote; Oʻahu stores charge at least 15 cents for a checkout bag","A refillable water bottle","Any prescriptions, with a copy of the prescription","The venue address and a screenshot of the weekend, saved on your phone"]
 };

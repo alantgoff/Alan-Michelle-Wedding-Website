@@ -62,7 +62,8 @@ export const skyChart = {
     {id: "shaula", name: "Shaula", kind: "star", alt: 8.9, az: 224.2, mag: 1.6, hidden: false},
     {id: "saturn", name: "Saturn", kind: "planet", alt: 18.8, az: 84, mag: -0.2, hidden: false},
   ] as SkyBody[],
-  moon: {alt: 9.4, az: 69.3, lit: 0.88},
+  /** `darkLimb`: degrees the unlit edge leans from straight up, toward the right for someone facing the moon. */
+  moon: {alt: 9.4, az: 69.3, lit: 0.88, darkLimb: 38},
   lines: {"fishhook":["antares", "tau-sco", "eps-sco", "mu-sco", "eta-sco", "sargas", "iota-sco", "kappa-sco", "shaula"], "triangle":["vega", "deneb", "altair", "vega"], "square":["alpheratz", "scheat", "markab", "algenib", "alpheratz"], "cassiopeia":["caph", "schedar", "navi", "ruchbah"]} as Record<string, string[]>,
   /**
    * [compass bearing, height of the land above a flat horizon], in degrees:

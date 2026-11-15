@@ -22,20 +22,21 @@ export function InkDefs() {
           <feComposite in="drawn" in2="dry" operator="in" />
         </filter>
 
-        {/* Kānehoalani: the knife ridge at Kualoa, running down to the sea on its right. */}
+        {/* Kānehoalani: the knife ridge at Kualoa. A saw-toothed crest with fluted
+            cliffs, stepping down to the sea on its right. Sharp on purpose: drawn
+            round, it reads as Diamond Head, which is the wrong side of the island. */}
         <symbol id="m-ridge" viewBox="0 -150 520 190" overflow="visible">
-          <path className="wash" d="M-6 0 L-6 -84 C22 -90 44 -104 70 -112 C88 -118 98 -130 116 -138 C126 -142 134 -134 146 -130 C160 -126 168 -140 184 -146 C196 -150 204 -140 214 -128 C228 -110 236 -112 250 -98 C270 -78 290 -52 320 -34 C356 -14 400 -6 440 -3 C470 -1 496 0 520 0 Z" />
-          <path className="ink" d="M-6 -84 C22 -90 44 -104 70 -112 C88 -118 98 -130 116 -138 C126 -142 134 -134 146 -130 C160 -126 168 -140 184 -146 C196 -150 204 -140 214 -128 C228 -110 236 -112 250 -98 C270 -78 290 -52 320 -34 C356 -14 400 -6 440 -3 C470 -1 496 0 520 0" />
-          <path className="ink fine" d="M72 -108 C64 -80 68 -48 80 -16" />
-          <path className="ink hair" d="M96 -122 C88 -92 94 -56 106 -20" />
-          <path className="ink fine" d="M118 -134 C110 -100 118 -60 132 -22" />
-          <path className="ink hair" d="M146 -126 C140 -96 148 -58 162 -22" />
-          <path className="ink fine" d="M184 -142 C176 -106 186 -62 204 -24" />
-          <path className="ink hair" d="M214 -124 C212 -96 222 -60 240 -28" />
-          <path className="ink hair" d="M250 -94 C254 -72 266 -48 284 -28" />
-          <path className="ink hair" d="M40 -98 C34 -74 38 -46 48 -16" />
-          <path className="ink hair" d="M12 -86 C8 -64 12 -40 20 -14" />
-          <path className="ink fine" d="M-6 -6 C60 -13 150 -11 240 -9 C290 -8 320 -12 352 -20" />
+          <path className="wash" d="M-6 -100 L16 -108 L28 -101 L50 -124 L61 -115 L84 -142 L95 -132 L110 -150 L122 -135 L136 -141 L150 -117 L164 -122 L181 -92 L196 -97 L215 -62 L234 -65 L256 -34 C286 -18 340 -7 420 -3 C460 -1 496 0 520 0 L520 0 L-6 0 Z" />
+          <path className="ink" d="M-6 -100 L16 -108 L28 -101 L50 -124 L61 -115 L84 -142 L95 -132 L110 -150 L122 -135 L136 -141 L150 -117 L164 -122 L181 -92 L196 -97 L215 -62 L234 -65 L256 -34 C286 -18 340 -7 420 -3 C460 -1 496 0 520 0" />
+          <path className="ink fine" d="M50 -120 C44 -92 44 -56 48 -18" />
+          <path className="ink hair" d="M84 -138 C78 -104 78 -62 82 -20" />
+          <path className="ink fine" d="M110 -146 C106 -110 108 -64 114 -22" />
+          <path className="ink hair" d="M136 -137 C134 -104 138 -62 146 -22" />
+          <path className="ink fine" d="M164 -118 C164 -92 170 -56 180 -22" />
+          <path className="ink hair" d="M196 -93 C198 -72 206 -46 216 -22" />
+          <path className="ink hair" d="M234 -61 C238 -48 244 -34 252 -22" />
+          <path className="ink hair" d="M16 -104 C12 -78 12 -48 16 -16" />
+          <path className="ink fine" d="M-6 -6 C60 -13 150 -11 240 -9 C270 -8 290 -12 312 -18" />
         </symbol>
 
         {/* Mokoliʻi: a steep little cone on a low skirt of rock. */}

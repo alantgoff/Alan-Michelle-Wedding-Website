@@ -49,14 +49,14 @@ export const faqGroups: FaqGroup[] = [
       { q: "Will transportation be provided?", a: "TODO: Add shuttle details. For now, plan on renting a car." },
       {
         q: "Is there parking at the venue?",
-        a: "Yes. The gardens have three terraced parking areas with room for about 80 cars between them, so please share a car where you can. We will send the exact way in, and where to park, closer to the day.",
+        a: "The ranch lists three parking tiers at the gardens, with room for about 80 cars between them, so please share a car where you can. We will send the exact way in, and where to park, closer to the day.",
       },
       {
         q: "How long is the drive?",
         a: "Kualoa Ranch puts it at about 45 minutes from Waikīkī, and it is around 40 from the airport on a clear road. Our wedding day is an ordinary Friday on the island and the afternoon traffic flows our way, so please allow a good deal more. The Travel page has the three routes over the mountains.",
       },
       {
-        q: "How do I get home afterwards?",
+        q: "How do I get home afterward?",
         a: "Please settle this before you come: a designated driver or a shared car is safest. Rideshare cars are few on this side of the island at night, and even one reserved ahead is not guaranteed to arrive.",
       },
       {
@@ -101,7 +101,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: "Will my phone work?",
-        a: "Mostly. Some beaches, mountains and valleys have no signal, so save the venue address and your invite link before you set off.",
+        a: "Mostly. Some beaches, mountains and valleys have no signal, so save the venue address and a screenshot of the weekend’s schedule before you set off.",
       },
       {
         q: "Can I take fruit or my lei home?",

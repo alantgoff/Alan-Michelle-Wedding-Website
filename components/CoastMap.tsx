@@ -66,7 +66,7 @@ const PLACES: Place[] = [
     x: 62,
     y: 79.5,
     side: "right",
-    blurb: "The south shore. Most rooms, most restaurants, longest drive to us.",
+    blurb: "The south shore. Most rooms, most restaurants, about 45 minutes from us.",
     notes: [{ title: "Staying here", text: stay("waikiki") }],
   },
   {
@@ -126,7 +126,7 @@ const PLACES: Place[] = [
     x: 75.5,
     y: 58.5,
     side: "right",
-    blurb: "Flat turquoise water and pale sand, a little over half an hour south of the venue.",
+    blurb: "Turquoise water and pale sand, a little over half an hour south of the venue.",
     notes: [travel.beachParking],
     list: { heading: "While you are on this coast", items: [...travel.explore] },
     photo: "welcome",

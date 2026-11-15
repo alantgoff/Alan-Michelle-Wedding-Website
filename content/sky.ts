@@ -31,7 +31,7 @@ export const sky = {
   ridgeShade: "5:00 PM",
 
   /**
-   * The tide in Kāneʻohe Bay on the day: NOAA’s predictions for Mokuoloʻe
+   * The tide in Kāneʻohe Bay on the day: NOAA’s predictions for Moku o Loʻe
    * (Coconut Island), in feet above the average of the lowest daily tides.
    */
   tides: [
@@ -54,25 +54,25 @@ export const sky = {
 
   /** From the Hawaiian Dictionary (Pukui & Elbert). */
   saying: "Pali ke kua, mahina ke alo.",
-  sayingMeans: "“The back a cliff, the front a moon”",
+  sayingMeans: "“The back is a cliff, the front a moon”",
   sayingNote:
     "An old Hawaiian compliment for a handsome person. At Palikū, with the ridge behind us and the moon rising over the sea, that will be every one of us.",
 
   /** The island page's chapter on the day's light, tide and stars. */
   chapter: {
     lede:
-      "The lawn looks east, with the ridge at our backs and the open Pacific in front. That gives the day a shape of its own: sunrise out of the sea, early shade, a short dusk, and a moon that comes up over the water.",
+      "The ridge stands at our backs to the west, and to the east the sea is open all the way to the horizon. That gives the day a shape of its own: sunrise out of the sea, early shade, a short dusk, and a moon that comes up over the water.",
     dayTitle: "The day, in one line",
     dayText:
       "The line is the tide in Kāneʻohe Bay on our wedding day, from before dawn until after moonrise, with the sun and the moon marked above it. The water is on its way out all evening.",
     tideCredit:
-      "Tide times are NOAA’s predictions for Mokuoloʻe (Coconut Island) in Kāneʻohe Bay, in feet above the average of the day’s lowest tides. The curve between them is drawn by rule of thumb.",
+      "Tide times are NOAA’s predictions for Moku o Loʻe (Coconut Island) in Kāneʻohe Bay, in feet above the long-run average of each day’s lowest tide. The curve between them is drawn by rule of thumb.",
     moonsTitle: "The moon, night by night",
     moonsText:
       "That year’s Harvest Moon is full over Kualoa on the Tuesday before we marry. Each night of the weekend it rises about three-quarters of an hour later and a little slimmer. In the Hawaiian moon calendar our night falls among the three Lāʻau nights; by one Oʻahu count it is the first of them, Lāʻau Kūkahi.",
     chartTitle: "Overhead at nine",
     chartText:
-      "Hold this over your head with the ridge behind you and it matches the sky above the lawn at nine o’clock. East is on the left because you are looking up, not down. A bright moon and the lights of a party hide the faint stars; these are the ones that hold their own.",
+      "Hold this over your head and turn it until the edge marked West points at the ridge, and it matches the sky above the lawn at nine o’clock. East is on the left because you are looking up, not down. A bright moon and the lights of a party hide the faint stars; these are the ones that hold their own.",
     lookFor: [
       { name: "The moon", text: "Low over the sea to the east-northeast, nine-tenths full, up since 8:12." },
       { name: "Saturn", text: "Above the moon and to its right. It shines steadily where the stars around it twinkle." },

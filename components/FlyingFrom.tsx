@@ -135,8 +135,7 @@ export function FlyingFrom({
         {row ? (
           <>
             <p className="flying-figure">
-              <span className="flying-number">{row.miles.toLocaleString("en-US")}</span> miles, in a straight line over
-              the sea
+              <span className="flying-number">{row.miles.toLocaleString("en-US")}</span> miles, in a straight line
             </p>
             <ul>
               <li>

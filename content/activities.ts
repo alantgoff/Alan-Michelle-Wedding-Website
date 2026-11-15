@@ -4,9 +4,12 @@ export type Audience = "everyone" | GroupId;
  * TODO: the ceremony is on FRIDAY, October 6, 2028 — corrected below to match
  * content/site.ts, which every page reads for the date.
  *
- * The surrounding days still need your decision, because three other events
- * are also on Friday and now sit alongside the ceremony:
- *   - Sunset welcome drinks  (probably Thursday, the night before)
+ * The surrounding days still need your decision, because other events were
+ * also on Friday, alongside the ceremony:
+ *   - Sunset welcome drinks  (probably Thursday, the night before). Until you
+ *     choose, guests see it under "Day to be confirmed" rather than on the
+ *     wedding day, since nobody can be in Waikīkī at 5:30 and at Kualoa too.
+ *     Set its "date" to "Thursday" (or whichever day) when you have decided.
  *   - College crew ridge hike (Thursday, or Friday morning)
  *   - Wedding party rehearsal (probably Thursday)
  *   - Beach morning           (Saturday, or keep it Sunday)
@@ -25,7 +28,7 @@ export type Audience = "everyone" | GroupId;
  */
 export type Activity = {date:string;title:string;time:string;location:string;description:string;audience:Audience;link?:string};
 export const activities: Activity[] = [
- {date:"Friday",title:"Sunset welcome drinks",time:"5:30 PM",location:"TODO: Waikīkī location",description:"A relaxed first hello with sunset views and light bites. Hoʻokipa is Hawaiian for hospitality: to welcome someone and treat them well. It is the whole idea of our first evening together.",audience:"everyone"},
+ {date:"Day to be confirmed",title:"Sunset welcome drinks",time:"5:30 PM",location:"TODO: Waikīkī location",description:"A relaxed first hello with sunset views and light bites. Hoʻokipa is Hawaiian for hospitality: to welcome someone and treat them well. It is the whole idea of our first evening together.",audience:"everyone"},
  {date:"Friday",title:"Wedding ceremony & reception",time:"TODO: Ceremony time",location:"Palikū Gardens",description:"The reason we are all here. Ceremony on the lawn, then dinner and dancing under the lights. The old Hawaiian word for marrying, hoʻāo, probably meant to stay until daylight. We will settle for the last dance.",audience:"everyone"},
  {date:"Sunday",title:"Beach morning",time:"10:00 AM",location:"TODO: Windward beach",description:"Coffee, fruit, and one last swim before everyone heads home. There is an old saying, hoʻokahi nō lā o ka malihini: a stranger only for a day. After that, a guest pitches in. By Sunday morning you are family, so someone will hand you the coffee to carry.",audience:"everyone"},
  {date:"Saturday",title:"Private snorkel charter",time:"TODO: Departure time",location:"TODO: Kāneʻohe harbor",description:"A boat of our own out over the reef, with time in the water and the Koʻolau behind us the whole way. TODO: Add the operator, how long it runs, and whether gear is provided.",audience:"everyone"},

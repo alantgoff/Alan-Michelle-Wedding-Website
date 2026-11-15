@@ -5,6 +5,12 @@
  * name, the airport's position, and the IANA time zone it keeps. The miles
  * and the hours on the page are worked out from these, so nothing else needs
  * changing. Positions are the airports' own, to a hundredth of a degree.
+ *
+ * Keep to the mainland United States and Canada. The chart is drawn for
+ * crossings up to about 5,200 miles (Boston is 5,070), and the wording assumes
+ * the city is a few hours ahead of Hawaiʻi. A city farther off or across the
+ * date line (Tokyo, Sydney, London) would read wrongly until
+ * components/FlyingFrom.tsx is changed to suit.
  */
 
 export type Airport = { code: string; city: string; lat: number; lng: number; tz: string };
@@ -13,7 +19,7 @@ export const flying = {
   title: "How far you are coming",
   intro:
     "Choose where you are setting out from, and we will tell you how far it is to the lawn and what your watch will be doing.",
-  prompt: "Pick a city to see the crossing.",
+  prompt: "Pick a city to see how far it is.",
   tableLabel: "Every city on the list",
   /** Remembered on the guest's own device only. */
   airports: [

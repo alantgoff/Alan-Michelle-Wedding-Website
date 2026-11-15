@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * A kōlea on a stroke of lawn, with a note about the bird beside it. Tap it
@@ -9,6 +9,10 @@ import { useRef } from "react";
  */
 export function Kolea({ title, text }: { title: string; text: string }) {
   const bird = useRef<SVGGElement>(null);
+  // A guest who has asked for reduced motion gets a drawing, not a button
+  // that does nothing. Read after mount, so the first frame matches the server's.
+  const [still, setStill] = useState(false);
+  useEffect(() => setStill(window.matchMedia("(prefers-reduced-motion: reduce)").matches), []);
 
   function run() {
     const el = bird.current;
@@ -35,7 +39,13 @@ export function Kolea({ title, text }: { title: string; text: string }) {
 
   return (
     <aside className="kolea" aria-labelledby="kolea-title">
-      <button type="button" className="kolea-bird" onClick={run} aria-label="Watch the kōlea take a few steps">
+      <button
+        type="button"
+        className="kolea-bird"
+        onClick={run}
+        disabled={still}
+        aria-label="Watch the kōlea take a few steps"
+      >
         <svg viewBox="0 0 180 96" aria-hidden="true" focusable="false">
           <g filter="url(#ink)">
             <path className="ink fine" d="M6 88 C40 86 70 89 104 87 M116 87 C136 86 156 88 174 87" />

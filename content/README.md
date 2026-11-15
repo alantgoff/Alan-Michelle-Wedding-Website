@@ -15,7 +15,7 @@ code and registry.
   weekend. `skyChart.ts` holds the star chart's numbers, which are computed and must not be edited
   by hand. Both are right for October 6, 2028 at Kualoa only.
 - **Flying from** (`flying.ts`) lists the cities in Travel's distance picker. Add your guests'
-  home airports; the miles and hours are worked out for you.
+  home airports in the mainland United States and Canada; the miles and hours are worked out for you.
 - **Weather** (`weather.ts`) holds the typical-October figures shown until the real forecast takes
   over about two weeks before the day.
 - **Dress code** colours in `dressCode.ts` each carry the name shown under their swatch.

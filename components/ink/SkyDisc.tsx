@@ -33,7 +33,7 @@ function skylineAt(az: number): number {
 
 /** Where each name is written, as an offset from its star. */
 const LABELS: Record<string, { text: string; dx: number; dy: number; anchor?: "start" | "middle" | "end" }> = {
-  polaris: { text: "Hōkūpaʻa", dx: 9, dy: 5 },
+  polaris: { text: "Hōkūpaʻa", dx: -9, dy: 5, anchor: "end" },
   vega: { text: "Vega", dx: 9, dy: -4 },
   deneb: { text: "Deneb", dx: -8, dy: -7, anchor: "end" },
   altair: { text: "Altair", dx: 9, dy: 9 },
@@ -45,7 +45,7 @@ const LABELS: Record<string, { text: string; dx: number; dy: number; anchor?: "s
 const FIGURES: { text: string; x: number; y: number; anchor?: "start" | "middle" | "end" }[] = [
   { text: "Cassiopeia", x: -94, y: -137 },
   { text: "Great Square", x: -84, y: 34, anchor: "middle" },
-  { text: "The fishhook", x: 128, y: 126, anchor: "end" },
+  { text: "The fishhook", x: 122, y: 152, anchor: "end" },
 ];
 
 const byId = new Map(skyChart.bodies.map((b) => [b.id, b]));
@@ -84,8 +84,9 @@ function ridgePath(): { fill: string; edge: string; flutes: string } {
 export function SkyDisc() {
   const ridge = ridgePath();
   const [mx, my] = point(skyChart.moon.alt, skyChart.moon.az);
-  // The moon's dark edge is the one turned up, away from the sun under the sea.
-  const moonTilt = n((Math.atan2(-my, -mx) * 180) / Math.PI);
+  // The moon's dark edge is turned up and a little to the south, away from the
+  // sun below the western horizon: straight at the zenith, plus its computed lean.
+  const moonTilt = n((Math.atan2(-my, -mx) * 180) / Math.PI + skyChart.moon.darkLimb);
 
   const lines = Object.entries(skyChart.lines).map(([name, ids]) => {
     const pts = ids.map((id) => byId.get(id)).filter((b): b is SkyBody => Boolean(b));

@@ -16,7 +16,7 @@ export const weather = {
     { label: "Daytime high", value: "Mid 80s°F", note: "About 29°C. Humid, with real warmth in the sun." },
     { label: "Evening low", value: "Low 70s°F", note: "About 22°C. Pleasant once the sun is off the lawn." },
     { label: "Ocean", value: "About 80°F", note: "Warm enough to swim without thinking about it." },
-    { label: "Wind", value: "10–15 mph", note: "Trade winds out of the northeast, straight off the ocean." },
+    { label: "Wind", value: "10–15 mph", note: "Trade winds out of the east-northeast, straight off the ocean." },
     { label: "Rain", value: "Brief showers", note: "The windward side catches them; they rarely last." },
   ],
 

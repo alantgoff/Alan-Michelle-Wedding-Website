@@ -171,6 +171,12 @@
 .coast-pin[data-side="left"] .coast-pin-name {
   right: calc(50% + 15px);
 }
+/* Ko Olina's name sits above its pin: beside it, it would cover the airport's. */
+.coast-pin[data-place="koolina"] .coast-pin-name {
+  top: auto;
+  bottom: calc(50% + 9px);
+  transform: none;
+}
 .coast-pin:hover .coast-pin-name,
 .coast-pin:focus-visible .coast-pin-name {
   border-color: var(--lagoon);

@@ -20,7 +20,7 @@ export const island = {
     passages: [
       {
         title: "A sacred shore",
-        text: "Kualoa was counted among the most sacred places on Oʻahu. Children of chiefs were brought here to be raised and taught; it was a puʻuhonua, a place of refuge; and when a chief was in residence, canoes passing offshore lowered their masts in respect. We will be guests on this land for one evening, and we would like to walk on it gently.",
+        text: "Kualoa has long been counted among the most sacred places on Oʻahu. Children of chiefs were brought here to be raised and taught; it was a puʻuhonua, a place of refuge; and when a chief was in residence, canoes passing offshore lowered their masts in respect. We will be guests on this land for one evening, and we would like to walk on it gently.",
       },
       {
         title: "Palikū",
@@ -79,7 +79,7 @@ export const island = {
       },
       {
         title: "The elder brother",
-        text: "In a moʻolelo shared by Kamehameha Schools, the first child of Wākea and Hoʻohōkūkalani was stillborn and buried on the east side of the house, where the sun rises, and from that place grew the first kalo. Their second son was named Hāloa in honor of his older brother and became the first Hawaiian, so kalo is family: the elder sibling who feeds the younger. Kualoa is said to have been the sacred land of Hāloa. Do try the poi.",
+        text: "In a moʻolelo shared by Kamehameha Schools, the first child of Wākea and Hoʻohōkūkalani was stillborn and buried on the east side of the house, where the sun rises, and from that place grew the first kalo. Their second son was named Hāloa in honor of his older brother and became the first Hawaiian, so kalo is family: the elder sibling who feeds the younger. Kualoa is said to have been the sacred land of Hāloa.",
       },
     ] satisfies Passage[],
     /** Words on every menu. */
@@ -102,15 +102,15 @@ export const island = {
    */
   explore: {
     lede:
-      "The windward side is at its loveliest within a short drive of the ranch. Kahana Valley is about five miles up the road and Waiāhole’s poi shop four miles down it. The Byodo-In Temple is about eight miles away and Hoʻomaluhia about twelve. Kailua’s beaches are nearer seventeen, so allow forty minutes.",
+      "The windward side is at its loveliest within a short drive of the ranch. Kahana Valley is about five miles up the road and Waiāhole’s poi shop four miles down it. The Byodo-In Temple is about eight miles away and Hoʻomaluhia about twelve. Kailua’s beaches are nearer seventeen, so allow forty minutes. Hours and prices here are as they stood in late 2026, and we will check them again before you fly.",
     passages: [
       {
         title: "More of Kualoa",
-        text: "If you would like to see more of the ranch, Kualoa runs its own tours. The ninety-minute Movie Sites & Ranch Tour visits Kaʻaʻawa Valley; by the ranch’s count, more than seventy Hollywood movies have been filmed at Kualoa since the 1950s. The Ocean Voyage (not on Sundays or federal holidays) crosses a Hawaiian fishpond the ranch dates to about eight hundred years ago, and there are a farm tour, horseback rides and UTV tours. The UTVs sell out weeks ahead, so book early at kualoa.com.",
+        text: "If you would like to see more of the ranch, Kualoa runs its own tours. The ninety-minute Movie Sites & Ranch Tour visits Kaʻaʻawa Valley. The Ocean Voyage (not on Sundays or federal holidays) crosses a Hawaiian fishpond the ranch dates to about eight hundred years ago, and there are a farm tour, horseback rides and UTV tours. The UTVs sell out weeks ahead, so book early at kualoa.com.",
       },
       {
         title: "Kahana Valley",
-        text: "Five miles up the road, Ahupuaʻa ʻO Kahana is a “living park”, where families still make their homes in the valley. An easy one-mile loop climbs to Keaniani lookout, where a kilo iʻa, a fish watcher, once looked for schools of akule in the bay and signaled the valley to bring the nets. Huilua Fishpond, on the east side of the bay, is a National Historic Landmark and one of the few survivors of the roughly ninety-seven fishponds that once lined Oʻahu’s coast. Kahana is one of the wettest valleys on the island, so stay on the trail, and keep out of the stream if you have a cut.",
+        text: "Five miles up the road, Ahupuaʻa ʻO Kahana is a “living park”, where families still make their homes in the valley. An easy one-mile loop climbs to Keaniani lookout, where a kilo iʻa, a fish watcher, once looked for schools of akule in the bay and signaled the valley to bring the nets. Huilua Fishpond, on the east side of the bay, is a National Historic Landmark and one of the few survivors of the roughly ninety-seven fishponds that once lined Oʻahu’s coast. Kahana is one of the wettest valleys on the island, so stay on the trail and keep out of the stream, above all if you have a cut.",
       },
       {
         title: "Byodo-In Temple",
@@ -138,7 +138,7 @@ export const island = {
       },
       {
         title: "Hanauma Bay, with a plan",
-        text: "Hanauma Bay is closed every Monday and Tuesday. Visitors from the mainland should reserve: booking opens online two days ahead at 7 AM Hawaiʻi time, and only a few walk-in tickets are handed out at 6:45 AM. For Saturday the 7th, book on Thursday morning; for Sunday, book on the morning of the wedding. As of late 2026, entry is $25 plus a small online fee (children twelve and under are free), parking is $3 in cash, the last entry is at 1:30 PM, and everyone watches a short film before going down to the water. Bookings cannot be cancelled or changed, so be sure of your day.",
+        text: "Hanauma Bay is closed every Monday and Tuesday. Visitors from the mainland should reserve: booking opens online two days ahead at 7 AM Hawaiʻi time, and only a few walk-in tickets are handed out at 6:45 AM. For Saturday the 7th, book on Thursday morning; for Sunday, book on the morning of the wedding. As of late 2026, entry is $25 plus a small online fee (children twelve and under are free), parking is $3 in cash, the last entry is at 1:30 PM, and everyone watches a short film before going down to the water. Bookings cannot be canceled or changed, so be sure of your day.",
       },
       {
         title: "The North Shore in October",
@@ -150,7 +150,7 @@ export const island = {
   /** Chapter: being a good guest on the island. */
   manners: {
     lede:
-      "Hawaiʻi is a home before it is a holiday, and people here are generous with visitors who notice that. None of this is difficult. It is mostly a matter of slowing down and leaving things as you found them.",
+      "Hawaiʻi is a home before it is a vacation, and people here are generous with visitors who notice that. None of this is difficult. It is mostly a matter of slowing down and leaving things as you found them.",
     /**
      * Aloha is written into state law (Hawaiʻi Revised Statutes §5-7.5, 1986),
      * which spells it out in these five words. The statute prints them
@@ -182,11 +182,11 @@ export const island = {
       },
       {
         title: "Taking a lei home",
-        text: "Flying home with yours? Show it at the agriculture inspection at the airport. Most lei may travel, but not those with jade vine, maunaloa flowers, citrus or mock orange leaves, berries or hala fruit.",
+        text: "Flying home with yours? Show it at the agriculture inspection at the airport. Most lei may travel, but not those with berries, hala fruit, jade vine, maunaloa flowers, or anything from citrus or mock orange.",
       },
       {
         title: "On the reef",
-        text: "The reef in Kāneʻohe Bay is alive, so we float above it: no standing on coral, no touching fish, no reaching into holes. Give a honu (sea turtle) at least ten feet and a monk seal at least fifty, in the water as on the sand. Bring a sun shirt and a non-nano mineral sunscreen. Since 2021 Hawaiʻi has not allowed the sale of sunscreens containing oxybenzone or octinoxate, and NOAA considers mineral sunscreen the better choice for the reef. If spinner dolphins, naiʻa, appear while you are on the water, federal law keeps swimmers and boats alike at least fifty yards away, so enjoy them from a distance.",
+        text: "The reef in Kāneʻohe Bay is alive, so we float above it: no standing on coral, no touching fish, no reaching into holes. Bring a sun shirt and a non-nano mineral sunscreen. Since 2021 Hawaiʻi has not allowed the sale of sunscreens containing oxybenzone or octinoxate, and NOAA considers mineral sunscreen the better choice for the reef. If spinner dolphins, naiʻa, appear while you are on the water, federal law keeps swimmers and boats alike at least fifty yards away, so enjoy them from a distance.",
       },
       {
         title: "Ten feet for the honu",

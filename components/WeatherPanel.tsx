@@ -30,11 +30,11 @@ export async function WeatherPanel() {
           value: `${forecast.rainChance}%`,
           note:
             forecast.rainInches >= 0.4
-              ? "Enough to be worth a plan; the pavilion is covered."
+              ? "Enough to bring a rain layer; there is a covered pavilion and a tent on the lawn."
               : "Passing showers at most, if any.",
         },
-        { label: "Wind", value: `${forecast.windMph} mph`, note: "Trades out of the northeast." },
-        { label: "Sunset", value: hawaiiClock(sunset), note: `Sunrise was ${hawaiiClock(sunrise)}.` },
+        { label: "Wind", value: `${forecast.windMph} mph`, note: "Usually strongest in the early afternoon, easing after dark." },
+        { label: "Sunset", value: hawaiiClock(sunset), note: `Sunrise at ${hawaiiClock(sunrise)}.` },
       ]
     : [
         ...weather.typical.map((t) => ({ label: t.label, value: t.value, note: t.note })),

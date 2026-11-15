@@ -139,8 +139,6 @@ export default async function Home({
             <dd>
               About {sky.moonrise}
               <MoonGlyph lit={sky.moonLit} className="moon-glyph moon-inline" />
-              <br />
-              <span className="aside">Up out of the sea to the east, {sky.moonPhrase}.</span>
             </dd>
           </dl>
           <div className="facts-actions">

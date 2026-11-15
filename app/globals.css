@@ -201,10 +201,10 @@ h3 {
    to leave beneath its words. */
 .hero,
 .page-hero {
-  --horizon-h: min(14.6vw, 300px);
+  --horizon-h: 14.6vw;
 }
 .page-hero {
-  --horizon-h: min(10.95vw, 230px);
+  --horizon-h: 10.95vw;
 }
 .horizon {
   position: absolute;
@@ -986,9 +986,16 @@ h3 {
   letter-spacing: 0.04em;
 }
 .chapter-back a {
+  position: relative;
   color: var(--lagoon);
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 45%, transparent);
+}
+/* A larger area to tap, with the look unchanged. */
+.chapter-back a::after {
+  content: "";
+  position: absolute;
+  inset: -13px -8px;
 }
 .chapter-back a::before {
   content: "↑ ";
@@ -1087,6 +1094,12 @@ h3 {
   font-style: italic;
   letter-spacing: 0.08em;
   fill: var(--muted);
+}
+/* The wide strip is still in use on tablets, scaled down: keep its hours legible. */
+@media (max-width: 900px) {
+  .almanac-wide .almanac-hours text {
+    font-size: 19px;
+  }
 }
 /* In columns that read downward, so the day stays in order. */
 .almanac-list {
@@ -1233,6 +1246,11 @@ h3 {
   }
 }
 @media (max-width: 620px) {
+  /* The chart shrinks with the screen; its smallest lettering must not. */
+  .sky-names .sky-figure-name,
+  .sky-compass text {
+    font-size: 16px;
+  }
   .almanac-strip .almanac-wide {
     display: none;
   }
@@ -1899,10 +1917,23 @@ h3 {
 /* The chart is drawn 760 wide; on a phone its lettering needs to be larger. */
 @media (max-width: 620px) {
   .flying-miles text {
-    font-size: 21px;
+    font-size: 26px;
+    translate: 0 5px;
+  }
+  /* Every other number, so the larger ones have room. */
+  .flying-miles text:nth-child(even) {
+    display: none;
   }
   .flying-home {
     font-size: 30px;
+  }
+}
+/* Without scripting the picker cannot answer, so only the table is offered. */
+@media (scripting: none) {
+  .flying-pick,
+  .flying-chart,
+  .flying-result {
+    display: none;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -2190,6 +2221,11 @@ h3 {
   border: 0;
   border-radius: 3px;
   cursor: pointer;
+}
+/* For a guest who has asked for stillness the bird is a drawing, not a button. */
+.kolea-bird:disabled {
+  cursor: default;
+  opacity: 1;
 }
 .kolea-bird svg {
   display: block;
@@ -3016,6 +3052,15 @@ footer {
     gap: 8px 16px;
     font-size: 0.74rem;
   }
+  /* A larger area to tap, with the look unchanged. */
+  .nav nav a {
+    position: relative;
+  }
+  .nav nav a::after {
+    content: "";
+    position: absolute;
+    inset: -5px -8px -4px;
+  }
 }
 @media (max-width: 575px) {
   :root {
@@ -3221,8 +3266,13 @@ footer {
   /* Small enough to share the first sheet with the page title. (Doubled
      class: CoastMap.css loads later and would otherwise win.) */
   .coast .coast-canvas {
-    max-width: 5.4in;
+    max-width: 4.2in;
     margin-inline: 0;
+  }
+  /* At that size the venue's name sits better on the left of its pin. */
+  .coast .coast-pin[data-place="venue"] .coast-pin-name {
+    left: auto;
+    right: calc(50% + 13px);
   }
   /* As plain blocks the chart can share a sheet with what comes before it;
      as a grid row it moves to the next page whole. */
@@ -3356,10 +3406,15 @@ footer {
     max-width: none;
     margin-top: 12px;
   }
+  /* A chart to hold overhead should print large enough to read. */
   .sky-chart {
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 0.3in;
+    grid-template-columns: 1fr;
+    gap: 0.2in;
     align-items: start;
+  }
+  .sky-disc {
+    max-width: 4.6in;
+    justify-self: start;
   }
   .almanac-list {
     columns: 3;

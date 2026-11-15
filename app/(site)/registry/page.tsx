@@ -31,7 +31,7 @@ export default function Registry() {
               </div>
               <div className="postcard-address">
                 <Stamp word={registry.stamp} />
-                <Postmark id={`postmark-${i}`} place={PLACE} date={DATE} turn={i % 2 ? 9 : -12} />
+                <Postmark id={`postmark-${i}`} place={PLACE} date={DATE} turn={-12} />
                 <p className="label">{registry.label}</p>
                 <h2>{registry.name}</h2>
                 <p className="postcard-rule" aria-hidden="true" />
