@@ -24,6 +24,8 @@
   --cream: #fbfaf6; /* page background */
   --white: #ffffff;
   --sun: #f0c76a; /* plumeria centre and the setting sun — decorative only, never text */
+  --ink-line: #013d72; /* the logo's own navy: every drawn line on the site */
+  --paper: #fffdf8; /* the warm white inside drawn things (stamps, the moon) */
 
   --ink: var(--deep);
   --muted: #46605f;
@@ -166,22 +168,125 @@ h3 {
   color: var(--lagoon);
 }
 
+/* ---------- Ink: the logo's line, extended ---------------- */
+
+.ink-defs {
+  position: absolute;
+}
+/* Strokes keep their weight however large or small a motif is drawn. */
+.ink {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.ink.fine {
+  stroke-width: 1.45;
+}
+.ink.hair {
+  stroke-width: 1.05;
+}
+.ink-dot {
+  fill: var(--ink-line);
+}
+/* Land is paper: drawn shapes cover whatever lies behind them. */
+.wash {
+  fill: var(--cream);
+}
+
+/* The drawn coast that closes each banner. Its height follows its width, so
+   the drawing always fits whole; --horizon-h tells the banner how much room
+   to leave beneath its words. */
+.hero,
+.page-hero {
+  --horizon-h: min(14.6vw, 300px);
+}
+.page-hero {
+  --horizon-h: min(10.95vw, 230px);
+}
+.horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--horizon-h);
+  z-index: 0;
+  pointer-events: none;
+}
+.horizon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.horizon .horizon-narrow {
+  display: none;
+}
+@media (max-width: 620px) {
+  .hero {
+    --horizon-h: 28.2vw;
+  }
+  .page-hero {
+    --horizon-h: 21.2vw;
+  }
+  .horizon .horizon-wide {
+    display: none;
+  }
+  .horizon .horizon-narrow {
+    display: block;
+  }
+  .horizon .ink {
+    stroke-width: 1.7;
+  }
+  .horizon .ink.fine {
+    stroke-width: 1.15;
+  }
+  .horizon .ink.hair {
+    stroke-width: 0.85;
+  }
+}
+/* On the home page the line is drawn in, left to right, like a pen crossing
+   the paper. The resting state is the finished drawing, so reduced motion
+   and no-JS both simply show it. */
+.horizon-draw {
+  -webkit-mask-image: linear-gradient(to right, #000 45%, transparent 55%);
+  mask-image: linear-gradient(to right, #000 45%, transparent 55%);
+  -webkit-mask-size: 230% 100%;
+  mask-size: 230% 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  animation: horizon-draw 2.6s cubic-bezier(0.4, 0, 0.2, 1) 0.25s backwards;
+}
+@keyframes horizon-draw {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
 /* ---------- Hero ------------------------------------------ */
 
+/* The whole banner, drawing included, fits the first screen: its type and
+   the logo size themselves against the window's height as well as width. */
 .hero {
   position: relative;
-  min-height: min(84svh, 760px);
+  min-height: min(calc(100svh - var(--nav-h)), 820px);
   display: flex;
   align-items: flex-end;
-  padding: var(--gutter);
-  padding-bottom: clamp(46px, 7vw, 92px);
+  padding: clamp(20px, 5svh, 64px) var(--gutter);
+  padding-bottom: calc(var(--horizon-h) + clamp(12px, 2svh, 24px));
   overflow: hidden;
   isolation: isolate;
 }
+/* The photograph dissolves into the paper over its lower part, and the
+   drawn horizon runs across the seam. */
 .hero-media {
   position: absolute;
   inset: 0;
   z-index: -2;
+  -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 86%);
+  mask-image: linear-gradient(to bottom, #000 50%, transparent 86%);
 }
 .hero-media img {
   width: 100%;
@@ -198,13 +303,23 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--cream) 84%, transparent) 0%,
-    color-mix(in srgb, var(--cream) 64%, transparent) 32%,
-    color-mix(in srgb, var(--cream) 42%, transparent) 62%,
-    color-mix(in srgb, var(--cream) 28%, transparent) 100%
-  );
+  /* Two washes: one rising from the foot of the banner, and one from the
+     left, behind the column of words, so the open water to the right keeps
+     its colour. */
+  background:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--cream) 52%, transparent) 0%,
+      color-mix(in srgb, var(--cream) 36%, transparent) 34%,
+      transparent 68%
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--cream) 84%, transparent) 0%,
+      color-mix(in srgb, var(--cream) 64%, transparent) 32%,
+      color-mix(in srgb, var(--cream) 42%, transparent) 62%,
+      color-mix(in srgb, var(--cream) 28%, transparent) 100%
+    );
 }
 /* No width cap here: the names are set as two lines on purpose, and a cap
    in body-text units broke "& Michelle" in two on wide screens. The tagline
@@ -216,7 +331,7 @@ h3 {
    on its tail under the pointer, like boards stood in the sand. */
 .hero-mark {
   display: block;
-  margin: 0 0 20px -4px;
+  margin: 0 0 clamp(10px, 2svh, 20px) -4px;
   padding: 0;
   background: none;
   border: 0;
@@ -225,7 +340,7 @@ h3 {
 }
 .hero-logo {
   display: block;
-  height: clamp(118px, 14vw, 178px);
+  height: clamp(88px, min(14vw, 15.5svh), 178px);
   width: auto;
   /* A cream glow that follows the brush strokes, so the line art holds
      over bright sparkling water. */
@@ -266,16 +381,16 @@ h3 {
   text-shadow: 0 1px 3px color-mix(in srgb, var(--cream) 92%, transparent);
 }
 .hero h1 {
-  font-size: clamp(3.2rem, 11vw, 8.5rem);
+  font-size: clamp(3.2rem, min(11vw, 12.6svh), 8.5rem);
   line-height: 0.94;
   text-wrap: balance;
 }
 .hero .tagline {
   font-family: var(--display);
   font-style: italic;
-  font-size: clamp(1.2rem, 2.4vw, 2rem);
+  font-size: clamp(1.15rem, min(2.4vw, 3.5svh), 2rem);
   line-height: 1.35;
-  margin: 26px 0 0;
+  margin: clamp(14px, 2.4svh, 26px) 0 0;
   max-width: 30ch;
   text-wrap: balance;
   /* Deep sea, not lagoon: at this size the accent teal falls under 4.5:1
@@ -286,7 +401,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 28px;
-  margin-top: 32px;
+  margin-top: clamp(16px, 3svh, 32px);
   font-size: 0.78rem;
   letter-spacing: 0.12em;
 }
@@ -402,7 +517,21 @@ h3 {
 }
 .facts h2 {
   font-size: clamp(2.2rem, 5vw, 4rem);
-  margin-bottom: 28px;
+  margin-bottom: 18px;
+}
+.facts-place {
+  max-width: 46ch;
+  margin: 0 0 28px;
+  color: var(--muted);
+}
+.facts-place a {
+  white-space: nowrap;
+  color: var(--lagoon);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 45%, transparent);
+}
+.facts-place a:hover {
+  border-bottom-color: var(--lagoon);
 }
 .facts dl {
   display: grid;
@@ -446,6 +575,79 @@ h3 {
 }
 .button-quiet:hover {
   background: color-mix(in srgb, var(--lagoon) 8%, transparent);
+  color: var(--deep);
+}
+
+/* ---------- The moon on the night -------------------------- */
+
+.moon-face {
+  fill: var(--paper);
+}
+.moon-glyph {
+  display: block;
+}
+/* Beside the moonrise time, in the facts list. */
+.moon-inline {
+  display: inline-block;
+  width: 1.75em;
+  height: 1.75em;
+  margin-left: 0.5em;
+  vertical-align: -0.5em;
+}
+.moon-inline .ink.fine {
+  stroke-width: 1.2;
+}
+.moon-inline .ink.hair {
+  stroke-width: 0.8;
+}
+.night {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(34px, 6vw, 96px);
+  align-items: center;
+  padding: 0 var(--gutter) clamp(62px, 10vw, 130px);
+}
+.night-art {
+  display: grid;
+  justify-items: center;
+}
+.moon-large {
+  width: clamp(120px, 16vw, 200px);
+  height: auto;
+}
+.night-sea {
+  display: block;
+  width: min(100%, 320px);
+  margin-top: clamp(14px, 2vw, 26px);
+}
+.night h2 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  margin-bottom: 20px;
+}
+.night p {
+  max-width: 52ch;
+}
+/* A saying in Hawaiian, set as a pull quote. */
+.saying {
+  margin: clamp(26px, 4vw, 40px) 0 0;
+  padding-left: clamp(18px, 2.4vw, 30px);
+  border-left: 2px solid var(--ink-line);
+}
+.saying blockquote {
+  margin: 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.2;
+  color: var(--ink-line);
+}
+.saying figcaption {
+  max-width: 50ch;
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.saying-means {
   color: var(--deep);
 }
 
@@ -585,9 +787,9 @@ h3 {
   position: relative;
   display: flex;
   align-items: flex-end;
-  min-height: min(50svh, 440px);
+  min-height: min(56svh, 500px);
   padding: var(--gutter);
-  padding-bottom: clamp(36px, 5vw, 66px);
+  padding-bottom: calc(var(--horizon-h) + clamp(10px, 1.6vw, 22px));
   color: var(--deep);
   overflow: hidden;
   isolation: isolate;
@@ -596,6 +798,8 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: -2;
+  -webkit-mask-image: linear-gradient(to bottom, #000 42%, transparent 84%);
+  mask-image: linear-gradient(to bottom, #000 42%, transparent 84%);
 }
 .page-hero-media img {
   width: 100%;
@@ -607,11 +811,20 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--cream) 80%, transparent),
-    color-mix(in srgb, var(--cream) 40%, transparent)
-  );
+  /* As on the home banner: a wash from the left, behind the words, over
+     the one rising from the foot. */
+  background:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--cream) 50%, transparent) 0%,
+      color-mix(in srgb, var(--cream) 34%, transparent) 36%,
+      transparent 72%
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--cream) 80%, transparent),
+      color-mix(in srgb, var(--cream) 40%, transparent)
+    );
 }
 .page-hero h1 {
   font-size: clamp(2.8rem, 8vw, 6rem);
@@ -674,6 +887,113 @@ h3 {
 .card ul {
   margin: 0;
   padding-left: 20px;
+}
+
+/* ---------- Guide: contents and chapters ------------------ */
+
+/* The long pages are set like a small guidebook: a contents strip under the
+   banner, then numbered chapters of short ruled passages. */
+.contents {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 30px;
+  max-width: 1400px;
+  padding: clamp(20px, 3vw, 30px) var(--gutter);
+}
+.contents-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.contents ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.contents a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 0;
+  font-family: var(--display);
+  font-size: 1.22rem;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.contents a:hover {
+  color: var(--lagoon);
+  border-bottom-color: var(--lagoon);
+}
+.contents-numeral {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--lagoon);
+}
+.chapter {
+  max-width: 1400px;
+  padding: clamp(52px, 8vw, 104px) var(--gutter);
+  border-top: 1px solid var(--rule);
+}
+.chapter-head {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(12px, 1.6vw, 22px);
+  margin-bottom: clamp(22px, 3vw, 34px);
+}
+.chapter-numeral {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  color: var(--lagoon);
+}
+.chapter-head h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+.chapter-lede {
+  max-width: 46ch;
+  margin: 0 0 clamp(34px, 5vw, 60px);
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+/* A drop cap, as a printed guide would open a chapter. */
+.chapter-lede::first-letter {
+  float: left;
+  padding: 0.06em 0.1em 0 0;
+  font-size: 3.3em;
+  line-height: 0.8;
+  color: var(--lagoon);
+}
+.chapter > p {
+  max-width: var(--measure);
+}
+.passages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+  gap: 0 clamp(32px, 6vw, 88px);
+}
+.passage {
+  padding: 24px 0 30px;
+  border-top: 1px solid var(--rule);
+}
+.passage h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.45rem, 2.2vw, 1.75rem);
+}
+.passage p {
+  max-width: 60ch;
+  margin: 0;
+  text-wrap: pretty;
 }
 
 /* ---------- Activities, FAQ, timeline --------------------- */
@@ -784,6 +1104,35 @@ h3 {
   margin: 0;
 }
 
+/* Questions in groups: the group's name on the left, its questions beside
+   it, the way an index is set. On phones the name sits above. */
+.faq {
+  max-width: 1400px;
+  padding: clamp(40px, 6vw, 80px) var(--gutter) clamp(58px, 9vw, 120px);
+}
+.faq-group {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.3fr) minmax(0, 1fr);
+  gap: 0 clamp(28px, 5vw, 80px);
+  padding: clamp(26px, 4vw, 44px) 0;
+}
+.faq-group h2 {
+  margin: 0;
+  padding-top: 22px;
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.faq-items {
+  max-width: 820px;
+}
+.faq details:last-child {
+  border-bottom: 1px solid var(--rule);
+}
 .faq details {
   border-top: 1px solid var(--rule);
   padding: 22px 0;
@@ -809,6 +1158,7 @@ h3 {
   content: "–";
 }
 .faq details p {
+  max-width: var(--measure);
   margin: 12px 0 0;
 }
 
@@ -936,6 +1286,61 @@ h3 {
   font-style: italic;
   font-size: 1.35rem;
   color: var(--lagoon);
+}
+
+/* An opening paragraph under a section heading. */
+.section-intro {
+  max-width: 62ch;
+  margin: -10px 0 clamp(28px, 4vw, 44px);
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+/* Where to stay: each place leads with its drive, like soundings on a chart. */
+.stays {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 18px;
+}
+.stay {
+  padding: 28px 30px 30px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+.stay-minutes {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.stay-number {
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 4.4vw, 3.6rem);
+  line-height: 0.9;
+  color: var(--lagoon);
+  font-variant-numeric: tabular-nums;
+}
+.stay-unit {
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.stay h3 {
+  margin: 0 0 10px;
+  font-size: 1.7rem;
+}
+.stay p:last-child {
+  margin: 0;
+  text-wrap: pretty;
+}
+.stay-notes {
+  margin-top: clamp(34px, 5vw, 56px);
 }
 
 .explore-note {
@@ -1394,6 +1799,23 @@ footer {
 }
 
 @media (max-width: 620px) {
+  /* On a phone the words span the whole banner, so the wash does too. */
+  .hero::after,
+  .page-hero::after {
+    background:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--cream) 56%, transparent) 0%,
+        color-mix(in srgb, var(--cream) 44%, transparent) 60%,
+        color-mix(in srgb, var(--cream) 24%, transparent) 100%
+      ),
+      linear-gradient(
+        to top,
+        color-mix(in srgb, var(--cream) 84%, transparent) 0%,
+        color-mix(in srgb, var(--cream) 60%, transparent) 40%,
+        color-mix(in srgb, var(--cream) 30%, transparent) 100%
+      );
+  }
   .link-grid {
     grid-template-columns: 1fr;
   }
@@ -1404,7 +1826,7 @@ footer {
 
 /* The header's real height is measured and written to --nav-h by
    SiteShell; these are the values before that script runs, or without it. */
-@media (max-width: 860px) {
+@media (max-width: 960px) {
   :root {
     --nav-h: 100px;
   }
@@ -1419,10 +1841,11 @@ footer {
     font-size: 0.74rem;
   }
 }
-@media (max-width: 491px) {
+@media (max-width: 575px) {
   :root {
     --nav-h: 133px;
   }
+  /* Eight links, four and four. */
   .nav nav {
     max-width: 20rem;
   }
@@ -1430,9 +1853,17 @@ footer {
 
 @media (max-width: 820px) {
   .facts,
+  .night,
   .activity,
+  .faq-group,
   .story-moment {
     grid-template-columns: 1fr;
+  }
+  .faq-group h2 {
+    padding: 0 0 14px;
+  }
+  .night-art {
+    justify-items: start;
   }
   /* Rail and track stack, so the rail alone is too short for the marker to
      travel in. Dissolving the rail makes the whole moment its sticky range. */
@@ -1518,6 +1949,7 @@ footer {
 
   .skip-link,
   .nav nav,
+  .contents,
   .tide,
   .hero-media,
   .page-hero-media,
@@ -1567,10 +1999,18 @@ footer {
     color: var(--muted);
   }
 
+  /* The drawn coast prints under each page's title, like a vignette. */
   .hero,
   .page-hero {
     min-height: 0;
-    padding: 22px 0 6px;
+    padding: 22px 0 calc(var(--horizon-h) + 6px);
+  }
+  .horizon-draw {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .wash {
+    fill: var(--white);
   }
   .hero h1,
   .hero .tagline,
@@ -1587,6 +2027,9 @@ footer {
   }
   .section,
   .facts,
+  .night,
+  .faq,
+  .chapter,
   .story-spine {
     padding-inline: 0;
     padding-block: 16px;
@@ -1611,6 +2054,9 @@ footer {
   }
 
   .card,
+  .stay,
+  .passage,
+  .saying,
   .activity,
   .activity-day-head,
   .say-it li,

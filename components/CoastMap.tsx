@@ -22,7 +22,7 @@ import { minutesOf } from "@/lib/weekend";
  * private event never reaches this component for a guest who may not see it.
  */
 
-type PlaceId = "airport" | "waikiki" | "northshore" | "ridge" | "kaneohe" | "beaches" | "venue";
+type PlaceId = "airport" | "waikiki" | "koolina" | "northshore" | "ridge" | "kaneohe" | "beaches" | "venue";
 
 type Place = {
   id: PlaceId;
@@ -41,6 +41,8 @@ type Place = {
   list?: { heading: string; items: string[] };
   photo?: PhotoKey;
 };
+
+const stay = (id: (typeof travel.stays)[number]["id"]) => travel.stays.find((s) => s.id === id)!.text;
 
 const PLACES: Place[] = [
   {
@@ -65,7 +67,18 @@ const PLACES: Place[] = [
     y: 79.5,
     side: "right",
     blurb: "The south shore. Most rooms, most restaurants, longest drive to us.",
-    notes: [{ title: "Staying here", text: travel.stays[0].text }],
+    notes: [{ title: "Staying here", text: stay("waikiki") }],
+  },
+  {
+    id: "koolina",
+    name: "Ko Olina",
+    short: "Ko Olina",
+    kind: "Where to stay",
+    x: 26.5,
+    y: 75.5,
+    side: "right",
+    blurb: "The far western shore: lagoons, big resorts, and the longest drive to us.",
+    notes: [{ title: "Staying here", text: stay("ko-olina") }],
   },
   {
     id: "northshore",
@@ -76,7 +89,10 @@ const PLACES: Place[] = [
     y: 19.5,
     side: "right",
     blurb: "The far side of the island, quiet and green, and closer than it looks.",
-    notes: [{ title: "Staying here", text: travel.stays[1].text }],
+    notes: [
+      { title: "Staying in Lāʻie", text: stay("laie") },
+      { title: "Staying at Turtle Bay", text: stay("turtle-bay") },
+    ],
     photo: "activities",
   },
   {
@@ -100,7 +116,7 @@ const PLACES: Place[] = [
     y: 47.5,
     side: "right",
     blurb: "The bay town nearest the venue, with a reef flat in front of it.",
-    notes: [{ title: "Staying here", text: travel.stays[2].text }],
+    notes: [{ title: "Staying here", text: stay("bay") }],
   },
   {
     id: "beaches",
@@ -110,7 +126,7 @@ const PLACES: Place[] = [
     x: 75.5,
     y: 58.5,
     side: "right",
-    blurb: "Flat turquoise water and pale sand, twenty minutes south of the venue.",
+    blurb: "Flat turquoise water and pale sand, a little over half an hour south of the venue.",
     notes: [travel.beachParking],
     list: { heading: "While you are on this coast", items: [...travel.explore] },
     photo: "welcome",
@@ -118,14 +134,19 @@ const PLACES: Place[] = [
   {
     id: "venue",
     name: site.venue,
-    short: "Pālikū Gardens",
+    short: "Palikū Gardens",
     kind: "The wedding",
     x: 72,
     y: 33,
     side: "right",
     star: true,
     blurb: site.tagline,
-    notes: [],
+    notes: [
+      {
+        title: "About this place",
+        text: "Palikū means “vertical cliff”, an old name for this side of the ridge. The voyaging canoe Hōkūleʻa, the “Star of Gladness”, first met the sea just below it in 1975. There is more on The island page.",
+      },
+    ],
     photo: "hero",
   },
 ];
@@ -135,7 +156,7 @@ const DAY_ORDER = ["Thursday", "Friday", "Saturday", "Sunday"];
 /** Which point on the chart an event belongs to, read off its location. */
 function placeOf(activity: Activity): PlaceId | null {
   const where = activity.location.toLowerCase();
-  if (where.includes("paliku") || where.includes("pālikū")) return "venue";
+  if (where.includes("paliku") || where.includes("palikū")) return "venue";
   if (where.includes("waikīkī") || where.includes("waikiki")) return "waikiki";
   if (where.includes("kāneʻohe") || where.includes("kaneohe")) return "kaneohe";
   if (where.includes("beach")) return "beaches";
@@ -367,6 +388,8 @@ function CoastChart() {
       <rect className="coast-chart-water" x="0" y="0" width="1000" height="720" />
       <rect x="0" y="0" width="1000" height="720" fill="url(#coast-swell)" opacity="0.55" />
 
+      {/* Everything from here is line work, drawn with the site's one pen. */}
+      <g filter="url(#ink)">
       {/* the island, drawn twice so the line looks pressed by hand */}
       <path className="coast-chart-land" d={ISLAND} />
       <path className="coast-chart-outline" d={ISLAND} transform="translate(4 3) rotate(0.5 500 360)" />
@@ -412,6 +435,7 @@ function CoastChart() {
         <circle r="28" />
         <path d="M0 -34 L9 0 L0 34 L-9 0 Z" className="coast-chart-needle" />
         <path d="M-34 0 L0 -8 L34 0 L0 8 Z" />
+      </g>
       </g>
       <text className="coast-chart-text coast-chart-n" x="902" y="578" textAnchor="middle">
         N

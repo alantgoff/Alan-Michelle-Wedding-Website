@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Countdown } from "@/components/Countdown";
+import { Horizon } from "@/components/ink/Horizon";
+import { MoonGlyph } from "@/components/ink/MoonGlyph";
 import { Logo } from "@/components/Logo";
 import { NowAtKualoa } from "@/components/NowAtKualoa";
 import { PhotoBackdrop } from "@/components/PhotoFrame";
@@ -8,6 +10,7 @@ import { PlumeriaBurst } from "@/components/PlumeriaBurst";
 import { Tide } from "@/components/Tide";
 import { WelcomeCurtain } from "@/components/WelcomeCurtain";
 import { site } from "@/content/site";
+import { sky } from "@/content/sky";
 import type { PhotoKey } from "@/content/photos";
 import { heldGroups, ownEvents } from "@/content/visibleActivities";
 import { hawaiiClock, hawaiiNoon, sunTimes } from "@/lib/sun";
@@ -21,6 +24,7 @@ export const dynamic = "force-dynamic";
 const cardPhoto: Record<string, PhotoKey> = {
   travel: "travel",
   activities: "activities",
+  island: "island",
   story: "story",
   "dress-code": "dressCode",
   faq: "faq",
@@ -97,6 +101,7 @@ export default async function Home({
             ) : null}
           </div>
         </div>
+        <Horizon scene="home" draw />
       </section>
 
       <section className="facts">
@@ -106,7 +111,11 @@ export default async function Home({
         </div>
         <div>
           <p className="kicker">The celebration</p>
-          <h2>Pālikū Gardens</h2>
+          <h2>Palikū Gardens</h2>
+          <p className="facts-place">
+            At the foot of Kānehoalani, the sheer green ridge at Kualoa, looking out across Kāneʻohe Bay to the
+            little islet of Mokoliʻi. <Link href="/island#kualoa">About this place</Link>
+          </p>
           <dl>
             <dt>When</dt>
             <dd>
@@ -126,6 +135,13 @@ export default async function Home({
               <br />
               <span className="aside">It slips behind the Koʻolau a little before that.</span>
             </dd>
+            <dt>Moonrise</dt>
+            <dd>
+              About {sky.moonrise}
+              <MoonGlyph lit={sky.moonLit} className="moon-glyph moon-inline" />
+              <br />
+              <span className="aside">Up out of the sea to the east, {sky.moonPhrase}.</span>
+            </dd>
           </dl>
           <div className="facts-actions">
             <a className="button" href={site.mapUrl}>
@@ -137,6 +153,31 @@ export default async function Home({
           </div>
         </div>
       </section>
+
+      <Reveal>
+        <section className="night" aria-labelledby="night-title">
+          <div className="night-art" aria-hidden="true">
+            <MoonGlyph lit={sky.moonLit} className="moon-glyph moon-large" />
+            <svg className="night-sea" viewBox="0 0 320 44" focusable="false">
+              <g filter="url(#ink)">
+                <path className="ink" d="M4 14 C70 12 130 16 200 13 M216 13 C250 12 290 15 316 13" />
+                <path className="ink fine" d="M40 30 c12 -7 24 7 36 0 c12 -7 24 7 36 0 M190 34 c12 -7 24 7 36 0" />
+              </g>
+            </svg>
+          </div>
+          <div className="night-words">
+            <p className="kicker">The sky that night</p>
+            <h2 id="night-title">{sky.heading}</h2>
+            <p>{sky.text}</p>
+            <figure className="saying">
+              <blockquote lang="haw">{sky.saying}</blockquote>
+              <figcaption>
+                <span className="saying-means">{sky.sayingMeans}</span> {sky.sayingNote}
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      </Reveal>
 
       <Tide />
 

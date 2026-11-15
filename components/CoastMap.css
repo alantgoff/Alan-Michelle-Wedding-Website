@@ -47,33 +47,33 @@
 }
 .coast-chart-land {
   fill: var(--sand);
-  stroke: var(--deep);
-  stroke-width: 2.2;
+  stroke: var(--ink-line);
+  stroke-width: 2.4;
   stroke-linejoin: round;
 }
 .coast-chart-outline {
   fill: none;
-  stroke: var(--deep);
+  stroke: var(--ink-line);
   stroke-width: 1;
   opacity: 0.32;
   stroke-linejoin: round;
 }
 .coast-chart-reef {
   fill: none;
-  stroke: var(--deep);
+  stroke: var(--ink-line);
   stroke-width: 1.5;
   stroke-dasharray: 3 7;
   stroke-linecap: round;
   opacity: 0.6;
 }
 .coast-chart-speck {
-  fill: var(--deep);
+  fill: var(--ink-line);
   opacity: 0.45;
 }
 .coast-chart-ridge path {
   fill: none;
-  stroke: var(--seagrass);
-  stroke-width: 2.2;
+  stroke: var(--ink-line);
+  stroke-width: 1.9;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -108,7 +108,7 @@
   opacity: 1;
 }
 .coast-chart-compass {
-  stroke: var(--deep);
+  stroke: var(--ink-line);
   fill: var(--white);
 }
 .coast-chart-needle {

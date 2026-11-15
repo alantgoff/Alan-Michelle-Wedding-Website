@@ -22,6 +22,7 @@ export default async function Travel() {
         title="Travel well"
         intro="The windward side of Oʻahu rewards a little planning. Here is the honest version of getting there, staying nearby, and making a trip of it."
         photo="travel"
+        scene="travel"
       />
 
       <Section title="Where everything is">
@@ -46,11 +47,24 @@ export default async function Travel() {
       </Section>
 
       <Section title="Where to stay">
-        <div className="card-grid">
+        <p className="section-intro">{travel.stayIntro}</p>
+        <div className="stays">
           {travel.stays.map((item) => (
-            <article className="card" key={item.title}>
+            <article className="stay" key={item.id}>
+              <p className="stay-minutes">
+                <span className="stay-number">{item.minutes}</span>
+                <span className="stay-unit">minutes to the gardens</span>
+              </p>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+        <div className="passages stay-notes">
+          {travel.stayNotes.map((note) => (
+            <article className="passage" key={note.title}>
+              <h3>{note.title}</h3>
+              <p>{note.text}</p>
             </article>
           ))}
         </div>
@@ -68,21 +82,6 @@ export default async function Travel() {
         <p className="explore-note">
           <strong>{travel.beachParking.title}.</strong> {travel.beachParking.text}
         </p>
-      </Section>
-
-      <Section title="Say it like a local">
-        <ul className="say-it">
-          {travel.sayIt.map((entry) => (
-            <li key={entry.word}>
-              <span className="say-word" lang="haw">
-                {entry.word}
-              </span>
-              <span className="say-how">{entry.say}</span>
-              <span className="say-means">{entry.means}</span>
-            </li>
-          ))}
-        </ul>
-        <p className="say-note">{travel.sayItNote}</p>
       </Section>
 
       <Section title="Weather on the day">

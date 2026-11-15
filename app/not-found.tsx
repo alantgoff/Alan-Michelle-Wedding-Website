@@ -14,6 +14,7 @@ export default function NotFound() {
         title="Past the reef"
         intro="There is nothing out here but open water. Whatever you were looking for is back on shore."
         photo="hero"
+        scene="reef"
       />
       <Section>
         <Link className="button" href="/">

@@ -178,7 +178,7 @@ Both are disabled under reduced-motion. No parallax, no scroll-jacking.
 Placeholder content will be *accurate* rather than invented, so most of it survives review. These
 were confirmed during planning:
 
-- **Venue.** Paliku Gardens sits in Kaʻaʻawa at the base of the Kānehoalani peak, with views of
+- **Venue.** Palikū Gardens sits at Kualoa, at the base of the Kānehoalani peak, with views of
   Kāneʻohe Bay, the Koʻolau range, and Mokoliʻi island. Open-air pavilion plus two lawns.
 - **Getting there.** Roughly 40–60 minutes from Honolulu airport depending on traffic, via H-1 to
   H-3 then Kamehameha Highway along the coast. About 24 miles from Waikīkī.

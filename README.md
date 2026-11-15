@@ -1,6 +1,6 @@
 # Alan & Michelle — wedding website
 
-A photography-led site for our wedding at Pālikū Gardens, Kualoa Ranch, on the windward coast of
+A photography-led site for our wedding at Palikū Gardens, Kualoa Ranch, on the windward coast of
 Oʻahu. Built with Next.js and deployed on Vercel. No database, no CMS, no accounts.
 
 ## Running it locally

@@ -33,7 +33,7 @@ export default async function Activities() {
 
   return (
     <>
-      <PageHero kicker="Wedding weekend" title="Activities" intro={intro} photo="activities" />
+      <PageHero kicker="Wedding weekend" title="Activities" intro={intro} photo="activities" scene="activities" />
       <Section>
         {days.map((day) => {
           const when = weekendDay(day);

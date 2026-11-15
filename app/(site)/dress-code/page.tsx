@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Dress code" };
 export default function Dress() {
   return (
     <>
-      <PageHero kicker="What to wear" title={dressCode.title} intro={dressCode.intro} photo="dressCode" />
+      <PageHero kicker="What to wear" title={dressCode.title} intro={dressCode.intro} photo="dressCode" scene="dress" />
       <Section title="Color, texture, ease">
         <ul className="swatches">
           {dressCode.colors.map((color) => (

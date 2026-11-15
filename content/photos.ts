@@ -46,6 +46,10 @@ export const photos = {
     src: "/photos/turquoise-swell.jpg",
     alt: "Sunlight breaking through a turquoise swell",
   },
+  island: {
+    src: "/photos/sunlit-sea.jpg",
+    alt: "Midday sun scattering across open blue-green ocean",
+  },
   story: {
     src: "/photos/golden-sparkle.jpg",
     alt: "Warm light glittering across a calm blue sea",

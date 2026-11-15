@@ -3,13 +3,15 @@ export const site = {
   weddingDate: "Friday, October 6, 2028",
   isoDate: "2028-10-06T16:00:00-10:00", // TODO: confirm ceremony time
   ceremonyTime: "TODO: ceremony time",
-  venue: "Pālikū Gardens at Kualoa Ranch",
-  location: "Kaʻaʻawa, Oʻahu",
+  venue: "Palikū Gardens at Kualoa Ranch",
+  // Palikū Gardens is in Kualoa itself. Kaʻaʻawa is the next land division
+  // north (the ranch's film valley), so the wedding is not "in Kaʻaʻawa".
+  location: "Kualoa, Oʻahu",
   address: "49-560 Kamehameha Hwy, Kāneʻohe, HI 96744",
   mapUrl: "https://maps.google.com/?q=Paliku+Gardens+Kualoa+Ranch",
-  /** Where the sun rises and sets from: Pālikū Gardens, on the bay. */
+  /** Where the sun rises and sets from: Palikū Gardens, at the foot of Kānehoalani. */
   coordinates: { lat: 21.5205, lng: -157.8378 },
   tagline: "A celebration where the mountains meet the sea.",
   welcome: "We cannot wait to gather our favorite people on Oʻahu. This site will hold everything you need for the weekend; for now, details marked TODO are still being finalized.",
-  nav: [{href:"",label:"Home"},{href:"travel",label:"Travel"},{href:"activities",label:"Activities"},{href:"story",label:"Our story"},{href:"dress-code",label:"Dress code"},{href:"faq",label:"FAQ"},{href:"registry",label:"Registry"}]
+  nav: [{href:"",label:"Home"},{href:"travel",label:"Travel"},{href:"activities",label:"Activities"},{href:"island",label:"The island"},{href:"story",label:"Our story"},{href:"dress-code",label:"Dress code"},{href:"faq",label:"FAQ"},{href:"registry",label:"Registry"}]
 } as const;

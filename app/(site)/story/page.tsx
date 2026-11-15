@@ -23,6 +23,7 @@ export default function Story() {
         title="The road here"
         intro="A few moments from the story that brought us to this island, and to all of you."
         photo="story"
+        scene="story"
       />
       <div className="story-spine">
         {story.map((moment, i) => (

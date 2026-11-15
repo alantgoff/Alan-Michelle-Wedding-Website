@@ -12,6 +12,7 @@ export default function Registry() {
         title="Registry"
         intro="Flying to an island in the middle of the Pacific is a generous gift on its own. If you would like to do something more, these are the places we are registered."
         photo="registry"
+        scene="registry"
       />
       <Section>
         <div className="card-grid">
