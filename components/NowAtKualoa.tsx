@@ -9,9 +9,10 @@ import { hawaiiClock, hawaiiNoon, hawaiiToday, sunTimes } from "@/lib/sun";
  *
  * Rendered empty on the server and filled in after mount, so the server's
  * clock never disagrees with the browser's. Refreshes every half minute.
+ * A guest in another time zone also sees their own clock beside Kualoa's.
  */
 export function NowAtKualoa() {
-  const [line, setLine] = useState<{ clock: string; light: string } | null>(null);
+  const [line, setLine] = useState<{ clock: string; home: string | null; light: string } | null>(null);
 
   useEffect(() => {
     const update = () => {
@@ -33,7 +34,12 @@ export function NowAtKualoa() {
       } else {
         light = `The sun went down at ${hawaiiClock(sunset)}; the bay is under stars.`;
       }
-      setLine({ clock: hawaiiClock(now), light });
+      // The visitor's own clock, when it differs: Hawaiʻi is UTC−10 all year.
+      const elsewhere = now.getTimezoneOffset() !== 600;
+      const home = elsewhere
+        ? new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit" }).format(now).replace(/\s/g, " ")
+        : null;
+      setLine({ clock: hawaiiClock(now), home, light });
     };
     update();
     const id = setInterval(update, 30_000);
@@ -44,7 +50,8 @@ export function NowAtKualoa() {
     <p className="now" aria-live="off">
       {line ? (
         <>
-          Right now at Kualoa it is <strong>{line.clock}</strong>. {line.light}
+          Right now at Kualoa it is <strong>{line.clock}</strong>
+          {line.home ? ` (${line.home} where you are)` : ""}. {line.light}
         </>
       ) : null}
     </p>

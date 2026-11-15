@@ -494,8 +494,8 @@ h3 {
    when it fills in after mount. */
 .now {
   margin: 34px 0 0;
-  max-width: 34ch;
-  min-height: 3.4em;
+  max-width: 38ch;
+  min-height: 5.1em;
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--muted);
@@ -1556,6 +1556,181 @@ h3 {
   cursor: pointer;
 }
 
+/* ---------- Travel: how far you are coming ----------------- */
+
+.flying {
+  margin-bottom: clamp(30px, 4.4vw, 56px);
+}
+.flying h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+.flying > p {
+  max-width: 62ch;
+  margin: 0;
+}
+.flying-pick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 16px;
+  margin-top: 20px !important;
+}
+.flying-pick label {
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.flying-pick select {
+  min-height: 46px;
+  padding: 8px 40px 8px 16px;
+  font-family: var(--display);
+  font-size: 1.3rem;
+  color: var(--deep);
+  background: var(--white)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2316696e' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat right 15px center / 12px;
+  border: 1px solid color-mix(in srgb, var(--deep) 26%, transparent);
+  border-radius: 3px;
+  appearance: none;
+  cursor: pointer;
+}
+.flying-chart {
+  display: block;
+  width: 100%;
+  max-width: 860px;
+  height: auto;
+  margin-top: 8px;
+  overflow: visible;
+}
+.flying-miles text {
+  font-family: var(--body);
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  fill: var(--muted);
+}
+.flying-home {
+  font-family: var(--display);
+  font-size: 19px;
+  font-style: italic;
+  fill: var(--ink-line);
+}
+/* Dashes are measured along the path itself, so the stroke must scale too. */
+.flying-path {
+  vector-effect: none;
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+}
+.flying-result {
+  min-height: 9.5em;
+  margin-top: 6px;
+}
+.flying-result p {
+  margin: 0;
+}
+.flying-figure {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.3;
+}
+.flying-number {
+  font-size: 1.9em;
+  line-height: 1;
+  color: var(--ink-line);
+  font-variant-numeric: lining-nums;
+}
+.flying-result ul {
+  max-width: 62ch;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.flying-result li {
+  padding: 9px 0;
+  border-top: 1px solid var(--rule);
+}
+.flying-prompt {
+  font-style: italic;
+  color: var(--muted);
+}
+.flying-table {
+  max-width: 640px;
+  margin-top: 14px;
+}
+.flying-table summary {
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 0.92rem;
+  color: var(--lagoon);
+  cursor: pointer;
+  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 45%, transparent);
+  list-style: none;
+}
+.flying-table summary::-webkit-details-marker {
+  display: none;
+}
+.flying-table table {
+  width: 100%;
+  margin-top: 14px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.flying-table th,
+.flying-table td {
+  padding: 8px 12px 8px 0;
+  text-align: left;
+  font-weight: 400;
+  border-top: 1px solid var(--rule);
+}
+.flying-table thead th {
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+  border-top: 0;
+}
+.flying-table td {
+  font-variant-numeric: tabular-nums;
+}
+/* The chart is drawn 760 wide; on a phone its lettering needs to be larger. */
+@media (max-width: 620px) {
+  .flying-miles text {
+    font-size: 21px;
+  }
+  .flying-home {
+    font-size: 30px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flying-path {
+    animation: flying-draw 0.9s ease-out both;
+  }
+  .flying-bird,
+  .flying-home {
+    animation: flying-arrive 0.5s ease-out 0.55s both;
+  }
+}
+@keyframes flying-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes flying-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* ---------- Travel: the three crossings -------------------- */
 
 .crossings-block {
@@ -2134,6 +2309,70 @@ footer {
 }
 
 /* ---------- Motion ---------------------------------------- */
+
+/* A breathing sea. The banner photograph drifts like a long swell, and two
+   pools of sunlight come and go on the water at their own pace. Only ever
+   lighter, never darker, so the words over it keep their contrast; and only
+   for visitors who have not asked for stillness. */
+.hero-media::before,
+.hero-media::after,
+.page-hero-media::before,
+.page-hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  opacity: 0;
+}
+.hero-media::before,
+.page-hero-media::before {
+  background: radial-gradient(34% 30% at 30% 36%, rgb(255 255 255 / 0.75), transparent 72%);
+}
+.hero-media::after,
+.page-hero-media::after {
+  background: radial-gradient(28% 24% at 74% 24%, rgb(255 255 255 / 0.7), transparent 72%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-media img,
+  .page-hero-media img {
+    animation: swell 46s ease-in-out infinite alternate;
+  }
+  .hero-media::before,
+  .page-hero-media::before {
+    animation: glint 13s ease-in-out infinite;
+  }
+  .hero-media::after,
+  .page-hero-media::after {
+    animation: glint 17s ease-in-out -6s infinite;
+  }
+}
+@keyframes swell {
+  from {
+    transform: scale(1.015);
+  }
+  to {
+    transform: scale(1.055) translate3d(-0.7%, 0.5%, 0);
+  }
+}
+@keyframes glint {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(-2.5%, 0, 0);
+  }
+  40% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.55;
+  }
+  70% {
+    opacity: 0.9;
+    transform: translate3d(2.5%, 1%, 0);
+  }
+}
 
 .reveal {
   transition: opacity 0.7s ease-out, transform 0.7s ease-out;

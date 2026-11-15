@@ -30,7 +30,9 @@ export function Reveal({ children }: { children: ReactNode }) {
         el.classList.add("shown");
         observer.disconnect();
       },
-      { threshold: 0.08 },
+      // A margin, not a fraction of the element: a chapter many screens tall
+      // would never have 8% of itself on screen at once, and would stay hidden.
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();

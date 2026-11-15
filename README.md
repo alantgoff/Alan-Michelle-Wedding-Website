@@ -26,12 +26,34 @@ needs real information. Start with `content/site.ts` — the wedding date there 
 | `site.ts` | Names, date, ceremony time, venue, welcome note, navigation |
 | `groups.ts` | Guest groups and their private invite slugs |
 | `activities.ts` | Weekend events and who can see each one |
-| `travel.ts` | Getting there, where to stay, recommendations |
-| `faq.ts` | Questions and answers |
+| `travel.ts` | Getting there, the three roads over the mountains, where to stay, packing |
+| `island.ts` | The island guide: Kualoa's story, eating, a free day, manners, how to say the names |
+| `sky.ts` | Sunset, moonrise, the tide and the moon over the weekend, and the words around them |
+| `skyChart.ts` | Where the stars stand over the lawn at nine. **Computed: do not edit by hand** |
+| `flying.ts` | The cities in the "How far you are coming" picker on Travel |
+| `weather.ts` | Typical early-October weather, shown until the real forecast arrives |
+| `faq.ts` | Questions and answers, in groups |
 | `story.ts` | Our Story timeline |
 | `dressCode.ts` | Dress code guidance and color swatches |
 | `registry.ts` | Registry links |
 | `photos.ts` | **Photo manifest — the only file that points at images** |
+
+## Facts, and how they were checked
+
+The guide pages (Travel and The island) are full of facts: opening hours, laws, drive times, tide
+times, Hawaiian words and stories. Each one was researched and then checked a second time against
+a primary source, and anything a checker could not confirm was left out. Please keep that standard:
+if you are not sure of something, do not print it.
+
+Three kinds of fact go stale and are marked in the content files with the date they were checked:
+
+- **Hours, prices and rules** (restaurants, parks, Hanauma Bay, hotel fees, taxes): as of late 2026.
+  Read them again before the invitations go out.
+- **Anything about the venue** (parking, when music ends): from Kualoa Ranch's public pages. The
+  ranch coordinator's word replaces them.
+- **The sky and the tide** for October 6, 2028, in `content/sky.ts` and `content/skyChart.ts`. These
+  are right for that date and that place only. If the date or the hour shown ever changes they must
+  be worked out again; the site does not compute them.
 
 ## Photos
 
@@ -85,6 +107,13 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - Tapping the logo at the top of the home page scatters plumeria down the screen.
 - Tapping the countdown counts in weeks, then in full moons, then back to days.
 - Activities shows each day's real date and that evening's sunset, and lists events in time order.
+- Every page banner closes with a drawing of the coast in the logo's navy line (`components/ink/`),
+  and the banner photograph drifts very slowly, with pools of sunlight that come and go.
+- The island carries a chart of the sky over the lawn at nine on the wedding night, the day drawn
+  as one tide line, and the moon for each night of the weekend.
+- Travel's "How far you are coming" draws a guest's crossing from their home city and says what
+  their watch will do. The choice is remembered in their own browser only.
+- A guest in another time zone sees their own clock beside Kualoa's on the home page.
 
 ## The weather panel
 
