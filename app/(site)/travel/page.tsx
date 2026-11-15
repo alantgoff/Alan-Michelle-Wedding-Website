@@ -62,7 +62,7 @@ export default async function Travel() {
           tableLabel={flying.tableLabel}
         />
 
-        <Passages items={travel.gettingThere} />
+        <Passages items={[...travel.beforeYouFly, ...travel.gettingThere]} />
 
         <div className="crossings-block">
           <h3>Choose your crossing</h3>

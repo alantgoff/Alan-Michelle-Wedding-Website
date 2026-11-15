@@ -20,6 +20,21 @@ export type Crossing = { id: "h3" | "likelike" | "pali"; title: string; label: s
 
 export const travel = {
  /**
+  * Before the flight. The ID fee and the form's details are as of 2026:
+  * check both again before the invitations go out.
+  */
+ beforeYouFly: [
+  {
+   title: "Bring the right ID",
+   text: "Every adult needs a REAL ID–compliant license, a passport or another ID on TSA’s list to board; TSA has enforced this since May 2025. TSA does not ask children under 18 for ID on domestic flights, though your airline may have its own rules. If your ID is not accepted, TSA can try to confirm who you are for a fee ($45 when we checked in 2026), good for ten days from your travel date, but it is not guaranteed. Please check yours now, while there is plenty of time.",
+  },
+  {
+   title: "The agriculture form, now on your phone",
+   text: "Hawaiʻi asks everyone flying in from the mainland to declare any fresh fruit, vegetables, plants, seeds or animals they carry. The form is digital now, called Akamai Arrival, on every domestic flight. Fill it in up to five days before you fly, or on the plane if you have Wi-Fi, and send it even if you have nothing to declare. One adult can file for a household that shares an address and a place to stay. Hawaiʻi has guarded its plants for a long time: in 1888 King Kalākaua barred new coffee plants from the islands to protect the crop already here, and the declaration, created in 1973, comes from that same care.",
+  },
+ ],
+
+ /**
   * Arriving. Also shown on the coast chart, under the airport.
   * TODO: add shuttle details here if one is arranged.
   */
@@ -87,7 +102,11 @@ export const travel = {
   },
   {
    title: "Island time, quite literally",
-   text: "Hawaiʻi never changes its clocks. In early October the mainland is still on daylight time, so Kualoa runs three hours behind the West Coast and six behind the East. If you wake before dawn that first morning, take it as an invitation: on the windward side the sun comes up out of the sea at about 6:24.",
+   text: "Hawaiʻi never changes its clocks. In early October the mainland is still on daylight time, so Kualoa runs three hours behind the West Coast and six behind the East. Flying west is the gentle direction: your body catches up by about an hour and a half a day. Spend your first afternoon outside in real daylight, keep naps short, drink plenty of water, and stay up until a local bedtime. If you wake before dawn anyway, take it as an invitation: on the windward side the sun comes up out of the sea at about 6:24.",
+  },
+  {
+   title: "Going home",
+   text: "On the way back, your bags go through a USDA agricultural check before you reach the airline counter, so leave yourself a little extra time at the airport. Fresh flower lei are welcome as long as they hold no berries or hala (pandanus) fruit, no jade vine or maunaloa flowers, and nothing from citrus or its relatives. That includes mock orange, whose flowers and leaves are sometimes used in lei, so ask the lei maker. Pineapple and coconut can come too, and coffee beans in any amount. Most other fresh fruit stays on the island; papaya and banana travel only if treated at a USDA-approved facility and packed in sealed, stamped boxes.",
   },
  ],
 
@@ -169,8 +188,16 @@ export const travel = {
    title: "A note from the moon",
    text: "If you are staying in Waikīkī: its box jellyfish keep to a lunar timetable, usually arriving eight to twelve days after the full moon. That October the moon is full on the 3rd, so they are not expected until the week after the wedding. Lifeguard signs always have the last word.",
   },
+  {
+   title: "The ocean, on its own terms",
+   text: "Swim where a lifeguard is on duty, and ask them about the day; nobody knows this water better. On our side of the island, Kailua Beach is guarded every day from 8 AM to 6:30 PM, and Lanikai is not guarded at all. Never turn your back on the ocean, never swim alone, and keep the keiki close. If a current takes you, stay calm; currents generally do not pull you under. Float, go with it rather than fight it, and wave and call toward shore. When in doubt, don’t go out.",
+  },
+  {
+   title: "If it has been raining",
+   text: "In the Weather Service’s records, October and November have seen more flash floods than any other months, and a stream can rise within minutes from rain falling far up in the mountains, even when it is dry where you stand. Never cross a stream that is running high: wait, or turn around. Admire the waterfalls rather than swimming in them. Fresh water here can carry leptospirosis, so stay out of streams and ponds, above all if you have a cut, and keep your head above the water.",
+  },
  ],
 
  /** The packing list. Ticks are remembered on each guest’s own device. */
- packing:["Sunscreen without oxybenzone or octinoxate, which Hawaiʻi no longer sells; the state suggests mineral ones","A light rain layer; showers pass in minutes","Shoes that like grass, for the ceremony lawn","Swimsuit, and a sarong or towel for the beach morning","A hat and sunglasses","Something light and warm for the breeze off the water at night","Insect repellent for the lawn at dusk; mosquitoes are busiest around sunrise and sunset","Your outfit for the wedding, something that breathes","Your invite link, saved on your phone"]
+ packing:["Sunscreen without oxybenzone or octinoxate, which Hawaiʻi no longer sells; the state suggests mineral ones","A light rain layer; showers pass in minutes","Shoes that like grass, for the ceremony lawn","Swimsuit, and a sarong or towel for the beach morning","A hat and sunglasses","Something light and warm for the breeze off the water at night","Insect repellent for the lawn at dusk; mosquitoes are busiest around sunrise and sunset","Your outfit for the wedding, something that breathes","Your REAL ID or passport","A folding tote; Oʻahu stores charge at least 15 cents for a checkout bag","A refillable water bottle","Any prescriptions, with a copy of the prescription","Your invite link, saved on your phone"]
 };

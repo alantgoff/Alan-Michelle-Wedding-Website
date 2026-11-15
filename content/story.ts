@@ -1,13 +1,26 @@
 /**
- * Our Story — a timeline of moments.
+ * Our Story — a timeline of moments, set like a small book.
  *
  * `photo` points at a key in content/photos.ts. Leave it off and the moment
  * renders as text only. Add, remove, and reorder entries freely.
+ *
+ * Two optional extras, shown only when you fill them in:
+ *
+ *   caption: "Kailua, 2021"
+ *     a line under the photograph, printed as "Plate II · Kailua, 2021".
+ *
+ *   notes: [
+ *     { by: "M", text: "He was forty minutes late." },
+ *     { by: "A", text: "Thirty-five." },
+ *   ]
+ *     asides in the margin, initialled, one voice each: "A" for Alan and
+ *     "M" for Michelle. Keep them short. They are the best part.
  */
 
 import type { PhotoKey } from "./photos";
 
-export type StoryMoment = { date: string; title: string; text: string; photo?: PhotoKey };
+export type StoryNote = { by: "A" | "M"; text: string };
+export type StoryMoment = { date: string; title: string; text: string; photo?: PhotoKey; caption?: string; notes?: StoryNote[] };
 
 export const story: StoryMoment[] = [
   {
@@ -49,4 +62,6 @@ export const storyClosing = {
     { word: "kākou", means: "all of us" },
   ],
   line: "Hawaiian has more than one word for we. For one weekend in October, we would much rather say kākou.",
+  /** The small print under the logo, as at the back of a book. The date is added for you. */
+  colophon: "Set in Cormorant Garamond and Lora.",
 };

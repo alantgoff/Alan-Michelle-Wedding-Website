@@ -1508,9 +1508,106 @@ h3 {
   max-width: 58ch;
   text-wrap: pretty;
 }
-.story-body .frame {
-  margin-top: 28px;
-  max-width: 420px;
+/* Each moment opens like a chapter: a drop cap, and its first line in capitals. */
+.story-text > p:first-of-type::first-letter {
+  float: left;
+  padding: 0.07em 0.1em 0 0;
+  font-family: var(--display);
+  font-size: 3.4em;
+  line-height: 0.8;
+  color: var(--lagoon);
+}
+.story-text > p:first-of-type::first-line {
+  font-size: 0.9em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+/* Asides in the margin, one voice each. Alan's are set in the text face and
+   Michelle's in the display face, so the two hands differ by more than a letter. */
+.story-notes {
+  margin: 4px 0 0;
+  padding-left: 16px;
+  border-left: 1px solid color-mix(in srgb, var(--ink-line) 40%, transparent);
+}
+.story-note {
+  margin: 0 0 8px;
+  max-width: 34ch;
+  font-style: italic;
+  color: var(--ink-line);
+}
+.story-note abbr {
+  margin-right: 2px;
+  font-style: normal;
+  font-size: 0.72em;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: var(--lagoon);
+}
+.story-note-a {
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+.story-note-m {
+  font-family: var(--display);
+  font-size: 1.22rem;
+  line-height: 1.3;
+}
+@media (min-width: 1100px) {
+  .story-text-noted {
+    display: grid;
+    grid-template-columns: minmax(0, 58ch) minmax(170px, 240px);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: start;
+  }
+  .story-text-noted .story-notes {
+    margin-top: 0.4em;
+  }
+}
+/* The photograph as a tipped-in plate: a cream mount with four paper corners. */
+.plate {
+  width: min(448px, 100%);
+  margin: 30px 0 0;
+  padding: 14px;
+  background: var(--paper);
+  box-shadow:
+    0 1px 2px rgb(18 60 62 / 0.1),
+    0 16px 32px -20px rgb(18 60 62 / 0.3);
+}
+.plate-photo {
+  position: relative;
+}
+.plate .frame {
+  border-radius: 0;
+}
+.plate-photo::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, var(--sand) 50%, transparent 50%) top left / 28px 28px no-repeat,
+    linear-gradient(225deg, var(--sand) 50%, transparent 50%) top right / 28px 28px no-repeat,
+    linear-gradient(45deg, var(--sand) 50%, transparent 50%) bottom left / 28px 28px no-repeat,
+    linear-gradient(315deg, var(--sand) 50%, transparent 50%) bottom right / 28px 28px no-repeat;
+  filter: drop-shadow(0 0 0.6px rgb(18 60 62 / 0.55));
+}
+.plate figcaption {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: var(--muted);
+}
+/* The small print at the back of the book. */
+.colophon {
+  max-width: 34ch;
+  margin: 18px 0 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--muted);
 }
 .story-moment-end .story-track {
   padding-bottom: 12px;
@@ -2497,6 +2594,147 @@ h3 {
   }
 }
 
+/* ---------- Registry: postcards ---------------------------- */
+
+/* Each registry is a postcard: the note on the left, the address side on the
+   right, one stamp, one postmark. All in the logo's single ink. */
+.postcards {
+  display: grid;
+  gap: clamp(26px, 4vw, 44px);
+  max-width: 880px;
+}
+.postcard {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  min-height: 300px;
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--deep) 14%, transparent);
+  box-shadow:
+    0 1px 2px rgb(18 60 62 / 0.1),
+    0 18px 34px -22px rgb(18 60 62 / 0.3);
+  transition: translate 0.4s ease-out;
+}
+.postcard:hover {
+  translate: 0 -3px;
+}
+.postcard-message {
+  display: flex;
+  align-items: center;
+  padding: clamp(24px, 4vw, 44px);
+  border-right: 1px solid color-mix(in srgb, var(--ink-line) 30%, transparent);
+}
+.postcard-message p {
+  margin: 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.1vw, 1.6rem);
+  line-height: 1.4;
+  color: var(--ink-line);
+  text-wrap: pretty;
+}
+.postcard-address {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: clamp(24px, 4vw, 44px);
+  padding-top: 132px;
+}
+.postcard-address .label {
+  margin: 0;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.postcard-address h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+/* The ruled lines of an address side. */
+.postcard-rule {
+  height: 26px;
+  margin: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink-line) 30%, transparent);
+}
+.postcard-address .button {
+  align-self: flex-start;
+  margin-top: 18px;
+}
+/* A stamp with a perforated edge, cut by a mask so the paper shows through. */
+.stamp {
+  position: absolute;
+  top: clamp(18px, 3vw, 30px);
+  right: clamp(18px, 3vw, 30px);
+  filter: drop-shadow(0 1px 1.5px rgb(18 60 62 / 0.28));
+}
+.stamp-face {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  width: 80px;
+  padding: 9px;
+  background: var(--white);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    radial-gradient(circle 3.2px, #0000 97%, #000) -4.5px -4.5px / 9px 9px round;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    radial-gradient(circle 3.2px, #0000 97%, #000) -4.5px -4.5px / 9px 9px round;
+}
+.stamp-face svg {
+  width: 46px;
+  height: 46px;
+  margin-top: 6px;
+}
+.stamp-petal {
+  fill: var(--paper);
+  stroke: var(--ink-line);
+  stroke-width: 2.6;
+  stroke-linejoin: round;
+}
+.stamp-word {
+  padding-bottom: 6px;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.1;
+  color: var(--ink-line);
+}
+.postmark {
+  position: absolute;
+  top: clamp(16px, 3vw, 32px);
+  right: clamp(64px, 9vw, 92px);
+  width: 170px;
+  height: auto;
+  opacity: 0.78;
+  pointer-events: none;
+}
+.postmark-rim {
+  font-family: var(--body);
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  fill: var(--ink-line);
+}
+.postmark-date {
+  font-family: var(--body);
+  font-size: 8.4px;
+  letter-spacing: 0.03em;
+  fill: var(--ink-line);
+}
+@media (max-width: 620px) {
+  .postcard {
+    grid-template-columns: 1fr;
+  }
+  .postcard-message {
+    border-right: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink-line) 30%, transparent);
+  }
+}
+
 /* ---------- Footer ---------------------------------------- */
 
 footer {
@@ -3004,6 +3242,7 @@ footer {
   .say-it li,
   .weather-grid > div,
   .faq details,
+  .postcard,
   .kolea,
   .crossing,
   .wind-name,
