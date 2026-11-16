@@ -11,6 +11,22 @@ export type Tide = { time: string; kind: "high" | "low"; feet: number };
 export type MoonNight = { date: string; day: string; sunset: string; moonrise: string; lit: number; ours?: boolean };
 
 export const sky = {
+  /**
+   * The live line beside the countdown on the home page, worked out from
+   * the visitor's clock. {clock}, {home}, {time}, {hours} and so on are
+   * filled in for you.
+   */
+  now: {
+    lead: "Right now at Kualoa it is",
+    yours: "({home} where you are)",
+    dark: "Still dark over the bay; the sun comes up at {time}.",
+    hour: "hour",
+    hours: "hours",
+    left: "{hours} {unit}{minutes} of daylight left.",
+    minutes: " and {minutes} minutes",
+    setting: "The sun sets at {time}, and drops behind the ridge at Kualoa before that.",
+    gone: "The sun went down at {time}; the bay is under stars.",
+  },
   /** Start of civil twilight: when the sky first lightens. */
   firstLight: "6:02 AM",
   sunrise: "6:24 AM",

@@ -1,5 +1,6 @@
 import { site } from "@/content/site";
 import { weather } from "@/content/weather";
+import { fill } from "@/lib/fill";
 import { daysUntil, getForecast } from "@/lib/forecast";
 import { hawaiiClock, hawaiiNoon, sunTimes } from "@/lib/sun";
 
@@ -21,38 +22,23 @@ export async function WeatherPanel() {
   const forecast = await getForecast(day, site.coordinates.lat, site.coordinates.lng);
   const away = daysUntil(day);
 
+  const f = weather.forecast;
+  const sun = { label: weather.sunset.label, value: hawaiiClock(sunset), note: fill(weather.sunset.note, { time: hawaiiClock(sunrise) }) };
   const stats = forecast
     ? [
-        { label: "High", value: `${forecast.high}°F`, note: "On the lawn, in the afternoon sun." },
-        { label: "Low", value: `${forecast.low}°F`, note: "After dark, with the breeze off the water." },
-        {
-          label: "Rain",
-          value: `${forecast.rainChance}%`,
-          note:
-            forecast.rainInches >= 0.4
-              ? "Enough to bring a rain layer; there is a covered pavilion and a tent on the lawn."
-              : "Passing showers at most, if any.",
-        },
-        { label: "Wind", value: `${forecast.windMph} mph`, note: "Usually strongest in the early afternoon, easing after dark." },
-        { label: "Sunset", value: hawaiiClock(sunset), note: `Sunrise at ${hawaiiClock(sunrise)}.` },
+        { label: f.high.label, value: `${forecast.high}°F`, note: f.high.note },
+        { label: f.low.label, value: `${forecast.low}°F`, note: f.low.note },
+        { label: f.rain.label, value: `${forecast.rainChance}%`, note: forecast.rainInches >= 0.4 ? f.rain.wet : f.rain.dry },
+        { label: f.wind.label, value: `${forecast.windMph} mph`, note: f.wind.note },
+        sun,
       ]
-    : [
-        ...weather.typical.map((t) => ({ label: t.label, value: t.value, note: t.note })),
-        { label: "Sunset", value: hawaiiClock(sunset), note: `Sunrise at ${hawaiiClock(sunrise)}.` },
-      ];
+    : [...weather.typical.map((t) => ({ label: t.label, value: t.value, note: t.note })), sun];
 
   return (
     <div className="weather">
       <p className="weather-status">
         {forecast ? (
-          <>
-            The forecast for{" "}
-            <strong>
-              {site.weddingDate}
-              {away === 0 ? " — today" : away === 1 ? " — tomorrow" : ""}
-            </strong>
-            , updated through the day.
-          </>
+          fill(f.status, { date: site.weddingDate, when: away === 0 ? f.today : away === 1 ? f.tomorrow : "" })
         ) : away < 0 ? (
           weather.after
         ) : (

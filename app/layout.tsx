@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   // Each page names itself ("Travel | Alan & Michelle"), which is also what
   // screen readers announce when a guest moves between pages.
   title: { default: `${site.couple} | ${site.location}`, template: `%s | ${site.couple}` },
-  description: `Wedding weekend at Palikū Gardens, Kualoa Ranch, ${site.location}`,
+  description: site.description,
   // Keeps the site off search engines while still being shareable by link.
   robots: { index: false, follow: false, nocache: true },
 };

@@ -2,23 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero, Section } from "@/components/Page";
 import { SiteShell } from "@/components/SiteShell";
+import { site } from "@/content/site";
 
-export const metadata: Metadata = { title: { absolute: "Past the reef" } };
+export const metadata: Metadata = { title: { absolute: site.notFound.tab } };
 
 /** Wrong URL. Sits outside the (site) group, so it brings its own shell. */
 export default function NotFound() {
   return (
     <SiteShell>
       <PageHero
-        kicker="Lost at sea"
-        title="Past the reef"
-        intro="There is nothing out here but open water. Whatever you were looking for is back on shore."
+        kicker={site.notFound.kicker}
+        title={site.notFound.title}
+        intro={site.notFound.intro}
         photo="hero"
         scene="reef"
       />
       <Section>
         <Link className="button" href="/">
-          Back to the beach
+          {site.notFound.back}
         </Link>
       </Section>
     </SiteShell>

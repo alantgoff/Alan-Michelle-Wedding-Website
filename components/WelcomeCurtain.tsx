@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
+import { home } from "@/content/home";
 
 // Module scope: survives client-side navigation, resets on a real page load.
 // Stops the card replaying when Back returns to the home page this session.
@@ -71,7 +72,7 @@ export function WelcomeCurtain({ greeting }: { greeting: string }) {
       <div className="curtain-card">
         <Logo className="curtain-logo" sizes="(max-width: 600px) 46vw, 240px" priority />
         <p className="curtain-aloha">{greeting}</p>
-        <p className="curtain-line">Welcome to our wedding weekend</p>
+        <p className="curtain-line">{home.curtain}</p>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { photos, type PhotoKey } from "@/content/photos";
+import { photos, standinLabel, type PhotoKey } from "@/content/photos";
 
 type Shape = "wide" | "portrait" | "square";
 
@@ -24,7 +24,7 @@ export function PhotoFrame({
   return (
     <figure className={`frame ${shape}`}>
       <Image src={photo.src} alt={photo.alt} fill sizes={sizes} priority={priority} />
-      {"standin" in photo && photo.standin ? <figcaption className="standin">Placeholder</figcaption> : null}
+      {"standin" in photo && photo.standin ? <figcaption className="standin">{standinLabel}</figcaption> : null}
     </figure>
   );
 }

@@ -21,6 +21,23 @@ export const flying = {
     "Choose where you are setting out from, and we will tell you how far it is to the lawn and what your watch will be doing.",
   prompt: "Pick a city to see how far it is.",
   tableLabel: "Every city on the list",
+  /** The smaller words on the chart and under it. {placeholders} are filled in for you. */
+  words: {
+    pick: "Flying from",
+    choose: "Choose a city",
+    miles: "miles, in a straight line",
+    sameTime: "No need to touch your watch: we keep the same time.",
+    setBack: "Set your watch back {hours} when you land.",
+    sunset: "When the sun sets on our wedding day, at {sunset} at Kualoa, it will be {time}{nextDay} in {city}.",
+    nextDay: " the next morning",
+    table: { from: "From", miles: "Miles", behind: "Hawaiʻi is behind by" },
+    /** Hours written out: "three and a half hours". */
+    numbers: ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"],
+    halfHour: "half an hour",
+    andAHalf: "{n} and a half hours",
+    hour: "{n} hour",
+    hours: "{n} hours",
+  },
   /** Remembered on the guest's own device only. */
   airports: [
     { code: "SEA", city: "Seattle", lat: 47.45, lng: -122.31, tz: "America/Los_Angeles" },

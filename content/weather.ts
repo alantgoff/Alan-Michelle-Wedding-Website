@@ -11,6 +11,23 @@
  */
 
 export const weather = {
+  /**
+   * The panel once the real forecast is in. The figures come from the
+   * forecast; these are the words beside them. {date}, {when} and {time}
+   * are filled in for you.
+   */
+  forecast: {
+    status: "The forecast for {date}{when}, updated through the day.",
+    today: " — today",
+    tomorrow: " — tomorrow",
+    high: { label: "High", note: "On the lawn, in the afternoon sun." },
+    low: { label: "Low", note: "After dark, with the breeze off the water." },
+    rain: { label: "Rain", wet: "Enough to bring a rain layer; there is a covered pavilion and a tent on the lawn.", dry: "Passing showers at most, if any." },
+    wind: { label: "Wind", note: "Usually strongest in the early afternoon, easing after dark." },
+  },
+  /** Always shown last, from the sun's own times for the day. */
+  sunset: { label: "Sunset", note: "Sunrise at {time}." },
+
   /** Shown until the forecast window opens. */
   typical: [
     { label: "Daytime high", value: "Mid 80s°F", note: "About 29°C. Humid, with real warmth in the sun." },

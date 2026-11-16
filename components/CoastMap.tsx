@@ -3,12 +3,14 @@
 import { useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import Image from "next/image";
+import Link from "next/link";
 import "./CoastMap.css";
 import type { Activity } from "@/content/activities";
 import { site } from "@/content/site";
-import { travel } from "@/content/travel";
+import { travel, type Stay } from "@/content/travel";
 import { photos, type PhotoKey } from "@/content/photos";
-import { minutesOf } from "@/lib/weekend";
+import { fill } from "@/lib/fill";
+import { anchorFor, minutesOf } from "@/lib/weekend";
 
 /**
  * The windward coast, drawn — a chart of where everything happens.
@@ -22,136 +24,40 @@ import { minutesOf } from "@/lib/weekend";
  * private event never reaches this component for a guest who may not see it.
  */
 
-type PlaceId = "airport" | "waikiki" | "koolina" | "northshore" | "ridge" | "kaneohe" | "beaches" | "venue";
+type PlaceId = keyof typeof travel.map.places;
 
-type Place = {
+/** The drawing's own layout for each place. The words are in content/travel.ts (`map`). */
+type Pin = {
   id: PlaceId;
-  /** Full name, used in the index and at the head of the panel. */
-  name: string;
-  /** Short name, used on the chart itself where room is tight. */
+  /** Short name, written on the chart itself where room is tight. */
   short: string;
-  kind: string;
   /** Position on the 1000 x 720 chart, as a percentage. */
   x: number;
   y: number;
   side: "left" | "right";
   star?: boolean;
-  blurb: string;
-  notes: { title: string; text: string }[];
-  list?: { heading: string; items: string[] };
+  /** The places to stay this point stands for, by their id in travel.stays. */
+  stays?: Stay["id"][];
   photo?: PhotoKey;
 };
 
-const stay = (id: (typeof travel.stays)[number]["id"]) => travel.stays.find((s) => s.id === id)!.text;
-
-const PLACES: Place[] = [
-  {
-    id: "airport",
-    name: "Honolulu airport",
-    short: "HNL",
-    kind: "Where you land",
-    x: 50.4,
-    y: 80.5,
-    // Left at every width: on the right it runs into the Waikīkī pin.
-    side: "left",
-    blurb: "Every guest starts here. Collect the car before you do anything else.",
-    notes: travel.gettingThere,
-    photo: "travel",
-  },
-  {
-    id: "waikiki",
-    name: "Waikīkī",
-    short: "Waikīkī",
-    kind: "Where to stay",
-    x: 62,
-    y: 79.5,
-    side: "right",
-    blurb: "The south shore. Most rooms, most restaurants, about 45 minutes from us.",
-    notes: [{ title: "Staying here", text: stay("waikiki") }],
-  },
-  {
-    id: "koolina",
-    name: "Ko Olina",
-    short: "Ko Olina",
-    kind: "Where to stay",
-    x: 26.5,
-    y: 75.5,
-    side: "right",
-    blurb: "The far western shore: lagoons, big resorts, and the longest drive to us.",
-    notes: [{ title: "Staying here", text: stay("ko-olina") }],
-  },
-  {
-    id: "northshore",
-    name: "North Shore",
-    short: "North Shore",
-    kind: "Where to stay",
-    x: 43,
-    y: 19.5,
-    side: "right",
-    blurb: "The far side of the island, quiet and green, and closer than it looks.",
-    notes: [
-      { title: "Staying in Lāʻie", text: stay("laie") },
-      { title: "Staying at Turtle Bay", text: stay("turtle-bay") },
-    ],
-    photo: "activities",
-  },
-  {
-    id: "ridge",
-    name: "The Koʻolau ridge",
-    short: "Koʻolau",
-    kind: "The wall down the middle",
-    x: 60,
-    y: 44,
-    side: "left",
-    blurb:
-      "The green wall that separates the windward side from town. Every drive to the venue crosses it or runs along its foot, and it is the reason the weather changes in ten minutes.",
-    notes: [travel.crossing],
-  },
-  {
-    id: "kaneohe",
-    name: "Kāneʻohe",
-    short: "Kāneʻohe",
-    kind: "Where to stay",
-    x: 70,
-    y: 47.5,
-    side: "right",
-    blurb: "The bay town nearest the venue, with a reef flat in front of it.",
-    notes: [{ title: "Staying here", text: stay("bay") }],
-  },
-  {
-    id: "beaches",
-    name: "Kailua & Lanikai",
-    short: "Kailua",
-    kind: "Where to spend a morning",
-    x: 75.5,
-    y: 58.5,
-    side: "right",
-    blurb: "Turquoise water and pale sand, a little over half an hour south of the venue.",
-    notes: [travel.beachParking],
-    list: { heading: "While you are on this coast", items: [...travel.explore] },
-    photo: "welcome",
-  },
-  {
-    id: "venue",
-    name: site.venue,
-    short: "Palikū Gardens",
-    kind: "The wedding",
-    x: 72,
-    y: 33,
-    side: "right",
-    star: true,
-    blurb: site.tagline,
-    notes: [
-      {
-        title: "About this place",
-        text: "Palikū means “vertical cliff”, an old name for this side of the ridge. The voyaging canoe Hōkūleʻa, the “Star of Gladness”, first met the sea on the shore nearby in 1975. There is more on The island page.",
-      },
-    ],
-    photo: "hero",
-  },
+const PINS: Pin[] = [
+  // Left at every width: on the right it runs into the Waikīkī pin.
+  { id: "airport", short: "HNL", x: 50.4, y: 80.5, side: "left", photo: "travel" },
+  { id: "waikiki", short: "Waikīkī", x: 62, y: 79.5, side: "right", stays: ["waikiki"] },
+  { id: "koolina", short: "Ko Olina", x: 26.5, y: 75.5, side: "right", stays: ["ko-olina"] },
+  { id: "northshore", short: "North Shore", x: 43, y: 19.5, side: "right", stays: ["laie", "turtle-bay"], photo: "activities" },
+  { id: "ridge", short: "Koʻolau", x: 60, y: 44, side: "left" },
+  { id: "kaneohe", short: "Kāneʻohe", x: 70, y: 47.5, side: "right", stays: ["bay"] },
+  { id: "beaches", short: "Kailua", x: 75.5, y: 58.5, side: "right", photo: "welcome" },
+  { id: "venue", short: "Palikū Gardens", x: 72, y: 33, side: "right", star: true, photo: "hero" },
 ];
 
 const DAY_ORDER = ["Thursday", "Friday", "Saturday", "Sunday"];
+const dayRank = (day: string) => {
+  const i = DAY_ORDER.indexOf(day);
+  return i === -1 ? 99 : i;
+};
 
 /** Which point on the chart an event belongs to, read off its location. */
 function placeOf(activity: Activity): PlaceId | null {
@@ -164,22 +70,18 @@ function placeOf(activity: Activity): PlaceId | null {
   return null;
 }
 
-function sortedDays(activities: Activity[]) {
-  const days = Array.from(new Set(activities.map((a) => a.date)));
-  days.sort((a, b) => {
-    const ai = DAY_ORDER.indexOf(a);
-    const bi = DAY_ORDER.indexOf(b);
-    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-  });
-  return days;
-}
-
 export function CoastMap({ activities }: { activities: Activity[] }) {
   const [selected, setSelected] = useState<PlaceId>("venue");
   const panelRef = useRef<HTMLDivElement>(null);
-  const place = PLACES.find((p) => p.id === selected) ?? PLACES[PLACES.length - 1];
-  const here = activities.filter((a) => placeOf(a) === place.id);
-  const days = sortedDays(activities);
+  const pin = PINS.find((p) => p.id === selected) ?? PINS[PINS.length - 1];
+  const place = travel.map.places[pin.id];
+  const words = travel.map.panel;
+  // What happens here, in the order of the weekend. The full story of each
+  // is on the Weekend page; the chart only names it.
+  const here = activities
+    .filter((a) => placeOf(a) === pin.id)
+    .sort((a, b) => dayRank(a.date) - dayRank(b.date) || minutesOf(a.time) - minutesOf(b.time));
+  const stays = (pin.stays ?? []).map((id) => travel.stays.find((s) => s.id === id)!);
 
   // Show the new place before measuring, then bring the panel into view only
   // when it is not already there: on a phone it sits below the chart; on a
@@ -200,7 +102,7 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
       <div className="coast-chart-column">
         <div className="coast-canvas">
           <CoastChart />
-          {PLACES.map((p) => (
+          {PINS.map((p) => (
             <button
               key={p.id}
               type="button"
@@ -219,8 +121,8 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
           ))}
         </div>
 
-        <div className="coast-index" role="group" aria-label="Places on the chart">
-          {PLACES.map((p) => (
+        <div className="coast-index" role="group" aria-label={travel.map.indexLabel}>
+          {PINS.map((p) => (
             <button
               key={p.id}
               type="button"
@@ -229,8 +131,8 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
               aria-controls="coast-place-panel"
               onClick={() => open(p.id)}
             >
-              <span className="coast-index-kind">{p.kind}</span>
-              <span className="coast-index-name">{p.name}</span>
+              <span className="coast-index-kind">{travel.map.places[p.id].kind}</span>
+              <span className="coast-index-name">{travel.map.places[p.id].name}</span>
             </button>
           ))}
         </div>
@@ -241,95 +143,74 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
         <h3 className="coast-panel-name">{place.name}</h3>
         <p className="coast-panel-blurb">{place.blurb}</p>
 
-        {place.id === "venue" ? (
+        {pin.id === "venue" ? (
           <div className="coast-venue">
             <dl className="coast-facts">
               <div>
-                <dt>Date</dt>
+                <dt>{words.date}</dt>
                 <dd>{site.weddingDate}</dd>
               </div>
               <div>
-                <dt>Ceremony</dt>
+                <dt>{words.ceremony}</dt>
                 <dd>{site.ceremonyTime}</dd>
               </div>
               <div>
-                <dt>Address</dt>
+                <dt>{words.address}</dt>
                 <dd>{site.address}</dd>
               </div>
             </dl>
             <a className="coast-link" href={site.mapUrl} target="_blank" rel="noreferrer">
-              Open the venue in Google Maps
+              {words.maps}
             </a>
-            {days.length > 0 ? (
-              <>
-                <h4 className="coast-panel-sub">The weekend, in order</h4>
-                <ol className="coast-schedule">
-                  {days.map((day) => (
-                    <li key={day}>
-                      <p className="coast-schedule-day">{day}</p>
-                      <ul className="coast-schedule-list">
-                        {activities
-                          .filter((a) => a.date === day)
-                          .sort((a, b) => minutesOf(a.time) - minutesOf(b.time))
-                          .map((a) => (
-                            <li key={a.title + a.time}>
-                              <span className="coast-schedule-time">{a.time}</span>
-                              <span className="coast-schedule-body">
-                                <strong>{a.title}</strong>
-                                <span className="coast-schedule-place">{a.location}</span>
-                                <span className="coast-schedule-text">{a.description}</span>
-                              </span>
-                            </li>
-                          ))}
-                      </ul>
-                    </li>
-                  ))}
-                </ol>
-              </>
-            ) : null}
+            {/* A plain link: only a real page load sets :target on the Weekend page. */}
+            <a className="coast-link" href="/weekend">
+              {words.weekend} →
+            </a>
           </div>
         ) : null}
 
-        {place.notes.map((n) => (
-          <div className="coast-note" key={n.title}>
-            <h4>{n.title}</h4>
-            <p>{n.text}</p>
-          </div>
-        ))}
-
-        {place.list ? (
-          <div className="coast-note">
-            <h4>{place.list.heading}</h4>
-            <ul className="coast-bullets">
-              {place.list.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
+        {stays.length > 0 ? (
+          <ul className="coast-stays">
+            {stays.map((s) => (
+              <li key={s.id}>
+                <strong>{s.title}</strong>
+                <span>{fill(words.minutes, { minutes: s.minutes })}</span>
+              </li>
+            ))}
+          </ul>
         ) : null}
 
-        {here.length > 0 && place.id !== "venue" ? (
+        {here.length > 0 ? (
           <div className="coast-note">
-            <h4>Happening here</h4>
+            <h4>{words.here}</h4>
             <ul className="coast-here">
               {here.map((a) => (
                 <li key={a.title + a.time}>
                   <span className="coast-here-when">
                     {a.date} · {a.time}
                   </span>
-                  <strong>{a.title}</strong>
-                  <span className="coast-here-text">{a.description}</span>
+                  <a href={`/weekend#${anchorFor(a.title)}`}>{a.title}</a>
                 </li>
               ))}
             </ul>
           </div>
         ) : null}
 
-        {place.photo ? (
+        {place.link ? (
+          <p className="more-link">
+            {place.link.href.startsWith("#") ? (
+              <a href={place.link.href}>{place.link.label} →</a>
+            ) : (
+              <Link href={place.link.href}>{place.link.label} →</Link>
+            )}
+          </p>
+        ) : null}
+
+        {pin.photo ? (
           <div className="coast-panel-photo">
             <Image
-              src={photos[place.photo].src}
-              alt={photos[place.photo].alt}
+              src={photos[pin.photo].src}
+              alt={photos[pin.photo].alt}
               fill
               sizes="(max-width: 900px) 100vw, 520px"
             />

@@ -276,12 +276,6 @@
   line-height: 1.4;
   color: var(--muted);
 }
-.coast-panel-sub {
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: 1.35rem;
-  margin: 28px 0 12px;
-}
 .coast-facts {
   display: grid;
   gap: 10px 0;
@@ -316,51 +310,58 @@
 .coast-link:hover {
   border-bottom-color: var(--lagoon);
 }
-.coast-schedule,
-.coast-schedule-list,
-.coast-here,
-.coast-bullets {
+.coast-venue {
+  display: grid;
+  justify-items: start;
+}
+.coast-stays,
+.coast-here {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.coast-schedule > li + li {
-  margin-top: 16px;
+/* The places to stay a point stands for, each with its drive. */
+.coast-stays {
+  margin-top: 22px;
 }
-.coast-schedule-day {
-  margin: 0 0 6px;
-  font-size: 0.7rem;
-  font-style: italic;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--lagoon);
-}
-.coast-schedule-list li,
-.coast-here li {
-  display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
-  gap: 12px;
+.coast-stays li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 16px;
   padding: 10px 0;
   border-top: 1px solid var(--rule);
 }
-.coast-here li {
-  grid-template-columns: 1fr;
-  gap: 2px;
+.coast-stays strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.2rem;
 }
-.coast-schedule-time,
+.coast-stays span {
+  font-size: 0.86rem;
+  font-style: italic;
+  color: var(--muted);
+}
+.coast-here li {
+  display: grid;
+  gap: 2px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+}
 .coast-here-when {
   font-size: 0.82rem;
   color: var(--muted);
 }
-.coast-schedule-body {
-  display: grid;
-  gap: 2px;
+.coast-here a {
+  justify-self: start;
+  padding: 4px 0;
+  font-weight: 600;
+  color: var(--deep);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 45%, transparent);
 }
-.coast-schedule-place,
-.coast-schedule-text,
-.coast-here-text {
-  font-size: 0.9rem;
-  color: var(--muted);
+.coast-here a:hover {
+  border-bottom-color: var(--lagoon);
 }
 .coast-note {
   margin-top: 24px;
@@ -375,20 +376,6 @@
 }
 .coast-note p {
   margin: 0;
-}
-.coast-bullets li {
-  padding: 5px 0 5px 18px;
-  position: relative;
-}
-.coast-bullets li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.85em;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--aqua);
 }
 .coast-panel-photo {
   position: relative;
@@ -415,8 +402,7 @@
     left: auto;
     right: calc(50% + 13px);
   }
-  .coast-facts div,
-  .coast-schedule-list li {
+  .coast-facts div {
     grid-template-columns: 1fr;
     gap: 4px;
   }

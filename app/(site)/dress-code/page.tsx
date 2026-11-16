@@ -3,7 +3,7 @@ import { FlowerEar } from "@/components/FlowerEar";
 import { PageHero, Section } from "@/components/Page";
 import { dressCode } from "@/content/dressCode";
 
-export const metadata: Metadata = { title: "Dress code" };
+export const metadata: Metadata = { title: dressCode.page.tab };
 
 /** Each sample card sits a little off square, like cards laid on a table. */
 const TILTS = ["-1.4deg", "0.9deg", "-0.5deg", "1.2deg", "-0.9deg"];
@@ -12,7 +12,7 @@ export default function Dress() {
   return (
     <>
       <PageHero
-        kicker="What to wear"
+        kicker={dressCode.page.kicker}
         title={
           <>
             {dressCode.titleLead} <em className="title-tail">{dressCode.titleTail}</em>
@@ -35,28 +35,27 @@ export default function Dress() {
           </figcaption>
         </figure>
       </Section>
-      <Section title="Color, texture, ease">
+      <Section title={dressCode.page.colorsTitle}>
         <ul className="swatches">
           {dressCode.colors.map((color, i) => (
             <li key={color.hex} className="swatch-card" style={{ rotate: TILTS[i % TILTS.length] }}>
               <span className="swatch-edge" aria-hidden="true">
                 <span className="swatch-cloth" style={{ backgroundColor: color.hex }} />
               </span>
-              <span className="swatch-no">No. {String(i + 1).padStart(2, "0")}</span>
+              <span className="swatch-no">
+                {dressCode.page.number} {String(i + 1).padStart(2, "0")}
+              </span>
               <span className="swatch-name">{color.name}</span>
               <span className="swatch-fabric">{color.fabric}</span>
             </li>
           ))}
         </ul>
-        <p>
-          Take inspiration from ocean, mountain, flowers, and late-afternoon sun. These are ideas, not a
-          uniform.
-        </p>
+        <p>{dressCode.page.colorsNote}</p>
       </Section>
       <Section>
         <div className="split-list">
           <article className="card">
-            <h3>Lean into this</h3>
+            <h3>{dressCode.page.lean}</h3>
             <ul>
               {dressCode.lean.map((item) => (
                 <li key={item}>{item}</li>
@@ -64,7 +63,7 @@ export default function Dress() {
             </ul>
           </article>
           <article className="card">
-            <h3>Maybe skip this</h3>
+            <h3>{dressCode.page.skip}</h3>
             <ul>
               {dressCode.skip.map((item) => (
                 <li key={item}>{item}</li>

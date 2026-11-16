@@ -7,12 +7,52 @@
  * State). Where a detail could not be confirmed it was left out, so please
  * keep that standard when adding to it: if you are not sure, do not print it.
  *
+ * Hours, prices and rules change. Each one that can is marked VERIFY below,
+ * with the place to check it: please look again before the invitations go
+ * out. Search this folder for VERIFY to see them all.
+ *
  * Each passage is a `title` and a `text`. Add, remove and reorder freely.
  */
 
-export type Passage = { title: string; text: string };
+/**
+ * One titled passage. Optional: `id`, so another page can link straight to
+ * it, and `link`, a line underneath pointing to where a fact is told in full.
+ */
+export type Passage = { title: string; text: string; id?: string; link?: { href: string; label: string } };
 
 export const island = {
+  /** The banner, the chapter names, and the labels on the day's almanac. */
+  page: {
+    tab: "The island",
+    kicker: "Where we are",
+    title: "The island",
+    intro:
+      "A short guide to the place we are marrying and to the windward side of Oʻahu: its stories, its names, its water, and how to be a good guest on it.",
+    chapters: {
+      kualoa: "Kualoa",
+      sky: "Sun, moon and tide",
+      eat: "Eating",
+      explore: "A free day",
+      water: "In the water",
+      manners: "A few manners",
+      sayIt: "Say it like a local",
+    },
+    /** The wedding day's sea and sky, in order. {feet}, {phrase} are filled in for you. */
+    almanac: {
+      high: "High tide, {feet} ft",
+      low: "Low tide, {feet} ft",
+      sunrise: "Sunrise, out of the sea",
+      ridge: "The sun slips behind the ridge, by our estimate, and the lawn is in shade",
+      sunset: "Sunset",
+      lastLight: "The last light goes",
+      saturn: "Saturn rises",
+      moonrise: "Moonrise, {phrase}",
+      about: "About",
+    },
+    /** Under each moon in the row of four nights. */
+    moons: { rises: "rises {time}", lit: "{percent}% lit", ours: "our night" },
+  },
+
   /** Chapter I: the ground under the wedding. */
   kualoa: {
     lede:
@@ -62,18 +102,23 @@ export const island = {
       "The best food on this side of the island is rarely fancy. It comes on a paper plate with two scoops of rice, and it is eaten at a picnic table. Here is where we would send you. Hours are as they stood in late 2026, and we will check them again before you fly.",
     passages: [
       {
+        // VERIFY before invitations: Aunty Pat’s Café hours (7:30 AM–3 PM) and Kualoa Grown Market hours (10 AM–5 PM). Source: kualoa.com.
         title: "At the ranch",
         text: "Aunty Pat’s Café, at Kualoa Ranch itself, serves breakfast and lunch from 7:30 AM to 3 PM: loco moco, burgers of the ranch’s own grass-fed beef, and a banana-kalo bread pudding. In the ranch’s historic Ranch House building, the Kualoa Grown Market is open to everyone from 10 AM to 5 PM, with beef, shrimp, oysters and produce raised on the ranch, as available.",
       },
       {
+        // VERIFY before invitations: hours (10 AM–6 PM, closed Tuesdays) and the poi-pounding days (Wednesdays and Sundays). Source: waiaholepoifactory.com, or call.
+        id: "waiahole",
         title: "Waiāhole Poi Factory",
         text: "Four miles south of us, open 10 AM to 6 PM and closed on Tuesdays. Order the laulau, the kālua pig smoked for twelve hours, and the Sweet Lady of Waiāhole, which is warm kūlolo under haupia ice cream. On Wednesdays and Sundays they pound poi by hand on board and stone. It depends on the harvest, so call ahead.",
       },
       {
+        // VERIFY before invitations: Giovanni’s hours (10:30 AM–6:30 PM) and the cash note. Source: giovannisshrimptruck.com.
         title: "Up the coast to Kahuku",
         text: "Giovanni’s began in a converted 1953 bread truck and has been parked in Kahuku, about fifteen miles up the coast, since 1996. The plate to order is the garlic scampi: a dozen shrimp and two scoops of rice. It is open from 10:30 AM to 6:30 PM, cash is recommended, and guests sign the truck with a marker borrowed from the window. Sign it for us.",
       },
       {
+        // VERIFY before invitations: Leonard’s opening time (5:30 AM) and Matsumoto’s hours (10 AM–6 PM). Sources: leonardshawaii.com; matsumotoshaveice.com.
         title: "Malasadas and shave ice",
         text: "Leonard’s Bakery opened in 1952, and not long after, Leonard’s mother suggested malasadas for Shrove Tuesday, as the Portuguese do. It is on Kapahulu Avenue, near Waikīkī, and opens at 5:30 every morning. In Haleʻiwa, the Matsumotos opened their store in 1951, and Matsumoto Shave Ice now serves from 10 AM to 6 PM daily.",
       },
@@ -101,48 +146,106 @@ export const island = {
    * anyone anywhere.
    */
   explore: {
+    /**
+     * What is open on which day of the wedding weekend, at the top of the
+     * chapter. Each line is short and points to the passage below (or in
+     * Eating) that tells it in full, by that passage's `id`.
+     */
+    byDay: {
+      title: "Plan around the weekend",
+      intro: "The island keeps its own timetable. A few things to know before you plan a free day.",
+      days: [
+        { when: "Thursday", text: "Hoʻomaluhia Botanical Garden is closed; the Byodo-In Temple is open.", href: "#hoomaluhia" },
+        { when: "Saturday", text: "The day for Kāneʻohe Bay. No tour boat, charter or rental runs there on the Sunday or the holiday Monday.", href: "#sandbar" },
+        { when: "Saturday or Sunday", text: "Hanauma Bay, if you book two days ahead. It is closed Monday and Tuesday.", href: "#hanauma" },
+        { when: "Sunday", text: "Waiāhole Poi Factory, on the way back to town, pounds poi by hand on Sundays.", href: "#waiahole" },
+      ],
+    },
     lede:
       "The windward side is at its loveliest within a short drive of the ranch. Kahana Valley is about five miles up the road and Waiāhole’s poi shop four miles down it. The Byodo-In Temple is about eight miles away and Hoʻomaluhia about twelve. Kailua’s beaches are nearer seventeen, so allow forty minutes. Hours and prices here are as they stood in late 2026, and we will check them again before you fly.",
     passages: [
       {
+        // VERIFY before invitations: tour names and lengths, the Ocean Voyage’s Sunday/holiday rule, and how far ahead UTV tours sell out. Source: kualoa.com.
         title: "More of Kualoa",
         text: "If you would like to see more of the ranch, Kualoa runs its own tours. The ninety-minute Movie Sites & Ranch Tour visits Kaʻaʻawa Valley. The Ocean Voyage (not on Sundays or federal holidays) crosses a Hawaiian fishpond the ranch dates to about eight hundred years ago, and there are a farm tour, horseback rides and UTV tours. The UTVs sell out weeks ahead, so book early at kualoa.com.",
       },
       {
+        // VERIFY before invitations: the loop trail and Keaniani lookout are open. Source: dlnr.hawaii.gov/dsp (Ahupuaʻa ʻO Kahana State Park).
         title: "Kahana Valley",
         text: "Five miles up the road, Ahupuaʻa ʻO Kahana is a “living park”, where families still make their homes in the valley. An easy one-mile loop climbs to Keaniani lookout, where a kilo iʻa, a fish watcher, once looked for schools of akule in the bay and signaled the valley to bring the nets. Huilua Fishpond, on the east side of the bay, is a National Historic Landmark and one of the few survivors of the roughly ninety-seven fishponds that once lined Oʻahu’s coast. Kahana is one of the wettest valleys on the island, so stay on the trail and keep out of the stream, above all if you have a cut.",
       },
       {
+        // VERIFY before invitations: hours (8:30 AM–4:30 PM, last entry 4:15) and admission ($10 adults). Source: byodo-in.com.
+        id: "byodo-in",
         title: "Byodo-In Temple",
         text: "At the foot of the Koʻolau in Kāneʻohe, the Byodo-In Temple is a smaller copy of the nearly thousand-year-old Byodo-In at Uji, in Japan. Before you go in, ring the great bell. It is customary, and it is said to bring happiness, blessings and a long life, which we will gladly take on your behalf. The temple is open daily from 8:30 AM to 4:30 PM (last entry 4:15), and admission is $10 for adults. It sits within a memorial park, so dress as you would for a place of worship and leave the beachwear in the car.",
       },
       {
+        // VERIFY before invitations: hours (9 AM–4 PM), closed Thursdays, free entry. Source: honolulu.gov/parks (Honolulu Botanical Gardens).
+        id: "hoomaluhia",
         title: "Hoʻomaluhia Botanical Garden",
         text: "Hoʻomaluhia is four hundred acres of garden under the Koʻolau, planted by region of the tropical world around a 32-acre lake. The Army Corps of Engineers built it to keep Kāneʻohe from flooding, and it is free. It is open from 9 AM to 4 PM but closed every Thursday, so save it for the weekend.",
       },
       {
+        // VERIFY before invitations: Kailua Beach lifeguard hours (8 AM–6:30 PM), Lanikai’s holiday parking closures and planned signs, TheBus 671. Sources: Honolulu Ocean Safety (honolulu.gov/ocean); honolulu.gov/dts; thebus.org.
+        id: "kailua",
         title: "Kailua and Lanikai",
         text: "Start at Kailua Beach, which has a parking lot and lifeguards every day from 8 AM to 6:30 PM. Lanikai, around the point, has no lifeguard and almost no parking: the city closes its streets to parking from 10 AM to 3 PM on many holiday weekends and is planning permanent no-parking signs along the loop. Park in Kailua and walk, or take TheBus 671, which loops through Lanikai. The Lanikai Pillbox hike up Kaʻiwa Ridge is about a mile there and back, steep at first and without shade, to concrete lookouts built in 1943. Skip it after rain; the trail gets slippery.",
       },
       {
+        // VERIFY before invitations: no commercial activity in Kāneʻohe Bay on Sundays and federal holidays, and which tours hold a state permit. Source: DLNR Division of Boating and Ocean Recreation, HAR §13-256 (Kāneʻohe Bay Ocean Waters).
+        id: "sandbar",
         title: "Ahu o Laka, the sandbar",
         text: "Ahu o Laka, “the altar of Laka”, is a sandbar in the middle of Kāneʻohe Bay that rises from the water at low tide and is awash at high tide. It is a sacred place as well as a beautiful one. To go with a tour, choose one that holds a state permit for Kāneʻohe Bay. No commercial boat may run in the bay on Sundays or federal holidays, and on our weekend that means Sunday, October 8 and Monday, October 9, Columbus Day. Saturday is your day.",
       },
       {
+        // VERIFY before invitations: HIMB’s guided visits (ages five and up) and the ʻOhana Saturday schedule. Source: himb.hawaii.edu.
         title: "Coconut Island, for families",
         text: "Moku o Loʻe, in Kāneʻohe Bay, is home to the Hawaiʻi Institute of Marine Biology: a working lab, reached only on the institute’s own guided visits, by boat, for ages five and up. One of them, ʻOhana Saturday, is held on the first Saturday of each month, which in October 2028 is the 7th. The island’s coconut palms are credited to Princess Bernice Pauahi Bishop, who planted a grove here in the 1880s. Check the institute’s public tours page nearer the time.",
       },
       {
+        // VERIFY before invitations: the trail gate hours (7 AM–6:45 PM). Source: dlnr.hawaii.gov/dsp (Kaiwi State Scenic Shoreline).
         title: "Makapuʻu Point",
         text: "The Makapuʻu Point Lighthouse Trail is two miles there and back on pavement, climbing about 500 feet to a lookout above the red-roofed lighthouse of 1909 (the lighthouse itself is off-limits) and, on a clear day, a view of Molokaʻi and Lānaʻi. In October the gate opens at 7 AM and closes at 6:45 PM. There is no shade, water or restroom, and it can be very windy at the top, so bring a hat and plenty to drink.",
       },
       {
+        // VERIFY before invitations: closed Mondays and Tuesdays; reservations open two days ahead at 7 AM HST; walk-in tickets at 6:45 AM; $25 entry (12 and under free) plus online fee; $3 cash parking; last entry 1:30 PM; no cancellations or changes. Source: the City’s reservation site, pros.hnl.info/hanauma-bay.
+        id: "hanauma",
         title: "Hanauma Bay, with a plan",
         text: "Hanauma Bay is closed every Monday and Tuesday. Visitors from the mainland should reserve: booking opens online two days ahead at 7 AM Hawaiʻi time, and only a few walk-in tickets are handed out at 6:45 AM. For Saturday the 7th, book on Thursday morning; for Sunday, book on the morning of the wedding. As of late 2026, entry is $25 plus a small online fee (children twelve and under are free), parking is $3 in cash, the last entry is at 1:30 PM, and everyone watches a short film before going down to the water. Bookings cannot be canceled or changed, so be sure of your day.",
       },
       {
+        // VERIFY before invitations: the Pūpūkea marine-life rule and Waimea Bay/Laniākea lifeguard hours. Sources: dlnr.hawaii.gov/dar (Marine Life Conservation Districts); Honolulu Ocean Safety.
         title: "The North Shore in October",
         text: "In the state’s calendar October is the end of the North Shore’s calmer season, but the first winter swells often arrive this month. Check the surf forecast, ask a lifeguard, and if a high-surf advisory is posted, stay out of the water. On a calm day, Shark’s Cove and Three Tables, inside the Pūpūkea marine reserve, are lovely for snorkeling. There are no lifeguards there, and nothing may be taken from the water. Waimea Bay and Laniākea have lifeguards daily from 8 AM to 6:30 PM.",
+      },
+    ] satisfies Passage[],
+  },
+
+  /** Chapter: in the water. Moved here from the Travel page, which links to it. */
+  water: {
+    lede:
+      "Most of the weekend is within sight of the sea, and some of it is in it. A few things to know first.",
+    passages: [
+      {
+        // VERIFY before invitations: the sea temperature (about 80°F in early October) and “one of only two barrier reefs in the state”. Sources: NOAA National Data Buoy Center (Mokapu Point buoy); Hawaiʻi Institute of Marine Biology.
+        title: "The water in October",
+        text: "Early October is a change of seasons on the water. Waikīkī’s summer swells are winding down, the North Shore’s first winter swells can begin to arrive, and our windward side keeps its steady trade-wind chop. Kāneʻohe Bay, behind one of only two barrier reefs in the state, is Hawaiʻi’s largest sheltered body of water. The water is about 80°F, sometimes a little warmer.",
+      },
+      {
+        // VERIFY before invitations: box jellyfish arriving eight to twelve days after the full moon, and the October 2028 full moon (the 3rd). Sources: Waikīkī Aquarium’s box jellyfish calendar; Honolulu Ocean Safety; aa.usno.navy.mil (moon phases).
+        title: "A note from the moon",
+        text: "If you are staying in Waikīkī: its box jellyfish keep to a lunar timetable, usually arriving eight to twelve days after the full moon. That October the moon is full on the 3rd, so they are not expected until the week after the wedding. Lifeguard signs always have the last word.",
+      },
+      {
+        title: "The ocean, on its own terms",
+        text: "Swim where a lifeguard is on duty, and ask them about the day; nobody knows this water better. Never turn your back on the ocean, never swim alone, and keep the keiki close. If a current takes you, stay calm; currents generally do not pull you under. Float, go with it rather than fight it, and wave and call toward shore. When in doubt, don’t go out.",
+        link: { href: "#kailua", label: "Where the lifeguards are on our side" },
+      },
+      {
+        // VERIFY before invitations: October and November as the months with the most flash floods. Source: National Weather Service Honolulu, weather.gov/hfo.
+        title: "If it has been raining",
+        text: "In the Weather Service’s records, October and November have seen more flash floods than any other months, and a stream can rise within minutes from rain falling far up in the mountains, even when it is dry where you stand. Never cross a stream that is running high: wait, or turn around. Admire the waterfalls rather than swimming in them. Fresh water here can carry leptospirosis, so stay out of streams and ponds, above all if you have a cut, and keep your head above the water.",
       },
     ] satisfies Passage[],
   },
@@ -169,10 +272,12 @@ export const island = {
     },
     passages: [
       {
+        // VERIFY before invitations: the law on taking sand, rocks and coral, and its small-quantity exception. Source: HRS §205A-44, capitol.hawaii.gov.
         title: "At the door and on the sand",
         text: "Slip off your shoes at the door of anyone’s home. Leave the sand, rocks and coral where they lie; taking them from the shore is against state law. (The same law lets you keep an empty shell, a piece of sea glass or driftwood, though not in marine reserves or where a sign says otherwise.) Leave Pidgin to the people who grew up speaking it; borrowed, it can come across as mockery. And mālama ʻāina: care for the land as the people who love it do.",
       },
       {
+        // VERIFY before invitations: the Haʻikū Stairs’ status (closed; removal under way since 2024). Source: honolulu.gov.
         title: "Kapu means keep out",
         text: "A sign that reads kapu means forbidden, keep out; the word also means sacred, and we ask you to honor it. Stay on marked trails. And please leave the Haʻikū Stairs to the photographs: they have been closed since 1987, climbing them is illegal, and the city began dismantling them in 2024.",
       },
@@ -182,13 +287,16 @@ export const island = {
       },
       {
         title: "Taking a lei home",
-        text: "Flying home with yours? Show it at the agriculture inspection at the airport. Most lei may travel, but not those with berries, hala fruit, jade vine, maunaloa flowers, or anything from citrus or mock orange.",
+        text: "Flying home with yours? Most lei may travel, but some flowers and fruits may not, and every bag is checked at the airport before you reach the airline counter. Ask the lei maker what yours is made of.",
+        link: { href: "/travel#flying-home", label: "Which lei may fly, and what else may" },
       },
       {
+        // VERIFY before invitations: the sunscreen sale ban (in force since 2021), NOAA’s mineral-sunscreen advice and the 50-yard spinner-dolphin rule. Sources: capitol.hawaii.gov (Act 104, 2018); fisheries.noaa.gov.
         title: "On the reef",
         text: "The reef in Kāneʻohe Bay is alive, so we float above it: no standing on coral, no touching fish, no reaching into holes. Bring a sun shirt and a non-nano mineral sunscreen. Since 2021 Hawaiʻi has not allowed the sale of sunscreens containing oxybenzone or octinoxate, and NOAA considers mineral sunscreen the better choice for the reef. If spinner dolphins, naiʻa, appear while you are on the water, federal law keeps swimmers and boats alike at least fifty yards away, so enjoy them from a distance.",
       },
       {
+        // VERIFY before invitations: viewing distances for turtles (10 ft) and monk seals (50 ft; 150 ft for a mother and pup). Source: fisheries.noaa.gov (Hawaiian Islands marine wildlife viewing guidelines); dlnr.hawaii.gov.
         title: "Ten feet for the honu",
         text: "Green sea turtles haul out to bask on the sand at Laniākea, on the North Shore, some days a few and some days none. Please give them at least ten feet, on the beach and in the water, and never touch, chase or feed one: they are protected by state and federal law. Volunteers from Mālama i nā Honu are on the beach most days and love to talk turtles. Hawaiian monk seals need more room: fifty feet, and 150 for a mother and pup. You have to cross Kamehameha Highway between the parking and the beach, so take care.",
       },
@@ -219,6 +327,8 @@ export const island = {
    */
   kolea: {
     title: "Look down: the kōlea",
+    /** Read aloud for the drawing, which takes a few steps when tapped. */
+    watch: "Watch the kōlea take a few steps",
     text: "On almost any lawn this side of the island you will see a small, speckled-gold bird standing very still. It is a kōlea, the Pacific golden plover. It flies about three thousand miles nonstop from Alaska, some three days on the wing, to spend the winter here, and it comes back to the same patch of grass year after year. The adults arrive in August, and the young make their first crossing in October.",
   },
 

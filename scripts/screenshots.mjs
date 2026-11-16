@@ -10,7 +10,7 @@ import fs from "node:fs/promises";
 import { existsSync } from "node:fs";
 
 const base = process.env.BASE_URL || "http://localhost:3000";
-const pages = ["", "travel", "activities", "story", "dress-code", "faq", "registry"];
+const pages = ["", "weekend", "travel", "island", "story", "dress-code", "faq", "registry"];
 const viewports = [
   ["mobile", 390, 844],
   ["desktop", 1440, 1000],

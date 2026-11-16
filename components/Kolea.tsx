@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
  * and it does what kōlea do: a few quick steps, a dead stop, a bob of the
  * head. Purely a small pleasure; the note reads the same either way.
  */
-export function Kolea({ title, text }: { title: string; text: string }) {
+export function Kolea({ title, text, watch }: { title: string; text: string; watch: string }) {
   const bird = useRef<SVGGElement>(null);
   // A guest who has asked for reduced motion gets a drawing, not a button
   // that does nothing. Read after mount, so the first frame matches the server's.
@@ -44,7 +44,7 @@ export function Kolea({ title, text }: { title: string; text: string }) {
         className="kolea-bird"
         onClick={run}
         disabled={still}
-        aria-label="Watch the kōlea take a few steps"
+        aria-label={watch}
       >
         <svg viewBox="0 0 180 96" aria-hidden="true" focusable="false">
           <g filter="url(#ink)">

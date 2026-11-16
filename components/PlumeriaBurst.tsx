@@ -2,6 +2,7 @@
 
 import { useRef, type ReactNode } from "react";
 import { PLUMERIA_CENTRE, PLUMERIA_INK, PLUMERIA_PETAL, PLUMERIA_TURNS } from "./plumeria-shape";
+import { home } from "@/content/home";
 
 /**
  * Tap the logo and plumeria spill out of it and drift down the page — the
@@ -96,7 +97,7 @@ export function PlumeriaBurst({ children, className }: { children: ReactNode; cl
   }
 
   return (
-    <button type="button" className={className} aria-label="Scatter plumeria" onClick={(e) => burst(e.currentTarget)}>
+    <button type="button" className={className} aria-label={home.scatter} onClick={(e) => burst(e.currentTarget)}>
       {children}
     </button>
   );

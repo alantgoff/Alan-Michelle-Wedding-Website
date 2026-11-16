@@ -8,7 +8,19 @@ import { PLUMERIA_CENTRE, PLUMERIA_PETAL, PLUMERIA_TURNS } from "./plumeria-shap
  * it, so the wearer's left ear is on the left of the picture. The words for
  * each side come from content/dressCode.ts.
  */
-export function FlowerEar({ left, right, hint }: { left: string; right: string; hint: string }) {
+export function FlowerEar({
+  left,
+  right,
+  hint,
+  moveLeft,
+  moveRight,
+}: {
+  left: string;
+  right: string;
+  hint: string;
+  moveLeft: string;
+  moveRight: string;
+}) {
   const [side, setSide] = useState<"left" | "right">("left");
 
   return (
@@ -16,7 +28,7 @@ export function FlowerEar({ left, right, hint }: { left: string; right: string; 
       <button
         type="button"
         onClick={() => setSide((s) => (s === "left" ? "right" : "left"))}
-        aria-label={`Move the flower to the ${side === "left" ? "right" : "left"} ear`}
+        aria-label={side === "left" ? moveRight : moveLeft}
       >
         <svg viewBox="0 0 200 196" aria-hidden="true" focusable="false">
           <g filter="url(#ink)">

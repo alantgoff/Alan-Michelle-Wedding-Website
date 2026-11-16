@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { fill } from "@/lib/fill";
 
 const STORAGE_KEY = "wedding-packing";
 
@@ -9,7 +10,14 @@ const STORAGE_KEY = "wedding-packing";
  * only — nothing is sent anywhere. Reads storage after mount so the server
  * and the browser render the same first frame.
  */
-export function PackingList({ items }: { items: readonly string[] }) {
+export function PackingList({
+  items,
+  status,
+}: {
+  items: readonly string[];
+  /** The line above the list: nothing packed, all packed, and "{packed} of {total} packed". */
+  status: { none: string; all: string; some: string };
+}) {
   const [packed, setPacked] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
@@ -39,10 +47,10 @@ export function PackingList({ items }: { items: readonly string[] }) {
     <div className="packing-wrap">
       <p className="packing-count" aria-live="polite">
         {packed.size === 0
-          ? "Nothing packed yet"
+          ? status.none
           : packed.size === items.length
-            ? "All packed. See you there."
-            : `${packed.size} of ${items.length} packed`}
+            ? status.all
+            : fill(status.some, { packed: packed.size, total: items.length })}
       </p>
       <ul className="packing">
         {items.map((item) => (

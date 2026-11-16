@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CoastMap } from "@/components/CoastMap";
 import { FlyingFrom } from "@/components/FlyingFrom";
-import { Chapter, Contents, Passages, type ChapterRef } from "@/components/Guide";
+import { Chapter, Contents, MoreLink, Passages, type ChapterRef } from "@/components/Guide";
 import { CrossingGlyph } from "@/components/ink/CrossingGlyph";
 import { PackingList } from "@/components/PackingList";
 import { PageHero } from "@/components/Page";
@@ -11,22 +11,27 @@ import { WeatherPanel } from "@/components/WeatherPanel";
 import { flying } from "@/content/flying";
 import { travel } from "@/content/travel";
 import { visibleActivities } from "@/content/visibleActivities";
+import { fill } from "@/lib/fill";
 import { crossings } from "@/lib/flying";
 
 // The chart lists what happens at each place, filtered by the visitor's
-// invite group, so this page is rendered per request like Activities is.
+// invite group, so this page is rendered per request like the Weekend is.
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Travel" };
+export const metadata: Metadata = { title: travel.page.tab };
 
+const copy = travel.page;
 const NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
 const CHAPTERS: ChapterRef[] = [
-  { id: "the-coast", title: "Where everything is" },
-  { id: "getting-there", title: "Getting there" },
-  { id: "stay", title: "Where to stay" },
-  { id: "weather", title: "Weather and water" },
-  { id: "pack", title: "What to pack" },
+  { id: "the-coast", title: copy.chapters.coast },
+  { id: "getting-there", title: copy.chapters.gettingThere },
+  { id: "stay", title: copy.chapters.stay },
+  { id: "weather", title: copy.chapters.weather },
+  { id: "pack", title: copy.chapters.pack },
 ].map((c, i) => ({ ...c, numeral: NUMERALS[i] }));
 const chapter = (id: string) => CHAPTERS.find((c) => c.id === id)!;
+
+/** Minutes to the gardens for each place to stay, as written on its card: {bay}, {laie}, {waikiki}. */
+const minutes = Object.fromEntries(travel.stays.map((s) => [s.id, s.minutes]));
 
 export default async function Travel() {
   const activities = await visibleActivities();
@@ -34,21 +39,26 @@ export default async function Travel() {
 
   return (
     <>
-      <PageHero
-        kicker="The journey"
-        title="Travel well"
-        intro="The windward side of Oʻahu rewards a little planning. Here is the honest version of getting there, staying nearby, and making a trip of it."
-        photo="travel"
-        scene="travel"
-      />
+      <PageHero kicker={copy.kicker} title={copy.title} intro={copy.intro} photo="travel" scene="travel" />
+
+      {/* The essentials first; each line points down to its chapter. */}
+      <section className="two-minute" aria-labelledby="two-minute-title">
+        <h2 id="two-minute-title">{travel.twoMinute.title}</h2>
+        <ol>
+          {travel.twoMinute.items.map((item) => (
+            <li key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{fill(item.text, minutes)}</p>
+              <MoreLink href={item.link.href} label={item.link.label} />
+            </li>
+          ))}
+        </ol>
+      </section>
+
       <Contents chapters={CHAPTERS} />
 
       <Chapter chapter={chapter("the-coast")}>
-        <p className="coast-intro">
-          An illustration, not a navigational chart. The coastline is drawn by feel and the distances
-          are invented, so please do not use it to find your way. Choose a point to read what happens
-          there.
-        </p>
+        <p className="coast-intro">{travel.map.intro}</p>
         <CoastMap activities={activities} />
       </Chapter>
 
@@ -60,12 +70,13 @@ export default async function Travel() {
           intro={flying.intro}
           prompt={flying.prompt}
           tableLabel={flying.tableLabel}
+          words={flying.words}
         />
 
         <Passages items={[...travel.beforeYouFly, ...travel.gettingThere]} />
 
-        <div className="crossings-block">
-          <h3>Choose your crossing</h3>
+        <div className="crossings-block" id="crossings">
+          <h3>{copy.crossingsTitle}</h3>
           <p>{travel.crossingsIntro}</p>
           <ol className="crossings">
             {travel.crossings.map((c) => (
@@ -92,7 +103,7 @@ export default async function Travel() {
             <article className="stay" key={item.id}>
               <p className="stay-minutes">
                 <span className="stay-number">{item.minutes}</span>
-                <span className="stay-unit">minutes to the gardens</span>
+                <span className="stay-unit">{copy.minutesUnit}</span>
               </p>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
@@ -101,7 +112,7 @@ export default async function Travel() {
         </div>
         <div className="passages stay-notes">
           {travel.stayNotes.map((note) => (
-            <article className="passage" key={note.title}>
+            <article className="passage" key={note.title} id={note.id}>
               <h3>{note.title}</h3>
               <p>{note.text}</p>
             </article>
@@ -111,23 +122,21 @@ export default async function Travel() {
 
       <Chapter chapter={chapter("weather")}>
         <WeatherPanel />
-        <div className="water-notes">
-          <Passages items={travel.water} />
-        </div>
+        <p className="weather-water">
+          {copy.water.text} <Link href="/island#water">{copy.water.link} →</Link>
+        </p>
       </Chapter>
 
       <Chapter chapter={chapter("pack")}>
-        <PackingList items={travel.packing} />
-        <PrintButton>Print a copy for the glovebox</PrintButton>
+        <PackingList items={travel.packing} status={travel.packingStatus} />
+        <PrintButton>{copy.print}</PrintButton>
       </Chapter>
 
       <aside className="onward">
-        <p className="label">With a free day</p>
-        <p className="onward-text">
-          Where to eat, what to see and how to be a good guest are in a short guide of their own.
-        </p>
+        <p className="label">{copy.onward.label}</p>
+        <p className="onward-text">{copy.onward.text}</p>
         <Link className="button button-quiet" href="/island#eat">
-          Open The island
+          {copy.onward.link}
         </Link>
       </aside>
     </>

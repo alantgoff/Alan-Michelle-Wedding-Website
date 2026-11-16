@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { home } from "@/content/home";
 import { fullMoonsBetween } from "@/lib/moon";
 import { hawaiiToday } from "@/lib/sun";
 
@@ -42,39 +43,39 @@ export function Countdown({ target }: { target: string }) {
     return (
       <div className="countdown">
         <strong>—</strong>
-        <span>days until we celebrate</span>
+        <span>{home.countdown.days}</span>
       </div>
     );
   }
   if (days < 0) {
     return (
       <div className="countdown">
-        <strong className="countdown-word">Married</strong>
-        <span>and so glad you were there</span>
+        <strong className="countdown-word">{home.countdown.after.word}</strong>
+        <span>{home.countdown.after.line}</span>
       </div>
     );
   }
   if (days === 0) {
     return (
       <div className="countdown">
-        <strong className="countdown-word">Today</strong>
-        <span>see you on the lawn</span>
+        <strong className="countdown-word">{home.countdown.today.word}</strong>
+        <span>{home.countdown.today.line}</span>
       </div>
     );
   }
 
   // Only offer a unit while it still says something: no "0 weeks".
-  const units: Unit[] = [{ value: days, label: days === 1 ? "day until we celebrate" : "days until we celebrate" }];
+  const units: Unit[] = [{ value: days, label: days === 1 ? home.countdown.day : home.countdown.days }];
   const weeks = Math.floor(days / 7);
-  if (weeks >= 2) units.push({ value: weeks, label: "weeks until we celebrate" });
-  if (moons >= 2) units.push({ value: moons, label: "full moons until we celebrate" });
+  if (weeks >= 2) units.push({ value: weeks, label: home.countdown.weeks });
+  if (moons >= 2) units.push({ value: moons, label: home.countdown.moons });
   const shown = units[turn % units.length];
 
   return (
     <button
       type="button"
       className="countdown countdown-turn"
-      title={units.length > 1 ? "Count another way" : undefined}
+      title={units.length > 1 ? home.countdown.another : undefined}
       aria-live="polite"
       onClick={() => setTurn((t) => t + 1)}
     >

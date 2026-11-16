@@ -1,4 +1,7 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
+import type { Passage } from "@/content/island";
+import { site } from "@/content/site";
 import { Reveal } from "./Reveal";
 
 /**
@@ -9,8 +12,10 @@ import { Reveal } from "./Reveal";
 
 export type ChapterRef = { id: string; numeral: string; title: string };
 
+export type PassageItem = Passage;
+
 /** "In this guide: I Kualoa · II Eating · …", each a link to its chapter. */
-export function Contents({ chapters, label = "In this guide" }: { chapters: ChapterRef[]; label?: string }) {
+export function Contents({ chapters, label = site.guide.contents }: { chapters: ChapterRef[]; label?: string }) {
   return (
     <nav className="contents" id="contents" aria-label={label}>
       <p className="contents-label">{label}</p>
@@ -53,7 +58,7 @@ export function Chapter({
         {children}
         {/* These pages are long, on a phone especially: a way back up. */}
         <p className="chapter-back">
-          <a href="#contents">Back to the contents</a>
+          <a href="#contents">{site.guide.back}</a>
         </p>
       </section>
     </Reveal>
@@ -61,15 +66,27 @@ export function Chapter({
 }
 
 /** Short titled passages in two easy columns, ruled like a printed page. */
-export function Passages({ items }: { items: readonly { title: string; text: string }[] }) {
+export function Passages({ items }: { items: readonly PassageItem[] }) {
   return (
     <div className="passages">
       {items.map((item) => (
-        <article className="passage" key={item.title}>
+        <article className="passage" key={item.title} id={item.id}>
           <h3>{item.title}</h3>
           <p>{item.text}</p>
+          {item.link ? <MoreLink href={item.link.href} label={item.link.label} /> : null}
         </article>
       ))}
     </div>
+  );
+}
+
+/** "Where to stay →": a quiet pointer to the place a fact is told in full. */
+export function MoreLink({ href, label }: { href: string; label: string }) {
+  // A page anchor or another page; both are plain links, so :target works.
+  const internal = href.startsWith("/") || href.startsWith("#");
+  return (
+    <p className="more-link">
+      {internal ? <Link href={href}>{label} →</Link> : <a href={href}>{label} →</a>}
+    </p>
   );
 }

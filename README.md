@@ -18,25 +18,42 @@ npm run screenshots  # every page at phone and desktop width
 
 ## Editing content
 
-Everything a guest reads lives in `/content`. Search that folder for `TODO:` to find what still
-needs real information. Start with `content/site.ts` — the wedding date there drives the countdown.
+Everything a guest reads lives in `/content`: every sentence, heading, button label and menu item.
+The pages and components in `app/` and `components/` only arrange it. (The one exception is the
+handful of short labels drawn inside the star chart and the coast map, which stay with the
+drawings.) Start with `content/site.ts`: the wedding date there drives the countdown.
+
+Anything not decided yet reads **"to come"** on the site, and carries a `TODO:` comment in the
+content file saying what is missing. Search `content/` for `TODO` to see them all. No "TODO" ever
+reaches a guest.
 
 | File | What it holds |
 | --- | --- |
-| `site.ts` | Names, date, ceremony time, venue, welcome note, navigation |
+| `site.ts` | Names, date, ceremony time, venue, RSVP line, welcome note, the menu, the footer, the 404 page |
+| `home.ts` | The home page: hero lines, "at a glance", the countdown, the welcome card |
 | `groups.ts` | Guest groups and their private invite slugs |
-| `activities.ts` | Weekend events and who can see each one |
-| `travel.ts` | Getting there, the three roads over the mountains, where to stay, packing |
-| `island.ts` | The island guide: Kualoa's story, eating, a free day, manners, how to say the names |
+| `activities.ts` | The Weekend page: every event, who can see each one, and the page's words |
+| `travel.ts` | Getting there, the three roads over the mountains, where to stay, packing, the coast map's words, the two-minute version |
+| `island.ts` | The island guide: Kualoa's story, eating, a free day (with what is open which day), the water, manners, how to say the names |
 | `sky.ts` | Sunset, moonrise, the tide and the moon over the weekend, and the words around them |
 | `skyChart.ts` | Where the stars stand over the lawn at nine. **Computed: do not edit by hand** |
 | `flying.ts` | The cities in the "How far you are coming" picker on Travel |
 | `weather.ts` | Typical early-October weather, shown until the real forecast arrives |
 | `faq.ts` | Questions and answers, in groups |
-| `story.ts` | Our Story timeline, with optional photo captions and margin notes in each of your voices |
+| `story.ts` | Our story: the moments in words (still to come), margin notes in each of your voices, the closing |
 | `dressCode.ts` | Dress code guidance, the palette's sample cards, the flowers guests will meet |
-| `registry.ts` | One postcard per registry, each with a note, a link and a stamp word |
-| `photos.ts` | **Photo manifest — the only file that points at images** |
+| `registry.ts` | One postcard per registry. Until one has a link, the page shows a single "to come" card |
+| `photos.ts` | **Photo manifest — the only file that points at images**, including the Our story album |
+
+### The pages
+
+Home · Weekend · Travel · Island · Our story · Dress code · FAQ are in the menu. Registry is linked
+from the footer and the FAQ until it has real links; add it back to `nav` in `site.ts` when it does.
+The Weekend page used to be called Activities: `/activities` still works and forwards to `/weekend`.
+
+Each fact lives in one place. The Weekend page is the only full schedule (Travel's map and the home
+page point to it); Travel is getting there, staying and getting around; The island is everything
+optional, the sea included. The FAQ gives the short answer and links to the full one.
 
 ## Facts, and how they were checked
 
@@ -45,7 +62,9 @@ times, Hawaiian words and stories. Each one was researched and then checked a se
 a primary source, and anything a checker could not confirm was left out. Please keep that standard:
 if you are not sure of something, do not print it.
 
-Three kinds of fact go stale and are marked in the content files with the date they were checked:
+Every claim that can go out of date is marked `// VERIFY before invitations:` beside it in the
+content files, with the official place to check it. `grep -rn VERIFY content` lists them all; the
+checklist is in `content/README.md`. Three kinds of fact go stale:
 
 - **Hours, prices and rules** (restaurants, parks, Hanauma Bay, hotel fees, taxes): as of late 2026.
   Read them again before the invitations go out.
@@ -73,8 +92,10 @@ To change one:
 Keep the shape noted on each entry — wide, portrait, or square — or the crop changes. Roughly
 2000px on the long edge is plenty.
 
-**Still to replace:** the four Our Story photos are ocean images standing in for pictures of the two
-of you. They are marked `TODO` in the manifest.
+**Our story's album** is the 25 photos in `public/photos/story/`, listed in order as `album` in
+`content/photos.ts`. They are shown at their own shape, so nothing is cropped. Each can be given a
+`caption`; without one the plate shows only its number. The order is the order the photos were sent
+in: to move one, move its line.
 
 If an entry is ever pointed back at `public/photos/placeholder/`, those are generated water
 textures rather than photographs. Add `standin: true` to such an entry and it will carry a visible
@@ -99,6 +120,8 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   `content/site.ts`; the wedding-day sunset on the home page needs no editing.
 - `/wedding.ics` is the "Add to calendar" file. It is an all-day event until the ceremony time is
   confirmed in `content/site.ts`.
+- On a phone the menu folds behind a "Menu" button, so the header is one short row. Without
+  JavaScript the links simply show.
 - The packing list on Travel remembers ticks in the guest's own browser. Nothing is sent anywhere.
 - A wrong URL lands on a "past the reef" page rather than a bare 404.
 - Opening an invite link plays a short welcome: the logo rises out of its own waves, greets the
@@ -106,7 +129,7 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   who has asked their device for reduced motion goes straight to the page.
 - Tapping the logo at the top of the home page scatters plumeria down the screen.
 - Tapping the countdown counts in weeks, then in full moons, then back to days.
-- Activities shows each day's real date and that evening's sunset, and lists events in time order.
+- The Weekend page shows each day's real date and that evening's sunset, and lists events in time order.
 - Every page banner closes with a drawing of the coast in the logo's navy line (`components/ink/`),
   and the banner photograph drifts very slowly, with pools of sunlight that come and go.
 - The island carries a chart of the sky over the lawn at nine on the wedding night, the day drawn
@@ -114,9 +137,9 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - Travel's "How far you are coming" draws a guest's crossing from their home city and says what
   their watch will do. The choice is remembered in their own browser only.
 - A guest in another time zone sees their own clock beside Kualoa's on the home page.
-- Our story is set like a small book: each moment opens with a drop cap, photographs are mounted
-  as plates, and if you add `notes` to a moment in `content/story.ts` they appear in the margin,
-  initialled, one voice each.
+- Our story is set like a small book: an album of photographs mounted as numbered plates, then each
+  moment in words with a drop cap. Add `notes` to a moment in `content/story.ts` and they appear in
+  the margin, initialled, one voice each.
 - Dress code shows the palette as pinked cloth samples and has a plumeria that moves from ear to ear.
 - On The island, tap the kōlea and it takes a few steps.
 - Each registry is a postcard, postmarked Kualoa on the wedding day.
@@ -156,4 +179,5 @@ Connect the repository to Vercel and accept the Next.js preset. No environment v
 or other services are needed. The site is set to `noindex`, so it will not appear in search results,
 but anyone with the URL can open it.
 
-Do not deploy until the real date, the room block, and the registry links are in.
+Pushing to `main` deploys. Before the invitations go out, work through the TODO and VERIFY lists
+(`grep -rn "TODO\|VERIFY" content`).

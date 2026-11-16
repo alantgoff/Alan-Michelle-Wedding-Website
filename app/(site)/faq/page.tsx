@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/Page";
 import { Reveal } from "@/components/Reveal";
-import { faqGroups } from "@/content/faq";
+import { MoreLink } from "@/components/Guide";
+import { faqGroups, faqPage } from "@/content/faq";
 
-export const metadata: Metadata = { title: "Q&A" };
+export const metadata: Metadata = { title: faqPage.tab };
 
 export default function Faq() {
   return (
     <>
       <PageHero
-        kicker="Questions"
-        title="Q&A"
-        intro="The things people ask us most. If your question is not here, just ask — we would rather answer twice than have you guess."
+        kicker={faqPage.kicker}
+        title={faqPage.title}
+        intro={faqPage.intro}
         photo="faq"
         scene="faq"
       />
@@ -25,6 +26,7 @@ export default function Faq() {
                   <details key={item.q}>
                     <summary>{item.q}</summary>
                     <p>{item.a}</p>
+                    {item.link ? <MoreLink href={item.link.href} label={item.link.label} /> : null}
                   </details>
                 ))}
               </div>

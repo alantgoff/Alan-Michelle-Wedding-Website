@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import { fill } from "@/lib/fill";
 
 /**
  * The wedding as a calendar file, for the "Add to calendar" link.
@@ -55,9 +56,9 @@ export function GET() {
     `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`,
     `DTSTART;VALUE=DATE:${day}`,
     `DTEND;VALUE=DATE:${next}`,
-    `SUMMARY:${escape(`${site.couple} — wedding`)}`,
+    `SUMMARY:${escape(fill(site.calendar.summary, { couple: site.couple }))}`,
     `LOCATION:${escape(`${site.venue}, ${site.address}`)}`,
-    `DESCRIPTION:${escape(`${site.tagline} Ceremony time to be confirmed.`)}`,
+    `DESCRIPTION:${escape(`${site.tagline} ${site.calendar.note}`)}`,
     "END:VEVENT",
     "END:VCALENDAR",
   ];

@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
+import type { flying } from "@/content/flying";
+import { fill } from "@/lib/fill";
 import type { Crossing } from "@/lib/flying";
+
+type Words = (typeof flying)["words"];
 
 const STORAGE_KEY = "wedding-flying-from";
 
@@ -14,13 +18,12 @@ const LEFT = 78; // where the lawn is
 const RIGHT = W - 124; // room beyond the furthest city for its name
 const xAt = (miles: number) => Math.round(LEFT + (miles / SPAN) * (RIGHT - LEFT));
 
-const words = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
-function hoursInWords(h: number): string {
+function hoursInWords(h: number, words: Words): string {
   const whole = Math.floor(h);
   const half = h - whole >= 0.5;
-  const n = words[whole] ?? String(whole);
-  if (half) return whole === 0 ? "half an hour" : `${n} and a half hours`;
-  return `${n} hour${whole === 1 ? "" : "s"}`;
+  const n = words.numbers[whole] ?? String(whole);
+  if (half) return whole === 0 ? words.halfHour : fill(words.andAHalf, { n });
+  return fill(whole === 1 ? words.hour : words.hours, { n });
 }
 
 /**
@@ -35,6 +38,7 @@ export function FlyingFrom({
   intro,
   prompt,
   tableLabel,
+  words,
 }: {
   rows: Crossing[];
   sunset: string;
@@ -42,6 +46,7 @@ export function FlyingFrom({
   intro: string;
   prompt: string;
   tableLabel: string;
+  words: Words;
 }) {
   const [code, setCode] = useState("");
   const selectId = useId();
@@ -81,9 +86,9 @@ export function FlyingFrom({
       <p>{intro}</p>
 
       <p className="flying-pick">
-        <label htmlFor={selectId}>Flying from</label>
+        <label htmlFor={selectId}>{words.pick}</label>
         <select id={selectId} value={code} onChange={(e) => choose(e.target.value)}>
-          <option value="">Choose a city</option>
+          <option value="">{words.choose}</option>
           {rows.map((r) => (
             <option key={r.code} value={r.code}>
               {r.city} ({r.code})
@@ -135,17 +140,21 @@ export function FlyingFrom({
         {row ? (
           <>
             <p className="flying-figure">
-              <span className="flying-number">{row.miles.toLocaleString("en-US")}</span> miles, in a straight line
+              <span className="flying-number">{row.miles.toLocaleString("en-US")}</span> {words.miles}
             </p>
             <ul>
               <li>
                 {row.hoursBehind === 0
-                  ? "No need to touch your watch: we keep the same time."
-                  : `Set your watch back ${hoursInWords(row.hoursBehind)} when you land.`}
+                  ? words.sameTime
+                  : fill(words.setBack, { hours: hoursInWords(row.hoursBehind, words) })}
               </li>
               <li>
-                When the sun sets on our wedding day, at {sunset} at Kualoa, it will be {row.sunsetAtHome}
-                {row.nextDay ? " the next morning" : ""} in {row.city}.
+                {fill(words.sunset, {
+                  sunset,
+                  time: row.sunsetAtHome,
+                  nextDay: row.nextDay ? words.nextDay : "",
+                  city: row.city,
+                })}
               </li>
             </ul>
           </>
@@ -159,9 +168,9 @@ export function FlyingFrom({
         <table>
           <thead>
             <tr>
-              <th scope="col">From</th>
-              <th scope="col">Miles</th>
-              <th scope="col">Hawaiʻi is behind by</th>
+              <th scope="col">{words.table.from}</th>
+              <th scope="col">{words.table.miles}</th>
+              <th scope="col">{words.table.behind}</th>
             </tr>
           </thead>
           <tbody>
@@ -169,7 +178,7 @@ export function FlyingFrom({
               <tr key={r.code}>
                 <th scope="row">{r.city}</th>
                 <td>{r.miles.toLocaleString("en-US")}</td>
-                <td>{hoursInWords(r.hoursBehind)}</td>
+                <td>{hoursInWords(r.hoursBehind, words)}</td>
               </tr>
             ))}
           </tbody>

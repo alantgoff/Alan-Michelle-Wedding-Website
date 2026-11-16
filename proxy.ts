@@ -31,4 +31,4 @@ export function proxy(req: NextRequest) {
 // Only the pages that read the invite (they are sent private, never cached).
 // The other pages are prerendered and cacheable, so a guest's Set-Cookie must
 // never ride on them. Invite links set the cookie themselves.
-export const config = { matcher: ["/", "/activities", "/travel"] };
+export const config = { matcher: ["/", "/weekend", "/travel"] };

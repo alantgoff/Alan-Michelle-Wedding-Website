@@ -27,30 +27,46 @@ export type Audience = "everyone" | GroupId;
  * it will quietly disappear for everyone else — they are never told it exists.
  */
 export type Activity = {date:string;title:string;time:string;location:string;description:string;audience:Audience;link?:string};
+
+/*
+ * THE WEEKEND, one event per line. Anything not settled yet reads "to come"
+ * for guests; the TODO comment beside it says what is missing. Times that
+ * are not a clock time ("Time to come") sort to the end of their day.
+ */
 export const activities: Activity[] = [
- {date:"Day to be confirmed",title:"Sunset welcome drinks",time:"5:30 PM",location:"TODO: Waikīkī location",description:"A relaxed first hello with sunset views and light bites. Hoʻokipa is Hawaiian for hospitality: to welcome someone and treat them well. It is the whole idea of our first evening together.",audience:"everyone"},
- {date:"Friday",title:"Wedding ceremony & reception",time:"TODO: Ceremony time",location:"Palikū Gardens",description:"The reason we are all here. Ceremony on the lawn, then dinner and dancing under the lights. The old Hawaiian word for marrying, hoʻāo, probably meant to stay until daylight. We will settle for the last dance.",audience:"everyone"},
- {date:"Sunday",title:"Beach morning",time:"10:00 AM",location:"TODO: Windward beach",description:"Coffee, fruit, and one last swim before everyone heads home. There is an old saying, hoʻokahi nō lā o ka malihini: a stranger only for a day. After that, a guest pitches in. By Sunday morning you are family, so someone will hand you the coffee to carry.",audience:"everyone"},
- {date:"Saturday",title:"Private snorkel charter",time:"TODO: Departure time",location:"TODO: Kāneʻohe harbor",description:"A boat of our own out over the reef, with time in the water and the Koʻolau behind us the whole way. TODO: Add the operator, how long it runs, and whether gear is provided.",audience:"everyone"},
- {date:"Thursday",title:"Family dinner",time:"6:00 PM",location:"TODO: Kāneʻohe",description:"An intimate dinner for our families before the weekend begins.",audience:"family"},
- {date:"Friday",title:"College crew ridge hike",time:"8:00 AM",location:"TODO: Trailhead",description:"A nostalgic morning outside with the college crew. Trail and transport details to come.",audience:"college"},
+ // TODO: welcome drinks: choose the day (see above) and the place in Waikīkī.
+ {date:"Day to be confirmed",title:"Sunset welcome drinks",time:"5:30 PM",location:"Waikīkī · place to come",description:"A relaxed first hello with sunset views and light bites. Hoʻokipa is Hawaiian for hospitality: to welcome someone and treat them well. It is the whole idea of our first evening together.",audience:"everyone"},
+ // TODO: ceremony time (also in content/site.ts).
+ {date:"Friday",title:"Wedding ceremony & reception",time:"Time to come",location:"Palikū Gardens",description:"The reason we are all here. Ceremony on the lawn, then dinner and dancing under the lights. The old Hawaiian word for marrying, hoʻāo, probably meant to stay until daylight. We will settle for the last dance.",audience:"everyone"},
+ // TODO: beach morning: which windward beach.
+ {date:"Sunday",title:"Beach morning",time:"10:00 AM",location:"Beach to come",description:"Coffee, fruit, and one last swim before everyone heads home. There is an old saying, hoʻokahi nō lā o ka malihini: a stranger only for a day. After that, a guest pitches in. By Sunday morning you are family, so someone will hand you the coffee to carry.",audience:"everyone"},
+ // TODO: snorkel charter: departure time, the harbor, the operator, how long it runs, and whether gear is provided.
+ {date:"Saturday",title:"Private snorkel charter",time:"Time to come",location:"Kāneʻohe Bay · harbor to come",description:"A boat of our own out over the reef, with time in the water and the Koʻolau behind us the whole way. The operator, how long it runs and what to bring are to come.",audience:"everyone"},
+ // TODO: family dinner: the restaurant or house in Kāneʻohe.
+ {date:"Thursday",title:"Family dinner",time:"6:00 PM",location:"Kāneʻohe · place to come",description:"An intimate dinner for our families before the weekend begins.",audience:"family"},
+ // TODO: college hike: the trail, the trailhead and how everyone gets there.
+ {date:"Friday",title:"College crew ridge hike",time:"8:00 AM",location:"Trailhead to come",description:"A nostalgic morning outside with the college crew. Trail and transport details to come.",audience:"college"},
  {date:"Friday",title:"Wedding party rehearsal",time:"3:00 PM",location:"Palikū Gardens",description:"A quick ceremony walk-through followed by a toast with the wedding party.",audience:"wedding-party"}
 ];
 
 /**
- * BETWEEN THE GATHERINGS — a few things worth knowing about each day, shown
- * to everyone under the schedule. Each was checked against the State's, the
- * City's or the shop's own pages in late 2026; recheck them before you send
- * the invitations. The full guide is on The island page.
+ * The words on the Weekend page. {n} and {time} are filled in for you.
+ * The day-by-day tips for free time now live on The island page
+ * (content/island.ts, `explore.byDay`).
  */
-export const ownTime = {
-  title: "Between the gatherings",
-  intro: "The island has its own timetable. A few things to know before you plan a free day.",
-  tips: [
-    { when: "Thursday", text: "Hoʻomaluhia Botanical Garden is closed every Thursday. The Byodo-In Temple, a few miles away, is open every day." },
-    { when: "Saturday", text: "The day for Kāneʻohe Bay. No tour boat, charter or rental may run in the bay on a Sunday or a federal holiday, and Monday is one." },
-    { when: "Saturday or Sunday", text: "For Hanauma Bay, booking opens two days ahead at 7 AM Hawaiʻi time: Thursday morning for Saturday, the wedding morning for Sunday. It is closed on Mondays and Tuesdays." },
-    { when: "Sunday", text: "Waiāhole Poi Factory, four miles south of the gardens and on the way back to town, pounds poi by hand on Sundays when the harvest allows. Call ahead." },
-  ],
+export const weekendPage = {
+ tab: "The weekend",
+ kicker: "Wedding weekend",
+ title: "The weekend",
+ intro: "Every gathering planned for your weekend, in order. Come for the wedding, stay for the island.",
+ /** Added to the intro when some events are marked as the guest's own. */
+ mineOne: "The one marked with a plumeria is just for you.",
+ mineMany: "The ones marked with a plumeria are just for you.",
+ sunset: "Sunset {time}",
+ moonrise: "Moonrise {time}",
+ print: "Print the weekend",
+ freeTime: {
+  text: "Free time between the gatherings? The island page has what is open on which day, and where to go.",
   link: "A free day, in full",
+ },
 };

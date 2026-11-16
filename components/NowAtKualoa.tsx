@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { site } from "@/content/site";
+import { sky } from "@/content/sky";
+import { fill } from "@/lib/fill";
 import { hawaiiClock, hawaiiNoon, hawaiiToday, sunTimes } from "@/lib/sun";
 
 /**
@@ -23,16 +25,21 @@ export function NowAtKualoa() {
       const minutesUntilRise = Math.round((sunrise.getTime() - now.getTime()) / 60_000);
 
       let light: string;
+      const words = sky.now;
       if (minutesUntilRise > 0) {
-        light = `Still dark over the bay; the sun comes up at ${hawaiiClock(sunrise)}.`;
+        light = fill(words.dark, { time: hawaiiClock(sunrise) });
       } else if (minutesLeft > 60) {
         const h = Math.floor(minutesLeft / 60);
         const m = minutesLeft % 60;
-        light = `${h} hour${h === 1 ? "" : "s"}${m >= 15 ? ` and ${m} minutes` : ""} of daylight left.`;
+        light = fill(words.left, {
+          hours: h,
+          unit: h === 1 ? words.hour : words.hours,
+          minutes: m >= 15 ? fill(words.minutes, { minutes: m }) : "",
+        });
       } else if (minutesLeft > 0) {
-        light = `The sun sets at ${hawaiiClock(sunset)}, and drops behind the ridge at Kualoa before that.`;
+        light = fill(words.setting, { time: hawaiiClock(sunset) });
       } else {
-        light = `The sun went down at ${hawaiiClock(sunset)}; the bay is under stars.`;
+        light = fill(words.gone, { time: hawaiiClock(sunset) });
       }
       // The visitor's own clock, when it differs: Hawaiʻi is UTC−10 all year.
       const elsewhere = now.getTimezoneOffset() !== 600;
@@ -50,8 +57,8 @@ export function NowAtKualoa() {
     <p className="now" aria-live="off">
       {line ? (
         <>
-          Right now at Kualoa it is <strong>{line.clock}</strong>
-          {line.home ? ` (${line.home} where you are)` : ""}. {line.light}
+          {sky.now.lead} <strong>{line.clock}</strong>
+          {line.home ? ` ${fill(sky.now.yours, { home: line.home })}` : ""}. {line.light}
         </>
       ) : null}
     </p>

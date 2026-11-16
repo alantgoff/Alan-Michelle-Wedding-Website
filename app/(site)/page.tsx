@@ -9,10 +9,12 @@ import { Reveal } from "@/components/Reveal";
 import { PlumeriaBurst } from "@/components/PlumeriaBurst";
 import { Tide } from "@/components/Tide";
 import { WelcomeCurtain } from "@/components/WelcomeCurtain";
+import { home } from "@/content/home";
 import { site } from "@/content/site";
 import { sky } from "@/content/sky";
 import type { PhotoKey } from "@/content/photos";
 import { heldGroups, ownEvents } from "@/content/visibleActivities";
+import { fill } from "@/lib/fill";
 import { hawaiiClock, hawaiiNoon, sunTimes } from "@/lib/sun";
 import { anchorFor, minutesOf, offsetFromWedding, weekendDay } from "@/lib/weekend";
 
@@ -23,15 +25,13 @@ export const dynamic = "force-dynamic";
 // Each card previews the photo from the page it links to.
 const cardPhoto: Record<string, PhotoKey> = {
   travel: "travel",
-  activities: "activities",
+  weekend: "activities",
   island: "island",
   story: "story",
   "dress-code": "dressCode",
   faq: "faq",
   registry: "registry",
 };
-
-const EARLY = ["", "a day", "two days", "three days"];
 
 /** "family", "family & wedding party", "college friends, family & wedding party". */
 function together(names: string[]) {
@@ -51,7 +51,7 @@ export default async function Home({
 }) {
   const [held, own] = await Promise.all([heldGroups(), ownEvents()]);
   const arriving = held.length > 0 && "aloha" in (await searchParams);
-  const greeting = held.length ? `Aloha, ${together(held.map((g) => g.name.toLowerCase()))}` : null;
+  const greeting = held.length ? fill(home.greeting, { groups: together(held.map((g) => g.name.toLowerCase())) }) : null;
   const sunset = weddingSunset();
 
   // The guest's own first gathering, named in the hero. Only events of groups
@@ -61,9 +61,11 @@ export default async function Home({
   const firstWhen = first ? weekendDay(first.date) : null;
   const firstEarly = first ? -(offsetFromWedding(first.date) ?? 0) : 0;
   const firstLine = first
-    ? `${firstEarly > 0 ? `Your weekend begins ${EARLY[firstEarly]} early:` : "Just for you:"} ${first.title}, ${
-        firstWhen ? firstWhen.label : first.date
-      }${Number.isFinite(minutesOf(first.time)) ? `, at ${first.time}` : ""}.`
+    ? `${firstEarly > 0 ? fill(home.first.beginsEarly, { early: home.first.early[firstEarly] }) : home.first.justForYou} ${
+        first.title
+      }, ${firstWhen ? firstWhen.label : first.date}${
+        Number.isFinite(minutesOf(first.time)) ? `, ${fill(home.first.at, { time: first.time })}` : ""
+      }.`
     : null;
 
   return (
@@ -83,25 +85,57 @@ export default async function Home({
             <p className="hero-first">
               {/* A plain link on purpose: only a real page load sets :target,
                   which is what makes the event glow when the guest lands on it. */}
-              <a href={`/activities#${anchorFor(first.title)}`}>{firstLine}</a>
+              <a href={`/weekend#${anchorFor(first.title)}`}>{firstLine}</a>
             </p>
           ) : null}
           <h1>
-            Alan
-            <br />& Michelle
+            {home.names[0]}
+            <br />
+            {home.names[1]}
           </h1>
           <p className="tagline">{site.tagline}</p>
           <div className="hero-meta">
             <span>{site.weddingDate}</span>
             <span>{site.location}</span>
             {held.length > 0 && !first ? (
-              <Link className="hero-weekend" href="/activities">
-                See your weekend →
+              <Link className="hero-weekend" href="/weekend">
+                {home.seeWeekend}
               </Link>
             ) : null}
           </div>
         </div>
         <Horizon scene="home" draw />
+      </section>
+
+      {/* The four things to know first: when, where, what to book, what comes next. */}
+      <section className="glance" aria-label={home.glance.label}>
+        <dl>
+          <div>
+            <dt>{home.glance.when}</dt>
+            <dd>
+              {site.weddingDate}
+              <span>{site.ceremonyTime}</span>
+            </dd>
+          </div>
+          <div>
+            <dt>{home.glance.where}</dt>
+            <dd>
+              {site.venue}
+              <span>{site.location}</span>
+            </dd>
+          </div>
+          <div>
+            <dt>{home.glance.stay.label}</dt>
+            <dd>
+              {home.glance.stay.text}
+              <Link href="/travel#stay">{home.glance.stay.link} →</Link>
+            </dd>
+          </div>
+          <div>
+            <dt>{home.glance.rsvp}</dt>
+            <dd>{site.rsvp}</dd>
+          </div>
+        </dl>
       </section>
 
       <section className="facts">
@@ -110,43 +144,30 @@ export default async function Home({
           <NowAtKualoa />
         </div>
         <div>
-          <p className="kicker">The celebration</p>
-          <h2>Palikū Gardens</h2>
+          <p className="kicker">{home.facts.kicker}</p>
+          <h2>{home.facts.title}</h2>
           <p className="facts-place">
-            At the foot of Kānehoalani, the sheer green ridge at Kualoa, looking out across Kāneʻohe Bay to the
-            little islet of Mokoliʻi. <Link href="/island#kualoa">About this place</Link>
+            {home.facts.place} <Link href="/island#kualoa">{home.facts.placeLink}</Link>
           </p>
           <dl>
-            <dt>When</dt>
+            <dt>{home.facts.sunset}</dt>
             <dd>
-              {site.weddingDate}
+              {fill(home.facts.sunsetValue, { time: sunset })}
               <br />
-              {site.ceremonyTime}
+              <span className="aside">{home.facts.ridge}</span>
             </dd>
-            <dt>Where</dt>
+            <dt>{home.facts.moonrise}</dt>
             <dd>
-              {site.venue}
-              <br />
-              {site.location}
-            </dd>
-            <dt>Sunset</dt>
-            <dd>
-              About {sunset}
-              <br />
-              <span className="aside">It drops behind the ridge an hour or more before that.</span>
-            </dd>
-            <dt>Moonrise</dt>
-            <dd>
-              About {sky.moonrise}
+              {fill(home.facts.moonriseValue, { time: sky.moonrise })}
               <MoonGlyph lit={sky.moonLit} className="moon-glyph moon-inline" />
             </dd>
           </dl>
           <div className="facts-actions">
             <a className="button" href={site.mapUrl}>
-              View map
+              {home.facts.map}
             </a>
             <a className="button button-quiet" href="/wedding.ics" download>
-              Add to calendar
+              {home.facts.calendar}
             </a>
           </div>
         </div>
@@ -164,10 +185,10 @@ export default async function Home({
             </svg>
           </div>
           <div className="night-words">
-            <p className="kicker">The sky that night</p>
+            <p className="kicker">{home.night.kicker}</p>
             <h2 id="night-title">{sky.heading}</h2>
             <p>
-              {sky.text} <Link href="/island#sky">The whole sky that night</Link>
+              {sky.text} <Link href="/island#sky">{home.night.link}</Link>
             </p>
             <figure className="saying">
               <blockquote lang="haw">{sky.saying}</blockquote>
@@ -199,7 +220,7 @@ export default async function Home({
                 </div>
                 <span className="num">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{item.label}</h3>
-                <span className="go">Explore →</span>
+                <span className="go">{home.cardGo}</span>
               </Link>
             ))}
         </div>
