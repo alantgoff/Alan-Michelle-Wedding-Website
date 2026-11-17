@@ -175,6 +175,25 @@ forwarded. **Keep this repository private.** Everything in `content/` — the sl
 events themselves — is readable by anyone who can read the repository, whatever the site does. To revoke a group, change its slug in `content/groups.ts` and send out the new link.
 This is convenience-grade privacy, not security.
 
+## The friends' boat vote
+
+At the foot of the Weekend page, guests holding the college and high school friends' invite link
+see a short list of boat days and can vote: each types their name and picks one, voting again under
+the same name changes it, and the group sees the running count with names. Nobody else sees the
+vote, and `/api/boat-vote` answers "not found" to anyone without that link (`npm run test:gating`
+checks both). The options, the wording and an optional closing date are in `content/boatVote.ts`.
+
+Votes need somewhere to live, so the vote stays closed ("Voting opens soon") until a free database is
+connected. One time, in Vercel:
+
+1. Open the project, then **Storage** → **Create Database** → **Upstash for Redis** (free plan).
+2. **Connect** it to this project, for all environments.
+3. Redeploy (Deployments → the latest → Redeploy), or push any change.
+
+Vercel adds the address and key as environment variables (`KV_REST_API_URL`, `KV_REST_API_TOKEN`);
+nothing goes in the repository. The votes are in one key, `wedding:boat-vote`, which you can read or
+clear from the Upstash console.
+
 ## Deploying
 
 Connect the repository to Vercel and accept the Next.js preset. No environment variables, database,

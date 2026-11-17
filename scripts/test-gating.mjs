@@ -10,7 +10,7 @@ const base = process.env.BASE_URL || "http://localhost:3000";
 
 const privateEvents = {
   family: "Family dinner",
-  college: "College crew ridge hike",
+  college: "Friends’ ridge hike",
   "wedding-party": "Wedding party rehearsal",
 };
 const slugs = { family: "family-2a6u46wevkmc", college: "college-4uwudjry68or", "wedding-party": "party-4ln6lu72u2wd" };
@@ -39,7 +39,7 @@ function check(html, allowed, context) {
   if (context.includes("/weekend")) {
     const marks = (html.match(/class="activity-for"/g) || []).length;
     if (marks !== allowed.length) throw new Error(`${context}: ${marks} "Just for" marks, expected ${allowed.length}`);
-    if (!allowed.length && /Just for (family|the college crew|the wedding party)/.test(html)) {
+    if (!allowed.length && /Just for (family|our college and high school friends|the wedding party)/.test(html)) {
       throw new Error(`${context}: a "Just for" label reached a visitor with no invite`);
     }
   }
@@ -90,4 +90,29 @@ for (const group of Object.keys(privateEvents)) {
   }
 }
 
-console.log("PASS: open events visible to all, private events only via valid invite slugs, links accumulate.");
+// 5. The friends' boat vote is shown, and takes votes, only with that group's own link.
+const voteTitle = "Help choose our boat day";
+const cookieFor = async (slug) =>
+  (await fetch(`${base}/i/${slug}`, { redirect: "manual" })).headers.get("set-cookie").split(";")[0];
+const vote = (cookie) =>
+  fetch(`${base}/api/boat-vote`, {
+    method: "POST",
+    headers: cookie ? { cookie } : {},
+    body: new URLSearchParams({ name: "Test", option: "none" }),
+    redirect: "manual",
+  });
+for (const [who, cookie] of [
+  ["untagged", null],
+  ["family", await cookieFor(slugs.family)],
+  ["wedding party", await cookieFor(slugs["wedding-party"])],
+  ["forged", "wedding_group=college"],
+]) {
+  if ((await html("/weekend", cookie)).includes(voteTitle)) throw new Error(`${who}: saw the friends' boat vote`);
+  const res = await vote(cookie);
+  if (res.status !== 404) throw new Error(`${who}: the vote answered ${res.status}, expected 404`);
+}
+const friends = await cookieFor(slugs.college);
+if (!(await html("/weekend", friends)).includes(voteTitle)) throw new Error("college: the boat vote is missing");
+if ((await vote(friends)).status !== 303) throw new Error("college: a vote should be answered with a redirect back");
+
+console.log("PASS: open events visible to all, private events only via valid invite slugs, links accumulate, the boat vote only for its group.");

@@ -3,7 +3,7 @@
  *
  * Send each group its own link, e.g. https://your-site.com/i/family-2a6u46wevkmc
  * Opening it once remembers that guest on their device; they then see their
- * group's events on the Activities page alongside the open ones. A guest sent
+ * group's events on the Weekend page alongside the open ones. A guest sent
  * two links (a sister who is also a bridesmaid) keeps both.
  *
  * The random suffix on each slug is the security. Twelve random characters
@@ -16,7 +16,8 @@
  */
 
 export const groups = [
-  { id: "college" as const, name: "College friends", slug: "college-4uwudjry68or", forYou: "Just for the college crew" },
+  // College and high school friends share one link (and one id, "college").
+  { id: "college" as const, name: "College and high school friends", slug: "college-4uwudjry68or", forYou: "Just for our college and high school friends" },
   { id: "family" as const, name: "Family", slug: "family-2a6u46wevkmc", forYou: "Just for family" },
   { id: "wedding-party" as const, name: "Wedding party", slug: "party-4ln6lu72u2wd", forYou: "Just for the wedding party" },
 ];

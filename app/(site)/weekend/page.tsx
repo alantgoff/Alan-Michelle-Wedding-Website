@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BoatVote } from "@/components/BoatVote";
 import { MoreLink } from "@/components/Guide";
 import { PageHero, Section } from "@/components/Page";
 import { Plumeria } from "@/components/Plumeria";
 import { PrintButton } from "@/components/PrintButton";
 import { weekendPage as copy } from "@/content/activities";
+import { boatVote } from "@/content/boatVote";
 import { sky } from "@/content/sky";
 import { heldGroups, visibleActivities } from "@/content/visibleActivities";
 import { fill } from "@/lib/fill";
@@ -17,10 +19,14 @@ export const dynamic = "force-dynamic";
  * The weekend, in order: the one full schedule on the site. Travel's chart
  * and the home page only point here.
  */
-export default async function Weekend() {
+export default async function Weekend({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   // Filtering happens on the server, in visibleActivities: events the visitor
   // cannot see never reach the browser, not in the HTML, not in the payload.
-  const [held, visible] = await Promise.all([heldGroups(), visibleActivities()]);
+  const [held, visible, { vote }] = await Promise.all([heldGroups(), visibleActivities(), searchParams]);
 
   // Days in calendar order around the wedding, and events in clock order
   // within each day; a time still "to come" sorts to the end of its day.
@@ -91,6 +97,13 @@ export default async function Weekend() {
         })}
         <PrintButton>{copy.print}</PrintButton>
       </Section>
+
+      {/* The friends' boat vote: rendered only for guests holding that group's link. */}
+      {held.some((g) => g.id === boatVote.audience) ? (
+        <Section>
+          <BoatVote status={typeof vote === "string" ? vote : undefined} />
+        </Section>
+      ) : null}
 
       <aside className="onward">
         <p className="onward-text">{copy.freeTime.text}</p>

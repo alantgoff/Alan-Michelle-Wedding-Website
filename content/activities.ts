@@ -9,7 +9,7 @@ export type Audience = "everyone" | GroupId;
  *   - Beach meetups
  *   - A second thank-you activity, also on us: not on the list yet. Add it
  *     here when it is decided.
- *   - College crew ridge hike (Thursday, or Friday morning)
+ *   - Friends’ ridge hike     (Thursday, or Friday morning)
  *   - Wedding party rehearsal (probably Thursday)
  *
  * ONE RULE FOR ANY BOAT: if a charter runs in Kāneʻohe Bay, state law bars
@@ -50,9 +50,9 @@ export const activities: Activity[] = [
  // TODO: family dinner: the restaurant or house in Kāneʻohe.
  {date:"Thursday",title:"Family dinner",time:"6:00 PM",location:"Kāneʻohe · place to come",description:"An intimate dinner for our families before the weekend begins.",audience:"family"},
  // TODO: college hike: the trail, the trailhead and how everyone gets there.
- {date:"Friday",title:"College crew ridge hike",time:"8:00 AM",location:"Trailhead to come",description:"A nostalgic morning outside with the college crew. Trail and transport details to come.",audience:"college"},
- // TODO: a boat for college and high school friends, if it happens. Remove the two slashes
- // to show it to everyone holding the college invite link (and only them).
+ {date:"Friday",title:"Friends’ ridge hike",time:"8:00 AM",location:"Trailhead to come",description:"A morning outside with our college and high school friends. Trail and transport details to come.",audience:"college"},
+ // TODO: a boat for college and high school friends, once the vote has picked one (the vote is in
+ // content/boatVote.ts). Remove the two slashes to show it to everyone holding that invite link.
  // {date:"Days to be confirmed",title:"Friends’ boat day",time:"Time to come",location:"Harbor to come",description:"A boat of our own for our college and high school friends. Details to come.",audience:"college"},
  {date:"Friday",title:"Wedding party rehearsal",time:"3:00 PM",location:"Palikū Gardens",description:"A quick ceremony walk-through followed by a toast with the wedding party.",audience:"wedding-party"}
 ];

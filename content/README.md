@@ -68,6 +68,8 @@ If you are not sure of something new, leave it out.
   weather link, packing, the two-minute version at the top, and the words on the drawn coast map.
 - **`island.ts`**: Kualoa's story, eating, a free day (with "Plan around the weekend"), in the
   water, manners, and the pronunciation list (`sayIt`).
+- **`boatVote.ts`**: the friends' boat vote (only that group sees it): the options, the words, and
+  an optional closing date. Changing an option's `id` loses the votes cast for it.
 - **`faq.ts`**: questions and answers. Keep each answer short; where a fact is told in full on
   another page, add a `link` to it rather than repeating it.
 - **`story.ts`**: Our story's chapters. Each has a title and its photos, by name from the `album`
