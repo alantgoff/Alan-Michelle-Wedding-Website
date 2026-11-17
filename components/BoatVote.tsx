@@ -85,7 +85,6 @@ export async function BoatVote({ status }: { status?: string }) {
                       ))}
                     </ul>
                   ) : null}
-                  <p className="boat-option-price">{o.price}</p>
                   {o.link ? (
                     <p className="more-link">
                       <a href={o.link.href} target="_blank" rel="noreferrer">

@@ -24,8 +24,6 @@ export type BoatOption = {
   what: string;
   /** Short facts: where it leaves from, how long, how many it holds, what is included. */
   details: string[];
-  /** As published by the operator, with the date we read it. */
-  price: string;
   link?: { href: string; label: string };
 };
 
@@ -42,7 +40,67 @@ export const boatVote = {
   intro:
     "We would love a boat day just for our college and high school friends, and we want you to choose it. Here are a few we like. Pick the one you would most enjoy; the most votes wins.",
 
-  options: [] as BoatOption[],
+  /*
+   * The options, from the operators' own pages (read November 17, 2026).
+   * Prices are NOT shown to friends; they are here for you:
+   *   sandbar      Captain Bruce, $6,000 per boat incl. tax and service, + $1 per person stewardship fee
+   *   sunset       Holokai Catamaran, price on request (open bar included on private sunset sails)
+   *   west-side    Ocean Joy Cruises, $3,350 cocktails only or $3,850 with dinner, up to 25; +5% crew gratuity
+   *   north-shore  North Shore Catamaran Charters, $1,299 private charter, up to 19
+   * VERIFY before booking: prices, capacity, departure days and 2028 schedules.
+   */
+  options: [
+    {
+      id: "sandbar",
+      name: "Kāneʻohe Bay sandbar",
+      what: "A private catamaran out to the sandbar in the middle of Kāneʻohe Bay, with snorkeling and paddleboards.",
+      details: [
+        "Leaves from Heʻeia Kea Small Boat Harbor, 35–45 minutes from Waikīkī",
+        "About 2 hours 45 minutes",
+        "Holds up to 30",
+        "Snacks and soft drinks; bring your own drinks (no bottled beer)",
+        "Not on Sundays",
+      ],
+      link: { href: "https://www.cptbruce.com/kaneohe-sandbar-private-catamaran.php", label: "The trip" },
+    },
+    {
+      id: "sunset",
+      name: "Waikīkī sunset sail",
+      what: "A private catamaran sail off Waikīkī at sunset, with an open bar.",
+      details: [
+        "Boards from the beach in Waikīkī, a short walk from the hotels",
+        "Private trips run 1 to 2½ hours",
+        "Holds up to 49",
+        "Open bar included; no outside alcohol",
+      ],
+      link: { href: "https://www.sailholokai.com/private-charters-waikiki/", label: "The boat" },
+    },
+    {
+      id: "west-side",
+      name: "West-side snorkel and dinner",
+      what: "A private catamaran off Ko Olina with snorkeling and cocktails, and dinner on board if we add it.",
+      details: [
+        "Leaves from Ko Olina Marina, about 50 minutes from Waikīkī",
+        "3½ hours",
+        "Holds up to 49",
+        "Snorkel gear, four drinks each, optional buffet dinner",
+        "Runs Monday, Wednesday, Friday or Sunday",
+      ],
+      link: { href: "https://www.oceanjoycruises.com/cruises/private-charter/", label: "The trip" },
+    },
+    {
+      id: "north-shore",
+      name: "North Shore sail",
+      what: "A private sail along the North Shore’s surf breaks, with a swim stop when the sea allows.",
+      details: [
+        "Leaves from Haleʻiwa Harbor, about an hour from Waikīkī",
+        "2 hours",
+        "Holds up to 19",
+        "Sodas and water; bring your own food",
+      ],
+      link: { href: "https://www.sailingcat.com/cruises/splash-and-sail/", label: "The trip" },
+    },
+  ] as BoatOption[],
 
   words: {
     noOptions: "The options are on their way.",
