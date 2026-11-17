@@ -13,9 +13,17 @@ export const home = {
   greeting: "Aloha, {groups}",
   /** The guest's own first gathering, named under the greeting. */
   first: {
-    /** How many days before the wedding it falls: index 1 is "a day". */
-    early: ["", "a day", "two days", "three days"],
-    beginsEarly: "Your weekend begins {early} early:",
+    /** How many days before the wedding it falls: index 1 is the day before. */
+    early: [
+      "",
+      "The day before the wedding",
+      "Two days before the wedding",
+      "Three days before the wedding",
+      "Four days before the wedding",
+      "Five days before the wedding",
+      "Six days before the wedding",
+    ],
+    beginsEarly: "{early}:",
     justForYou: "Just for you:",
     at: "at {time}",
   },
@@ -27,10 +35,12 @@ export const home = {
     when: "When",
     where: "Where",
     stay: {
-      label: "Book now",
-      text: "Your stay, as early as you can, on a rate you can cancel.",
+      label: "Plan the week",
+      text: "Arrive the weekend before, stay in Waikīkī, and fly home the weekend after. Book early, on a rate you can cancel.",
       link: "Where to stay",
     },
+    /** Under the venue. */
+    shuttle: "A shuttle runs from Waikīkī",
     rsvp: "RSVP",
   },
 

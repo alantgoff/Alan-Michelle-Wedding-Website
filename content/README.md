@@ -12,8 +12,10 @@ grep -rn "TODO" content
 ```
 
 At the moment: the ceremony time (`site.ts`, `activities.ts`, and the calendar file), RSVP details
-(`site.ts`), the welcome drinks' day and place, the beach, the snorkel charter's details, the family
-dinner's place and the hike's trailhead (`activities.ts`), shuttle details (`travel.ts`, `faq.ts`),
+(`site.ts`); in `activities.ts`, the days and places for the welcome drinks, the turtle snorkel
+charter, the beach meetups and the beach morning, the second thank-you activity, the family dinner's
+place, the hike's trailhead, and the friends' boat (written in but switched off until it is
+certain); the shuttle's pickup times and stop (`travel.ts`),
 the registry (`registry.ts`), and our story in words: a year and a few lines for any chapter
 (`story.ts`).
 
@@ -59,7 +61,9 @@ If you are not sure of something new, leave it out.
 - **`home.ts`**: the home page, the countdown and the welcome card.
 - **`activities.ts`**: the Weekend page. Each event has an `audience`: `everyone`, `family`,
   `college` or `wedding-party`. TypeScript catches invalid values, and a guest never sees an event
-  that is not for them. This is the only full schedule on the site.
+  that is not for them. This is the only full schedule on the site. An event's `date` is a day name
+  within three days of the wedding ("Thursday") or, earlier in the week, its date ("2028-10-02");
+  until it is set, "Days to be confirmed" lists it at the end.
 - **`travel.ts`**: getting there, the three roads, the rules of the road, where to stay, the
   weather link, packing, the two-minute version at the top, and the words on the drawn coast map.
 - **`island.ts`**: Kualoa's story, eating, a free day (with "Plan around the weekend"), in the

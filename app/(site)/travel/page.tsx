@@ -100,7 +100,8 @@ export default async function Travel() {
         <p className="section-intro">{travel.stayIntro}</p>
         <div className="stays">
           {travel.stays.map((item) => (
-            <article className="stay" key={item.id}>
+            <article className={item.recommended ? "stay stay-recommended" : "stay"} key={item.id}>
+              {item.recommended ? <p className="stay-badge">{copy.recommended}</p> : null}
               <p className="stay-minutes">
                 <span className="stay-number">{item.minutes}</span>
                 <span className="stay-unit">{copy.minutesUnit}</span>

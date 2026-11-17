@@ -61,7 +61,7 @@ export default async function Home({
   const firstWhen = first ? weekendDay(first.date) : null;
   const firstEarly = first ? -(offsetFromWedding(first.date) ?? 0) : 0;
   const firstLine = first
-    ? `${firstEarly > 0 ? fill(home.first.beginsEarly, { early: home.first.early[firstEarly] }) : home.first.justForYou} ${
+    ? `${firstEarly > 0 && home.first.early[firstEarly] ? fill(home.first.beginsEarly, { early: home.first.early[firstEarly] }) : home.first.justForYou} ${
         first.title
       }, ${firstWhen ? firstWhen.label : first.date}${
         Number.isFinite(minutesOf(first.time)) ? `, ${fill(home.first.at, { time: first.time })}` : ""
@@ -122,6 +122,7 @@ export default async function Home({
             <dd>
               {site.venue}
               <span>{site.location}</span>
+              <Link href="/travel#shuttle">{home.glance.shuttle} →</Link>
             </dd>
           </div>
           <div>

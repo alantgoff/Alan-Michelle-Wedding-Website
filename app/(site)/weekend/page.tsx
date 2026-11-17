@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MoreLink } from "@/components/Guide";
 import { PageHero, Section } from "@/components/Page";
 import { Plumeria } from "@/components/Plumeria";
 import { PrintButton } from "@/components/PrintButton";
@@ -80,6 +81,7 @@ export default async function Weekend() {
                         ) : null}
                         <h3>{a.title}</h3>
                         <p>{a.description}</p>
+                        {a.link ? <MoreLink href={a.link.href} label={a.link.label} /> : null}
                       </div>
                     </article>
                   );

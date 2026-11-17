@@ -20,6 +20,8 @@ export type Stay = {
   /** Minutes to the gardens without traffic, shown large on the card. */
   minutes: string;
   text: string;
+  /** The one place we recommend; its card says so. */
+  recommended?: boolean;
 };
 
 export type Crossing = { id: "h3" | "likelike" | "pali"; title: string; label: string; text: string };
@@ -40,7 +42,7 @@ export const travel = {
   kicker: "The journey",
   title: "Travel well",
   intro:
-   "The windward side of Oʻahu rewards a little planning. Here is the honest version of getting there, staying nearby, and getting around.",
+   "Come for the week if you can. Here is the honest version of getting here, where to stay, and getting around.",
   chapters: {
    coast: "Where everything is",
    gettingThere: "Getting there",
@@ -51,6 +53,8 @@ export const travel = {
   crossingsTitle: "Choose your crossing",
   /** Under the big number on each place to stay. */
   minutesUnit: "minutes to the gardens",
+  /** The small label on the place we recommend. */
+  recommended: "Where we recommend",
   /** Under the weather panel: the sea itself is on The island page. */
   water: { text: "Going in the ocean? The water in October, the currents and the jellyfish are on The island page.", link: "In the water" },
   print: "Print a copy for the glovebox",
@@ -70,8 +74,13 @@ export const travel = {
   title: "The two-minute version",
   items: [
    {
-    title: "Where to stay",
-    text: "There is no hotel at Kualoa. The nearest beds are around Kāneʻohe Bay ({bay} minutes) and in Lāʻie ({laie}); Waikīkī has the most rooms, {waikiki} minutes away.",
+    title: "Make a week of it",
+    text: "Arrive the weekend before and fly home the Saturday or Sunday after the wedding. We will plan a few things to do together, with plenty of time to enjoy Hawaiʻi your own way.",
+    link: { href: "#make-a-week", label: "The week" },
+   },
+   {
+    title: "Stay in Waikīkī",
+    text: "It has the most rooms, restaurants and evenings out on the island. There is no hotel at Kualoa, {waikiki} minutes away over the mountains.",
     link: { href: "#stay", label: "Where to stay" },
    },
    {
@@ -80,9 +89,9 @@ export const travel = {
     link: { href: "#book-early", label: "Why, and what the bill will say" },
    },
    {
-    title: "Rent a car",
-    text: "Everyone drives in from Honolulu airport, about forty minutes on a clear road. Allow a good deal more on the Friday afternoon.",
-    link: { href: "#getting-there", label: "Getting there" },
+    title: "The wedding-day shuttle",
+    text: "On the wedding day a shuttle runs between Waikīkī and Kualoa Ranch, so you do not need to drive to the wedding.",
+    link: { href: "#shuttle", label: "The shuttle" },
    },
   ],
  },
@@ -102,10 +111,21 @@ export const travel = {
  ] satisfies PassageItem[],
 
  /**
-  * Arriving.
-  * TODO: add shuttle details here if one is arranged (and update the FAQ).
+  * Arriving: the week, the shuttle, the airport.
+  * TODO: shuttle pickup times and where it stops in Waikīkī.
   */
  gettingThere: [
+  {
+   id: "make-a-week",
+   title: "Make a week of it",
+   text: "We hope you will treat this as a vacation, not only a wedding. If you can, arrive the weekend before (Saturday, September 30 or Sunday, October 1) and fly home the Saturday or Sunday after the wedding (October 7 or 8). To thank you for coming, we will organize a few things to do together, a turtle snorkel among them, and leave plenty of time to enjoy Hawaiʻi your own way.",
+   link: { href: "/weekend", label: "What we have planned" },
+  },
+  {
+   id: "shuttle",
+   title: "The wedding-day shuttle",
+   text: "We have booked a shuttle with room for 65 guests between Waikīkī and Kualoa Ranch on the wedding day, so nobody needs to drive to the wedding, or home from it. Pickup times and where it stops are to come.",
+  },
   {
    // VERIFY before invitations: the consolidated rental car facility and walking access from Terminal 2. Source: airports.hawaii.gov/hnl (Rental cars).
    title: "Land, then collect the car",
@@ -155,18 +175,18 @@ export const travel = {
    // VERIFY before invitations: parking at the gardens (three tiers, about 80 cars). Source: Kualoa Ranch's Palikū Gardens venue sheet, or ask the ranch.
    id: "last-ten-minutes",
    title: "The last ten minutes",
-   text: "At the Hygienic Store in Kahaluʻu, Kahekili Highway becomes Kamehameha Highway and the coast opens up. About ten minutes on, the road rounds the point past Mokoliʻi and the ranch is on your left. Kualoa is a sacred place, and slowing down here feels right. Parking at the gardens is in three tiers, with room for about 80 cars between them, so please share a car where you can. We will send the exact turn, and where to park, closer to the day.",
+   text: "At the Hygienic Store in Kahaluʻu, Kahekili Highway becomes Kamehameha Highway and the coast opens up. About ten minutes on, the road rounds the point past Mokoliʻi and the ranch is on your left. Kualoa is a sacred place, and slowing down here feels right. Parking at the gardens is in three tiers, with room for about 80 cars between them, so please take the shuttle or share a car. We will send the exact turn, and where to park, closer to the day.",
    link: { href: "/island#kualoa", label: "Why Kualoa is sacred" },
   },
   {
    title: "On the wedding afternoon",
-   text: "Please leave more time than your map suggests. For the island, our wedding day is an ordinary Friday: schools are in session, and the afternoon traffic over the mountains flows toward the windward side, the same way you will be going. Along this coast there is one road and little way around a slow stretch. Once the ceremony time is set, we will tell you when to leave Waikīkī.",
+   text: "If you are driving yourself, leave more time than your map suggests. For the island, our wedding day is an ordinary Friday: schools are in session, and the afternoon traffic over the mountains flows toward the windward side, the same way you will be going. Along this coast there is one road and little way around a slow stretch. Once the ceremony time is set, we will tell you when to leave Waikīkī.",
   },
   {
    // VERIFY before invitations: the ranch's music curfew (ten o'clock) and the last Route 60 bus. Sources: Kualoa Ranch event rules; thebus.org (Route 60 timetable).
    id: "getting-home",
    title: "Getting home from the reception",
-   text: "Please settle your way home before you come: a designated driver or a shared car is safest. The ranch asks that music end by ten. Rideshare cars are few out here at night, and even one reserved ahead is not guaranteed to arrive. When we checked in 2026, the last town-bound bus on Route 60 passed Kualoa a little after eleven; it is a long ride to Ala Moana, with a transfer for Waikīkī.",
+   text: "The shuttle will bring you back to Waikīkī. If you drive instead, please settle your way home before you come: a designated driver or a shared car is safest. The ranch asks that music end by ten. Rideshare cars are few out here at night, and even one reserved ahead is not guaranteed to arrive. When we checked in 2026, the last town-bound bus on Route 60 passed Kualoa a little after eleven; it is a long ride to Ala Moana, with a transfer for Waikīkī.",
   },
   {
    // VERIFY before invitations: the shaka as official state gesture (2024). Source: Hawaiʻi Revised Statutes ch. 5 (state emblems), capitol.hawaii.gov.
@@ -193,10 +213,21 @@ export const travel = {
   },
  ] satisfies PassageItem[],
 
- /** Where to stay, nearest first. Drive times are without traffic, from two routing services. */
+ /**
+  * Where to stay: Waikīkī, which we recommend, then the rest nearest first.
+  * Drive times are without traffic, from two routing services.
+  */
  stayIntro:
-  "There is no hotel at Kualoa itself, so all of us will be driving in on the day. Here is where the beds are, what is legal to rent, and how long the road is from each. Drive times are without traffic. On a Friday afternoon, give yourself more.",
+  "We recommend staying in Waikīkī, where the wedding-day shuttle runs from. There is no hotel at Kualoa itself. If you would rather be on the quiet side of the island for part of the week, here is where the other beds are, what is legal to rent, and how long the road is from each. Drive times are without traffic; on a Friday afternoon, give yourself more.",
  stays: [
+  {
+   // VERIFY before invitations: Kualoa Ranch's 45-minute figure, and the resort fee and parking ($45 each at one hotel in late 2026). Sources: kualoa.com; the hotels' own rate pages.
+   id: "waikiki",
+   recommended: true,
+   title: "Waikīkī",
+   minutes: "45",
+   text: "Waikīkī, “spouting water”, has the most rooms, restaurants and evenings out on the island, and on the wedding day the shuttle runs from here to the ranch and back. Kualoa Ranch puts the drive at about 45 minutes, over the Likelike Highway and through the Wilson Tunnel. Most hotels add a nightly resort fee and parking on top of the room; at one we checked in late 2026, each was $45 before tax.",
+  },
   {
    // VERIFY before invitations: Paradise Bay Resort was listed for sale in late 2026; the licensed-rental counts are a snapshot of the City's map from that date. Sources: the hotel; City DPP Short-Term Rental Compliance Map (honolulu.gov/dpp).
    id: "bay",
@@ -216,13 +247,6 @@ export const travel = {
    title: "Turtle Bay",
    minutes: "40",
    text: "Further around the North Shore, the old Turtle Bay Resort is now The Ritz-Carlton Oʻahu, Turtle Bay. It is about 19 miles from us, 35 to 45 minutes, a little shorter than the drive from Waikīkī and far quieter. The hotel opened in 1972 as the Kuilima, “joining hands,” and the point it stands on is still Kuilima Point. The condominiums around the resort are also among the few places on Oʻahu licensed for short stays.",
-  },
-  {
-   // VERIFY before invitations: Kualoa Ranch's 45-minute figure, and the resort fee and parking ($45 each at one hotel in late 2026). Sources: kualoa.com; the hotels' own rate pages.
-   id: "waikiki",
-   title: "Waikīkī",
-   minutes: "45",
-   text: "Waikīkī, “spouting water”, has the most rooms, restaurants and evenings out on the island. Kualoa Ranch puts the drive at about 45 minutes, over the Likelike Highway and through the Wilson Tunnel. On the wedding afternoon it will take longer; we will tell you when to leave once the ceremony time is set. Most hotels add a nightly resort fee and parking on top of the room; at one we checked in late 2026, each was $45 before tax.",
   },
   {
    id: "ko-olina",
@@ -268,8 +292,8 @@ export const travel = {
    },
    waikiki: {
     name: "Waikīkī",
-    kind: "Where to stay",
-    blurb: "The south shore, and the most rooms on the island.",
+    kind: "Where we recommend staying",
+    blurb: "The south shore: the most rooms on the island, and where the wedding-day shuttle runs from.",
     link: { href: "#stay", label: "Where to stay" },
    },
    koolina: {

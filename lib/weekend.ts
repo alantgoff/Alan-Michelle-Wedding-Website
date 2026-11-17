@@ -2,8 +2,10 @@ import { site } from "@/content/site";
 import { hawaiiClock, hawaiiNoon, sunTimes } from "./sun";
 
 /**
- * Turns the day names used in content/activities.ts ("Thursday", "Saturday")
- * into real calendar dates around the wedding, with that evening's sunset.
+ * Turns the days used in content/activities.ts into real calendar dates
+ * around the wedding, with that evening's sunset. A day is either a day name
+ * within three days of the wedding ("Thursday", "Sunday") or, for a day
+ * further out in the week, its date ("2028-10-02").
  *
  * Everything follows `isoDate` in content/site.ts, so moving the wedding
  * moves every heading with it.
@@ -16,17 +18,23 @@ function weddingParts() {
   return { year, month, day };
 }
 
-/** Days from the wedding to the nearest day with this name, from -3 to +3. */
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** Days from the wedding: a date exactly, a day name as the nearest such day (-3 to +3). */
 export function offsetFromWedding(dayName: string): number | null {
+  const { year, month, day } = weddingParts();
+  if (ISO_DATE.test(dayName)) {
+    const [y, m, d] = dayName.split("-").map(Number);
+    return Math.round((Date.UTC(y, m - 1, d) - Date.UTC(year, month - 1, day)) / 86_400_000);
+  }
   const target = WEEKDAYS.indexOf(dayName);
   if (target < 0) return null;
-  const { year, month, day } = weddingParts();
   const weddingWeekday = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
   const forward = (target - weddingWeekday + 7) % 7;
   return forward > 3 ? forward - 7 : forward;
 }
 
-/** "Friday, October 6", "6:14 PM" and "2028-10-06" for a day name, or null if it is not one. */
+/** "Friday, October 6", "6:14 PM" and "2028-10-06" for a day, or null if it is not one yet. */
 export function weekendDay(dayName: string): { label: string; sunset: string; iso: string } | null {
   const offset = offsetFromWedding(dayName);
   if (offset === null) return null;

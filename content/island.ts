@@ -152,7 +152,7 @@ export const island = {
      * Eating) that tells it in full, by that passage's `id`.
      */
     byDay: {
-      title: "Plan around the weekend",
+      title: "Plan your free days",
       intro: "The island keeps its own timetable. A few things to know before you plan a free day.",
       days: [
         { when: "Thursday", text: "Hoʻomaluhia Botanical Garden is closed; the Byodo-In Temple is open.", href: "#hoomaluhia" },
@@ -297,6 +297,7 @@ export const island = {
       },
       {
         // VERIFY before invitations: viewing distances for turtles (10 ft) and monk seals (50 ft; 150 ft for a mother and pup). Source: fisheries.noaa.gov (Hawaiian Islands marine wildlife viewing guidelines); dlnr.hawaii.gov.
+        id: "honu",
         title: "Ten feet for the honu",
         text: "Green sea turtles haul out to bask on the sand at Laniākea, on the North Shore, some days a few and some days none. Please give them at least ten feet, on the beach and in the water, and never touch, chase or feed one: they are protected by state and federal law. Volunteers from Mālama i nā Honu are on the beach most days and love to talk turtles. Hawaiian monk seals need more room: fifty feet, and 150 for a mother and pup. You have to cross Kamehameha Highway between the parking and the beach, so take care.",
       },

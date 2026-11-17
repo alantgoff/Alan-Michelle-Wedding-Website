@@ -10,7 +10,7 @@ import { site } from "@/content/site";
 import { travel, type Stay } from "@/content/travel";
 import { photos, type PhotoKey } from "@/content/photos";
 import { fill } from "@/lib/fill";
-import { anchorFor, minutesOf } from "@/lib/weekend";
+import { anchorFor, minutesOf, offsetFromWedding, weekendDay } from "@/lib/weekend";
 
 /**
  * The windward coast, drawn — a chart of where everything happens.
@@ -53,11 +53,8 @@ const PINS: Pin[] = [
   { id: "venue", short: "Palikū Gardens", x: 72, y: 33, side: "right", star: true, photo: "hero" },
 ];
 
-const DAY_ORDER = ["Thursday", "Friday", "Saturday", "Sunday"];
-const dayRank = (day: string) => {
-  const i = DAY_ORDER.indexOf(day);
-  return i === -1 ? 99 : i;
-};
+/** Days in calendar order around the wedding; a day not set yet goes last. */
+const dayRank = (day: string) => offsetFromWedding(day) ?? 99;
 
 /** Which point on the chart an event belongs to, read off its location. */
 function placeOf(activity: Activity): PlaceId | null {
@@ -65,7 +62,8 @@ function placeOf(activity: Activity): PlaceId | null {
   if (where.includes("paliku") || where.includes("palikū")) return "venue";
   if (where.includes("waikīkī") || where.includes("waikiki")) return "waikiki";
   if (where.includes("kāneʻohe") || where.includes("kaneohe")) return "kaneohe";
-  if (where.includes("beach")) return "beaches";
+  // A beach still "to come" could be anywhere, so it is not pinned to Kailua.
+  if (where.includes("beach") && !where.includes("to come")) return "beaches";
   if (where.includes("trail")) return "ridge";
   return null;
 }
@@ -187,7 +185,7 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
               {here.map((a) => (
                 <li key={a.title + a.time}>
                   <span className="coast-here-when">
-                    {a.date} · {a.time}
+                    {weekendDay(a.date)?.label ?? a.date} · {a.time}
                   </span>
                   <a href={`/weekend#${anchorFor(a.title)}`}>{a.title}</a>
                 </li>

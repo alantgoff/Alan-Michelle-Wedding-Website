@@ -1895,7 +1895,7 @@ h3 {
 }
 .two-minute ol {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px clamp(24px, 3.5vw, 56px);
   margin: 0;
   padding: 0;
@@ -1924,7 +1924,12 @@ h3 {
 .two-minute .more-link {
   margin-top: 8px;
 }
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+  .two-minute ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 680px) {
   .two-minute ol {
     grid-template-columns: 1fr;
   }
@@ -1962,6 +1967,19 @@ h3 {
   background: var(--white);
   border: 1px solid var(--rule);
   border-radius: 3px;
+}
+/* The place we recommend: drawn in the logo's ink, with a small label. */
+.stay-recommended {
+  border-color: var(--ink-line);
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+}
+.stay-badge {
+  margin: 0 0 10px;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
 }
 .stay-minutes {
   display: flex;

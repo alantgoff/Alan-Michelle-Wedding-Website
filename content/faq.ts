@@ -64,6 +64,11 @@ export const faqGroups: FaqGroup[] = [
         link: { href: "/travel#weather", label: "The weather" },
       },
       {
+        q: "Is anything planned besides the wedding?",
+        a: "Yes. To thank you for coming, we are organizing a few things to do together during the week, a turtle snorkel on us among them, with plenty of time left to enjoy Hawaiʻi your own way.",
+        link: { href: "/weekend", label: "The week, in order" },
+      },
+      {
         q: "Is there a registry?",
         // TODO: registry. The page itself is content/registry.ts.
         a: "Registry details are to come.",
@@ -75,6 +80,16 @@ export const faqGroups: FaqGroup[] = [
     title: "Getting there",
     items: [
       {
+        q: "How long should we come for?",
+        a: "A week, if you can. Arrive the weekend before and fly home the Saturday or Sunday after the wedding, and treat it as a vacation.",
+        link: { href: "/travel#make-a-week", label: "Make a week of it" },
+      },
+      {
+        q: "Where should we stay?",
+        a: "In Waikīkī, where the wedding-day shuttle runs from. It has the most rooms, restaurants and evenings out on the island. Book early, on a rate you can cancel.",
+        link: { href: "/travel#stay", label: "Where to stay" },
+      },
+      {
         // VERIFY before invitations: the REAL ID rule (with the Travel page's version). Source: tsa.gov.
         q: "Do I need a passport?",
         a: "Not if you are flying from within the United States, but every adult needs a REAL ID–compliant license, a passport or another ID on TSA’s list.",
@@ -82,23 +97,23 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: "Will transportation be provided?",
-        // TODO: shuttle. If one is arranged, say so here and on the Travel page.
-        a: "Shuttle details are to come. For now, plan on renting a car.",
-        link: { href: "/travel#getting-there", label: "Getting there" },
+        // TODO: shuttle pickup times and stop (on the Travel page).
+        a: "On the wedding day, yes: a shuttle runs between Waikīkī and Kualoa Ranch. For the rest of the week, a rental car is the easiest way to see the island.",
+        link: { href: "/travel#shuttle", label: "The wedding-day shuttle" },
       },
       {
         q: "Is there parking at the venue?",
-        a: "Yes, but not a lot, so please share a car where you can. We will send the way in, and where to park, closer to the day.",
+        a: "Some, but not a lot, so please take the shuttle or share a car. We will send the way in, and where to park, closer to the day.",
         link: { href: "/travel#last-ten-minutes", label: "The last ten minutes" },
       },
       {
         q: "How long is the drive?",
-        a: "Longer than your map will say. On a clear road it is under an hour from Waikīkī or the airport, and the wedding afternoon is a Friday, with the traffic flowing our way.",
+        a: "Longer than your map will say. On a clear road it is under an hour from Waikīkī or the airport, and the wedding afternoon is a Friday, with the traffic flowing our way. On the wedding day the shuttle does the driving.",
         link: { href: "/travel#crossings", label: "The roads over the mountains" },
       },
       {
         q: "How do I get home afterward?",
-        a: "Please settle it before you come: a designated driver or a shared car is safest, because rideshare cars are few on this side of the island at night.",
+        a: "On the shuttle, back to Waikīkī. If you drive instead, please settle it before you come: a designated driver or a shared car is safest, because rideshare cars are few on this side of the island at night.",
         link: { href: "/travel#getting-home", label: "Getting home from the reception" },
       },
       {
