@@ -59,36 +59,62 @@ export const island = {
   },
 
   /**
-   * Chapter: eating. Hours and prices are as they stood in late 2026.
-   * Recheck every one of them before the invitations go out.
+   * Chapter: where to eat. Mostly Waikīkī and nearby Honolulu, then a few
+   * near the venue and on the North Shore. Price runs $ (under $20 a main)
+   * to $$$$ (over $50), from each place's own menu.
+   * VERIFY before invitations: every entry's hours, closed days and booking,
+   * and that it is still open. Read November 17, 2026, from each place's own
+   * site (links below); awards from Honolulu Magazine's Hale ʻAina 2026 and
+   * the James Beard Foundation.
    */
   eat: {
     lede:
-      "The best food on this side of the island is rarely fancy. It comes on a paper plate with two scoops of rice, and it is eaten at a picnic table. Here is where we would send you. Hours are as they stood in late 2026, and we will check them again before you fly.",
-    passages: [
+      "Mostly in Waikīkī and nearby Honolulu, a short ride from the hotels, with a few near the venue and on the North Shore. Hours were checked in November 2026, and we will check them again before you fly.",
+    labels: { order: "Order" },
+    groups: [
       {
-        // VERIFY before invitations: Aunty Pat’s Café hours (7:30 AM–3 PM) and Kualoa Grown Market hours (10 AM–5 PM). Source: kualoa.com.
-        title: "At the ranch",
-        text: "Aunty Pat’s Café, at Kualoa Ranch itself, serves breakfast and lunch from 7:30 AM to 3 PM: loco moco, burgers of the ranch’s own grass-fed beef, and a banana-kalo bread pudding. In the ranch’s historic Ranch House building, the Kualoa Grown Market is open to everyone from 10 AM to 5 PM, with beef, shrimp, oysters and produce raised on the ranch, as available.",
+        title: "Breakfast and coffee",
+        places: [
+          { name: "Café Kaila", area: "Kapahulu", price: "$", what: "A sit-down breakfast and brunch café.", order: "Buttermilk pancakes with fruit, or the kalua pork Benedict", hours: "Mon–Fri 7 AM–6 PM, Sat–Sun 7 AM–3 PM", href: "https://www.cafe-kaila-hawaii.com/" },
+          { name: "Koko Head Cafe", area: "Kaimukī", what: "A popular sit-down brunch spot.", hours: "Mon–Fri 8 AM–1 PM, Sat–Sun 8 AM–2 PM", book: "Book on OpenTable", href: "https://kokoheadcafe.com" },
+          { name: "Kona Coffee Purveyors", area: "Waikīkī, International Market Place", what: "Kona coffee and b. patisserie pastries, at the counter.", order: "A kouign-amann or a croissant", book: "Counter service", href: "https://www.konacoffeepurveyors.com/pages/visit-us" },
+        ],
       },
       {
-        // VERIFY before invitations: hours (10 AM–6 PM, closed Tuesdays) and the poi-pounding days (Wednesdays and Sundays). Source: waiaholepoifactory.com, or call.
-        id: "waiahole",
-        title: "Waiāhole Poi Factory",
-        text: "Four miles south of us, open 10 AM to 6 PM and closed on Tuesdays. Order the laulau, the kālua pig smoked for twelve hours, and the Sweet Lady of Waiāhole, which is warm kūlolo under haupia ice cream. On Wednesdays and Sundays they pound poi by hand on board and stone. It depends on the harvest, so call ahead.",
+        title: "Poke and plate lunch",
+        places: [
+          { name: "Ono Seafood", area: "Kapahulu", price: "$", what: "A takeout poke counter with a couple of picnic tables.", order: "Shoyu ʻahi or spicy ʻahi poke", hours: "Tue–Sat 9 AM–4 PM", book: "Walk-in", href: "https://www.instagram.com/ono.seafood/" },
+          { name: "Rainbow Drive-In", area: "Kapahulu", price: "$", what: "A classic plate-lunch drive-in, open since 1961.", order: "The mix plate or the loco moco", hours: "Daily 7 AM–9 PM", book: "Walk-up", href: "https://www.rainbowdrivein.com/" },
+          { name: "Helena’s Hawaiian Food", area: "Kalihi", price: "$", what: "A family Hawaiian-food restaurant and a James Beard America’s Classic.", order: "Pipikaula short ribs and laulau", hours: "Tue–Fri 10 AM–7:30 PM only", book: "Order ahead by phone or online", href: "https://helenashawaiianfood.com" },
+        ],
       },
       {
-        // VERIFY before invitations: Giovanni’s hours (10:30 AM–6:30 PM) and the cash note. Source: giovannisshrimptruck.com.
-        title: "Up the coast to Kahuku",
-        text: "Giovanni’s began in a converted 1953 bread truck and has been parked in Kahuku, about fifteen miles up the coast, since 1996. The plate to order is the garlic scampi: a dozen shrimp and two scoops of rice. It is open from 10:30 AM to 6:30 PM, cash is recommended, and guests sign the truck with a marker borrowed from the window. Sign it for us.",
+        title: "Dinners worth booking",
+        places: [
+          { name: "Fête", area: "Chinatown", price: "$$$", what: "Seasonal New American cooking from a James Beard Award–winning chef; the menu changes with the seasons.", hours: "Daily, Sunday from 4 PM", book: "OpenTable for 8 or fewer; call for more", href: "https://www.fetehawaii.com/" },
+          { name: "The Pig & the Lady", area: "Kaimukī", price: "$$–$$$", what: "Modern Vietnamese.", order: "The phở French dip at lunch", hours: "Lunch Wed–Sun, dinner Tue–Sat; closed Monday", book: "Book on OpenTable", href: "https://thepigandthelady.com" },
+          { name: "Mud Hen Water", area: "Kaimukī", price: "$$$", what: "Small plates built on Hawaiʻi-grown ingredients.", order: "Fried ʻulu and the grilled octopus", hours: "Dinner Tue–Sun, brunch Sat–Sun; closed Monday", book: "Book on OpenTable", href: "https://www.mudhenwater.com/" },
+          { name: "Arden Waikīkī", area: "Waikīkī, Diamond Head end", price: "$$$", what: "Locally owned, contemporary shared plates.", hours: "Wed–Sun 5–9 PM", book: "Book on OpenTable", href: "https://www.ardenwaikiki.com/" },
+        ],
       },
       {
-        // VERIFY before invitations: Leonard’s opening time (5:30 AM) and Matsumoto’s hours (10 AM–6 PM). Sources: leonardshawaii.com; matsumotoshaveice.com.
         title: "Malasadas and shave ice",
-        text: "Leonard’s Bakery opened in 1952, and not long after, Leonard’s mother suggested malasadas for Shrove Tuesday, as the Portuguese do. It is on Kapahulu Avenue, near Waikīkī, and opens at 5:30 every morning. In Haleʻiwa, the Matsumotos opened their store in 1951, and Matsumoto Shave Ice now serves from 10 AM to 6 PM daily.",
+        places: [
+          { name: "Leonard’s Bakery", area: "Kapahulu", price: "$", what: "The classic malasada bakery.", order: "An original sugar malasada, or a custard or haupia puff", hours: "Daily 5:30 AM–7 PM", book: "Walk-in", href: "https://www.leonardshawaii.com/" },
+          { name: "Waiola Shave Ice", area: "Mōʻiliʻili and Kapahulu", price: "$", what: "A family shave ice shop since 1978.", order: "The azuki mochi bowl", hours: "Daily 11 AM–6 PM (Waiola St)", book: "Walk-up", href: "https://www.waiolashaveice.co/" },
+        ],
       },
-    ] satisfies Passage[],
-    /** Words on every menu. */
+      {
+        title: "Near the venue and the North Shore",
+        places: [
+          { name: "Aunty Pat’s Café", area: "Kualoa Ranch", what: "The ranch café, with the ranch’s own beef.", order: "The loco moco, or the banana-kalo bread pudding", hours: "Daily 7:30 AM–3 PM", href: "https://kualoa.com/dine-and-shop" },
+          { id: "waiahole", name: "Waiāhole Poi Factory", area: "Waiāhole, near Kāneʻohe", price: "$", what: "Hawaiian food from a counter in an old valley poi mill.", order: "The laulau plate, and the Sweet Lady of Waiāhole for dessert", hours: "Wed–Mon 10 AM–6 PM; closed Tuesday", book: "Walk-in; hand-pounded poi on Wednesdays and Sundays", href: "https://www.waiaholepoifactory.com/" },
+          { name: "Over Easy", area: "Kailua", what: "A small breakfast and brunch spot.", order: "The kalua pig hash or the Kailua eggs", hours: "Wed–Sun mornings; closed Mon–Tue", book: "No reservations; call to join the waitlist", href: "https://www.overeasyhi.com/over-easy" },
+          { name: "Giovanni’s Shrimp Truck", area: "Kahuku", price: "$", what: "The original North Shore garlic-shrimp truck.", order: "The scampi plate", hours: "Daily 10:30 AM–6:30 PM", book: "Walk-up; cash recommended", href: "https://www.giovannisshrimptruck.com/" },
+          { name: "Matsumoto Shave Ice", area: "Haleʻiwa", price: "$", what: "North Shore shave ice since 1951.", order: "A large shave ice, or the Ichiban special", hours: "Daily 10 AM–6 PM", book: "Walk-up; expect a line", href: "https://www.matsumotoshaveice.com/" },
+        ],
+      },
+    ] satisfies { title: string; places: Place[] }[],
     menuTitle: "On the menu",
     menu: [
       { word: "Poke", means: "cubes of raw fish, usually ʻahi tuna, dressed with soy sauce, sesame and onion" },

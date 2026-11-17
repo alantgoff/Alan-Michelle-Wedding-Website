@@ -3,7 +3,7 @@ import type { Place, Spot } from "@/content/island";
 import { spotPhotos, type SpotPhoto } from "@/content/photos";
 
 /** Restaurants, one compact row each: name, where, what to order, when, booking. */
-export function Places({ places, labels }: { places: readonly Place[]; labels: { order: string; book: string } }) {
+export function Places({ places, labels }: { places: readonly Place[]; labels: { order: string } }) {
   return (
     <ul className="places">
       {places.map((p) => (

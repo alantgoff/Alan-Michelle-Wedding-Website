@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Chapter, Contents, Passages, type ChapterRef } from "@/components/Guide";
+import { Places } from "@/components/IslandLists";
 import { PageHero } from "@/components/Page";
 import { island } from "@/content/island";
 
@@ -23,7 +24,12 @@ export default function Island() {
       <Contents chapters={CHAPTERS} />
 
       <Chapter chapter={chapter("eat")} lede={island.eat.lede}>
-        <Passages items={island.eat.passages} />
+        {island.eat.groups.map((g) => (
+          <div className="eat-group" key={g.title}>
+            <h3>{g.title}</h3>
+            <Places places={g.places} labels={island.eat.labels} />
+          </div>
+        ))}
         <div className="menu-words">
           <h3>{island.eat.menuTitle}</h3>
           <dl>
