@@ -1292,6 +1292,161 @@ h3 {
   }
 }
 
+/* Where to eat: compact ruled rows, grouped, two columns on a wide screen. */
+.eat-group + .eat-group {
+  margin-top: clamp(30px, 4vw, 48px);
+}
+.eat-group h3 {
+  margin: 0 0 6px;
+  font-size: clamp(1.35rem, 2vw, 1.6rem);
+}
+.places {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(26px, 4vw, 56px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.place {
+  padding: 16px 0 18px;
+  border-top: 1px solid var(--rule);
+  scroll-margin-top: calc(var(--nav-h) + 20px);
+}
+.place p {
+  margin: 0;
+  max-width: none;
+}
+.place-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 14px;
+}
+.place-name {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  color: var(--deep);
+  text-decoration: none;
+}
+a.place-name {
+  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 40%, transparent);
+}
+a.place-name:hover {
+  color: var(--lagoon);
+  border-bottom-color: var(--lagoon);
+}
+.place-meta {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.place-what {
+  margin-top: 6px !important;
+}
+.place-order {
+  margin-top: 4px !important;
+  font-size: 0.92rem;
+}
+.place-order span {
+  font-size: 0.7rem;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.place-when {
+  margin-top: 4px !important;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+@media (max-width: 760px) {
+  .places {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The best spots: a photograph and the facts, two across on a wide screen. */
+.spots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(26px, 3.5vw, 44px);
+}
+.spot {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+  scroll-margin-top: calc(var(--nav-h) + 20px);
+}
+.spot-photo {
+  margin: 0;
+}
+.spot-frame {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  background: var(--sand);
+}
+.spot-frame img {
+  object-fit: cover;
+}
+.spot-photo figcaption {
+  padding: 6px 14px 0;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.spot-photo figcaption a {
+  color: inherit;
+}
+.spot-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 22px 22px;
+}
+.spot-text h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.spot-text p {
+  margin: 0;
+}
+.spot-drive {
+  font-size: 0.9rem;
+}
+.spot-drive span {
+  font-size: 0.7rem;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.spot-facts {
+  margin: 0;
+  padding: 0 0 0 1.1em;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.spot-facts li + li {
+  margin-top: 3px;
+}
+@media (max-width: 760px) {
+  .spots {
+    grid-template-columns: 1fr;
+  }
+}
+@media print {
+  .spot-frame {
+    display: none;
+  }
+  .spot {
+    break-inside: avoid;
+  }
+}
+
 /* The Island page's "plan around the weekend": a short day-by-day index. */
 .by-day {
   max-width: 920px;

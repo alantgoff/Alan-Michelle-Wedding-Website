@@ -9,11 +9,37 @@
  * something new, leave it out.
  */
 
+import type { SpotPhotoKey } from "./photos";
+
 /**
  * One titled passage. Optional: `id`, so another page can link straight to
  * it, and `link`, a line underneath pointing to where a fact is told in full.
  */
 export type Passage = { title: string; text: string; id?: string; link?: { href: string; label: string } };
+
+/** A restaurant on the list. `price` runs $ to $$$$, from its own menu. */
+export type Place = {
+  id?: string;
+  name: string;
+  area: string;
+  what: string;
+  order?: string;
+  price?: string;
+  hours?: string;
+  book?: string;
+  href?: string;
+};
+
+/** A spot worth the drive, with its photograph (by name in content/photos.ts, `spotPhotos`). */
+export type Spot = {
+  id: string;
+  name: string;
+  photo: SpotPhotoKey;
+  why: string;
+  drive: string;
+  facts: string[];
+  href?: string;
+};
 
 export const island = {
   /** The banner and the chapter names. */

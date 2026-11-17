@@ -128,3 +128,21 @@ export const album = {
 } as const satisfies Record<string, AlbumPhoto>;
 
 export type AlbumKey = keyof typeof album;
+
+/**
+ * THE BEST SPOTS — photographs for the cards on The island page, from
+ * Wikimedia Commons under free licenses. Each is credited under its photo
+ * as its license asks: keep `credit` with the photo if you move it.
+ */
+export type SpotPhoto = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  credit: { author: string; license: string; licenseUrl: string; source: string };
+};
+
+export const spotPhotos = {} as const satisfies Record<string, SpotPhoto>;
+
+export type SpotPhotoKey = keyof typeof spotPhotos;
+
