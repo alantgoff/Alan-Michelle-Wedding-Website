@@ -40,7 +40,7 @@ reaches a guest.
 | `flying.ts` | The cities in the "How far you are coming" picker on Travel |
 | `weather.ts` | Typical early-October weather, shown until the real forecast arrives |
 | `faq.ts` | Questions and answers, in groups |
-| `story.ts` | Our story: the moments in words (still to come), margin notes in each of your voices, the closing |
+| `story.ts` | Our story's chapters (titles, photos, and room for a year, a few lines and margin notes), and the closing |
 | `dressCode.ts` | Dress code guidance, the palette's sample cards, the flowers guests will meet |
 | `registry.ts` | One postcard per registry. Until one has a link, the page shows a single "to come" card |
 | `photos.ts` | **Photo manifest — the only file that points at images**, including the Our story album |
@@ -92,10 +92,12 @@ To change one:
 Keep the shape noted on each entry — wide, portrait, or square — or the crop changes. Roughly
 2000px on the long edge is plenty.
 
-**Our story's album** is the 25 photos in `public/photos/story/`, listed in order as `album` in
-`content/photos.ts`. They are shown at their own shape, so nothing is cropped. Each can be given a
-`caption`; without one the plate shows only its number. The order is the order the photos were sent
-in: to move one, move its line.
+**Our story** is told in chapters, taken from the names of the 25 photos in `public/photos/story/`
+(1. the OU trip … 14. Kauaʻi, the proposal). The photos are listed by name as `album` in
+`content/photos.ts`, each with its alt text and an optional `caption`; the chapters, their titles and
+which photos each one holds are in `content/story.ts`. The first photo in a chapter is its main one
+and is set larger. Photos are shown at their own shape, so nothing is cropped. A year or a few lines
+of story can be added to any chapter, and show only once they are there.
 
 If an entry is ever pointed back at `public/photos/placeholder/`, those are generated water
 textures rather than photographs. Add `standin: true` to such an entry and it will carry a visible
@@ -137,9 +139,9 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - Travel's "How far you are coming" draws a guest's crossing from their home city and says what
   their watch will do. The choice is remembered in their own browser only.
 - A guest in another time zone sees their own clock beside Kualoa's on the home page.
-- Our story is set like a small book: an album of photographs mounted as numbered plates, then each
-  moment in words with a drop cap. Add `notes` to a moment in `content/story.ts` and they appear in
-  the margin, initialled, one voice each.
+- Our story is set like a small book: fourteen chapters on a spine, each with its photographs mounted
+  as numbered plates. Add `text` to a chapter in `content/story.ts` and it opens with a drop cap; add
+  `notes` and they appear in the margin, initialled, one voice each.
 - Dress code shows the palette as pinked cloth samples and has a plumeria that moves from ear to ear.
 - On The island, tap the kōlea and it takes a few steps.
 - Each registry is a postcard, postmarked Kualoa on the wedding day.

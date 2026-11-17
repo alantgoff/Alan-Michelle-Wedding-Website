@@ -1625,7 +1625,7 @@ h3 {
 .story-track {
   position: relative;
   border-left: 1px solid var(--rule);
-  padding: 6px 0 clamp(72px, 11vw, 150px) clamp(26px, 4vw, 52px);
+  padding: 6px 0 clamp(60px, 8vw, 112px) clamp(26px, 4vw, 52px);
 }
 .story-track::before {
   content: "";
@@ -1737,54 +1737,53 @@ h3 {
   text-align: center;
   color: var(--muted);
 }
-/* The album: plates two across on a wide screen, in reading order, each at
-   its photograph's own shape. One across on a phone. */
-.album {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(34px, 4vw, 56px) clamp(26px, 3.5vw, 52px);
-  align-items: center;
-  max-width: 1100px;
-  margin: 6px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.album li {
+/* A chapter's plates: the main photograph first and larger, the others
+   smaller beside it; one under another on a phone. Each at its own shape. */
+.story-plates {
   display: flex;
-  justify-content: center;
-  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(26px, 3.5vw, 48px) clamp(24px, 3vw, 44px);
+  max-width: 1100px;
+  margin-top: 26px;
 }
-.album .plate {
-  width: min(100%, 470px);
+.story-plates .plate {
+  width: min(100%, 440px);
   margin: 0;
 }
-/* Portrait plates a little narrower, so a tall photograph does not tower
-   over the landscape one beside it. */
-.album .plate[data-tall] {
-  width: min(100%, 360px);
+.story-plates .plate[data-tall] {
+  width: min(100%, 350px);
 }
-.album .plate-photo img {
+.story-plates .plate-sub {
+  width: min(100%, 300px);
+}
+.story-plates .plate-sub[data-tall] {
+  width: min(100%, 250px);
+}
+.story-plates .plate-photo img {
   display: block;
   width: 100%;
   height: auto;
 }
-.album figcaption {
+.story-plates figcaption {
   margin-top: 10px;
 }
 @media (max-width: 820px) {
-  .album {
-    grid-template-columns: 1fr;
+  .story-plates {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  .album .plate,
-  .album .plate[data-tall] {
-    width: min(100%, 440px);
+  .story-plates .plate,
+  .story-plates .plate[data-tall],
+  .story-plates .plate-sub {
+    width: min(100%, 420px);
+  }
+  .story-plates .plate-sub[data-tall] {
+    width: min(100%, 340px);
   }
 }
 @media print {
-  .album {
-    gap: 18px;
-  }
-  .album li {
+  .story-plates .plate {
     break-inside: avoid;
   }
 }

@@ -1,17 +1,21 @@
 /**
- * Our Story — set like a small book: an album of photographs in the order
- * they happened, then the moments told in words, then a last word to you.
+ * Our Story — set like a small book: our story in chapters, in the order it
+ * happened, then a last word to you. The chapters and their order come from
+ * the names of the photographs we sent.
  *
- * The photographs are in content/photos.ts (`album`), where each can be
- * given a caption.
+ * Each chapter is a stretch of the page with its number on the rail beside
+ * it. `photos` lists the chapter's pictures by their names in
+ * content/photos.ts (`album`): the first is the main one and is set larger.
+ * Captions for single pictures are there too. TypeScript catches a
+ * misspelled name.
  *
- * THE MOMENTS. Each one is a stretch of the page with its date on the rail
- * beside it. `photo` points at a key in content/photos.ts; leave it off and
- * the moment is words only. Add, remove and reorder freely. Two optional
- * extras, shown only when you fill them in:
+ * Everything else is optional, and shows only when you fill it in:
  *
- *   caption: "Kailua, 2021"
- *     a line under the photograph, printed as "Plate XXVI · Kailua, 2021".
+ *   date: "2021"
+ *     a year (or any short line) on the rail above the chapter's number.
+ *
+ *   text: "…"
+ *     a few lines of the story, set with a drop cap.
  *
  *   notes: [
  *     { by: "M", text: "He was forty minutes late." },
@@ -20,21 +24,40 @@
  *     asides in the margin, initialled, one voice each: "A" for Alan and
  *     "M" for Michelle. Keep them short. They are the best part.
  *
- * TODO: our story in words. The story itself is still to be written, so
- * only the last moment is here. When you are ready, add moments above it
- * like these (a moment with "TODO" in its date or text is never shown):
- *
- *   { date: "2019", title: "How we met", text: "The first conversation, first impression, or first date. The small specific detail is what people remember." },
- *   { date: "2021", title: "The adventure begins", text: "A favorite shared trip, a move, or an ordinary moment that turned out to matter." },
- *   { date: "2027", title: "The proposal", text: "The proposal in your own words. Include who cried." },
+ * TODO: our story in words. Add a year and a few lines to any chapter you
+ * like. (A chapter with "TODO" in its date or text is never shown.)
  */
 
-import type { PhotoKey } from "./photos";
+import type { AlbumKey, PhotoKey } from "./photos";
 
 export type StoryNote = { by: "A" | "M"; text: string };
-export type StoryMoment = { date: string; title: string; text: string; photo?: PhotoKey; caption?: string; notes?: StoryNote[] };
+export type StoryMoment = {
+  title: string;
+  date?: string;
+  text?: string;
+  /** The chapter's pictures, by name in content/photos.ts (`album`). The first is the main one. */
+  photos?: AlbumKey[];
+  /** A single picture from the main manifest instead, with an optional caption. */
+  photo?: PhotoKey;
+  caption?: string;
+  notes?: StoryNote[];
+};
 
 export const story: StoryMoment[] = [
+  { title: "Where it started: the OU trip", photos: ["ou-trip"] },
+  { title: "Vermont", photos: ["vermont", "vermont-friends"] },
+  { title: "Hawaiʻi", photos: ["hawaii"] },
+  { title: "Yosemite", photos: ["yosemite", "yosemite-friends"] },
+  { title: "Bali and Thailand", photos: ["bali", "thailand"] },
+  { title: "Our first New York trip, while we were long-distance", photos: ["new-york-1", "new-york-2"] },
+  { title: "Disney", photos: ["disney-1", "disney-2", "disney-3"] },
+  { title: "Iceland", photos: ["iceland"] },
+  { title: "Japan", photos: ["osaka-aquarium", "japan"] },
+  { title: "Moving in together", photos: ["moving-in"] },
+  { title: "Our two-year anniversary trip", photos: ["anniversary-1", "anniversary-2"] },
+  { title: "Our first Christmas at home", photos: ["first-christmas"] },
+  { title: "Guatemala", photos: ["acatenango", "guatemala"] },
+  { title: "Kauaʻi: the proposal", photos: ["proposal", "kauai", "ring"] },
   {
     date: "Next chapter",
     title: "Oʻahu",
@@ -43,15 +66,12 @@ export const story: StoryMoment[] = [
   },
 ];
 
-/** The words around the album and the moments. {date} is filled in for you. */
+/** The words around the chapters. {date} is filled in for you. */
 export const storyPage = {
   tab: "Our story",
   kicker: "Our story",
   title: "The road here",
-  intro: "Our story so far, in pictures, in the order it happened. The words are still to come.",
-  /** On the rail beside the album. */
-  albumMarker: "In pictures",
-  albumLabel: "Our story in pictures",
+  intro: "Our story so far, chapter by chapter, in pictures. The words are still to come.",
   /** Before each plate's numeral: "Plate IV". */
   plate: "Plate",
   notesLabel: "Notes in the margin",

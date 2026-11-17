@@ -14,7 +14,8 @@ grep -rn "TODO" content
 At the moment: the ceremony time (`site.ts`, `activities.ts`, and the calendar file), RSVP details
 (`site.ts`), the welcome drinks' day and place, the beach, the snorkel charter's details, the family
 dinner's place and the hike's trailhead (`activities.ts`), shuttle details (`travel.ts`, `faq.ts`),
-the registry (`registry.ts`), and our story in words (`story.ts`).
+the registry (`registry.ts`), and our story in words: a year and a few lines for any chapter
+(`story.ts`).
 
 ## Before the invitations go out
 
@@ -65,8 +66,9 @@ If you are not sure of something new, leave it out.
   water, manners, and the pronunciation list (`sayIt`).
 - **`faq.ts`**: questions and answers. Keep each answer short; where a fact is told in full on
   another page, add a `link` to it rather than repeating it.
-- **`story.ts`**: the moments in words, notes in the margin, and the closing. The photographs are
-  the `album` in `photos.ts`.
+- **`story.ts`**: Our story's chapters. Each has a title and its photos, by name from the `album`
+  in `photos.ts` (the first is the main one). A `date`, `text` and margin `notes` can be added to any
+  chapter. Captions for single photos are in `photos.ts`.
 - **`registry.ts`**: one postcard per registry. Until one has a real link the page shows a single
   "to come" card.
 - **`sky.ts`** and **`skyChart.ts`**: the sky that night. `skyChart.ts` is computed; do not edit
