@@ -48,32 +48,22 @@ export const home = {
   facts: {
     kicker: "The celebration",
     title: "Palikū Gardens",
-    place: "At the foot of Kānehoalani, the sheer green ridge at Kualoa, looking out across Kāneʻohe Bay.",
+    place: "A garden lawn under the mountains at Kualoa Ranch, on the windward coast, about 45 minutes from Waikīkī.",
     placeLink: "About this place",
     sunset: "Sunset",
     sunsetValue: "About {time}",
     ridge: "It drops behind the ridge an hour or more before that.",
-    moonrise: "Moonrise",
-    moonriseValue: "About {time}",
     map: "View map",
     calendar: "Add to calendar",
-  },
-
-  night: {
-    kicker: "The sky that night",
-    link: "The whole sky that night",
   },
 
   /** The cards at the foot of the page, one per page in the menu. */
   cardGo: "Explore →",
 
-  /** The number that counts down. Tap it and it counts in weeks, then full moons. */
+  /** The number that counts down to the day. */
   countdown: {
     day: "day until we celebrate",
     days: "days until we celebrate",
-    weeks: "weeks until we celebrate",
-    moons: "full moons until we celebrate",
-    another: "Count another way",
     today: { word: "Today", line: "see you on the lawn" },
     after: { word: "Married", line: "and so glad you were there" },
   },

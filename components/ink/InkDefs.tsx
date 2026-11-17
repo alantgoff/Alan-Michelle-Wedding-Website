@@ -7,7 +7,7 @@
  *  - a small library of motifs from this stretch of coast, each drawn around
  *    its own origin with the waterline at y = 0.
  *
- * Everything else that draws (Horizon, Stamp, Kolea, MoonGlyph) refers to
+ * Everything else that draws (Horizon, Stamp) refers to
  * these by id, so the whole site is drawn with one pen.
  */
 export function InkDefs() {

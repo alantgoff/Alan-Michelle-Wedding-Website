@@ -55,7 +55,6 @@ export const site = {
     /** The button that opens the menu on a phone. */
     menu: "Menu",
     close: "Close",
-    farewell: { haw: "A hui hou", means: "until we meet again" },
     madeWith: "Made with love for our favorite people",
     /** Pages kept out of the top menu but linked from the footer. */
     more: [{ href: "registry", label: "Registry" }],

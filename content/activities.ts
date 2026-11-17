@@ -38,15 +38,15 @@ export type Activity = {
  */
 export const activities: Activity[] = [
  // TODO: welcome drinks: choose the day (see above) and the place in Waikīkī.
- {date:"Days to be confirmed",title:"Sunset welcome drinks",time:"5:30 PM",location:"Waikīkī · place to come",description:"A relaxed first hello with sunset views and light bites. Hoʻokipa is Hawaiian for hospitality: to welcome someone and treat them well. It is the whole idea of our first evening together.",audience:"everyone"},
+ {date:"Days to be confirmed",title:"Sunset welcome drinks",time:"5:30 PM",location:"Waikīkī · place to come",description:"A relaxed first hello with sunset views and light bites.",audience:"everyone"},
  // TODO: ceremony time (also in content/site.ts).
- {date:"Friday",title:"Wedding ceremony & reception",time:"Time to come",location:"Palikū Gardens",description:"The reason we are all here. Ceremony on the lawn, then dinner and dancing under the lights. A shuttle runs between Waikīkī and the ranch. The old Hawaiian word for marrying, hoʻāo, probably meant to stay until daylight. We will settle for the last dance.",audience:"everyone",link:{href:"/travel#shuttle",label:"The wedding-day shuttle"}},
+ {date:"Friday",title:"Wedding ceremony & reception",time:"Time to come",location:"Palikū Gardens",description:"The reason we are all here. Ceremony on the lawn, then dinner and dancing under the lights. A shuttle runs between Waikīkī and the ranch.",audience:"everyone",link:{href:"/travel#shuttle",label:"The wedding-day shuttle"}},
  // TODO: turtle charter: the day, departure time, harbor, operator, how long it runs, and what to bring.
  {date:"Days to be confirmed",title:"Turtle snorkel charter",time:"Time to come",location:"Harbor to come",description:"A private boat, our treat, out to snorkel with the honu, Hawaiʻi’s green sea turtles. The day, the harbor and what to bring are to come.",audience:"everyone",link:{href:"/island#honu",label:"Giving the honu room"}},
  // TODO: beach meetups: which beaches, and when.
  {date:"Days to be confirmed",title:"Beach meetups",time:"Times to come",location:"Beaches to come",description:"A few meetups at some of the island’s nicest beaches. Which beaches, and when, are to come.",audience:"everyone"},
  // TODO: beach morning: which beach.
- {date:"Sunday",title:"Beach morning",time:"10:00 AM",location:"Beach to come",description:"Coffee, fruit, and one last swim before everyone heads home. There is an old saying, hoʻokahi nō lā o ka malihini: a stranger only for a day. After that, a guest pitches in. By Sunday morning you are family, so someone will hand you the coffee to carry.",audience:"everyone"},
+ {date:"Sunday",title:"Beach morning",time:"10:00 AM",location:"Beach to come",description:"Coffee, fruit, and one last swim before everyone heads home.",audience:"everyone"},
  // TODO: family dinner: the restaurant or house in Kāneʻohe.
  {date:"Thursday",title:"Family dinner",time:"6:00 PM",location:"Kāneʻohe · place to come",description:"An intimate dinner for our families before the weekend begins.",audience:"family"},
  // TODO: college hike: the trail, the trailhead and how everyone gets there.
@@ -71,7 +71,6 @@ export const weekendPage = {
  mineOne: "The one marked with a plumeria is just for you.",
  mineMany: "The ones marked with a plumeria are just for you.",
  sunset: "Sunset {time}",
- moonrise: "Moonrise {time}",
  print: "Print the weekend",
  freeTime: {
   text: "Free time between the gatherings? The island page has what is open on which day, and where to go.",

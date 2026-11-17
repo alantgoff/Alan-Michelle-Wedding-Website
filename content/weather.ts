@@ -52,13 +52,5 @@ export const weather = {
     "Most October rain on this coast falls at night. At the Kāneʻohe Bay weather station about three-fifths of it arrives between 8 PM and 8 AM, and only about one late-afternoon hour in twenty brings measurable rain. The ranch, tucked under the cliffs, gets a good deal more, but a shower there is usually a passing one.",
     "Humidity is the thing to dress for, more than heat. Linen and anything loose will serve you well.",
     "The trade wind blows from the east-northeast most days and is strongest in the early afternoon. After dark it eases, so a light layer is for comfort rather than cold.",
-    "Pluck a lehua blossom, a well-loved island story goes, and you part the lovers ʻŌhiʻa and Lehua, and their tears bring rain that same day. We will be leaving every lehua on its tree.",
   ],
-
-  /** The wind here has a name of its own. */
-  wind: {
-    name: "Holopali",
-    text: "In the old chant of Oʻahu’s winds, each place has a wind of its own. Here it is Holopali, the wind of Kaʻaʻawa and Kualoa.",
-    credit: "From The Wind Gourd of Laʻamaomao, by Moses K. Nakuina, translated by Esther T. Mookini and Sarah Nākoa.",
-  },
 } as const;

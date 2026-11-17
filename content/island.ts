@@ -1,17 +1,12 @@
 /**
- * THE ISLAND — the place we are marrying, and this side of Oʻahu.
+ * THE ISLAND — where to eat, the best spots, planning a free day, the water,
+ * a few rules, and three facts about the venue. Practical first.
  *
- * Everything here was researched and then checked a second time against
- * primary sources (Place Names of Hawaiʻi, the Hawaiian Dictionary, the
- * National Register nomination for Kualoa, Kualoa Ranch, the City and the
- * State). Where a detail could not be confirmed it was left out, so please
- * keep that standard when adding to it: if you are not sure, do not print it.
- *
- * Hours, prices and rules change. Each one that can is marked VERIFY below,
- * with the place to check it: please look again before the invitations go
- * out. Search this folder for VERIFY to see them all.
- *
- * Each passage is a `title` and a `text`. Add, remove and reorder freely.
+ * Everything here was researched and checked against primary sources (the
+ * City, the State, the places themselves). Hours, prices and rules change:
+ * each one that can is marked VERIFY below, with the place to check it.
+ * Search this folder for VERIFY to see them all. If you are not sure of
+ * something new, leave it out.
  */
 
 /**
@@ -21,76 +16,20 @@
 export type Passage = { title: string; text: string; id?: string; link?: { href: string; label: string } };
 
 export const island = {
-  /** The banner, the chapter names, and the labels on the day's almanac. */
+  /** The banner and the chapter names. */
   page: {
     tab: "The island",
     kicker: "Where we are",
     title: "The island",
-    intro:
-      "A short guide to the place we are marrying and to the windward side of Oʻahu: its stories, its names, its water, and how to be a good guest on it.",
+    intro: "Where to eat, the best spots, planning a free day, and what to know before you go in the water.",
     chapters: {
-      kualoa: "Kualoa",
-      sky: "Sun, moon and tide",
-      eat: "Eating",
-      explore: "A free day",
+      eat: "Where to eat",
+      spots: "The best spots",
+      explore: "Plan your free days",
       water: "In the water",
-      manners: "A few manners",
-      sayIt: "Say it like a local",
+      rules: "Rules worth knowing",
+      venue: "About the venue",
     },
-    /** The wedding day's sea and sky, in order. {feet}, {phrase} are filled in for you. */
-    almanac: {
-      high: "High tide, {feet} ft",
-      low: "Low tide, {feet} ft",
-      sunrise: "Sunrise, out of the sea",
-      ridge: "The sun slips behind the ridge, by our estimate, and the lawn is in shade",
-      sunset: "Sunset",
-      lastLight: "The last light goes",
-      saturn: "Saturn rises",
-      moonrise: "Moonrise, {phrase}",
-      about: "About",
-    },
-    /** Under each moon in the row of four nights. */
-    moons: { rises: "rises {time}", lit: "{percent}% lit", ours: "our night" },
-  },
-
-  /** Chapter I: the ground under the wedding. */
-  kualoa: {
-    lede:
-      "We are marrying at the foot of Kānehoalani, the sheer green ridge at Kualoa, on lawns that look out across Kāneʻohe Bay to the little islet of Mokoliʻi. It is a place with a long memory, and we wanted you to know a little of it before you arrive.",
-    passages: [
-      {
-        title: "A sacred shore",
-        text: "Kualoa has long been counted among the most sacred places on Oʻahu. Children of chiefs were brought here to be raised and taught; it was a puʻuhonua, a place of refuge; and when a chief was in residence, canoes passing offshore lowered their masts in respect. We will be guests on this land for one evening, and we would like to walk on it gently.",
-      },
-      {
-        title: "Palikū",
-        text: "The gardens take an old name. Palikū means “vertical cliff”, and it is also an ancient name for this side of the ridge, the land now called Kualoa. The dictionary gives the word a second sense as well: the starting point of a genealogy line. We did not choose the place for that, but we are glad of it.",
-      },
-      {
-        title: "The little lizard",
-        text: "The islet in every photograph is Mokoliʻi, “little lizard”. Long ago the goddess Hiʻiaka, sister of Pele, killed a moʻo, a giant lizard, here at Kualoa. Its tail became the islet, and its body the low land at the foot of the cliffs. Look for the tail as you drive in.",
-      },
-      {
-        title: "The mountain behind us",
-        text: "The ridge rising behind the lawn is Kānehoalani, named for a god remembered as an ancestor of Pele. His companion, the old story says, is Kapapa, a low islet out in the bay. We like the idea of a mountain and an island keeping each other company across the water.",
-      },
-      {
-        title: "Star of Gladness",
-        text: "On March 8, 1975, just below the peak of Kānehoalani, the voyaging canoe Hōkūleʻa slid down a ramp of coconut logs and met the sea for the first time. The place was chosen because Kualoa and neighboring Hakipuʻu were home to voyaging chiefs of old. Hōkūleʻa means “Star of Gladness”, and she has been crossing the Pacific ever since.",
-      },
-      {
-        title: "The fishpond next door",
-        text: "Next door in Hakipuʻu, a stone wall some 4,000 feet long curves out from the shore to hold about 125 acres of shallow bay. This is Mōliʻi, an ancient Hawaiian fishpond built before written history, and it is still worked today.",
-      },
-      {
-        title: "A working ranch",
-        text: "In 1850 King Kamehameha III sold about 622 acres at Kualoa, with the fishing rights and the islet of Mokoliʻi, to Dr. Gerrit P. Judd, a missionary doctor who advised him. Judd’s descendants still run the ranch, now some 4,000 acres across Kualoa, Hakipuʻu and Kaʻaʻawa. Sugar came and went (the mill ran from 1863 to 1870, until years of thin rainfall ended it), the Army laid an airfield across the flats in the Second World War, and today it is a working cattle ranch again.",
-      },
-      {
-        title: "Seen it somewhere?",
-        text: "Kualoa has appeared in more than seventy films since the 1950s, Jurassic Park among them, and many were shot in Kaʻaʻawa Valley, the ranch’s northern half: Kong: Skull Island, Jumanji, Godzilla and, we are delighted to report, Mike & Dave Need Wedding Dates. Our lawn is on the other side of the ridge.",
-      },
-    ] satisfies Passage[],
   },
 
   /**
@@ -122,21 +61,14 @@ export const island = {
         title: "Malasadas and shave ice",
         text: "Leonard’s Bakery opened in 1952, and not long after, Leonard’s mother suggested malasadas for Shrove Tuesday, as the Portuguese do. It is on Kapahulu Avenue, near Waikīkī, and opens at 5:30 every morning. In Haleʻiwa, the Matsumotos opened their store in 1951, and Matsumoto Shave Ice now serves from 10 AM to 6 PM daily.",
       },
-      {
-        title: "The elder brother",
-        text: "In a moʻolelo shared by Kamehameha Schools, the first child of Wākea and Hoʻohōkūkalani was stillborn and buried on the east side of the house, where the sun rises, and from that place grew the first kalo. Their second son was named Hāloa in honor of his older brother and became the first Hawaiian, so kalo is family: the elder sibling who feeds the younger. Kualoa is said to have been the sacred land of Hāloa.",
-      },
     ] satisfies Passage[],
     /** Words on every menu. */
-    menuTitle: "Read the menu like a local",
+    menuTitle: "On the menu",
     menu: [
-      { word: "Poke", haw: true, means: "from the Hawaiian for “to slice, cut crosswise into pieces”, as fish" },
-      { word: "Laulau", haw: true, means: "a wrapped bundle: pork and a little butterfish folded in taro leaves and steamed" },
-      { word: "Kālua", haw: true, means: "“to cook underground”, in an earth oven; you will meet it as kālua pig" },
-      { word: "Poi", haw: true, means: "kalo (taro), steamed and pounded with water into a smooth paste" },
+      { word: "Poke", means: "cubes of raw fish, usually ʻahi tuna, dressed with soy sauce, sesame and onion" },
       { word: "Plate lunch", means: "rice by the scoop, macaroni salad and a main" },
-      { word: "Spam musubi", means: "rice topped with pan-fried SPAM and wrapped in nori; by Hormel’s count, Hawaiʻi eats about seven million cans a year" },
-      { word: "ʻOno", haw: true, means: "delicious, which is what you will want to say" },
+      { word: "Spam musubi", means: "rice topped with pan-fried Spam and wrapped in nori" },
+      { word: "Kālua pig", means: "smoky pulled pork, traditionally cooked in an underground oven" },
     ],
   },
 
@@ -172,13 +104,13 @@ export const island = {
       {
         // VERIFY before invitations: the loop trail and Keaniani lookout are open. Source: dlnr.hawaii.gov/dsp (Ahupuaʻa ʻO Kahana State Park).
         title: "Kahana Valley",
-        text: "Five miles up the road, Ahupuaʻa ʻO Kahana is a “living park”, where families still make their homes in the valley. An easy one-mile loop climbs to Keaniani lookout, where a kilo iʻa, a fish watcher, once looked for schools of akule in the bay and signaled the valley to bring the nets. Huilua Fishpond, on the east side of the bay, is a National Historic Landmark and one of the few survivors of the roughly ninety-seven fishponds that once lined Oʻahu’s coast. Kahana is one of the wettest valleys on the island, so stay on the trail and keep out of the stream, above all if you have a cut.",
+        text: "Five miles up the road, Ahupuaʻa ʻO Kahana is a “living park”, where families still make their homes in the valley. An easy one-mile loop climbs to Keaniani lookout, over the bay. Huilua Fishpond, on the east side of the bay, is a National Historic Landmark and one of the few survivors of the roughly ninety-seven fishponds that once lined Oʻahu’s coast. Kahana is one of the wettest valleys on the island, so stay on the trail and keep out of the stream, above all if you have a cut.",
       },
       {
         // VERIFY before invitations: hours (8:30 AM–4:30 PM, last entry 4:15) and admission ($10 adults). Source: byodo-in.com.
         id: "byodo-in",
         title: "Byodo-In Temple",
-        text: "At the foot of the Koʻolau in Kāneʻohe, the Byodo-In Temple is a smaller copy of the nearly thousand-year-old Byodo-In at Uji, in Japan. Before you go in, ring the great bell. It is customary, and it is said to bring happiness, blessings and a long life, which we will gladly take on your behalf. The temple is open daily from 8:30 AM to 4:30 PM (last entry 4:15), and admission is $10 for adults. It sits within a memorial park, so dress as you would for a place of worship and leave the beachwear in the car.",
+        text: "At the foot of the Koʻolau in Kāneʻohe, the Byodo-In Temple is a smaller copy of the nearly thousand-year-old Byodo-In at Uji, in Japan. The temple is open daily from 8:30 AM to 4:30 PM (last entry 4:15), and admission is $10 for adults. It sits within a memorial park, so dress as you would for a place of worship and leave the beachwear in the car.",
       },
       {
         // VERIFY before invitations: hours (9 AM–4 PM), closed Thursdays, free entry. Source: honolulu.gov/parks (Honolulu Botanical Gardens).
@@ -196,7 +128,7 @@ export const island = {
         // VERIFY before invitations: no commercial activity in Kāneʻohe Bay on Sundays and federal holidays, and which tours hold a state permit. Source: DLNR Division of Boating and Ocean Recreation, HAR §13-256 (Kāneʻohe Bay Ocean Waters).
         id: "sandbar",
         title: "Ahu o Laka, the sandbar",
-        text: "Ahu o Laka, “the altar of Laka”, is a sandbar in the middle of Kāneʻohe Bay that rises from the water at low tide and is awash at high tide. It is a sacred place as well as a beautiful one. To go with a tour, choose one that holds a state permit for Kāneʻohe Bay. No commercial boat may run in the bay on Sundays or federal holidays, and on our weekend that means Sunday, October 8 and Monday, October 9, Columbus Day. Saturday is your day.",
+        text: "Ahu o Laka is a sandbar in the middle of Kāneʻohe Bay that rises from the water at low tide and is awash at high tide. To go with a tour, choose one that holds a state permit for Kāneʻohe Bay. No commercial boat may run in the bay on Sundays or federal holidays, and on our weekend that means Sunday, October 8 and Monday, October 9, Columbus Day. Saturday is your day.",
       },
       {
         // VERIFY before invitations: HIMB’s guided visits (ages five and up) and the ʻOhana Saturday schedule. Source: himb.hawaii.edu.
@@ -250,116 +182,50 @@ export const island = {
     ] satisfies Passage[],
   },
 
-  /** Chapter: being a good guest on the island. */
-  manners: {
-    lede:
-      "Hawaiʻi is a home before it is a vacation, and people here are generous with visitors who notice that. None of this is difficult. It is mostly a matter of slowing down and leaving things as you found them.",
-    /**
-     * Aloha is written into state law (Hawaiʻi Revised Statutes §5-7.5, 1986),
-     * which spells it out in these five words. The statute prints them
-     * without marks; the spellings here follow the Hawaiian Dictionary.
-     */
-    aloha: {
-      title: "Aloha, by statute",
-      text: "Aloha is written into Hawaiʻi law. Since 1986 a state statute has spelled out the aloha spirit in five words.",
-      words: [
-        { word: "Akahai", means: "kindness" },
-        { word: "Lōkahi", means: "unity" },
-        { word: "ʻOluʻolu", means: "agreeable" },
-        { word: "Haʻahaʻa", means: "humility" },
-        { word: "Ahonui", means: "patience" },
-      ],
-    },
+  /** Chapter: rules worth knowing. Each is the law here, or close to it. */
+  rules: {
+    lede: "A few things that are the law here, or close to it.",
     passages: [
       {
         // VERIFY before invitations: the law on taking sand, rocks and coral, and its small-quantity exception. Source: HRS §205A-44, capitol.hawaii.gov.
-        title: "At the door and on the sand",
-        text: "Slip off your shoes at the door of anyone’s home. Leave the sand, rocks and coral where they lie; taking them from the shore is against state law. (The same law lets you keep an empty shell, a piece of sea glass or driftwood, though not in marine reserves or where a sign says otherwise.) Leave Pidgin to the people who grew up speaking it; borrowed, it can come across as mockery. And mālama ʻāina: care for the land as the people who love it do.",
+        title: "Leave the sand and the coral",
+        text: "Taking sand, rocks or coral from the shore is against state law. An empty shell, a piece of sea glass or driftwood is fine, except in marine reserves or where a sign says otherwise.",
       },
       {
-        // VERIFY before invitations: the Haʻikū Stairs’ status (closed; removal under way since 2024). Source: honolulu.gov.
-        title: "Kapu means keep out",
-        text: "A sign that reads kapu means forbidden, keep out; the word also means sacred, and we ask you to honor it. Stay on marked trails. And please leave the Haʻikū Stairs to the photographs: they have been closed since 1987, climbing them is illegal, and the city began dismantling them in 2024.",
+        // VERIFY before invitations: the sunscreen sale ban (in force since 2021). Source: capitol.hawaii.gov (Act 104, 2018).
+        title: "Reef-safe sunscreen",
+        text: "Since 2021 Hawaiʻi has not allowed the sale of sunscreens containing oxybenzone or octinoxate, so bring a mineral one. On the reef, float: no standing on coral, touching fish or reaching into holes.",
       },
       {
-        title: "If you are given a lei",
-        text: "A lei is aloha you can wear, and in Hawaiian the word also means a beloved person: a sweetheart, a husband, a wife, a child carried on the shoulders. If you are given one, receive it with thanks and keep it on while the giver is near. Wear it draped over your shoulders, falling in front and behind. A closed lei is considered a bad omen for a mother-to-be, so hers is made open-ended. When it fades, please don’t throw it away. Take the flowers off the string and return them to the land, buried in a garden or hung in a tree.",
-      },
-      {
-        title: "Taking a lei home",
-        text: "Flying home with yours? Most lei may travel, but some flowers and fruits may not, and every bag is checked at the airport before you reach the airline counter. Ask the lei maker what yours is made of.",
-        link: { href: "/travel#flying-home", label: "Which lei may fly, and what else may" },
-      },
-      {
-        // VERIFY before invitations: the sunscreen sale ban (in force since 2021), NOAA’s mineral-sunscreen advice and the 50-yard spinner-dolphin rule. Sources: capitol.hawaii.gov (Act 104, 2018); fisheries.noaa.gov.
-        title: "On the reef",
-        text: "The reef in Kāneʻohe Bay is alive, so we float above it: no standing on coral, no touching fish, no reaching into holes. Bring a sun shirt and a non-nano mineral sunscreen. Since 2021 Hawaiʻi has not allowed the sale of sunscreens containing oxybenzone or octinoxate, and NOAA considers mineral sunscreen the better choice for the reef. If spinner dolphins, naiʻa, appear while you are on the water, federal law keeps swimmers and boats alike at least fifty yards away, so enjoy them from a distance.",
-      },
-      {
-        // VERIFY before invitations: viewing distances for turtles (10 ft) and monk seals (50 ft; 150 ft for a mother and pup). Source: fisheries.noaa.gov (Hawaiian Islands marine wildlife viewing guidelines); dlnr.hawaii.gov.
+        // VERIFY before invitations: viewing distances for turtles (10 ft), monk seals (50 ft; 150 ft for a mother and pup) and spinner dolphins (50 yards). Source: fisheries.noaa.gov (Hawaiian Islands marine wildlife viewing guidelines); dlnr.hawaii.gov.
         id: "honu",
-        title: "Ten feet for the honu",
-        text: "Green sea turtles haul out to bask on the sand at Laniākea, on the North Shore, some days a few and some days none. Please give them at least ten feet, on the beach and in the water, and never touch, chase or feed one: they are protected by state and federal law. Volunteers from Mālama i nā Honu are on the beach most days and love to talk turtles. Hawaiian monk seals need more room: fifty feet, and 150 for a mother and pup. You have to cross Kamehameha Highway between the parking and the beach, so take care.",
+        title: "Give turtles, seals and dolphins room",
+        text: "Green sea turtles: at least ten feet, on the beach and in the water, and never touch, chase or feed one. Hawaiian monk seals: fifty feet, and 150 for a mother and pup. Spinner dolphins: fifty yards, for swimmers and boats alike. All are protected by state and federal law.",
       },
       {
-        title: "The shaka’s best-known story",
-        text: "It starts up this coast, in Lāʻie. Hamana Kalili, the story goes, lost fingers in a sugar-mill accident and waved with his thumb and little finger. A statue of him has stood at Lāʻie’s Hukilau Marketplace since 2015.",
+        // VERIFY before invitations: the Haʻikū Stairs' status (closed; removal under way since 2024). Source: honolulu.gov.
+        title: "Stay on marked trails",
+        text: "A sign that reads kapu means keep out. The Haʻikū Stairs have been closed since 1987, climbing them is illegal, and the city began dismantling them in 2024.",
       },
     ] satisfies Passage[],
   },
 
-  /** Place names guests will hear all weekend, and how to say them. */
-  sayIt: [
-    { word: "Kualoa", say: "koo-ah-LOH-ah", means: "“long back” — the ridge that rises behind the ranch" },
-    { word: "Palikū", say: "pah-lee-KOO", means: "“vertical cliff” — an old name for Kualoa, and our venue" },
-    { word: "Kānehoalani", say: "KAH-neh-hoh-ah-LAH-nee", means: "“Kāne, royal (or heavenly) companion” — the ridge behind the lawn" },
-    { word: "Mokoliʻi", say: "moh-koh-LEE-ee", means: "“little lizard” — the islet off the point, in every photo" },
-    { word: "Koʻolau", say: "koh-oh-LOW (rhymes with “now”)", means: "“windward” — the mountains, and this whole side of the island" },
-    { word: "Kāneʻohe", say: "KAH-neh-OH-heh", means: "“bamboo man” — the bay and the town you drive through" },
-    { word: "Kaʻaʻawa", say: "kah-ah-AH-vah", means: "named for the ʻaʻawa, a wrasse that lives on the reef — the valley just north of us" },
-    { word: "Mōliʻi", say: "MOH-lee-ee", means: "“small section” — the ancient fishpond next door" },
-    { word: "Hōkūleʻa", say: "HOH-koo-LEH-ah", means: "“star of gladness” — the voyaging canoe, first launched at Kualoa in 1975" },
-    { word: "Mahalo", say: "mah-HAH-loh", means: "thank you — the word you will use most" },
-  ],
-  /**
-   * A bird guests will meet on the lawn. Keep this about the bird: "kōlea"
-   * is also an old, unkind word for a newcomer who takes and leaves, so it
-   * must never be turned into a comparison with the guests.
-   */
-  kolea: {
-    title: "Look down: the kōlea",
-    /** Read aloud for the drawing, which takes a few steps when tapped. */
-    watch: "Watch the kōlea take a few steps",
-    text: "On almost any lawn this side of the island you will see a small, speckled-gold bird standing very still. It is a kōlea, the Pacific golden plover. It flies about three thousand miles nonstop from Alaska, some three days on the wing, to spend the winter here, and it comes back to the same patch of grass year after year. The adults arrive in August, and the young make their first crossing in October.",
+  /** Chapter: about the venue. Three facts, nothing more. */
+  venue: {
+    passages: [
+      {
+        // VERIFY before invitations: "more than seventy films since the 1950s". Source: kualoa.com (Movie sites).
+        title: "You may have seen it",
+        text: "Kualoa has appeared in more than seventy films since the 1950s, Jurassic Park among them. Most were shot in Kaʻaʻawa Valley, the ranch’s northern half, on the far side of the ridge from our lawn.",
+      },
+      {
+        title: "A working ranch",
+        text: "Kualoa is a working cattle ranch of some 4,000 acres, still run by the family that has owned it since 1850.",
+      },
+      {
+        title: "The islet off the point",
+        text: "The small cone-shaped island you see from the lawn, and in nearly every photo of this coast, is Mokoliʻi.",
+      },
+    ] satisfies Passage[],
   },
-
-  /**
-   * Everyday words, with the meanings the Hawaiʻi Tourism Authority and the
-   * Hawaiian Dictionary give. No pronunciations here on purpose: ours would
-   * be guesses, and these deserve a Hawaiian speaker's ear before printing.
-   */
-  wordsTitle: "Words you will hear",
-  words: [
-    { word: "E komo mai", means: "come in; welcome" },
-    { word: "ʻOhana", means: "family, and the wider circle of kin" },
-    { word: "Keiki", means: "child" },
-    { word: "Mauka, makai", means: "toward the mountains, toward the sea: how directions are given here" },
-    { word: "Kamaʻāina", means: "a local; literally, child of the land" },
-    { word: "Malihini", means: "a visitor, a newcomer, a guest" },
-    { word: "Pūpū", means: "appetizers; also the word for shells" },
-    { word: "Pau", means: "finished, all done" },
-    { word: "Hana hou", means: "do it again; encore" },
-    { word: "Hoʻomaikaʻi", means: "congratulations" },
-    { word: "A hui hou", means: "until we meet again" },
-  ],
-  wordsNote:
-    "Hawaiian has a verb, hoʻomalihini, that can mean to reveal that guests are on their way, as an omen does. The dictionary’s example is a chicken that lets the household know company is coming. Consider this website ours.",
-
-  /** Why the site spells Hawaiian words with their marks. */
-  whyMarks:
-    "Hawaiian is one of the two official languages of the State of Hawaiʻi, and its marks are part of the spelling. Drop them and the words change: pau is finished, paʻu is soot, and pāʻū is a skirt. In the early 1980s fewer than fifty children were growing up fluent in Hawaiian. Today it is taught from preschool to doctorate, so we spell every word with care.",
-
-  /** The ʻokina and the kahakō, explained once. */
-  sayItNote:
-    "The ʻ in Oʻahu is the ʻokina, a real consonant: a quick catch in the throat, like the middle of “uh-oh”. The bar in Kāneʻohe is a kahakō and simply stretches the vowel. Every vowel is said; nothing is silent.",
 };

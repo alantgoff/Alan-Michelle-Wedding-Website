@@ -171,11 +171,6 @@ export const faqGroups: FaqGroup[] = [
         a: "Most flower lei, yes; most fresh fruit, no. Pineapple and coconut can fly. Everything is checked at the airport before you reach the airline counter.",
         link: { href: "/travel#flying-home", label: "The full list" },
       },
-      {
-        q: "What is the mark in Oʻahu and Kāneʻohe?",
-        a: "The ʻokina, a consonant: a quick catch in the throat, like the pause in “uh-oh”, so Oʻahu is oh-AH-hoo. The bar over a vowel, as in Kāneʻohe, is a kahakō and stretches it.",
-        link: { href: "/island#say-it", label: "Say it like a local" },
-      },
     ],
   },
 ];

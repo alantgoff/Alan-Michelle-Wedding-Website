@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { Countdown } from "@/components/Countdown";
 import { Horizon } from "@/components/ink/Horizon";
-import { MoonGlyph } from "@/components/ink/MoonGlyph";
 import { Logo } from "@/components/Logo";
-import { NowAtKualoa } from "@/components/NowAtKualoa";
 import { PhotoBackdrop } from "@/components/PhotoFrame";
 import { Reveal } from "@/components/Reveal";
 import { PlumeriaBurst } from "@/components/PlumeriaBurst";
@@ -11,7 +9,6 @@ import { Tide } from "@/components/Tide";
 import { WelcomeCurtain } from "@/components/WelcomeCurtain";
 import { home } from "@/content/home";
 import { site } from "@/content/site";
-import { sky } from "@/content/sky";
 import type { PhotoKey } from "@/content/photos";
 import { heldGroups, ownEvents } from "@/content/visibleActivities";
 import { fill } from "@/lib/fill";
@@ -142,13 +139,12 @@ export default async function Home({
       <section className="facts">
         <div>
           <Countdown target={site.isoDate} />
-          <NowAtKualoa />
         </div>
         <div>
           <p className="kicker">{home.facts.kicker}</p>
           <h2>{home.facts.title}</h2>
           <p className="facts-place">
-            {home.facts.place} <Link href="/island#kualoa">{home.facts.placeLink}</Link>
+            {home.facts.place} <Link href="/island#venue">{home.facts.placeLink}</Link>
           </p>
           <dl>
             <dt>{home.facts.sunset}</dt>
@@ -156,11 +152,6 @@ export default async function Home({
               {fill(home.facts.sunsetValue, { time: sunset })}
               <br />
               <span className="aside">{home.facts.ridge}</span>
-            </dd>
-            <dt>{home.facts.moonrise}</dt>
-            <dd>
-              {fill(home.facts.moonriseValue, { time: sky.moonrise })}
-              <MoonGlyph lit={sky.moonLit} className="moon-glyph moon-inline" />
             </dd>
           </dl>
           <div className="facts-actions">
@@ -173,33 +164,6 @@ export default async function Home({
           </div>
         </div>
       </section>
-
-      <Reveal>
-        <section className="night" aria-labelledby="night-title">
-          <div className="night-art" aria-hidden="true">
-            <MoonGlyph lit={sky.moonLit} className="moon-glyph moon-large" />
-            <svg className="night-sea" viewBox="0 0 320 44" focusable="false">
-              <g filter="url(#ink)">
-                <path className="ink" d="M4 14 C70 12 130 16 200 13 M216 13 C250 12 290 15 316 13" />
-                <path className="ink fine" d="M40 30 c12 -7 24 7 36 0 c12 -7 24 7 36 0 M190 34 c12 -7 24 7 36 0" />
-              </g>
-            </svg>
-          </div>
-          <div className="night-words">
-            <p className="kicker">{home.night.kicker}</p>
-            <h2 id="night-title">{sky.heading}</h2>
-            <p>
-              {sky.text} <Link href="/island#sky">{home.night.link}</Link>
-            </p>
-            <figure className="saying">
-              <blockquote lang="haw">{sky.saying}</blockquote>
-              <figcaption>
-                <span className="saying-means">{sky.sayingMeans}</span> {sky.sayingNote}
-              </figcaption>
-            </figure>
-          </div>
-        </section>
-      </Reveal>
 
       <Tide />
 

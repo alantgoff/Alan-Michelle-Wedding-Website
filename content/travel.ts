@@ -106,7 +106,7 @@ export const travel = {
   {
    // VERIFY before invitations: Akamai Arrival name, five-day window, one form per household. Source: Hawaiʻi Department of Agriculture, hdoa.hawaii.gov (Plant Quarantine, Akamai Arrival).
    title: "The agriculture form, now on your phone",
-   text: "Hawaiʻi asks everyone flying in from the mainland to declare any fresh fruit, vegetables, plants, seeds or animals they carry. The form is digital now, called Akamai Arrival, on every domestic flight. Fill it out up to five days before you fly, or on the plane if you have Wi-Fi, and send it even if you have nothing to declare. One adult can file for a household that shares an address and a place to stay. Hawaiʻi has guarded its plants for a long time: in 1888 King Kalākaua barred new coffee plants from the islands to protect the crop already here, and the declaration, created in 1973, comes from that same care.",
+   text: "Hawaiʻi asks everyone flying in from the mainland to declare any fresh fruit, vegetables, plants, seeds or animals they carry. The form is digital now, called Akamai Arrival, on every domestic flight. Fill it out up to five days before you fly, or on the plane if you have Wi-Fi, and send it even if you have nothing to declare. One adult can file for a household that shares an address and a place to stay.",
   },
  ] satisfies PassageItem[],
 
@@ -163,11 +163,6 @@ export const travel = {
    text: "Worth taking once, in daylight. Stop at the Nuʻuanu Pali lookout, twelve hundred feet up, where the wind is usually strong enough to lean on. It is open from six in the morning to six at night, and visitors pay a small fee to park.",
   },
  ] satisfies Crossing[],
- /** A piece of local lore, set under the three crossings. */
- crossingLore: {
-  title: "And leave the pork at home",
-  text: "Local lore says never to carry pork over the Pali, out of respect for an old quarrel between Pele and the pig demigod Kamapuaʻa. The storyteller Lopaka Kapanui says the tunnels are safe enough; it is the old road up by the lookout that minds.",
- },
 
  /** The road itself, the wedding afternoon, the way home, and the rules of the road. */
  road: [
@@ -175,8 +170,7 @@ export const travel = {
    // VERIFY before invitations: parking at the gardens (three tiers, about 80 cars). Source: Kualoa Ranch's Palikū Gardens venue sheet, or ask the ranch.
    id: "last-ten-minutes",
    title: "The last ten minutes",
-   text: "At the Hygienic Store in Kahaluʻu, Kahekili Highway becomes Kamehameha Highway and the coast opens up. About ten minutes on, the road rounds the point past Mokoliʻi and the ranch is on your left. Kualoa is a sacred place, and slowing down here feels right. Parking at the gardens is in three tiers, with room for about 80 cars between them, so please take the shuttle or share a car. We will send the exact turn, and where to park, closer to the day.",
-   link: { href: "/island#kualoa", label: "Why Kualoa is sacred" },
+   text: "At the Hygienic Store in Kahaluʻu, Kahekili Highway becomes Kamehameha Highway and the coast opens up. About ten minutes on, the road rounds the point past Mokoliʻi and the ranch is on your left. Parking at the gardens is in three tiers, with room for about 80 cars between them, so please take the shuttle or share a car. We will send the exact turn, and where to park, closer to the day.",
   },
   {
    title: "On the wedding afternoon",
@@ -189,9 +183,8 @@ export const travel = {
    text: "The shuttle will bring you back to Waikīkī. If you drive instead, please settle your way home before you come: a designated driver or a shared car is safest. The ranch asks that music end by ten. Rideshare cars are few out here at night, and even one reserved ahead is not guaranteed to arrive. When we checked in 2026, the last town-bound bus on Route 60 passed Kualoa a little after eleven; it is a long ride to Ala Moana, with a transfer for Waikīkī.",
   },
   {
-   // VERIFY before invitations: the shaka as official state gesture (2024). Source: Hawaiʻi Revised Statutes ch. 5 (state emblems), capitol.hawaii.gov.
-   title: "Driving with aloha",
-   text: "Once you reach the coast road it is mostly one lane each way and rarely faster than thirty-five. Let people in, wave a car or two out of a side street, and thank anyone who does the same for you with a shaka: thumb and little finger out, three middle fingers curled. It has been Hawaiʻi’s official state gesture since 2024. Let a city bus merge and its rear sign may flash one back. Locals go easy on the horn.",
+   title: "Driving here",
+   text: "Once you reach the coast road it is mostly one lane each way and rarely faster than thirty-five. Let people in, wave a car or two out of a side street, and go easy on the horn: nobody here uses it much.",
   },
   {
    // VERIFY before invitations: the hands-free phone law and the child-seat law (ages, height). Source: Hawaiʻi DOT, hidot.hawaii.gov (Highway Safety: distracted driving; child passenger safety), HRS §291C-137 and §291-11.5.
@@ -226,7 +219,7 @@ export const travel = {
    recommended: true,
    title: "Waikīkī",
    minutes: "45",
-   text: "Waikīkī, “spouting water”, has the most rooms, restaurants and evenings out on the island, and on the wedding day the shuttle runs from here to the ranch and back. Kualoa Ranch puts the drive at about 45 minutes, over the Likelike Highway and through the Wilson Tunnel. Most hotels add a nightly resort fee and parking on top of the room; at one we checked in late 2026, each was $45 before tax.",
+   text: "Waikīkī has the most rooms, restaurants and evenings out on the island, and on the wedding day the shuttle runs from here to the ranch and back. Kualoa Ranch puts the drive at about 45 minutes, over the Likelike Highway and through the Wilson Tunnel. Most hotels add a nightly resort fee and parking on top of the room; at one we checked in late 2026, each was $45 before tax.",
   },
   {
    // VERIFY before invitations: Paradise Bay Resort was listed for sale in late 2026; the licensed-rental counts are a snapshot of the City's map from that date. Sources: the hotel; City DPP Short-Term Rental Compliance Map (honolulu.gov/dpp).
@@ -246,13 +239,13 @@ export const travel = {
    id: "turtle-bay",
    title: "Turtle Bay",
    minutes: "40",
-   text: "Further around the North Shore, the old Turtle Bay Resort is now The Ritz-Carlton Oʻahu, Turtle Bay. It is about 19 miles from us, 35 to 45 minutes, a little shorter than the drive from Waikīkī and far quieter. The hotel opened in 1972 as the Kuilima, “joining hands,” and the point it stands on is still Kuilima Point. The condominiums around the resort are also among the few places on Oʻahu licensed for short stays.",
+   text: "Further around the North Shore, the old Turtle Bay Resort is now The Ritz-Carlton Oʻahu, Turtle Bay. It is about 19 miles from us, 35 to 45 minutes, a little shorter than the drive from Waikīkī and far quieter. The condominiums around the resort are also among the few places on Oʻahu licensed for short stays.",
   },
   {
    id: "ko-olina",
    title: "Ko Olina",
    minutes: "60",
-   text: "On the far western shore, Ko Olina (the resort calls it “place of joy”) has Aulani, the Four Seasons and Marriott’s Ko Olina Beach Club, set around protected lagoons. It is the longest drive to us: about 38 miles, around an hour with clear roads and a good deal more in weekday traffic. We would save it for the days before or after the wedding.",
+   text: "On the far western shore, Ko Olina has Aulani, the Four Seasons and Marriott’s Ko Olina Beach Club, set around protected lagoons. It is the longest drive to us: about 38 miles, around an hour with clear roads and a good deal more in weekday traffic. We would save it for the days before or after the wedding.",
   },
  ] satisfies Stay[],
  stayNotes: [
@@ -331,7 +324,7 @@ export const travel = {
     name: site.venue,
     kind: "The wedding",
     blurb: site.tagline,
-    link: { href: "/island#kualoa", label: "About this place" },
+    link: { href: "/island#venue", label: "About this place" },
    },
   } satisfies Record<string, MapPlace>,
   panel: {

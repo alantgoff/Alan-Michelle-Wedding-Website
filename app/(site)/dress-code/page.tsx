@@ -22,19 +22,6 @@ export default function Dress() {
         photo="dressCode"
         scene="dress"
       />
-      <Section className="dress-epigraph">
-        <svg className="epigraph-iwa" viewBox="-54 -24 108 50" aria-hidden="true" focusable="false">
-          <g filter="url(#ink)">
-            <use href="#m-iwa" x={-50} y={-20} width={100} height={40} />
-          </g>
-        </svg>
-        <figure className="saying">
-          <blockquote lang="haw">{dressCode.epigraph.saying}</blockquote>
-          <figcaption>
-            <span className="saying-means">{dressCode.epigraph.means}</span> {dressCode.epigraph.note}
-          </figcaption>
-        </figure>
-      </Section>
       <Section title={dressCode.page.colorsTitle}>
         <ul className="swatches">
           {dressCode.colors.map((color, i) => (
@@ -81,18 +68,6 @@ export default function Dress() {
               <p>{aside.text}</p>
             </article>
           ))}
-        </div>
-      </Section>
-      <Section title={dressCode.flowersTitle}>
-        <div className="menu-words plain">
-          <dl>
-            {dressCode.flowers.map((flower) => (
-              <div key={flower.word}>
-                <dt lang="haw">{flower.word}</dt>
-                <dd>{flower.means}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </Section>
     </>

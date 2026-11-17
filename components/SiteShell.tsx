@@ -101,9 +101,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <footer>
         <div className="footer-seal">
           <Logo className="footer-logo" sizes="120px" />
-          <p className="footer-farewell">
-            <span lang="haw">{site.shell.farewell.haw}</span> — {site.shell.farewell.means}
-          </p>
         </div>
         <div className="footer-row">
           <div>

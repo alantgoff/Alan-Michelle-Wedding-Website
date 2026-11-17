@@ -106,21 +106,6 @@ export default function Story() {
           </div>
           <div className="story-track">
             <p className="story-close">{storyClosing.thanks}</p>
-            <Reveal>
-              <div className="story-we">
-                <ol>
-                  {storyClosing.words.map((w) => (
-                    <li key={w.word}>
-                      <span className="story-we-word" lang="haw">
-                        {w.word}
-                      </span>
-                      <span className="story-we-means">{w.means}</span>
-                    </li>
-                  ))}
-                </ol>
-                <p>{storyClosing.line}</p>
-              </div>
-            </Reveal>
             <Logo className="story-sign" sizes="130px" />
             <p className="colophon">
               {storyClosing.colophon} {fill(copy.edition, { date: site.weddingDate.replace(/^\w+, /, "") })}

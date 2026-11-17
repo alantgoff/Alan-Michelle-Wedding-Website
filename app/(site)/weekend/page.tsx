@@ -7,7 +7,6 @@ import { Plumeria } from "@/components/Plumeria";
 import { PrintButton } from "@/components/PrintButton";
 import { weekendPage as copy } from "@/content/activities";
 import { boatVote } from "@/content/boatVote";
-import { sky } from "@/content/sky";
 import { heldGroups, visibleActivities } from "@/content/visibleActivities";
 import { fill } from "@/lib/fill";
 import { anchorFor, minutesOf, offsetFromWedding, weekendDay } from "@/lib/weekend";
@@ -41,10 +40,6 @@ export default async function Weekend({
   const own = visible.filter((a) => forYou(a.audience)).length;
   const intro = own === 0 ? copy.intro : `${copy.intro} ${own === 1 ? copy.mineOne : copy.mineMany}`;
 
-  // The moon's times are looked up for the wedding weekend's own dates, so
-  // they show only while the schedule still falls on those dates.
-  const moonrise = (iso: string) => sky.moons.find((m) => m.date === iso)?.moonrise;
-
   return (
     <>
       <PageHero kicker={copy.kicker} title={copy.title} intro={intro} photo="activities" scene="activities" />
@@ -58,7 +53,6 @@ export default async function Weekend({
                 {when ? (
                   <p className="activity-sun">
                     {fill(copy.sunset, { time: when.sunset })}
-                    {moonrise(when.iso) ? ` · ${fill(copy.moonrise, { time: moonrise(when.iso)! })}` : ""}
                   </p>
                 ) : null}
               </div>
