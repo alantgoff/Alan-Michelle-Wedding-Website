@@ -11,8 +11,10 @@
  *
  * Everything else is optional, and shows only when you fill it in:
  *
- *   date: "2021"
- *     a year (or any short line) on the rail above the chapter's number.
+ *   date: "2024"
+ *     a date or a year on the rail above the chapter's number. The first
+ *     and last chapters have theirs: we started dating on October 7, 2023,
+ *     and the proposal was on July 8, 2026.
  *
  *   text: "…"
  *     a few lines of the story, set with a drop cap.
@@ -44,7 +46,7 @@ export type StoryMoment = {
 };
 
 export const story: StoryMoment[] = [
-  { title: "Where it started: the OU trip", photos: ["ou-trip"] },
+  { date: "October 7, 2023", title: "Where it started: the OU trip", photos: ["ou-trip"] },
   { title: "Vermont", photos: ["vermont", "vermont-friends"] },
   { title: "Hawaiʻi", photos: ["hawaii"] },
   { title: "Yosemite", photos: ["yosemite", "yosemite-friends"] },
@@ -57,7 +59,7 @@ export const story: StoryMoment[] = [
   { title: "Our two-year anniversary trip", photos: ["anniversary-1", "anniversary-2"] },
   { title: "Our first Christmas at home", photos: ["first-christmas"] },
   { title: "Guatemala", photos: ["acatenango", "guatemala"] },
-  { title: "Kauaʻi: the proposal", photos: ["proposal", "kauai", "ring"] },
+  { date: "July 8, 2026", title: "Kauaʻi: the proposal", photos: ["proposal", "kauai", "ring"] },
   {
     date: "Next chapter",
     title: "Oʻahu",
@@ -72,8 +74,6 @@ export const storyPage = {
   kicker: "Our story",
   title: "The road here",
   intro: "Our story so far, chapter by chapter, in pictures. The words are still to come.",
-  /** Before each plate's numeral: "Plate IV". */
-  plate: "Plate",
   notesLabel: "Notes in the margin",
   who: { A: "Alan", M: "Michelle" },
   closingLabel: "Closing",

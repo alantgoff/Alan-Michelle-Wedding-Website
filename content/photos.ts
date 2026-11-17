@@ -91,8 +91,8 @@ export const standinLabel = "Placeholder";
  *   width,
  *   height   the file's size in pixels (only the shape matters)
  *   alt      what is in the picture, read aloud by screen readers
- *   caption  optional: a short line under the plate, e.g. "The ring".
- *            Leave it out and the plate shows only its number.
+ *   caption  optional: a short line under the photo, e.g. "The ring".
+ *            Leave it out and nothing is written under it.
  *
  * To add a photo: put the file in public/photos/story/, add a line here
  * with a new name, then add that name to a chapter in content/story.ts.

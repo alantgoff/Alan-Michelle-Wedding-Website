@@ -140,7 +140,7 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   their watch will do. The choice is remembered in their own browser only.
 - A guest in another time zone sees their own clock beside Kualoa's on the home page.
 - Our story is set like a small book: fourteen chapters on a spine, each with its photographs mounted
-  as numbered plates. Add `text` to a chapter in `content/story.ts` and it opens with a drop cap; add
+  as plates with paper corners. Add `text` to a chapter in `content/story.ts` and it opens with a drop cap; add
   `notes` and they appear in the margin, initialled, one voice each.
 - Dress code shows the palette as pinked cloth samples and has a plumeria that moves from ear to ear.
 - On The island, tap the kōlea and it takes a few steps.
