@@ -45,8 +45,9 @@ is confirmed. The main ones:
   ranch's music curfew and parking (`travel.ts`).
 - **A free day:** Hanauma Bay's reservations, fees and closing days; Hoʻomaluhia, Byodo-In and
   Makapuʻu hours; Kāneʻohe Bay's Sunday and holiday boat rule; Kailua's lifeguard hours and
-  Lanikai's parking closures; the restaurants' hours (`island.ts`).
-- **The water:** the box-jellyfish timing and that month's full moon; the sea temperature; the
+  Lanikai's parking closures; every restaurant's hours, closed days and booking (`island.ts`);
+  the boat options' prices, capacity and days (`boatVote.ts`).
+- **The water:** the box-jellyfish timing; the sea temperature; the
   flash-flood note (`island.ts`).
 - **The law on the shore:** sand and coral, the sunscreen ban, distances for turtles, seals and
   dolphins (`island.ts`).
@@ -66,8 +67,8 @@ If you are not sure of something new, leave it out.
   until it is set, "Days to be confirmed" lists it at the end.
 - **`travel.ts`**: getting there, the three roads, the rules of the road, where to stay, the
   weather link, packing, the two-minute version at the top, and the words on the drawn coast map.
-- **`island.ts`**: Kualoa's story, eating, a free day (with "Plan around the weekend"), in the
-  water, manners, and the pronunciation list (`sayIt`).
+- **`island.ts`**: where to eat (`eat.groups`, one line per place), planning free days (with "Plan
+  your free days"), in the water, rules worth knowing, and three facts about the venue.
 - **`boatVote.ts`**: the friends' boat vote (only that group sees it): the options, the words, and
   an optional closing date. Changing an option's `id` loses the votes cast for it.
 - **`faq.ts`**: questions and answers. Keep each answer short; where a fact is told in full on
@@ -77,10 +78,7 @@ If you are not sure of something new, leave it out.
   chapter. Captions for single photos are in `photos.ts`.
 - **`registry.ts`**: one postcard per registry. Until one has a real link the page shows a single
   "to come" card.
-- **`sky.ts`** and **`skyChart.ts`**: the sky that night. `skyChart.ts` is computed; do not edit
-  it by hand. Both are right for October 6, 2028 at Kualoa only.
-- **`flying.ts`**, **`weather.ts`**, **`dressCode.ts`**: the distance picker, the weather panel and
-  the dress code.
+- **`weather.ts`**, **`dressCode.ts`**: the weather panel and the dress code.
 - **`photos.ts`**: every image, with its alt text.
 
 Lines with `{name}` in braces have a number or time filled in for you: keep the braces as they are.

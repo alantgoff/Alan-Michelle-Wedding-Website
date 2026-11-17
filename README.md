@@ -20,8 +20,7 @@ npm run screenshots  # every page at phone and desktop width
 
 Everything a guest reads lives in `/content`: every sentence, heading, button label and menu item.
 The pages and components in `app/` and `components/` only arrange it. (The one exception is the
-handful of short labels drawn inside the star chart and the coast map, which stay with the
-drawings.) Start with `content/site.ts`: the wedding date there drives the countdown.
+handful of short labels drawn on the coast map, which stay with the drawing.) Start with `content/site.ts`: the wedding date there drives the countdown.
 
 Anything not decided yet reads **"to come"** on the site, and carries a `TODO:` comment in the
 content file saying what is missing. Search `content/` for `TODO` to see them all. No "TODO" ever
@@ -34,10 +33,8 @@ reaches a guest.
 | `groups.ts` | Guest groups and their private invite slugs |
 | `activities.ts` | The Weekend page: every event, who can see each one, and the page's words |
 | `travel.ts` | Getting there, the three roads over the mountains, where to stay, packing, the coast map's words, the two-minute version |
-| `island.ts` | The island guide: Kualoa's story, eating, a free day (with what is open which day), the water, manners, how to say the names |
-| `sky.ts` | Sunset, moonrise, the tide and the moon over the weekend, and the words around them |
-| `skyChart.ts` | Where the stars stand over the lawn at nine. **Computed: do not edit by hand** |
-| `flying.ts` | The cities in the "How far you are coming" picker on Travel |
+| `island.ts` | The island guide: where to eat, the best spots, planning free days, the water, rules worth knowing, three facts about the venue |
+| `boatVote.ts` | The friends' boat vote: the options and the words (prices as notes for you) |
 | `weather.ts` | Typical early-October weather, shown until the real forecast arrives |
 | `faq.ts` | Questions and answers, in groups |
 | `story.ts` | Our story's chapters (titles, photos, and room for a year, a few lines and margin notes), and the closing |
@@ -57,8 +54,7 @@ optional, the sea included. The FAQ gives the short answer and links to the full
 
 ## Facts, and how they were checked
 
-The guide pages (Travel and The island) are full of facts: opening hours, laws, drive times, tide
-times, Hawaiian words and stories. Each one was researched and then checked a second time against
+The guide pages (Travel and The island) are full of facts: opening hours, laws, drive times, Hawaiian words and stories. Each one was researched and then checked a second time against
 a primary source, and anything a checker could not confirm was left out. Please keep that standard:
 if you are not sure of something, do not print it.
 
@@ -70,9 +66,6 @@ checklist is in `content/README.md`. Three kinds of fact go stale:
   Read them again before the invitations go out.
 - **Anything about the venue** (parking, when music ends): from Kualoa Ranch's public pages. The
   ranch coordinator's word replaces them.
-- **The sky and the tide** for October 6, 2028, in `content/sky.ts` and `content/skyChart.ts`. These
-  are right for that date and that place only. If the date or the hour shown ever changes they must
-  be worked out again; the site does not compute them.
 
 ## Photos
 
@@ -130,20 +123,13 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   guest's group by name, and lifts away to the home page. It plays once, a tap skips it, and anyone
   who has asked their device for reduced motion goes straight to the page.
 - Tapping the logo at the top of the home page scatters plumeria down the screen.
-- Tapping the countdown counts in weeks, then in full moons, then back to days.
 - The Weekend page shows each day's real date and that evening's sunset, and lists events in time order.
 - Every page banner closes with a drawing of the coast in the logo's navy line (`components/ink/`),
   and the banner photograph drifts very slowly, with pools of sunlight that come and go.
-- The island carries a chart of the sky over the lawn at nine on the wedding night, the day drawn
-  as one tide line, and the moon for each night of the weekend.
-- Travel's "How far you are coming" draws a guest's crossing from their home city and says what
-  their watch will do. The choice is remembered in their own browser only.
-- A guest in another time zone sees their own clock beside Kualoa's on the home page.
 - Our story is set like a small book: fourteen chapters on a spine, each with its photographs mounted
   as plates with paper corners. Add `text` to a chapter in `content/story.ts` and it opens with a drop cap; add
   `notes` and they appear in the margin, initialled, one voice each.
 - Dress code shows the palette as pinked cloth samples and has a plumeria that moves from ear to ear.
-- On The island, tap the kōlea and it takes a few steps.
 - Each registry is a postcard, postmarked Kualoa on the wedding day.
 
 ## The weather panel
