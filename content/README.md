@@ -45,7 +45,8 @@ is confirmed. The main ones:
   ranch's music curfew and parking (`travel.ts`).
 - **A free day:** Hanauma Bay's reservations, fees and closing days; Hoʻomaluhia, Byodo-In and
   Makapuʻu hours; Kāneʻohe Bay's Sunday and holiday boat rule; Kailua's lifeguard hours and
-  Lanikai's parking closures; every restaurant's hours, closed days and booking (`island.ts`);
+  Lanikai's parking closures; every restaurant's hours, closed days and booking, Haleiwa
+  Seafood's katsu, Green World's free tours, and Foodland's poke flavors and hours (`island.ts`);
   the boat options' prices, capacity and days (`boatVote.ts`).
 - **The water:** the box-jellyfish timing; the sea temperature; the
   flash-flood note (`island.ts`).
@@ -71,7 +72,9 @@ If you are not sure of something new, leave it out.
   your free days"), in the water, rules worth knowing, and three facts about the venue. Each
   restaurant's `open` lists the days it opens (`daily`, `except("Mon")` or the days by name) for
   the "Open on…" filter; leave it out when the hours aren't known. The words for that filter and
-  for "My week" are in `eat.openOn` and `myWeek`.
+  for "My week" are in `eat.openOn` and `myWeek`. The poke section is `eat.poke`; each kind's
+  `id` picks its drawing. Every place has `at`, the point its little island map is dotted at:
+  one of the names in `lib/island.ts` (add a new point there if a place isn't near one).
 - **`boatVote.ts`**: the friends' boat vote (only that group sees it): the options, the words, and
   an optional closing date. Changing an option's `id` loses the votes cast for it.
 - **`faq.ts`**: questions and answers. Keep each answer short; where a fact is told in full on

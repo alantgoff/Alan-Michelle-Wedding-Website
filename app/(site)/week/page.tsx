@@ -43,7 +43,7 @@ export default async function Week({
 
   return (
     <>
-      <PageHero kicker={copy.kicker} title={copy.title} intro={intro} photo="activities" scene="activities" />
+      <PageHero kicker={copy.kicker} title={copy.title} intro={intro} photo="activities" scene="week" />
       <Section>
         {days.map((day) => {
           const when = weekendDay(day);

@@ -124,6 +124,11 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - On The island, "Open on…" is a row of days from the Saturday before the wedding to the Sunday
   after: tap one and the restaurants closed that day fade, with a line saying so. It reads each
   place's `open` days in `content/island.ts`, so keep those in step with `hours`.
+- Wherever the site names a place (a restaurant, an event, a stay, a boat, a day out), a little
+  map of Oʻahu sits beside it with a dot where it is (`components/IslandDot.tsx`). The points are
+  named in `lib/island.ts`; content files pick one with `at`.
+- The island has a poke section for Foodland's counter, with a drawing of each kind
+  (`components/PokeBowls.tsx`; the drawings' path data is in `components/poke-art.ts`).
 - "My week", also on The island, is a list guests build by tapping Save on a restaurant or a day
   out. It lives in their browser only (localStorage) and links back down to each entry.
 - The kōlea on The island walks a few steps when tapped, and stays still for anyone who has asked
@@ -134,8 +139,15 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   who has asked their device for reduced motion goes straight to the page.
 - Tapping the logo at the top of the home page scatters plumeria down the screen.
 - The Week page shows each day's real date and that evening's sunset, and lists events in time order.
-- Every page banner closes with a drawing of the coast in the logo's navy line (`components/ink/`),
-  and the banner photograph drifts very slowly, with pools of sunlight that come and go. The
+- Every page banner closes with a drawing in the logo's navy line (`components/ink/`), and each
+  page's drawing is about that page: the venue on Home; a beach umbrella, the snorkel charter and a
+  honu on Week; a plane coming in over Waikīkī and Diamond Head on Travel; a waterfall, palms, a
+  kayak and the Mokulua on The island; the road here (Vermont, Yosemite, Bali, Iceland, Japan,
+  Guatemala, Kauaʻi) with a dotted route to the two boards on Our story; an aloha shirt, a sundress
+  and a hat on the line on Dress code; a lifeguard tower and a signpost on FAQ; a mailbox on
+  Registry; and a message in a bottle past the reef on the 404 page. Each scene is a list of motifs
+  in `components/ink/Horizon.tsx`, with its own phone layout; the motifs are in `InkDefs.tsx`.
+  The banner photograph drifts very slowly, with pools of sunlight that come and go. The
   drawings are engraved by hand in SVG: hatched shade on the ridges, a far range behind, trees and
   stipple at the foot. The coast map on Travel draws both ranges as hachured relief, and the three
   road crossings show their tunnels. The fine detail (hatching, stipple) was generated once and
