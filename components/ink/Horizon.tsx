@@ -165,11 +165,36 @@ const SCENES: Record<Scene, { wide: Composition; narrow: Composition }> = {
   },
 };
 
+/**
+ * Light on the water: rows of short dashes under the horizon, thinning out
+ * toward the viewer. Laid out by a small fixed sequence, so every visit (and
+ * the server and the browser) draws the same sea.
+ */
+function seaTexture(width: number, sea: number, rowGap: number): string {
+  let seed = width * 7 + sea;
+  const next = () => {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed / 233280;
+  };
+  const parts: string[] = [];
+  for (let row = 0; row < 3; row += 1) {
+    const y = sea + rowGap * (row + 1) - 2;
+    let x = -10 + next() * 40;
+    while (x < width) {
+      const len = 8 + next() * (row === 0 ? 34 : 20);
+      parts.push(`M${Math.round(x)} ${Math.round(y + next() * 3)} h${Math.round(len)}`);
+      x += len + 30 + next() * (row + 1) * 70;
+    }
+  }
+  return parts.join(" ");
+}
+
 function Drawing({ composition, className }: { composition: Composition; className: string }) {
-  const { width, height, line, items } = composition;
+  const { width, height, line, items, sea } = composition;
   return (
     <svg className={className} viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMax slice" focusable="false">
       <g filter="url(#ink)">
+        <path className="ink hair sea-texture" d={seaTexture(width, sea, height > 150 ? 11 : 6)} />
         <path className="ink" d={line} />
         {items.map(([id, x, y, scale = 1, mirrored], i) => {
           const [bx, by, bw, bh] = BOX[id];

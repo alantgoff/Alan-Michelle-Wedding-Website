@@ -222,6 +222,19 @@ h3 {
 .ink-dot {
   fill: var(--ink-line);
 }
+/* Depth in the drawings: the far range, the shading and the stipple sit back. */
+.ridge-far {
+  opacity: 0.5;
+}
+.ridge-hatch {
+  opacity: 0.7;
+}
+.ridge-stipple {
+  opacity: 0.55;
+}
+.sea-texture {
+  opacity: 0.45;
+}
 /* Land is paper: drawn shapes cover whatever lies behind them. */
 .wash {
   fill: var(--cream);
@@ -655,6 +668,14 @@ h3 {
   animation-duration: 17s;
   animation-direction: reverse;
 }
+/* The third line: a broken hairline of foam, lower and slower. */
+.tide-line-c {
+  stroke: var(--lagoon);
+  stroke-width: 0.8;
+  stroke-dasharray: 26 14 4 14;
+  opacity: 0.5;
+  animation-duration: 23s;
+}
 @keyframes tide {
   to {
     transform: translateX(-300px);
@@ -1077,8 +1098,8 @@ h3 {
 }
 .plumeria-mark {
   flex: none;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 /* Arriving from the home page's link to it: a brief glow that settles, and a
    lagoon rule that stays. Under reduced motion only the rule remains. */
@@ -1959,6 +1980,37 @@ a.place-name:hover {
 /* The stretch that runs inside the mountain. */
 .crossing-bore {
   stroke-dasharray: 3 5;
+}
+/* Relief on the ridge sits back; roads run in a pale cut through it. */
+.crossing-far {
+  opacity: 0.45;
+}
+.crossing-hatch {
+  opacity: 0.6;
+}
+.crossing-flutes,
+.crossing-trees {
+  opacity: 0.55;
+}
+.crossing-stipple {
+  opacity: 0.5;
+}
+.crossing-cut {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.crossing-shoulder {
+  opacity: 0.45;
+}
+.crossing-portal {
+  fill: var(--ink-line);
+  opacity: 0.85;
+}
+.crossing-wind {
+  opacity: 0.7;
 }
 .crossing .label,
 .onward .label {
