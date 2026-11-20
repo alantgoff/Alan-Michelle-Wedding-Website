@@ -3,21 +3,23 @@ import { CoastMap } from "@/components/CoastMap";
 import { Countdown } from "@/components/Countdown";
 import { FlyingFrom } from "@/components/FlyingFrom";
 import { Chapter, Contents, type ChapterRef } from "@/components/Guide";
-import { PlacesCompact, openNumbers } from "@/components/IslandLists";
-import { MyWeek } from "@/components/MyWeek";
+import { PlacesCompact } from "@/components/IslandLists";
 import { NowAtKualoa } from "@/components/NowAtKualoa";
-import { OpenOn, type OpenOnDay } from "@/components/OpenOn";
+import { OpenOn } from "@/components/OpenOn";
 import { PackingList } from "@/components/PackingList";
 import { PageHero } from "@/components/Page";
 import { WeatherPanel } from "@/components/WeatherPanel";
+import { PlannerProvider, WeekAgenda, WeekStrip } from "@/components/WeekPlanner";
 import { flying } from "@/content/flying";
 import { island, type Place } from "@/content/island";
+import { myWeek } from "@/content/myWeek";
 import { site } from "@/content/site";
 import { travel } from "@/content/travel";
 import { utility as copy } from "@/content/utility";
 import { visibleActivities } from "@/content/visibleActivities";
 import { crossings } from "@/lib/flying";
-import { hawaiiClock, hawaiiNoon, sunTimes } from "@/lib/sun";
+import { openNumbers, plannable } from "@/lib/plannable";
+import { suggestedWeek } from "@/lib/week";
 
 // The map names the visitor's own events, so this page is rendered per request.
 export const dynamic = "force-dynamic";
@@ -38,34 +40,6 @@ const CHAPTERS: ChapterRef[] = (
 ).map(([id, title], i) => ({ id, title, numeral: NUMERALS[i] }));
 const chapter = (id: string) => CHAPTERS.find((c) => c.id === id)!;
 
-/** The week we suggest: from the Saturday before the wedding to the Sunday after. */
-const WEEK_FROM = -6;
-const WEEK_TO = 2;
-function week() {
-  const [year, month, day] = site.isoDate.slice(0, 10).split("-").map(Number);
-  const short = new Intl.DateTimeFormat("en-US", { weekday: "short", timeZone: "UTC" });
-  const long = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "short", day: "numeric", timeZone: "UTC" });
-  const days = [];
-  for (let offset = WEEK_FROM; offset <= WEEK_TO; offset += 1) {
-    const date = new Date(Date.UTC(year, month - 1, day + offset));
-    const { sunrise, sunset } = sunTimes(
-      hawaiiNoon(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate()),
-      site.coordinates.lat,
-      site.coordinates.lng,
-    );
-    days.push({
-      offset,
-      weekday: date.getUTCDay(),
-      short: short.format(date),
-      date: date.getUTCDate(),
-      label: long.format(date),
-      sunrise: hawaiiClock(sunrise),
-      sunset: hawaiiClock(sunset),
-    });
-  }
-  return days;
-}
-
 /**
  * Utility: the site's useful widgets on one page. They are the same
  * components as on their own pages and keep their state in the same places,
@@ -75,12 +49,11 @@ function week() {
 export default async function Utility() {
   const activities = await visibleActivities();
   const far = crossings();
-  const days = week();
-  const openDays: OpenOnDay[] = days.map(({ offset, weekday, short, date }) => ({ offset, weekday, short, date }));
+  const days = suggestedWeek();
   const places: Place[] = island.eat.groups.flatMap((g): Place[] => g.places);
 
   return (
-    <>
+    <PlannerProvider days={days} words={myWeek} catalog={plannable()}>
       <PageHero kicker={copy.kicker} title={copy.title} intro={copy.intro} photo="travel" scene="utility" />
       <Contents chapters={CHAPTERS} />
 
@@ -95,12 +68,13 @@ export default async function Utility() {
       </Chapter>
 
       <Chapter chapter={chapter("my-week")}>
-        <MyWeek words={island.myWeek} base="/island" inline />
+        <WeekStrip />
+        <WeekAgenda />
       </Chapter>
 
       <Chapter chapter={chapter("open")} lede={copy.open.lede}>
-        <OpenOn days={openDays} opens={places.map(openNumbers)} words={island.eat.openOn}>
-          <PlacesCompact places={places} labels={island.eat.labels} save={island.myWeek} />
+        <OpenOn days={days} opens={places.map(openNumbers)} words={island.eat.openOn}>
+          <PlacesCompact places={places} labels={island.eat.labels} />
         </OpenOn>
       </Chapter>
 
@@ -117,7 +91,7 @@ export default async function Utility() {
             {days.map((d) => (
               <tr key={d.offset} className={d.offset === 0 ? "sun-wedding" : undefined}>
                 <th scope="row">
-                  {d.label}
+                  {d.medium}
                   {d.offset === 0 ? <span className="sun-mark">{copy.sun.wedding}</span> : null}
                 </th>
                 <td>{d.sunrise}</td>
@@ -151,6 +125,6 @@ export default async function Utility() {
       <Chapter chapter={chapter("pack")}>
         <PackingList items={travel.packing} status={travel.packingStatus} />
       </Chapter>
-    </>
+    </PlannerProvider>
   );
 }

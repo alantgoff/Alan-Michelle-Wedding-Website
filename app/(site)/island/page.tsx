@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { Chapter, Contents, Passages, type ChapterRef } from "@/components/Guide";
-import { Places, openNumbers } from "@/components/IslandLists";
+import { Places } from "@/components/IslandLists";
 import { Kolea } from "@/components/Kolea";
-import { MyWeek } from "@/components/MyWeek";
-import { OpenOn, type OpenOnDay } from "@/components/OpenOn";
+import { OpenOn } from "@/components/OpenOn";
 import { PageHero } from "@/components/Page";
 import { PokeBowls } from "@/components/PokeBowls";
+import { PlannerProvider, WeekStrip } from "@/components/WeekPlanner";
 import { island } from "@/content/island";
-import { site } from "@/content/site";
+import { myWeek } from "@/content/myWeek";
+import { openNumbers, plannable } from "@/lib/plannable";
+import { suggestedWeek } from "@/lib/week";
 
 const copy = island.page;
 export const metadata: Metadata = { title: copy.tab };
@@ -22,37 +24,24 @@ const CHAPTERS: ChapterRef[] = [
 ].map((c, i) => ({ ...c, numeral: NUMERALS[i] }));
 const chapter = (id: string) => CHAPTERS.find((c) => c.id === id)!;
 
-/** The week we suggest: from the Saturday before the wedding to the Sunday after. */
-const WEEK_FROM = -6;
-const WEEK_TO = 2;
-function weekDays(): OpenOnDay[] {
-  const [year, month, day] = site.isoDate.slice(0, 10).split("-").map(Number);
-  const short = new Intl.DateTimeFormat("en-US", { weekday: "short", timeZone: "UTC" });
-  const days: OpenOnDay[] = [];
-  for (let offset = WEEK_FROM; offset <= WEEK_TO; offset += 1) {
-    const date = new Date(Date.UTC(year, month - 1, day + offset));
-    days.push({ offset, weekday: date.getUTCDay(), short: short.format(date), date: date.getUTCDate() });
-  }
-  return days;
-}
-
 export default function Island() {
+  const days = suggestedWeek();
   return (
-    <>
+    <PlannerProvider days={days} words={myWeek} catalog={plannable()}>
       <PageHero kicker={copy.kicker} title={copy.title} intro={copy.intro} photo="island" scene="island" />
       <Contents chapters={CHAPTERS} extra={[{ id: "poke", label: island.eat.poke.short, after: "eat" }]} />
-      <MyWeek words={island.myWeek} />
+      <WeekStrip />
 
       <Chapter chapter={chapter("eat")} lede={island.eat.lede}>
-        <OpenOn days={weekDays()} opens={island.eat.groups.flatMap((g) => g.places.map(openNumbers))} words={island.eat.openOn}>
+        <OpenOn days={days} opens={island.eat.groups.flatMap((g) => g.places.map(openNumbers))} words={island.eat.openOn}>
           {island.eat.groups.map((g) => (
             <div className="eat-group" key={g.title}>
               <h3>{g.title}</h3>
-              <Places places={g.places} labels={island.eat.labels} save={island.myWeek} />
+              <Places places={g.places} labels={island.eat.labels} />
             </div>
           ))}
         </OpenOn>
-        <PokeBowls poke={island.eat.poke} save={island.myWeek} />
+        <PokeBowls poke={island.eat.poke} />
         <div className="menu-words">
           <h3>{island.eat.menuTitle}</h3>
           <dl>
@@ -82,7 +71,7 @@ export default function Island() {
             ))}
           </dl>
         </div>
-        <Passages items={island.explore.passages} save={island.myWeek} />
+        <Passages items={island.explore.passages} plan />
       </Chapter>
 
       <Chapter chapter={chapter("water")} lede={island.water.lede}>
@@ -98,6 +87,6 @@ export default function Island() {
       <Chapter chapter={chapter("venue")}>
         <Passages items={island.venue.passages} />
       </Chapter>
-    </>
+    </PlannerProvider>
   );
 }

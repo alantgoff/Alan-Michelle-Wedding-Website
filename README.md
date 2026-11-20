@@ -138,8 +138,15 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   named in `lib/island.ts`; content files pick one with `at`.
 - The island has a poke section for Foodland's counter, with a drawing of each kind
   (`components/PokeBowls.tsx`; the drawings' path data is in `components/poke-art.ts`).
-- "My week", also on The island, is a list guests build by tapping Save on a restaurant or a day
-  out. It lives in their browser only (localStorage) and links back down to each entry.
+- My week is planned by the day. "Add to my week" on any restaurant, day out or Foodland asks
+  which day (Sat Sep 30 to Sun Oct 8), with the days the place is closed greyed out; after that
+  the button shows the day. The Week page is the planner: every one of the nine days, each with
+  our events, the guest's own plans (move to another day, remove, or "Add a plan" from a list
+  that greys out what's closed that day) and a note or two about the island that day. The Island
+  and Utility pages show the week as a strip of days with a dot per plan. Plans live in the
+  guest's browser only (localStorage); anything saved before plans had days waits under "Not on
+  a day yet". Code: `components/WeekPlanner.tsx`, `lib/myWeek.ts`; the days come from
+  `lib/week.ts` and what can be planned from `lib/plannable.ts`.
 - The kōlea on The island walks a few steps when tapped, and stays still for anyone who has asked
   their device for reduced motion.
 - A wrong URL lands on a "past the reef" page rather than a bare 404.
@@ -147,7 +154,9 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   guest's group by name, and lifts away to the home page. It plays once, a tap skips it, and anyone
   who has asked their device for reduced motion goes straight to the page.
 - Tapping the logo at the top of the home page scatters plumeria down the screen.
-- The Week page shows each day's real date and that evening's sunset, and lists events in time order.
+- The Week page shows all nine days of the week we suggest, each with its real date and that
+  evening's sunset, and lists our events in time order; events with no day yet sit under "Dates
+  to come" at the end.
 - Every page banner closes with a drawing in the logo's navy line (`components/ink/`), and each
   page's drawing is about that page: the venue on Home; a beach umbrella, the snorkel charter and a
   honu on Week; a plane coming in over Waikīkī and Diamond Head on Travel; a waterfall, palms, a

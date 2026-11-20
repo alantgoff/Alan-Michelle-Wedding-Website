@@ -1,24 +1,35 @@
-import { IslandDot } from "@/components/IslandDot";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BoatVote } from "@/components/BoatVote";
-import { JumpBar, type JumpItem } from "@/components/JumpBar";
 import { MoreLink } from "@/components/Guide";
+import { IslandDot } from "@/components/IslandDot";
+import { JumpBar, type JumpItem } from "@/components/JumpBar";
 import { PageHero, Section } from "@/components/Page";
 import { Plumeria } from "@/components/Plumeria";
 import { PrintButton } from "@/components/PrintButton";
-import { weekPage as copy } from "@/content/activities";
+import { DayPlans, PlannerProvider, Unplaced } from "@/components/WeekPlanner";
+import { weekPage as copy, type Activity } from "@/content/activities";
 import { boatVote } from "@/content/boatVote";
+import { myWeek } from "@/content/myWeek";
 import { heldGroups, visibleActivities } from "@/content/visibleActivities";
 import { fill } from "@/lib/fill";
-import { anchorFor, minutesOf, offsetFromWedding, weekendDay } from "@/lib/weekend";
+import { plannable } from "@/lib/plannable";
+import { suggestedWeek } from "@/lib/week";
+import { anchorFor, minutesOf, weekendDay } from "@/lib/weekend";
 
 export const metadata: Metadata = { title: copy.tab };
 export const dynamic = "force-dynamic";
 
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
+
+type Day = { iso: string; offset: number | null; weekday: number; label: string; short: string; sunset: string };
+
 /**
- * The week, in order: the one full schedule on the site. Travel's chart
- * and the home page only point here.
+ * The week, day by day: every day from the Saturday before the wedding to the
+ * Sunday after, each with what we have planned, the guest's own plans (My
+ * week, kept in their browser) and a note or two about the island that day.
+ * The one full schedule on the site; Travel's chart and the home page only
+ * point here.
  */
 export default async function Week({
   searchParams,
@@ -28,83 +39,98 @@ export default async function Week({
   // Filtering happens on the server, in visibleActivities: events the visitor
   // cannot see never reach the browser, not in the HTML, not in the payload.
   const [held, visible, { vote }] = await Promise.all([heldGroups(), visibleActivities(), searchParams]);
+  const week = suggestedWeek();
 
-  // Days in calendar order around the wedding, and events in clock order
-  // within each day; a time still "to come" sorts to the end of its day.
-  const days = [...new Set(visible.map((a) => a.date))].sort(
-    (a, b) => (offsetFromWedding(a) ?? 99) - (offsetFromWedding(b) ?? 99),
-  );
+  // Each event onto its day. A day name or date outside the nine gets a day
+  // of its own after them; an event with no day yet goes under "Dates to come".
+  const isoOf = (a: Activity) => weekendDay(a.date)?.iso ?? null;
+  const days: Day[] = week.map((d) => ({ iso: d.iso, offset: d.offset, weekday: d.weekday, label: d.label, short: `${d.short} ${d.date}`, sunset: d.sunset }));
+  for (const a of visible) {
+    const when = weekendDay(a.date);
+    if (when && !days.some((d) => d.iso === when.iso)) {
+      const date = new Date(`${when.iso}T12:00:00Z`);
+      days.push({ iso: when.iso, offset: null, weekday: date.getUTCDay(), label: when.label, short: when.label, sunset: when.sunset });
+    }
+  }
+  days.sort((a, b) => a.iso.localeCompare(b.iso));
+  const undated = visible.filter((a) => !isoOf(a));
   const byTime = (a: { time: string }, b: { time: string }) => minutesOf(a.time) - minutesOf(b.time);
 
   // A guest's own group events carry a pressed plumeria. Only groups this
   // visitor already holds are ever named.
   const forYou = (audience: string) => held.find((g) => g.id === audience)?.forYou;
   const own = visible.filter((a) => forYou(a.audience)).length;
-  const intro = own === 0 ? copy.intro : `${copy.intro} ${own === 1 ? copy.mineOne : copy.mineMany}`;
+  const intro = `${own === 0 ? copy.intro : `${copy.intro} ${own === 1 ? copy.mineOne : copy.mineMany}`} ${copy.planNote}`;
   const voting = held.some((g) => g.id === boatVote.audience);
 
-  // "Fri 6" for each day in the row; a day not set yet keeps its own words.
-  const short = new Intl.DateTimeFormat("en-US", { weekday: "short", day: "numeric", timeZone: "UTC" });
-  const dayId = (day: string) => {
-    const when = weekendDay(day);
-    return when ? `day-${when.iso}` : "day-to-come";
-  };
-  const jump: JumpItem[] = days.map((day) => {
-    const when = weekendDay(day);
-    return { id: dayId(day), label: when ? short.format(new Date(`${when.iso}T12:00:00Z`)) : day };
-  });
+  const jump: JumpItem[] = days.map((d) => ({ id: `day-${d.iso}`, label: d.short }));
+  if (undated.length) jump.push({ id: "day-to-come", label: copy.datesToComeShort });
   if (voting) jump.push({ id: "boat-vote", label: boatVote.short });
 
+  const event = (a: Activity) => {
+    const mine = forYou(a.audience);
+    return (
+      <article className={mine ? "activity activity-mine" : "activity"} id={anchorFor(a.title)} key={a.title}>
+        <div>
+          <strong>{a.time}</strong>
+          <br />
+          {a.at ? <IslandDot at={a.at} label={a.location} /> : <small>{a.location}</small>}
+        </div>
+        <div>
+          {mine ? (
+            <p className="activity-for">
+              <Plumeria />
+              {mine}
+            </p>
+          ) : null}
+          <h3>{a.title}</h3>
+          <p>{a.description}</p>
+          {a.link ? <MoreLink href={a.link.href} label={a.link.label} /> : null}
+        </div>
+      </article>
+    );
+  };
+
   return (
-    <>
+    <PlannerProvider days={week} words={myWeek} catalog={plannable()}>
       <PageHero kicker={copy.kicker} title={copy.title} intro={intro} photo="activities" scene="week" />
       <JumpBar items={jump} label={copy.contents} />
       <Section>
-        {days.map((day) => {
-          const when = weekendDay(day);
+        <Unplaced />
+        {days.map((d) => {
+          const events = visible.filter((a) => isoOf(a) === d.iso).sort(byTime);
+          const notes = d.offset === 0 ? [] : myWeek.notes.filter((n) => n.days.includes(WEEKDAYS[d.weekday]));
           return (
-            <div className="activity-day" key={day} id={dayId(day)}>
+            <div className={d.offset === 0 ? "activity-day activity-day-wedding" : "activity-day"} key={d.iso} id={`day-${d.iso}`}>
               <div className="activity-day-head">
-                <h2>{when ? when.label : day}</h2>
-                {when ? (
-                  <p className="activity-sun">
-                    {fill(copy.sunset, { time: when.sunset })}
-                  </p>
-                ) : null}
+                <h2>
+                  {d.label}
+                  {d.offset === 0 ? <span className="day-badge">{copy.weddingDay}</span> : null}
+                </h2>
+                <p className="activity-sun">{fill(copy.sunset, { time: d.sunset })}</p>
               </div>
-              {visible
-                .filter((a) => a.date === day)
-                .sort(byTime)
-                .map((a) => {
-                  const mine = forYou(a.audience);
-                  return (
-                    <article
-                      className={mine ? "activity activity-mine" : "activity"}
-                      id={anchorFor(a.title)}
-                      key={a.title}
-                    >
-                      <div>
-                        <strong>{a.time}</strong>
-                        <br />
-                        {a.at ? <IslandDot at={a.at} label={a.location} /> : <small>{a.location}</small>}
-                      </div>
-                      <div>
-                        {mine ? (
-                          <p className="activity-for">
-                            <Plumeria />
-                            {mine}
-                          </p>
-                        ) : null}
-                        <h3>{a.title}</h3>
-                        <p>{a.description}</p>
-                        {a.link ? <MoreLink href={a.link.href} label={a.link.label} /> : null}
-                      </div>
-                    </article>
-                  );
-                })}
+              {events.length ? events.map(event) : <p className="day-free">{copy.free}</p>}
+              {notes.length ? (
+                <ul className="day-notes">
+                  {notes.map((n) => (
+                    <li key={n.text}>
+                      <a href={n.href}>{n.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {d.offset !== null ? <DayPlans iso={d.iso} /> : null}
             </div>
           );
         })}
+        {undated.length ? (
+          <div className="activity-day" id="day-to-come">
+            <div className="activity-day-head">
+              <h2>{copy.datesToCome}</h2>
+            </div>
+            {undated.sort(byTime).map(event)}
+          </div>
+        ) : null}
         <PrintButton>{copy.print}</PrintButton>
       </Section>
 
@@ -121,6 +147,6 @@ export default async function Week({
           {copy.freeTime.link}
         </Link>
       </aside>
-    </>
+    </PlannerProvider>
   );
 }

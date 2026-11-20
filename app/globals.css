@@ -1392,7 +1392,7 @@ h3 {
   align-items: center;
   gap: 2px 14px;
 }
-.place-head .save-toggle {
+.place-head .add-week {
   margin-left: auto;
 }
 .place-name {
@@ -3753,143 +3753,7 @@ footer {
 
 /* ---------- My week and "Open on…" (The island) ------------- */
 
-/* My week: what a guest has saved, under the contents strip. Only drawn
-   once the browser has read the list, so it never shows without JavaScript. */
-.my-week {
-  max-width: calc(1400px - 2 * var(--gutter));
-  margin: 0 var(--gutter) clamp(10px, 2vw, 22px);
-  padding: 16px 20px 18px;
-  background: var(--white);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-}
-.my-week-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 2px 16px;
-}
-.my-week h2 {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  font-size: 1.35rem;
-}
-.my-week-count {
-  min-width: 22px;
-  padding: 1px 7px;
-  border-radius: 999px;
-  background: var(--lagoon);
-  color: var(--white);
-  font-family: var(--body);
-  font-size: 0.75rem;
-  text-align: center;
-}
-.my-week-note,
-.my-week-empty {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-.my-week-note {
-  font-style: italic;
-}
-.my-week-empty {
-  margin-top: 6px;
-}
-.my-week-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 10px;
-  margin: 12px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.my-week-list li {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 2px 8px;
-  padding: 5px 4px 5px 12px;
-  background: var(--cream);
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-}
-.my-week-list a {
-  font-family: var(--display);
-  font-size: 1.05rem;
-  color: var(--deep);
-  text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 40%, transparent);
-}
-.my-week-where {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-.my-week-remove,
-.my-week-clear {
-  min-height: 28px;
-  padding: 2px 8px;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: 0.75rem;
-  color: var(--lagoon);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-.my-week-clear {
-  margin-top: 10px;
-  padding-left: 0;
-}
-
-/* The Save button on a restaurant or a day out. */
-.save-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  min-height: 28px;
-  padding: 3px 11px 3px 8px;
-  border: 1px solid color-mix(in srgb, var(--lagoon) 40%, transparent);
-  border-radius: 999px;
-  background: transparent;
-  font: inherit;
-  font-size: 0.7rem;
-  font-style: italic;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--lagoon);
-  cursor: pointer;
-  white-space: nowrap;
-}
-.save-toggle svg {
-  width: 12px;
-  height: 12px;
-}
-.save-toggle path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linejoin: round;
-}
-.save-toggle:hover {
-  border-color: var(--lagoon);
-}
-.save-toggle[aria-pressed="true"] {
-  background: var(--lagoon);
-  border-color: var(--lagoon);
-  color: var(--white);
-}
-.save-toggle[aria-pressed="true"] path {
-  fill: currentColor;
-}
-.save-toggle:focus-visible,
-.open-on-day:focus-visible,
-.my-week-remove:focus-visible,
-.my-week-clear:focus-visible {
+.open-on-day:focus-visible {
   outline: 2px solid var(--lagoon);
   outline-offset: 2px;
 }
@@ -4080,7 +3944,7 @@ footer {
 .passage-head .island-dot {
   margin-left: auto;
 }
-.passage-head .island-dot + .save-toggle {
+.passage-head .island-dot + .add-week {
   margin-left: 0;
 }
 .boat-option-from {
@@ -4297,13 +4161,6 @@ footer {
   align-items: center;
   gap: 18px 40px;
 }
-.my-week-inline {
-  max-width: none;
-  margin: 0;
-}
-.my-week-tally {
-  margin: 0;
-}
 .places-compact .place {
   padding: 12px 0 14px;
 }
@@ -4365,7 +4222,7 @@ footer {
   .place-head .place-meta {
     grid-column: 1;
   }
-  .place-head .save-toggle {
+  .place-head .add-week {
     grid-column: 2;
     grid-row: 1 / span 2;
     margin-left: 0;
@@ -4379,4 +4236,525 @@ footer {
 .chapter,
 .faq-group {
   scroll-margin-top: 16px;
+}
+
+/* ---------- My week, day by day ------------------------------ */
+
+/* "Add to my week": a small pill; once planned it shows the day, filled. */
+.add-week {
+  position: relative;
+  display: inline-flex;
+}
+.add-week-toggle,
+.plan-button,
+.add-plan-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 30px;
+  padding: 3px 12px 3px 9px;
+  border: 1px solid color-mix(in srgb, var(--lagoon) 40%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--lagoon);
+  cursor: pointer;
+}
+.add-week-toggle svg {
+  width: 12px;
+  height: 12px;
+}
+.add-week-toggle path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.add-week-toggle:hover,
+.plan-button:hover,
+.add-plan-open:hover {
+  border-color: var(--lagoon);
+}
+.add-week-toggle[aria-pressed="true"] {
+  background: var(--lagoon);
+  border-color: var(--lagoon);
+  color: var(--white);
+}
+.add-week-toggle:focus-visible,
+.plan-button:focus-visible,
+.add-plan-open:focus-visible,
+.day-pick button:focus-visible,
+.add-plan button:focus-visible {
+  outline: 2px solid var(--lagoon);
+  outline-offset: 2px;
+}
+
+/* The day picker: the nine days in a grid, closed ones struck through. */
+.add-week-pop {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 25;
+  display: block;
+  width: min(330px, calc(100vw - 32px));
+  padding: 12px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--deep) 40%, transparent);
+  text-transform: none;
+  letter-spacing: normal;
+  font-style: normal;
+}
+.day-pick {
+  display: block;
+}
+.day-pick-title {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.day-pick-days {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+}
+.day-pick-days button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 48px;
+  padding: 4px 2px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--white);
+  font: inherit;
+  line-height: 1.1;
+  color: var(--deep);
+  cursor: pointer;
+}
+.day-pick-days button:hover:not(:disabled) {
+  border-color: var(--lagoon);
+}
+.day-pick-days button.is-wedding {
+  border-color: color-mix(in srgb, var(--lagoon) 55%, transparent);
+}
+.day-pick-days button[aria-pressed="true"] {
+  background: var(--lagoon);
+  border-color: var(--lagoon);
+  color: var(--white);
+}
+.day-pick-days button:disabled {
+  cursor: not-allowed;
+  color: color-mix(in srgb, var(--deep) 40%, transparent);
+  background: color-mix(in srgb, var(--sand) 45%, var(--white));
+}
+.day-pick-days button:disabled .day-pick-date {
+  text-decoration: line-through;
+}
+.day-pick-wd {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.day-pick-date {
+  font-family: var(--display);
+  font-size: 1.15rem;
+}
+.day-pick-mark {
+  font-size: 0.56rem;
+  font-style: italic;
+}
+.day-pick-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}
+.day-pick-text {
+  min-height: 30px;
+  padding: 2px 4px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--lagoon);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.day-pick-text[aria-pressed="true"] {
+  font-weight: 600;
+}
+
+/* On the Week page: each day's own plans, below ours. */
+.activity-day-wedding .activity-day-head h2 {
+  color: var(--lagoon);
+}
+.day-badge {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--lagoon);
+  color: var(--white);
+  font-family: var(--body);
+  font-size: 0.7rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.day-free {
+  margin: 4px 0 0;
+  font-style: italic;
+  color: var(--muted);
+}
+.day-notes {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.day-notes li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.9rem;
+}
+.day-notes li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--lagoon);
+}
+.day-notes a {
+  color: var(--deep);
+  text-decoration-color: color-mix(in srgb, var(--lagoon) 45%, transparent);
+  text-underline-offset: 3px;
+}
+.day-plans,
+.unplaced {
+  margin-top: 16px;
+  padding: 14px 16px 16px;
+  background: var(--white);
+  border: 1px dashed color-mix(in srgb, var(--lagoon) 45%, transparent);
+  border-radius: 4px;
+}
+.unplaced {
+  margin: 0 0 clamp(28px, 4vw, 44px);
+  border-style: solid;
+}
+.day-plans-title {
+  margin: 0 0 8px;
+  font-size: 0.7rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.unplaced-hint {
+  margin: -4px 0 10px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.plans {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+.plan {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 14px;
+  padding: 8px 0;
+  border-top: 1px solid var(--rule);
+}
+.plan:first-child {
+  border-top: 0;
+  padding-top: 2px;
+}
+.plan-what {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  min-width: 0;
+}
+.plan-what > a {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  color: var(--deep);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 40%, transparent);
+}
+.plan-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.plan-warn {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #c4525b 14%, var(--white));
+  font-size: 0.72rem;
+  font-style: italic;
+  color: #8c2f37;
+}
+.plan-actions {
+  gap: 6px;
+}
+.plan-button {
+  padding: 3px 11px;
+}
+
+/* "Add a plan": a filter box and the places, closed ones greyed out. */
+.add-plan {
+  margin-top: 4px;
+}
+.add-plan-head {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.add-plan-filter {
+  flex: 1;
+  min-width: 0;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--cream);
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--deep);
+}
+.add-plan-filter:focus-visible {
+  outline: 2px solid var(--lagoon);
+  outline-offset: 1px;
+}
+.add-plan-kind {
+  margin: 8px 0 4px;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.add-plan ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  gap: 4px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.add-plan li button {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: var(--deep);
+  cursor: pointer;
+}
+.add-plan li button:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--lagoon) 45%, transparent);
+  background: var(--cream);
+}
+.add-plan li button:disabled {
+  cursor: default;
+  color: color-mix(in srgb, var(--deep) 42%, transparent);
+}
+.add-plan-name {
+  font-family: var(--display);
+  font-size: 1.05rem;
+}
+.add-plan-note {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+.add-plan-mark {
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--lagoon);
+}
+
+/* The week strip on The island and Utility: nine days, a dot per plan. */
+.week-strip {
+  max-width: calc(1400px - 2 * var(--gutter));
+  margin: clamp(18px, 3vw, 28px) var(--gutter) 0;
+  padding: 14px 18px 16px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.chapter .week-strip {
+  max-width: none;
+  margin: 0 0 20px;
+}
+.week-strip-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-bottom: 10px;
+}
+.week-strip-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.3rem;
+  color: var(--deep);
+}
+.week-strip-count {
+  font-family: var(--body);
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--lagoon);
+}
+.week-strip-link {
+  font-size: 0.85rem;
+  color: var(--lagoon);
+}
+.week-strip-days {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.week-strip-days a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-height: 62px;
+  padding: 6px 2px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--deep);
+  text-decoration: none;
+  line-height: 1.1;
+}
+.week-strip-days a:hover {
+  border-color: var(--lagoon);
+}
+.week-strip-days a.is-wedding {
+  background: color-mix(in srgb, var(--aqua) 16%, var(--white));
+  border-color: color-mix(in srgb, var(--lagoon) 55%, transparent);
+}
+.week-strip-wd {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.week-strip-date {
+  font-family: var(--display);
+  font-size: 1.2rem;
+}
+.week-strip-dots {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 8px;
+}
+.week-strip-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lagoon);
+}
+.week-strip-dots b {
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: var(--lagoon);
+}
+.week-strip-empty,
+.week-strip-note {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.week-strip-note {
+  font-style: italic;
+}
+@media (max-width: 520px) {
+  .week-strip-days {
+    gap: 3px;
+  }
+  .week-strip-days a {
+    min-height: 56px;
+  }
+  .week-strip-date {
+    font-size: 1.05rem;
+  }
+}
+
+/* Utility's agenda: the days that have plans. */
+.week-agenda-day h3 {
+  margin: 18px 0 6px;
+  font-size: 1.2rem;
+}
+.week-agenda-day h3 a {
+  color: var(--deep);
+  text-decoration-color: color-mix(in srgb, var(--lagoon) 40%, transparent);
+  text-underline-offset: 4px;
+}
+.week-agenda .unplaced {
+  margin-bottom: 8px;
+}
+/* On a phone the day picker is a sheet along the bottom of the screen, so it
+   is never cut off at the edge, whatever it was opened from. */
+@media (max-width: 640px) {
+  .add-week-pop {
+    position: fixed;
+    top: auto;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 60;
+    width: auto;
+    padding: 16px;
+    box-shadow: 0 -6px 40px -8px color-mix(in srgb, var(--deep) 45%, transparent);
+  }
+  .day-pick-days button {
+    min-height: 54px;
+  }
+}
+.add-week-short {
+  display: none;
+}
+@media (max-width: 520px) {
+  .add-week-long {
+    display: none;
+  }
+  .add-week-short {
+    display: inline;
+  }
 }

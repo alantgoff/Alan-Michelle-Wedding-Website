@@ -77,6 +77,14 @@ export const weekPage = {
  print: "Print the week",
  /** The "Day by day" row under the banner. */
  contents: "Day by day",
+ /** Every day of the week we suggest is shown; a day with nothing of ours says so. */
+ free: "Nothing planned by us: the day is yours.",
+ weddingDay: "Wedding day",
+ /** Added to the intro: My week lives in each day below. */
+ planNote: "Add your own plans to any day; they stay on this device.",
+ /** Events whose day is not set yet, after the week. */
+ datesToCome: "Dates to come",
+ datesToComeShort: "Dates to come",
  freeTime: {
   text: "Free time between the gatherings? The island page has what is open on which day, and where to go.",
   link: "A free day, in full",

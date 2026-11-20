@@ -1,36 +1,24 @@
 import Image from "next/image";
-import type { Place, Spot, Weekday } from "@/content/island";
+import type { Place, Spot } from "@/content/island";
 import { spotPhotos, type SpotPhoto } from "@/content/photos";
-import { slug } from "@/lib/slug";
+import { openNumbers, placeId } from "@/lib/plannable";
 import { IslandDot } from "./IslandDot";
-import { SaveToggle, type MyWeekWords } from "./MyWeek";
+import { AddToWeek } from "./WeekPlanner";
 
-const WEEKDAY_NUMBER: Record<Weekday, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-
-/** A place's open days as weekday numbers (0 = Sunday), or null when its hours aren't known. */
-export function openNumbers(p: Place): number[] | null {
-  return p.open ? p.open.map((d) => WEEKDAY_NUMBER[d]) : null;
-}
-
-/** "Helena’s Hawaiian Food" → "helenas-hawaiian-food", for the anchor My week links to. */
-export function placeId(p: Place): string {
-  return p.id ?? slug(p.name);
-}
+export { openNumbers, placeId };
 
 /**
  * Restaurants, one compact row each: name, where, what to order, when,
- * booking, and a Save button for My week. `data-open` lists the weekdays it
+ * booking, and "Add to my week". `data-open` lists the weekdays it
  * opens, for the "Open on…" filter; the closed line shows only when the filter
  * fades the place.
  */
 export function Places({
   places,
   labels,
-  save,
 }: {
   places: readonly Place[];
   labels: { order: string; closed: string };
-  save: Pick<MyWeekWords, "save" | "saved" | "saveLabel">;
 }) {
   return (
     <ul className="places">
@@ -49,7 +37,7 @@ export function Places({
               <IslandDot at={p.at} label={p.area} />
               {p.price ? <span className="place-price">{p.price}</span> : null}
             </span>
-            <SaveToggle item={{ id: placeId(p), name: p.name, note: p.area }} words={save} />
+            <AddToWeek id={placeId(p)} />
           </p>
           <p className="place-what">{p.what}</p>
           {p.order ? (
@@ -72,17 +60,15 @@ export function Places({
 
 /**
  * The same restaurants as a short list, for the Utility page: name (linking to
- * its full entry on The island), where, hours, and Save. Carries the same
+ * its full entry on The island), where, hours, and "Add to my week". Carries the same
  * `data-open` and closed line, so the "Open on…" filter works on it too.
  */
 export function PlacesCompact({
   places,
   labels,
-  save,
 }: {
   places: readonly Place[];
   labels: { closed: string };
-  save: Pick<MyWeekWords, "save" | "saved" | "saveLabel">;
 }) {
   return (
     <ul className="places places-compact">
@@ -96,7 +82,7 @@ export function PlacesCompact({
             <span className="place-meta">
               <IslandDot at={p.at} label={p.area} />
             </span>
-            <SaveToggle item={{ id: placeId(p), name: p.name, note: p.area }} words={save} />
+            <AddToWeek id={placeId(p)} />
           </p>
           {p.hours ? <p className="place-when">{p.hours}</p> : null}
         </li>

@@ -23,6 +23,8 @@ export type Passage = {
   link?: { href: string; label: string };
   /** Where it is, for the little locator map beside the title (lib/island.ts). */
   at?: PointKey;
+  /** For a day out that closes on some days: the days it opens (My week greys out the rest). */
+  open?: Weekday[];
 };
 
 export type Weekday = "Sun" | "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat";
@@ -181,23 +183,6 @@ export const island = {
   },
 
   /**
-   * "My week": a list a guest builds by tapping Save on a restaurant or a day
-   * out. It lives in their browser only; nothing is sent anywhere. `{name}` is
-   * filled in.
-   */
-  myWeek: {
-    title: "My week",
-    empty: "Tap Save on any restaurant or day out below and it collects here, to plan around.",
-    note: "Kept on this device only.",
-    save: "Save",
-    saved: "Saved",
-    saveLabel: "Save {name} to My week",
-    remove: "Remove",
-    removeLabel: "Remove {name} from My week",
-    clear: "Clear the list",
-  },
-
-  /**
    * Chapter: a free day. Distances are by road from the gardens. Hours,
    * prices and rules are as of late 2026: recheck them before you send
    * anyone anywhere.
@@ -241,7 +226,7 @@ export const island = {
       },
       {
         // VERIFY before invitations: hours (9 AM–4 PM), closed Thursdays, free entry. Source: honolulu.gov/parks (Honolulu Botanical Gardens).
-        id: "hoomaluhia", at: "kaneohe",
+        id: "hoomaluhia", at: "kaneohe", open: except("Thu"),
         title: "Hoʻomaluhia Botanical Garden",
         text: "Hoʻomaluhia is four hundred acres of garden under the Koʻolau, planted by region of the tropical world around a 32-acre lake. The Army Corps of Engineers built it to keep Kāneʻohe from flooding, and it is free. It is open from 9 AM to 4 PM but closed every Thursday, so plan it for another day.",
       },
@@ -253,7 +238,7 @@ export const island = {
       },
       {
         // VERIFY before invitations: no commercial activity in Kāneʻohe Bay on Sundays and federal holidays, and which tours hold a state permit. Source: DLNR Division of Boating and Ocean Recreation, HAR §13-256 (Kāneʻohe Bay Ocean Waters).
-        id: "sandbar", at: "heeia",
+        id: "sandbar", at: "heeia", open: except("Sun"),
         title: "Ahu o Laka, the sandbar",
         text: "Ahu o Laka is a sandbar in the middle of Kāneʻohe Bay that rises from the water at low tide and is awash at high tide. To go with a tour, choose one that holds a state permit for Kāneʻohe Bay. No commercial boat may run in the bay on Sundays or federal holidays, and that week it means Sunday, October 8 and Monday, October 9, Columbus Day. Saturday is your day.",
       },
@@ -271,7 +256,7 @@ export const island = {
       },
       {
         // VERIFY before invitations: closed Mondays and Tuesdays; reservations open two days ahead at 7 AM HST; walk-in tickets at 6:45 AM; $25 entry (12 and under free) plus online fee; $3 cash parking; last entry 1:30 PM; no cancellations or changes. Source: the City’s reservation site, pros.hnl.info/hanauma-bay.
-        id: "hanauma", at: "hanauma",
+        id: "hanauma", at: "hanauma", open: except("Mon", "Tue"),
         title: "Hanauma Bay, with a plan",
         text: "Hanauma Bay is closed every Monday and Tuesday. Visitors from the mainland should reserve: booking opens online two days ahead at 7 AM Hawaiʻi time, and only a few walk-in tickets are handed out at 6:45 AM. For Saturday the 7th, book on Thursday morning; for Sunday, book on the morning of the wedding. As of late 2026, entry is $25 plus a small online fee (children twelve and under are free), parking is $3 in cash, the last entry is at 1:30 PM, and everyone watches a short film before going down to the water. Bookings cannot be canceled or changed, so be sure of your day.",
       },

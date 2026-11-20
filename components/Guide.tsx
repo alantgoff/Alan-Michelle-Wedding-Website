@@ -4,7 +4,7 @@ import type { Passage } from "@/content/island";
 import { site } from "@/content/site";
 import { IslandDot } from "./IslandDot";
 import { JumpBar, type JumpItem } from "./JumpBar";
-import { SaveToggle, type MyWeekWords } from "./MyWeek";
+import { AddToWeek } from "./WeekPlanner";
 import { Reveal } from "./Reveal";
 
 /**
@@ -71,18 +71,18 @@ export function Chapter({
 
 /**
  * Short titled passages in two easy columns, ruled like a printed page. With
- * `save`, each passage that has an id gets a Save button for My week.
+ * `plan`, each passage that has an id gets "Add to my week".
  */
-export function Passages({ items, save }: { items: readonly PassageItem[]; save?: Pick<MyWeekWords, "save" | "saved" | "saveLabel"> }) {
+export function Passages({ items, plan = false }: { items: readonly PassageItem[]; plan?: boolean }) {
   return (
     <div className="passages">
       {items.map((item) => (
         <article className="passage" key={item.title} id={item.id}>
-          {(save && item.id) || item.at ? (
+          {(plan && item.id) || item.at ? (
             <div className="passage-head">
               <h3>{item.title}</h3>
               {item.at ? <IslandDot at={item.at} label={item.title} hideLabel /> : null}
-              {save && item.id ? <SaveToggle item={{ id: item.id, name: item.title }} words={save} /> : null}
+              {plan && item.id ? <AddToWeek id={item.id} /> : null}
             </div>
           ) : (
             <h3>{item.title}</h3>

@@ -1,6 +1,6 @@
 import { POKE_ART, type PokeKind } from "./poke-art";
 import { IslandDot } from "./IslandDot";
-import { SaveToggle, type MyWeekWords } from "./MyWeek";
+import { AddToWeek } from "./WeekPlanner";
 import type { PointKey } from "@/lib/island";
 
 /** Sixteen ticks round the rim, like the brushed band on a rice bowl. */
@@ -54,7 +54,7 @@ type Poke = {
 };
 
 /** The poke section on The island: where to buy it, then a drawing of each kind. */
-export function PokeBowls({ poke, save }: { poke: Poke; save: Pick<MyWeekWords, "save" | "saved" | "saveLabel"> }) {
+export function PokeBowls({ poke }: { poke: Poke }) {
   return (
     <section className="poke" id="poke" aria-labelledby="poke-title">
       <h3 id="poke-title">{poke.title}</h3>
@@ -67,7 +67,7 @@ export function PokeBowls({ poke, save }: { poke: Poke; save: Pick<MyWeekWords, 
           <span className="place-meta">
             <IslandDot at={poke.store.at} label={poke.store.area} />
           </span>
-          <SaveToggle item={{ id: poke.store.id, name: poke.store.name, note: poke.store.area }} words={save} />
+          <AddToWeek id={poke.store.id} />
         </p>
         <p className="place-when">
           {poke.store.hours} · {poke.also}

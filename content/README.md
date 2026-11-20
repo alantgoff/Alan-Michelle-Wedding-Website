@@ -71,10 +71,14 @@ If you are not sure of something new, leave it out.
 - **`island.ts`**: where to eat (`eat.groups`, one line per place), planning free days (with "Plan
   your free days"), in the water, rules worth knowing, and three facts about the venue. Each
   restaurant's `open` lists the days it opens (`daily`, `except("Mon")` or the days by name) for
-  the "Open on…" filter; leave it out when the hours aren't known. The words for that filter and
-  for "My week" are in `eat.openOn` and `myWeek`. The poke section is `eat.poke`; each kind's
+  the "Open on…" filter and My week's day pickers; leave it out when the hours aren't known. A
+  day out that closes on some days has `open` too (Hanauma, Hoʻomaluhia, the sandbar). The words
+  for the filter are in `eat.openOn`. The poke section is `eat.poke`; each kind's
   `id` picks its drawing. Every place has `at`, the point its little island map is dotted at:
   one of the names in `lib/island.ts` (add a new point there if a place isn't near one).
+- **`myWeek.ts`**: the words for planning the week day by day, and the notes shown under the
+  days they apply to on the Week page (`notes`: e.g. "Hanauma Bay is closed" on Mondays and
+  Tuesdays). Keep those in step with the facts on The island.
 - **`utility.ts`**: the Utility page's chapter names and its few lines of its own. The widgets on
   it keep their words in their own pages' files.
 - **`boatVote.ts`**: the friends' boat vote (only that group sees it): the options, the words, and

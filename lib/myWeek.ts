@@ -1,6 +1,10 @@
 /**
- * The "My week" list: what a guest has saved on the Island page, kept in
- * their own browser (localStorage) and nowhere else.
+ * My week: what a guest has planned, day by day, kept in their own browser
+ * (localStorage) and nowhere else.
+ *
+ * Each entry is a place or a day out and the day it is on ("2028-10-03"), or
+ * no day yet. Lists saved before days existed load as "no day yet", so
+ * nothing anyone saved is lost.
  *
  * Shaped for useSyncExternalStore: `read` returns the same array until the
  * stored value changes, `subscribe` hears this tab (a custom event) and other
@@ -8,7 +12,7 @@
  * the visit and is forgotten on reload.
  */
 
-export type Saved = { id: string; name: string; note?: string };
+export type Saved = { id: string; name: string; note?: string; day?: string | null };
 
 const KEY = "wedding-my-week";
 const EVENT = "wedding-my-week";
@@ -35,6 +39,8 @@ function store(list: Saved[]) {
   window.dispatchEvent(new Event(EVENT));
 }
 
+const ISO = /^\d{4}-\d{2}-\d{2}$/;
+
 function valid(item: unknown): item is Saved {
   return typeof item === "object" && item !== null && typeof (item as Saved).id === "string" && typeof (item as Saved).name === "string";
 }
@@ -45,7 +51,9 @@ export function read(): Saved[] {
   lastRaw = raw;
   try {
     const parsed: unknown = JSON.parse(raw ?? "[]");
-    lastList = Array.isArray(parsed) ? parsed.filter(valid) : [];
+    lastList = Array.isArray(parsed)
+      ? parsed.filter(valid).map((s) => ({ ...s, day: typeof s.day === "string" && ISO.test(s.day) ? s.day : null }))
+      : [];
   } catch {
     lastList = [];
   }
@@ -67,9 +75,11 @@ export function subscribe(onChange: () => void) {
   };
 }
 
-export function toggle(item: Saved) {
+/** Put an item on a day (or on no day yet), adding it if it isn't planned. */
+export function place(item: Omit<Saved, "day">, day: string | null) {
   const list = read();
-  store(list.some((s) => s.id === item.id) ? list.filter((s) => s.id !== item.id) : [...list, item]);
+  const found = list.some((s) => s.id === item.id);
+  store(found ? list.map((s) => (s.id === item.id ? { ...s, day } : s)) : [...list, { ...item, day }]);
 }
 
 export function remove(id: string) {
