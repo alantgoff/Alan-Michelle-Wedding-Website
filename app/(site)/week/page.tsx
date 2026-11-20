@@ -2,6 +2,7 @@ import { IslandDot } from "@/components/IslandDot";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BoatVote } from "@/components/BoatVote";
+import { JumpBar, type JumpItem } from "@/components/JumpBar";
 import { MoreLink } from "@/components/Guide";
 import { PageHero, Section } from "@/components/Page";
 import { Plumeria } from "@/components/Plumeria";
@@ -40,15 +41,29 @@ export default async function Week({
   const forYou = (audience: string) => held.find((g) => g.id === audience)?.forYou;
   const own = visible.filter((a) => forYou(a.audience)).length;
   const intro = own === 0 ? copy.intro : `${copy.intro} ${own === 1 ? copy.mineOne : copy.mineMany}`;
+  const voting = held.some((g) => g.id === boatVote.audience);
+
+  // "Fri 6" for each day in the row; a day not set yet keeps its own words.
+  const short = new Intl.DateTimeFormat("en-US", { weekday: "short", day: "numeric", timeZone: "UTC" });
+  const dayId = (day: string) => {
+    const when = weekendDay(day);
+    return when ? `day-${when.iso}` : "day-to-come";
+  };
+  const jump: JumpItem[] = days.map((day) => {
+    const when = weekendDay(day);
+    return { id: dayId(day), label: when ? short.format(new Date(`${when.iso}T12:00:00Z`)) : day };
+  });
+  if (voting) jump.push({ id: "boat-vote", label: boatVote.short });
 
   return (
     <>
       <PageHero kicker={copy.kicker} title={copy.title} intro={intro} photo="activities" scene="week" />
+      <JumpBar items={jump} label={copy.contents} />
       <Section>
         {days.map((day) => {
           const when = weekendDay(day);
           return (
-            <div className="activity-day" key={day}>
+            <div className="activity-day" key={day} id={dayId(day)}>
               <div className="activity-day-head">
                 <h2>{when ? when.label : day}</h2>
                 {when ? (
@@ -94,7 +109,7 @@ export default async function Week({
       </Section>
 
       {/* The friends' boat vote: rendered only for guests holding that group's link. */}
-      {held.some((g) => g.id === boatVote.audience) ? (
+      {voting ? (
         <Section>
           <BoatVote status={typeof vote === "string" ? vote : undefined} />
         </Section>

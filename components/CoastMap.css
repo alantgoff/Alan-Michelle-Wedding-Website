@@ -21,7 +21,7 @@
 @media (min-width: 980px) and (min-height: 880px) {
   .coast-chart-column {
     position: sticky;
-    top: calc(var(--nav-h) + 20px);
+    top: calc(var(--nav-h) + var(--jump-h) + 20px);
   }
 }
 

@@ -75,6 +75,8 @@ If you are not sure of something new, leave it out.
   for "My week" are in `eat.openOn` and `myWeek`. The poke section is `eat.poke`; each kind's
   `id` picks its drawing. Every place has `at`, the point its little island map is dotted at:
   one of the names in `lib/island.ts` (add a new point there if a place isn't near one).
+- **`utility.ts`**: the Utility page's chapter names and its few lines of its own. The widgets on
+  it keep their words in their own pages' files.
 - **`boatVote.ts`**: the friends' boat vote (only that group sees it): the options, the words, and
   an optional closing date. Changing an option's `id` loses the votes cast for it.
 - **`faq.ts`**: questions and answers. Keep each answer short; where a fact is told in full on

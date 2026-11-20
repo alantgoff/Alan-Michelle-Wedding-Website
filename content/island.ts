@@ -158,6 +158,7 @@ export const island = {
      */
     poke: {
       title: "Poke, from Foodland",
+      short: "Poke",
       lede: "Ask anyone here where to buy poke and you will often hear the name of a supermarket. Foodland’s seafood counter makes it fresh every day: buy it by the pound to share, or as a bowl over hot rice. Ask for a taste if you can’t decide; the flavors change by store and by day.",
       store: { id: "foodland-ala-moana", name: "Foodland Farms Ala Moana", area: "Ala Moana Center", at: "ala-moana" as PointKey, hours: "Daily 6 AM–10 PM", href: "https://foodland.com/hawaiis-home-for-poke" },
       also: "There are Foodlands all over the island, Kailua and Lāʻie among them.",

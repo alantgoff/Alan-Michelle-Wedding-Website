@@ -35,6 +35,8 @@ import type { AlbumKey, PhotoKey } from "./photos";
 export type StoryNote = { by: "A" | "M"; text: string };
 export type StoryMoment = {
   title: string;
+  /** Optional: a short name for the chapter in the "Chapters" row; the title otherwise. */
+  short?: string;
   date?: string;
   text?: string;
   /** The chapter's pictures, by name in content/photos.ts (`album`). The first is the main one. */
@@ -46,20 +48,20 @@ export type StoryMoment = {
 };
 
 export const story: StoryMoment[] = [
-  { date: "October 7, 2023", title: "Where it started: the OU trip", photos: ["ou-trip"] },
+  { date: "October 7, 2023", title: "Where it started: the OU trip", short: "The OU trip", photos: ["ou-trip"] },
   { title: "Vermont", photos: ["vermont", "vermont-friends"] },
   { title: "Hawaiʻi", photos: ["hawaii"] },
   { title: "Yosemite", photos: ["yosemite", "yosemite-friends"] },
   { title: "Bali and Thailand", photos: ["bali", "thailand"] },
-  { title: "Our first New York trip, while we were long-distance", photos: ["new-york-1", "new-york-2"] },
+  { title: "Our first New York trip, while we were long-distance", short: "New York", photos: ["new-york-1", "new-york-2"] },
   { title: "Disney", photos: ["disney-1", "disney-2", "disney-3"] },
   { title: "Iceland", photos: ["iceland"] },
   { title: "Japan", photos: ["osaka-aquarium", "japan"] },
-  { title: "Moving in together", photos: ["moving-in"] },
-  { title: "Our two-year anniversary trip", photos: ["anniversary-1", "anniversary-2"] },
-  { title: "Our first Christmas at home", photos: ["first-christmas"] },
+  { title: "Moving in together", short: "Moving in", photos: ["moving-in"] },
+  { title: "Our two-year anniversary trip", short: "Two years", photos: ["anniversary-1", "anniversary-2"] },
+  { title: "Our first Christmas at home", short: "First Christmas", photos: ["first-christmas"] },
   { title: "Guatemala", photos: ["acatenango", "guatemala"] },
-  { date: "July 8, 2026", title: "Kauaʻi: the proposal", photos: ["proposal", "kauai", "ring"] },
+  { date: "July 8, 2026", title: "Kauaʻi: the proposal", short: "Kauaʻi", photos: ["proposal", "kauai", "ring"] },
   {
     date: "Next chapter",
     title: "Oʻahu",
@@ -74,6 +76,7 @@ export const storyPage = {
   kicker: "Our story",
   title: "The road here",
   intro: "Our story so far, chapter by chapter, in pictures. The words are still to come.",
+  contents: "Chapters",
   notesLabel: "Notes in the margin",
   who: { A: "Alan", M: "Michelle" },
   closingLabel: "Closing",

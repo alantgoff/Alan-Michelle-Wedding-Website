@@ -46,6 +46,7 @@ export const site = {
     { href: "story", label: "Our story" },
     { href: "dress-code", label: "Dress code" },
     { href: "faq", label: "FAQ" },
+    { href: "utility", label: "Utility" },
   ],
 
   /** The frame around every page. */

@@ -13,7 +13,7 @@
 
 type MotifId =
   | "ridge" | "mokolii" | "waa" | "outrigger" | "iwa" | "swell" | "swell-s" | "cloud" | "kolea" | "boards"
-  | "honu" | "catamaran" | "snorkeler" | "umbrella" | "plane" | "diamondhead" | "towers" | "shuttle" | "palms" | "mokulua" | "falls" | "kayak" | "chairlift" | "halfdome" | "gate" | "icefalls" | "torii" | "volcano" | "kauai" | "clothesline" | "tower" | "signpost" | "mailbox" | "bottle" | "breakers";
+  | "honu" | "catamaran" | "snorkeler" | "umbrella" | "plane" | "diamondhead" | "towers" | "shuttle" | "palms" | "mokulua" | "falls" | "kayak" | "chairlift" | "halfdome" | "gate" | "icefalls" | "torii" | "volcano" | "kauai" | "clothesline" | "tower" | "signpost" | "mailbox" | "bottle" | "breakers" | "kit";
 
 /** Each motif's own drawing box: [min-x, min-y, width, height], waterline at y = 0. */
 const BOX: Record<MotifId, [number, number, number, number]> = {
@@ -52,6 +52,7 @@ const BOX: Record<MotifId, [number, number, number, number]> = {
   mailbox: [-36, -78, 92, 82],
   bottle: [-34, -22, 68, 32],
   breakers: [-84, -18, 168, 24],
+  kit: [-92, -50, 184, 54],
 };
 
 /** [motif, x of its origin, y of its waterline, scale, mirrored?] */
@@ -70,7 +71,7 @@ type Composition = {
   items: Item[];
 };
 
-export type Scene = "home" | "travel" | "week" | "island" | "story" | "dress" | "faq" | "registry" | "reef";
+export type Scene = "home" | "travel" | "week" | "island" | "story" | "dress" | "faq" | "registry" | "reef" | "utility";
 
 // Wide scenes are drawn on a 210-high canvas with the sea at 160; phones get
 // their own tighter composition on a 110-high canvas with the sea at 86.
@@ -186,6 +187,19 @@ const SCENES: Record<Scene, { wide: Composition; narrow: Composition }> = {
       width: 520, height: 110, sea: 86,
       line: "M-4 86 C120 85 260 87 352 86 M412 86 C460 85 500 87 524 86",
       items: [["mailbox", 150, 86, 0.6], ["waa", 382, 82, 0.42], ["iwa", 290, 24, 0.45]],
+    },
+  },
+  // Utility: the kit for a day out, laid on the sand under the palms.
+  utility: {
+    wide: {
+      width: 1920, height: 210, sea: 160,
+      line: "M-6 160 C400 158 900 161 1444 160 M1556 160 C1700 158 1850 161 1926 159",
+      items: [["palms", 560, 160, 0.95], ["kit", 860, 160, 1.6], ["cloud", 1160, 50], ["iwa", 340, 56], ["mokolii", 1500, 160, 0.8], ["swell", 240, 188], ["swell-s", 1260, 196], ["swell", 1660, 188]],
+    },
+    narrow: {
+      width: 520, height: 110, sea: 86,
+      line: "M-4 86 C120 85 300 87 418 86 M482 86 C500 85 512 87 524 86",
+      items: [["palms", 90, 86, 0.5], ["kit", 260, 86, 0.9], ["mokolii", 450, 86, 0.45]],
     },
   },
   // Past the reef: the break behind you, a message in a bottle, open water.

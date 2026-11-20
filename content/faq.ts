@@ -22,6 +22,7 @@ export const faqPage = {
   kicker: "Questions",
   title: "Q&A",
   intro: "The things people ask us most. If your question is not here, just ask — we would rather answer twice than have you guess.",
+  contents: "Topics",
 };
 
 export const faqGroups: FaqGroup[] = [

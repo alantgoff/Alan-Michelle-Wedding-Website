@@ -40,7 +40,7 @@ export default function Island() {
   return (
     <>
       <PageHero kicker={copy.kicker} title={copy.title} intro={copy.intro} photo="island" scene="island" />
-      <Contents chapters={CHAPTERS} />
+      <Contents chapters={CHAPTERS} extra={[{ id: "poke", label: island.eat.poke.short, after: "eat" }]} />
       <MyWeek words={island.myWeek} />
 
       <Chapter chapter={chapter("eat")} lede={island.eat.lede}>

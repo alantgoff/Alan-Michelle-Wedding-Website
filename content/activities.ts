@@ -75,6 +75,8 @@ export const weekPage = {
  mineMany: "The ones marked with a plumeria are just for you.",
  sunset: "Sunset {time}",
  print: "Print the week",
+ /** The "Day by day" row under the banner. */
+ contents: "Day by day",
  freeTime: {
   text: "Free time between the gatherings? The island page has what is open on which day, and where to go.",
   link: "A free day, in full",

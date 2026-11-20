@@ -45,6 +45,7 @@ function Bowl({ kind }: { kind: PokeKind }) {
 
 type Poke = {
   title: string;
+  short: string;
   lede: string;
   store: { id: string; name: string; area: string; at: PointKey; hours: string; href: string };
   also: string;
@@ -55,7 +56,7 @@ type Poke = {
 /** The poke section on The island: where to buy it, then a drawing of each kind. */
 export function PokeBowls({ poke, save }: { poke: Poke; save: Pick<MyWeekWords, "save" | "saved" | "saveLabel"> }) {
   return (
-    <section className="poke" aria-labelledby="poke-title">
+    <section className="poke" id="poke" aria-labelledby="poke-title">
       <h3 id="poke-title">{poke.title}</h3>
       <p className="poke-lede">{poke.lede}</p>
       <div className="poke-store" id={poke.store.id}>

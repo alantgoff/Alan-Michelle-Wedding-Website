@@ -8,6 +8,8 @@ import { album, type AlbumPhoto } from "@/content/photos";
 import { site } from "@/content/site";
 import { story, storyClosing, storyPage as copy } from "@/content/story";
 import { fill } from "@/lib/fill";
+import { slug } from "@/lib/slug";
+import { JumpBar } from "@/components/JumpBar";
 
 export const metadata: Metadata = { title: copy.tab };
 
@@ -26,9 +28,10 @@ export default function Story() {
   return (
     <>
       <PageHero kicker={copy.kicker} title={copy.title} intro={copy.intro} photo="story" scene="story" />
+      <JumpBar items={ready.map((m) => ({ id: slug(m.short ?? m.title), label: m.short ?? m.title }))} label={copy.contents} />
       <div className="story-spine">
         {ready.map((moment, i) => (
-          <section className="story-moment" key={moment.title} aria-labelledby={`story-${i}`}>
+          <section className="story-moment" key={moment.title} id={slug(moment.short ?? moment.title)} aria-labelledby={`story-${i}`}>
             <div className="story-rail">
               <div className="story-marker">
                 {moment.date ? <span className="story-marker-when">{moment.date}</span> : null}

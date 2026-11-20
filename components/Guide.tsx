@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import type { Passage } from "@/content/island";
 import { site } from "@/content/site";
 import { IslandDot } from "./IslandDot";
+import { JumpBar, type JumpItem } from "./JumpBar";
 import { SaveToggle, type MyWeekWords } from "./MyWeek";
 import { Reveal } from "./Reveal";
 
@@ -16,25 +17,26 @@ export type ChapterRef = { id: string; numeral: string; title: string };
 
 export type PassageItem = Passage;
 
-/** "In this guide: I Kualoa · II Eating · …", each a link to its chapter. */
-export function Contents({ chapters, label = site.guide.contents }: { chapters: ChapterRef[]; label?: string }) {
-  return (
-    <nav className="contents" id="contents" aria-label={label}>
-      <p className="contents-label">{label}</p>
-      <ol>
-        {chapters.map((c) => (
-          <li key={c.id}>
-            <a href={`#${c.id}`}>
-              <span className="contents-numeral" aria-hidden="true">
-                {c.numeral}
-              </span>
-              {c.title}
-            </a>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
+/**
+ * The chapters as a row that sticks under the header ("In this guide"), with
+ * the one being read highlighted. `extra` adds further stops, each placed
+ * after the chapter whose id it names in `after` (or first, with no `after`).
+ */
+export function Contents({
+  chapters,
+  label = site.guide.contents,
+  extra = [],
+}: {
+  chapters: ChapterRef[];
+  label?: string;
+  extra?: (JumpItem & { after?: string })[];
+}) {
+  const items: JumpItem[] = extra.filter((e) => !e.after).map(({ id, label: l }) => ({ id, label: l }));
+  for (const c of chapters) {
+    items.push({ id: c.id, label: c.title, numeral: c.numeral });
+    for (const e of extra.filter((x) => x.after === c.id)) items.push({ id: e.id, label: e.label });
+  }
+  return <JumpBar items={items} label={label} />;
 }
 
 export function Chapter({

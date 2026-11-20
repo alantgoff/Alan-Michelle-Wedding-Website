@@ -75,6 +75,8 @@ export const travel = {
   */
  twoMinute: {
   title: "The two-minute version",
+  /** Its stop in the "In this guide" row. */
+  short: "In two minutes",
   items: [
    {
     title: "Make a week of it",

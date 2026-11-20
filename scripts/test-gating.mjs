@@ -15,10 +15,11 @@ const privateEvents = {
 };
 const slugs = { family: "family-2a6u46wevkmc", college: "college-4uwudjry68or", "wedding-party": "party-4ln6lu72u2wd" };
 const all = Object.values(privateEvents);
-const pages = ["/week", "/travel", "/"];
+const pages = ["/week", "/travel", "/utility", "/"];
 
 // /week lists every event the visitor may see. The home page names only
-// the earliest of the visitor's own events, and the Travel chart only those
+// the earliest of the visitor's own events, and the coast chart (on Travel
+// and Utility) only those
 // tied to a place on it, so there the rule is one-sided: nothing outside the
 // visitor's groups may appear.
 function check(html, allowed, context) {

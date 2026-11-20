@@ -25,16 +25,20 @@ function useSaved(): Saved[] | null {
  * its entry. Nothing renders until the browser has read the list, so without
  * JavaScript there is no empty box.
  */
-export function MyWeek({ words }: { words: MyWeekWords }) {
+export function MyWeek({ words, base = "", inline = false }: { words: MyWeekWords; base?: string; inline?: boolean }) {
   const saved = useSaved();
   if (saved === null) return null;
   return (
-    <aside className="my-week" aria-labelledby="my-week-title">
+    <aside className={inline ? "my-week my-week-inline" : "my-week"} aria-labelledby={inline ? undefined : "my-week-title"} aria-label={inline ? words.title : undefined}>
       <div className="my-week-head">
-        <h2 id="my-week-title">
-          {words.title}
-          {saved.length ? <span className="my-week-count">{saved.length}</span> : null}
-        </h2>
+        {inline ? (
+          <p className="my-week-tally">{saved.length ? <span className="my-week-count">{saved.length}</span> : null}</p>
+        ) : (
+          <h2 id="my-week-title">
+            {words.title}
+            {saved.length ? <span className="my-week-count">{saved.length}</span> : null}
+          </h2>
+        )}
         <p className="my-week-note">{words.note}</p>
       </div>
       {saved.length === 0 ? (
@@ -44,7 +48,7 @@ export function MyWeek({ words }: { words: MyWeekWords }) {
           <ul className="my-week-list">
             {saved.map((s) => (
               <li key={s.id}>
-                <a href={`#${s.id}`}>{s.name}</a>
+                <a href={`${base}#${s.id}`}>{s.name}</a>
                 {s.note ? <span className="my-week-where">{s.note}</span> : null}
                 <button
                   type="button"

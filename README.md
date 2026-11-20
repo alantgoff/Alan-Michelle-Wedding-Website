@@ -44,7 +44,7 @@ reaches a guest.
 
 ### The pages
 
-Home · Week · Travel · Island · Our story · Dress code · FAQ are in the menu. Registry is linked
+Home · Week · Travel · Island · Our story · Dress code · FAQ · Utility are in the menu. Registry is linked
 from the footer and the FAQ until it has real links; add it back to `nav` in `site.ts` when it does.
 The Week page used to be called Activities, then Weekend: `/activities` and `/weekend` still work and forward to `/week`.
 
@@ -124,6 +124,15 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - On The island, "Open on…" is a row of days from the Saturday before the wedding to the Sunday
   after: tap one and the restaurants closed that day fade, with a line saying so. It reads each
   place's `open` days in `content/island.ts`, so keep those in step with `hours`.
+- The long pages (Week, Travel, The island, Our story, FAQ, Utility) have a row of their sections
+  that sticks under the header as you scroll, with the one you are reading filled in; tap any to
+  jump there (`components/JumpBar.tsx`). Without JavaScript the row still sticks and jumps.
+- Utility gathers the useful widgets on one page: the countdown and the time at Kualoa, My week,
+  "Open on…" over a short list of every restaurant, sunrise and sunset for each day of the week,
+  the flying-from picker, the coast map, the weather and the packing list. They are the same
+  widgets, keeping their state in the same places, so a restaurant saved, a box ticked or a city
+  chosen on Utility is the same on its own page (on that device). Its words are in
+  `content/utility.ts`; it is rendered per request because the map names a guest's own events.
 - Wherever the site names a place (a restaurant, an event, a stay, a boat, a day out), a little
   map of Oʻahu sits beside it with a dot where it is (`components/IslandDot.tsx`). The points are
   named in `lib/island.ts`; content files pick one with `at`.

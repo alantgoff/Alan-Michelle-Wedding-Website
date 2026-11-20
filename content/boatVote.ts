@@ -41,6 +41,8 @@ export const boatVote = {
   closes: "",
 
   title: "Help choose our boat day",
+  /** Its stop in the Week page's "Day by day" row. */
+  short: "Boat vote",
   intro:
     "We would love a boat day just for our college and high school friends, and we want you to choose it. Here are a few we like. Pick the one you would most enjoy; the most votes wins.",
 

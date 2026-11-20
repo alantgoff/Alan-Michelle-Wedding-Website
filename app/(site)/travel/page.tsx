@@ -42,8 +42,10 @@ export default async function Travel() {
     <>
       <PageHero kicker={copy.kicker} title={copy.title} intro={copy.intro} photo="travel" scene="travel" />
 
+      <Contents chapters={CHAPTERS} extra={[{ id: "two-minute", label: travel.twoMinute.short }]} />
+
       {/* The essentials first; each line points down to its chapter. */}
-      <section className="two-minute" aria-labelledby="two-minute-title">
+      <section className="two-minute" id="two-minute" aria-labelledby="two-minute-title">
         <h2 id="two-minute-title">{travel.twoMinute.title}</h2>
         <ol>
           {travel.twoMinute.items.map((item) => (
@@ -55,8 +57,6 @@ export default async function Travel() {
           ))}
         </ol>
       </section>
-
-      <Contents chapters={CHAPTERS} />
 
       <Chapter chapter={chapter("the-coast")}>
         <p className="coast-intro">{travel.map.intro}</p>
