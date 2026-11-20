@@ -5,6 +5,7 @@ import { Kolea } from "@/components/Kolea";
 import { MyWeek } from "@/components/MyWeek";
 import { OpenOn, type OpenOnDay } from "@/components/OpenOn";
 import { PageHero } from "@/components/Page";
+import { PokeBowls } from "@/components/PokeBowls";
 import { island } from "@/content/island";
 import { site } from "@/content/site";
 
@@ -51,6 +52,7 @@ export default function Island() {
             </div>
           ))}
         </OpenOn>
+        <PokeBowls poke={island.eat.poke} save={island.myWeek} />
         <div className="menu-words">
           <h3>{island.eat.menuTitle}</h3>
           <dl>

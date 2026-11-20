@@ -1,3 +1,4 @@
+import { IslandDot } from "./IslandDot";
 import { cookies } from "next/headers";
 import { boatVote } from "@/content/boatVote";
 import { groups } from "@/content/groups";
@@ -7,7 +8,7 @@ import { hawaiiToday } from "@/lib/sun";
 import { Plumeria } from "./Plumeria";
 
 /**
- * The friends' boat vote, at the foot of the Weekend page. The page renders
+ * The friends' boat vote, at the foot of the Week page. The page renders
  * this only for a guest holding the group's invite link, and the form posts
  * to /api/boat-vote, which checks the link again. A plain form: it works
  * without JavaScript, and the page reloads with the new count.
@@ -77,6 +78,9 @@ export async function BoatVote({ status }: { status?: string }) {
                     <input type="radio" name="option" value={o.id} defaultChecked={mine === o.id} required />
                     <span className="boat-option-name">{o.name}</span>
                   </label>
+                  <p className="boat-option-from">
+                    <IslandDot at={o.at} label={o.from} />
+                  </p>
                   <p>{o.what}</p>
                   {o.details.length ? (
                     <ul className="boat-option-details">

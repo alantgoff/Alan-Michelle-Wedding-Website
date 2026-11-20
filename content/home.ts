@@ -27,7 +27,7 @@ export const home = {
     justForYou: "Just for you:",
     at: "at {time}",
   },
-  seeWeekend: "See your weekend →",
+  seeWeek: "See your week →",
 
   /** The short block straight under the photograph: the four things to know first. */
   glance: {
@@ -85,7 +85,7 @@ export const home = {
   },
 
   /** The card that lifts away the first time a guest arrives from their invite link. */
-  curtain: "Welcome to our wedding weekend",
+  curtain: "Welcome to our wedding week",
 
   /** Read aloud for the logo button that scatters plumeria. */
   scatter: "Scatter plumeria",

@@ -3,7 +3,7 @@
  *
  * Send each group its own link, e.g. https://your-site.com/i/family-2a6u46wevkmc
  * Opening it once remembers that guest on their device; they then see their
- * group's events on the Weekend page alongside the open ones. A guest sent
+ * group's events on the Week page alongside the open ones. A guest sent
  * two links (a sister who is also a bridesmaid) keeps both.
  *
  * The random suffix on each slug is the security. Twelve random characters

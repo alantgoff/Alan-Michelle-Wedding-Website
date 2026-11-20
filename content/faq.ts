@@ -33,7 +33,7 @@ export const faqGroups: FaqGroup[] = [
         q: "When is the wedding?",
         // The date, the place and the time all come from content/site.ts.
         a: `${site.weddingDate}, at ${site.venue}. ${site.ceremonyTime}.`,
-        link: { href: "/weekend", label: "The whole weekend" },
+        link: { href: "/week", label: "The whole week" },
       },
       {
         q: "How do I RSVP?",
@@ -66,7 +66,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Is anything planned besides the wedding?",
         a: "Yes. To thank you for coming, we are organizing a few things to do together during the week, a turtle snorkel on us among them, with plenty of time left to enjoy Hawaiʻi your own way.",
-        link: { href: "/weekend", label: "The week, in order" },
+        link: { href: "/week", label: "The week, in order" },
       },
       {
         q: "Is there a registry?",
@@ -118,7 +118,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: "What time is it in Hawaiʻi?",
-        a: "On our wedding weekend, three hours behind the West Coast and six behind the East Coast. Hawaiʻi does not change its clocks.",
+        a: "During the wedding week, three hours behind the West Coast and six behind the East Coast. Hawaiʻi does not change its clocks.",
         link: { href: "/travel#island-time", label: "Island time, and the jet lag" },
       },
     ],
@@ -163,8 +163,8 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: "Will my phone work?",
-        a: "Mostly. Some beaches, mountains and valleys have no signal, so save the venue address and a screenshot of the weekend’s schedule before you set off.",
-        link: { href: "/weekend", label: "The weekend, to screenshot" },
+        a: "Mostly. Some beaches, mountains and valleys have no signal, so save the venue address and a screenshot of the week’s schedule before you set off.",
+        link: { href: "/week", label: "The week, to screenshot" },
       },
       {
         q: "Can I take fruit or my lei home?",

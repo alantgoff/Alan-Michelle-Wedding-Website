@@ -31,7 +31,7 @@ reaches a guest.
 | `site.ts` | Names, date, ceremony time, venue, RSVP line, welcome note, the menu, the footer, the 404 page |
 | `home.ts` | The home page: hero lines, "at a glance", the countdown, the welcome card |
 | `groups.ts` | Guest groups and their private invite slugs |
-| `activities.ts` | The Weekend page: every event, who can see each one, and the page's words |
+| `activities.ts` | The Week page: every event, who can see each one, and the page's words |
 | `travel.ts` | Getting there, the three roads over the mountains, where to stay, packing, the coast map's words, the two-minute version |
 | `island.ts` | The island guide: where to eat, the best spots, planning free days, the water, rules worth knowing, three facts about the venue |
 | `boatVote.ts` | The friends' boat vote: the options and the words (prices as notes for you) |
@@ -44,11 +44,11 @@ reaches a guest.
 
 ### The pages
 
-Home · Weekend · Travel · Island · Our story · Dress code · FAQ are in the menu. Registry is linked
+Home · Week · Travel · Island · Our story · Dress code · FAQ are in the menu. Registry is linked
 from the footer and the FAQ until it has real links; add it back to `nav` in `site.ts` when it does.
-The Weekend page used to be called Activities: `/activities` still works and forwards to `/weekend`.
+The Week page used to be called Activities, then Weekend: `/activities` and `/weekend` still work and forward to `/week`.
 
-Each fact lives in one place. The Weekend page is the only full schedule (Travel's map and the home
+Each fact lives in one place. The Week page is the only full schedule (Travel's map and the home
 page point to it); Travel is getting there, staying and getting around; The island is everything
 optional, the sea included. The FAQ gives the short answer and links to the full one.
 
@@ -133,7 +133,7 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   guest's group by name, and lifts away to the home page. It plays once, a tap skips it, and anyone
   who has asked their device for reduced motion goes straight to the page.
 - Tapping the logo at the top of the home page scatters plumeria down the screen.
-- The Weekend page shows each day's real date and that evening's sunset, and lists events in time order.
+- The Week page shows each day's real date and that evening's sunset, and lists events in time order.
 - Every page banner closes with a drawing of the coast in the logo's navy line (`components/ink/`),
   and the banner photograph drifts very slowly, with pools of sunlight that come and go. The
   drawings are engraved by hand in SVG: hatched shade on the ridges, a far range behind, trees and
@@ -163,7 +163,7 @@ Optional group activities are scoped to guest groups. Each group has its own lin
 device's invites (useful for testing).
 
 Opening a link once stores a cookie holding that invite slug and lands the guest on the home page,
-where they are welcomed by group and pointed to their weekend; from then on they see their group's
+where they are welcomed by group and pointed to their week; from then on they see their group's
 events. A guest sent two links (a sister who is also a bridesmaid) keeps both. The cookie is renewed
 on every visit by `proxy.ts`, so it lasts until the wedding even though browsers cap cookies at 400
 days. Filtering happens **on the server**, so events a guest cannot see never reach their browser
@@ -177,7 +177,7 @@ This is convenience-grade privacy, not security.
 
 ## The friends' boat vote
 
-At the foot of the Weekend page, guests holding the college and high school friends' invite link
+At the foot of the Week page, guests holding the college and high school friends' invite link
 see a short list of boat days and can vote: each types their name and picks one, voting again under
 the same name changes it, and the group sees the running count with names. Nobody else sees the
 vote, and `/api/boat-vote` answers "not found" to anyone without that link (`npm run test:gating`

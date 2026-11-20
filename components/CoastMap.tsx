@@ -10,6 +10,7 @@ import { site } from "@/content/site";
 import { travel, type Stay } from "@/content/travel";
 import { photos, type PhotoKey } from "@/content/photos";
 import { fill } from "@/lib/fill";
+import { ISLAND } from "@/lib/island";
 import { anchorFor, minutesOf, offsetFromWedding, weekendDay } from "@/lib/weekend";
 
 /**
@@ -74,8 +75,8 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
   const pin = PINS.find((p) => p.id === selected) ?? PINS[PINS.length - 1];
   const place = travel.map.places[pin.id];
   const words = travel.map.panel;
-  // What happens here, in the order of the weekend. The full story of each
-  // is on the Weekend page; the chart only names it.
+  // What happens here, in the order of the week. The full story of each
+  // is on the Week page; the chart only names it.
   const here = activities
     .filter((a) => placeOf(a) === pin.id)
     .sort((a, b) => dayRank(a.date) - dayRank(b.date) || minutesOf(a.time) - minutesOf(b.time));
@@ -160,9 +161,9 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
             <a className="coast-link" href={site.mapUrl} target="_blank" rel="noreferrer">
               {words.maps}
             </a>
-            {/* A plain link: only a real page load sets :target on the Weekend page. */}
-            <a className="coast-link" href="/weekend">
-              {words.weekend} →
+            {/* A plain link: only a real page load sets :target on the Week page. */}
+            <a className="coast-link" href="/week">
+              {words.week} →
             </a>
           </div>
         ) : null}
@@ -187,7 +188,7 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
                   <span className="coast-here-when">
                     {weekendDay(a.date)?.label ?? a.date} · {a.time}
                   </span>
-                  <a href={`/weekend#${anchorFor(a.title)}`}>{a.title}</a>
+                  <a href={`/week#${anchorFor(a.title)}`}>{a.title}</a>
                 </li>
               ))}
             </ul>
@@ -219,21 +220,6 @@ export function CoastMap({ activities }: { activities: Activity[] }) {
   );
 }
 
-const ISLAND =
-  // Kaʻena Point, the sharp western tip, then the North Shore to Kahuku
-  "M122 296 C168 244 240 198 330 168 C424 138 516 122 598 120 " +
-  // Kahuku Point, then south down the windward coast toward Kualoa
-  "C652 124 692 146 716 186 C736 220 744 258 746 294 " +
-  // Kāneʻohe Bay, bitten deep into the windward side
-  "C702 306 684 336 692 366 C700 396 728 410 756 420 " +
-  // Kailua and Lanikai, down to the point at Makapuʻu
-  "C778 430 792 450 788 478 C780 514 750 540 712 558 " +
-  // the south shore: Diamond Head, Waikīkī, town
-  "C666 580 612 592 558 596 C530 598 510 590 496 572 " +
-  // Pearl Harbor, cut up into the plain
-  "C484 556 464 554 454 570 C444 586 426 594 400 594 " +
-  // the ʻEwa plain, then the straight Waiʻanae coast back up to Kaʻena
-  "C340 594 272 568 226 520 C190 482 160 424 140 366 C130 336 124 314 122 296 Z";
 
 /**
  * A range drawn the old surveyors' way: a spine, and short strokes falling

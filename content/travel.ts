@@ -11,12 +11,15 @@
  * see them all, and keep the same standard when adding anything.
  */
 
+import type { PointKey } from "@/lib/island";
 import type { Passage as PassageItem } from "./island";
 import { site } from "./site";
 
 export type Stay = {
   id: "waikiki" | "laie" | "turtle-bay" | "bay" | "ko-olina";
   title: string;
+  /** Where it is, for the little locator map on the card (lib/island.ts). */
+  at: PointKey;
   /** Minutes to the gardens without traffic, shown large on the card. */
   minutes: string;
   text: string;
@@ -119,7 +122,7 @@ export const travel = {
    id: "make-a-week",
    title: "Make a week of it",
    text: "We hope you will treat this as a vacation, not only a wedding. If you can, arrive the weekend before (Saturday, September 30 or Sunday, October 1) and fly home the Saturday or Sunday after the wedding (October 7 or 8). To thank you for coming, we will organize a few things to do together, a turtle snorkel among them, and leave plenty of time to enjoy Hawaiʻi your own way.",
-   link: { href: "/weekend", label: "What we have planned" },
+   link: { href: "/week", label: "What we have planned" },
   },
   {
    id: "shuttle",
@@ -216,6 +219,7 @@ export const travel = {
   {
    // VERIFY before invitations: Kualoa Ranch's 45-minute figure, and the resort fee and parking ($45 each at one hotel in late 2026). Sources: kualoa.com; the hotels' own rate pages.
    id: "waikiki",
+   at: "waikiki",
    recommended: true,
    title: "Waikīkī",
    minutes: "45",
@@ -224,12 +228,14 @@ export const travel = {
   {
    // VERIFY before invitations: Paradise Bay Resort was listed for sale in late 2026; the licensed-rental counts are a snapshot of the City's map from that date. Sources: the hotel; City DPP Short-Term Rental Compliance Map (honolulu.gov/dpp).
    id: "bay",
+   at: "kaneohe",
    title: "Kāneʻohe Bay and Kailua",
    minutes: "15–⁠35",
    text: "On this side of the mountains, homes are kept for neighbors. A stay of fewer than 30 nights is legal here only in a home the City has licensed, and there are very few: about four dozen in Kailua and a single one in Kāneʻohe when we checked the City’s map in late 2026. A small, long-established hotel on the bay is Paradise Bay Resort in Kahaluʻu, ten to fifteen minutes from the gardens, with kayaks and paddleboards at its docks. Kailua is a little over half an hour away.",
   },
   {
    id: "laie",
+   at: "laie",
    title: "Lāʻie",
    minutes: "25",
    text: "The nearest full-size hotel is the Courtyard by Marriott Oahu North Shore in Lāʻie, next door to the Polynesian Cultural Center. It is about 12 miles up the coast road, 20 to 30 minutes from the gardens, with no mountains to cross.",
@@ -237,12 +243,14 @@ export const travel = {
   {
    // VERIFY before invitations: Turtle Bay's resort-zone condominiums are still licensed for short stays. Source: City DPP (honolulu.gov/dpp).
    id: "turtle-bay",
+   at: "turtle-bay",
    title: "Turtle Bay",
    minutes: "40",
    text: "Further around the North Shore, the old Turtle Bay Resort is now The Ritz-Carlton Oʻahu, Turtle Bay. It is about 19 miles from us, 35 to 45 minutes, a little shorter than the drive from Waikīkī and far quieter. The condominiums around the resort are also among the few places on Oʻahu licensed for short stays.",
   },
   {
    id: "ko-olina",
+   at: "ko-olina",
    title: "Ko Olina",
    minutes: "60",
    text: "On the far western shore, Ko Olina has Aulani, the Four Seasons and Marriott’s Ko Olina Beach Club, set around protected lagoons. It is the longest drive to us: about 38 miles, around an hour with clear roads and a good deal more in weekday traffic. We would save it for the days before or after the wedding.",
@@ -252,7 +260,7 @@ export const travel = {
   {
    // VERIFY before invitations: the under-30-night rule, NUC/registration number and TMK display, and the City's compliance map. Source: City DPP, honolulu.gov/dpp (Short-Term Rentals).
    title: "Before you book a rental",
-   text: "A legal listing for fewer than 30 nights shows two numbers: its City registration or NUC number, and its tax map key (TMK). If a listing for a home in Kailua or Kāneʻohe doesn’t show both, assume it can’t legally be rented for our weekend. You can look up any TMK on the City’s Short-Term Rental Compliance Map. A licensed bed-and-breakfast is a room or two in a home where the host lives. Hotels don’t appear on the map, and don’t need to.",
+   text: "A legal listing for fewer than 30 nights shows two numbers: its City registration or NUC number, and its tax map key (TMK). If a listing for a home in Kailua or Kāneʻohe doesn’t show both, assume it can’t legally be rented for our week. You can look up any TMK on the City’s Short-Term Rental Compliance Map. A licensed bed-and-breakfast is a room or two in a home where the host lives. Hotels don’t appear on the map, and don’t need to.",
   },
   {
    // VERIFY before invitations: the room-tax rates (TAT 11%, Oʻahu TAT 3%, GET 4.712%, total 18.712%), resort fees being taxed, and the 2025 fee-display rule. Source: Hawaiʻi Department of Taxation, tax.hawaii.gov; Hawaiʻi Office of Consumer Protection (fee display).
@@ -332,7 +340,7 @@ export const travel = {
    ceremony: "Time",
    address: "Address",
    maps: "Open the venue in Google Maps",
-   weekend: "The weekend, in order",
+   week: "The week, in order",
    here: "Happening here",
    /** Beside each place to stay on the chart. */
    minutes: "{minutes} minutes to the gardens",
@@ -343,7 +351,7 @@ export const travel = {
   * The packing list. Ticks are remembered on each guest's own device.
   * VERIFY before invitations: the sunscreen sale ban (oxybenzone, octinoxate; Act 104, 2018) and Oʻahu's checkout-bag charge (at least 15 cents). Sources: capitol.hawaii.gov; City Department of Environmental Services, opala.org.
   */
- packing: ["Sunscreen without oxybenzone or octinoxate, which Hawaiʻi no longer sells; the state suggests mineral ones","A light rain layer; showers pass in minutes","Shoes that like grass, for the ceremony lawn","Swimsuit, and a sarong or towel for the beach morning","A hat and sunglasses","Something light and warm for the breeze off the water at night","Insect repellent for the lawn at dusk; mosquitoes are busiest around sunrise and sunset","Your outfit for the wedding, something that breathes","Your REAL ID or passport","A folding tote; Oʻahu stores charge at least 15 cents for a checkout bag","A refillable water bottle","Any prescriptions, with a copy of the prescription","The venue address and a screenshot of the weekend, saved on your phone"],
+ packing: ["Sunscreen without oxybenzone or octinoxate, which Hawaiʻi no longer sells; the state suggests mineral ones","A light rain layer; showers pass in minutes","Shoes that like grass, for the ceremony lawn","Swimsuit, and a sarong or towel for the beach morning","A hat and sunglasses","Something light and warm for the breeze off the water at night","Insect repellent for the lawn at dusk; mosquitoes are busiest around sunrise and sunset","Your outfit for the wedding, something that breathes","Your REAL ID or passport","A folding tote; Oʻahu stores charge at least 15 cents for a checkout bag","A refillable water bottle","Any prescriptions, with a copy of the prescription","The venue address and a screenshot of the week’s schedule, saved on your phone"],
  /** The line above the packing list. {packed} and {total} are filled in for you. */
  packingStatus: {
   none: "Nothing packed yet",

@@ -9,25 +9,35 @@
  * something new, leave it out.
  */
 
+import type { PointKey } from "@/lib/island";
 import type { SpotPhotoKey } from "./photos";
 
 /**
  * One titled passage. Optional: `id`, so another page can link straight to
  * it, and `link`, a line underneath pointing to where a fact is told in full.
  */
-export type Passage = { title: string; text: string; id?: string; link?: { href: string; label: string } };
+export type Passage = {
+  title: string;
+  text: string;
+  id?: string;
+  link?: { href: string; label: string };
+  /** Where it is, for the little locator map beside the title (lib/island.ts). */
+  at?: PointKey;
+};
 
-/** A restaurant on the list. `price` runs $ to $$$$, from its own menu. */
 export type Weekday = "Sun" | "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat";
 /** Open every day of the week. */
 const daily: Weekday[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 /** Open every day but these. */
 const except = (...closed: Weekday[]): Weekday[] => daily.filter((d) => !closed.includes(d));
 
+/** A restaurant on the list. `price` runs $ to $$$$, from its own menu. */
 export type Place = {
   id?: string;
   name: string;
+  /** The neighborhood, shown in small type beside a locator map dotted at `at`. */
   area: string;
+  at: PointKey;
   what: string;
   order?: string;
   price?: string;
@@ -94,49 +104,75 @@ export const island = {
       {
         title: "Breakfast and coffee",
         places: [
-          { name: "Café Kaila", area: "Kapahulu", price: "$", what: "A sit-down breakfast and brunch café.", order: "Buttermilk pancakes with fruit, or the kalua pork Benedict", hours: "Mon–Fri 7 AM–6 PM, Sat–Sun 7 AM–3 PM", open: daily, href: "https://www.cafe-kaila-hawaii.com/" },
-          { name: "Koko Head Cafe", area: "Kaimukī", what: "A popular sit-down brunch spot.", hours: "Mon–Fri 8 AM–1 PM, Sat–Sun 8 AM–2 PM", open: daily, book: "Book on OpenTable", href: "https://kokoheadcafe.com" },
-          { name: "Kona Coffee Purveyors", area: "Waikīkī, International Market Place", what: "Kona coffee and b. patisserie pastries, at the counter.", order: "A kouign-amann or a croissant", book: "Counter service", href: "https://www.konacoffeepurveyors.com/pages/visit-us" },
+          { name: "Café Kaila", area: "Kapahulu", at: "kapahulu", price: "$", what: "A sit-down breakfast and brunch café.", order: "Buttermilk pancakes with fruit, or the kalua pork Benedict", hours: "Mon–Fri 7 AM–6 PM, Sat–Sun 7 AM–3 PM", open: daily, href: "https://www.cafe-kaila-hawaii.com/" },
+          { name: "Koko Head Cafe", area: "Kaimukī", at: "kaimuki", what: "A popular sit-down brunch spot.", hours: "Mon–Fri 8 AM–1 PM, Sat–Sun 8 AM–2 PM", open: daily, book: "Book on OpenTable", href: "https://kokoheadcafe.com" },
+          { name: "Kona Coffee Purveyors", area: "Waikīkī, International Market Place", at: "waikiki", what: "Kona coffee and b. patisserie pastries, at the counter.", order: "A kouign-amann or a croissant", book: "Counter service", href: "https://www.konacoffeepurveyors.com/pages/visit-us" },
         ],
       },
       {
         title: "Poke and plate lunch",
         places: [
-          { name: "Ono Seafood", area: "Kapahulu", price: "$", what: "A takeout poke counter with a couple of picnic tables.", order: "Shoyu ʻahi or spicy ʻahi poke", hours: "Tue–Sat 9 AM–4 PM", open: ["Tue", "Wed", "Thu", "Fri", "Sat"], book: "Walk-in", href: "https://www.instagram.com/ono.seafood/" },
-          { name: "Rainbow Drive-In", area: "Kapahulu", price: "$", what: "A classic plate-lunch drive-in, open since 1961.", order: "The mix plate or the loco moco", hours: "Daily 7 AM–9 PM", open: daily, book: "Walk-up", href: "https://www.rainbowdrivein.com/" },
-          { name: "Helena’s Hawaiian Food", area: "Kalihi", price: "$", what: "A family Hawaiian-food restaurant and a James Beard America’s Classic.", order: "Pipikaula short ribs and laulau", hours: "Tue–Fri 10 AM–7:30 PM only", open: ["Tue", "Wed", "Thu", "Fri"], book: "Order ahead by phone or online", href: "https://helenashawaiianfood.com" },
+          { name: "Ono Seafood", area: "Kapahulu", at: "kapahulu", price: "$", what: "A takeout poke counter with a couple of picnic tables.", order: "Shoyu ʻahi or spicy ʻahi poke", hours: "Tue–Sat 9 AM–4 PM", open: ["Tue", "Wed", "Thu", "Fri", "Sat"], book: "Walk-in", href: "https://www.instagram.com/ono.seafood/" },
+          { name: "Rainbow Drive-In", area: "Kapahulu", at: "kapahulu", price: "$", what: "A classic plate-lunch drive-in, open since 1961.", order: "The mix plate or the loco moco", hours: "Daily 7 AM–9 PM", open: daily, book: "Walk-up", href: "https://www.rainbowdrivein.com/" },
+          { name: "Helena’s Hawaiian Food", area: "Kalihi", at: "kalihi", price: "$", what: "A family Hawaiian-food restaurant and a James Beard America’s Classic.", order: "Pipikaula short ribs and laulau", hours: "Tue–Fri 10 AM–7:30 PM only", open: ["Tue", "Wed", "Thu", "Fri"], book: "Order ahead by phone or online", href: "https://helenashawaiianfood.com" },
         ],
       },
       {
         title: "Dinners worth booking",
         places: [
-          { name: "Fête", area: "Chinatown", price: "$$$", what: "Seasonal New American cooking from a James Beard Award–winning chef; the menu changes with the seasons.", hours: "Daily, Sunday from 4 PM", open: daily, book: "OpenTable for 8 or fewer; call for more", href: "https://www.fetehawaii.com/" },
-          { name: "The Pig & the Lady", area: "Kaimukī", price: "$$–$$$", what: "Modern Vietnamese.", order: "The phở French dip at lunch", hours: "Lunch Wed–Sun, dinner Tue–Sat; closed Monday", open: except("Mon"), book: "Book on OpenTable", href: "https://thepigandthelady.com" },
-          { name: "Mud Hen Water", area: "Kaimukī", price: "$$$", what: "Small plates built on Hawaiʻi-grown ingredients.", order: "Fried ʻulu and the grilled octopus", hours: "Dinner Tue–Sun, brunch Sat–Sun; closed Monday", open: except("Mon"), book: "Book on OpenTable", href: "https://www.mudhenwater.com/" },
-          { name: "Arden Waikīkī", area: "Waikīkī, Diamond Head end", price: "$$$", what: "Locally owned, contemporary shared plates.", hours: "Wed–Sun 5–9 PM", open: except("Mon", "Tue"), book: "Book on OpenTable", href: "https://www.ardenwaikiki.com/" },
+          { name: "Fête", area: "Chinatown", at: "chinatown", price: "$$$", what: "Seasonal New American cooking from a James Beard Award–winning chef; the menu changes with the seasons.", hours: "Daily, Sunday from 4 PM", open: daily, book: "OpenTable for 8 or fewer; call for more", href: "https://www.fetehawaii.com/" },
+          { name: "The Pig & the Lady", area: "Kaimukī", at: "kaimuki", price: "$$–$$$", what: "Modern Vietnamese.", order: "The phở French dip at lunch", hours: "Lunch Wed–Sun, dinner Tue–Sat; closed Monday", open: except("Mon"), book: "Book on OpenTable", href: "https://thepigandthelady.com" },
+          { name: "Mud Hen Water", area: "Kaimukī", at: "kaimuki", price: "$$$", what: "Small plates built on Hawaiʻi-grown ingredients.", order: "Fried ʻulu and the grilled octopus", hours: "Dinner Tue–Sun, brunch Sat–Sun; closed Monday", open: except("Mon"), book: "Book on OpenTable", href: "https://www.mudhenwater.com/" },
+          { name: "Arden Waikīkī", area: "Waikīkī, Diamond Head end", at: "waikiki", price: "$$$", what: "Locally owned, contemporary shared plates.", hours: "Wed–Sun 5–9 PM", open: except("Mon", "Tue"), book: "Book on OpenTable", href: "https://www.ardenwaikiki.com/" },
         ],
       },
       {
         title: "Malasadas and shave ice",
         places: [
-          { name: "Leonard’s Bakery", area: "Kapahulu", price: "$", what: "The classic malasada bakery.", order: "An original sugar malasada, or a custard or haupia puff", hours: "Daily 5:30 AM–7 PM", open: daily, book: "Walk-in", href: "https://www.leonardshawaii.com/" },
-          { name: "Waiola Shave Ice", area: "Mōʻiliʻili and Kapahulu", price: "$", what: "A family shave ice shop since 1978.", order: "The azuki mochi bowl", hours: "Daily 11 AM–6 PM (Waiola St)", open: daily, book: "Walk-up", href: "https://www.waiolashaveice.co/" },
+          { name: "Leonard’s Bakery", area: "Kapahulu", at: "kapahulu", price: "$", what: "The classic malasada bakery.", order: "An original sugar malasada, or a custard or haupia puff", hours: "Daily 5:30 AM–7 PM", open: daily, book: "Walk-in", href: "https://www.leonardshawaii.com/" },
+          { name: "Waiola Shave Ice", area: "Mōʻiliʻili and Kapahulu", at: "moiliili", price: "$", what: "A family shave ice shop since 1978.", order: "The azuki mochi bowl", hours: "Daily 11 AM–6 PM (Waiola St)", open: daily, book: "Walk-up", href: "https://www.waiolashaveice.co/" },
         ],
       },
       {
         title: "Near the venue and the North Shore",
         places: [
-          { name: "Aunty Pat’s Café", area: "Kualoa Ranch", what: "The ranch café, with the ranch’s own beef.", order: "The loco moco, or the banana-kalo bread pudding", hours: "Daily 7:30 AM–3 PM", open: daily, href: "https://kualoa.com/dine-and-shop" },
-          { id: "waiahole", name: "Waiāhole Poi Factory", area: "Waiāhole, near Kāneʻohe", price: "$", what: "Hawaiian food from a counter in an old valley poi mill.", order: "The laulau plate, and the Sweet Lady of Waiāhole for dessert", hours: "Wed–Mon 10 AM–6 PM; closed Tuesday", open: except("Tue"), book: "Walk-in; hand-pounded poi on Wednesdays and Sundays", href: "https://www.waiaholepoifactory.com/" },
-          { name: "Over Easy", area: "Kailua", what: "A small breakfast and brunch spot.", order: "The kalua pig hash or the Kailua eggs", hours: "Wed–Sun mornings; closed Mon–Tue", open: except("Mon", "Tue"), book: "No reservations; call to join the waitlist", href: "https://www.overeasyhi.com/over-easy" },
-          { name: "Giovanni’s Shrimp Truck", area: "Kahuku", price: "$", what: "The original North Shore garlic-shrimp truck.", order: "The scampi plate", hours: "Daily 10:30 AM–6:30 PM", open: daily, book: "Walk-up; cash recommended", href: "https://www.giovannisshrimptruck.com/" },
-          { name: "Matsumoto Shave Ice", area: "Haleʻiwa", price: "$", what: "North Shore shave ice since 1951.", order: "A large shave ice, or the Ichiban special", hours: "Daily 10 AM–6 PM", open: daily, book: "Walk-up; expect a line", href: "https://www.matsumotoshaveice.com/" },
+          { name: "Aunty Pat’s Café", area: "Kualoa Ranch", at: "kualoa", what: "The ranch café, with the ranch’s own beef.", order: "The loco moco, or the banana-kalo bread pudding", hours: "Daily 7:30 AM–3 PM", open: daily, href: "https://kualoa.com/dine-and-shop" },
+          { id: "waiahole", name: "Waiāhole Poi Factory", area: "Waiāhole, near Kāneʻohe", at: "waiahole", price: "$", what: "Hawaiian food from a counter in an old valley poi mill.", order: "The laulau plate, and the Sweet Lady of Waiāhole for dessert", hours: "Wed–Mon 10 AM–6 PM; closed Tuesday", open: except("Tue"), book: "Walk-in; hand-pounded poi on Wednesdays and Sundays", href: "https://www.waiaholepoifactory.com/" },
+          { name: "Over Easy", area: "Kailua", at: "kailua", what: "A small breakfast and brunch spot.", order: "The kalua pig hash or the Kailua eggs", hours: "Wed–Sun mornings; closed Mon–Tue", open: except("Mon", "Tue"), book: "No reservations; call to join the waitlist", href: "https://www.overeasyhi.com/over-easy" },
+          { name: "Giovanni’s Shrimp Truck", area: "Kahuku", at: "kahuku", price: "$", what: "The original North Shore garlic-shrimp truck.", order: "The scampi plate", hours: "Daily 10:30 AM–6:30 PM", open: daily, book: "Walk-up; cash recommended", href: "https://www.giovannisshrimptruck.com/" },
+          { name: "Matsumoto Shave Ice", area: "Haleʻiwa", at: "haleiwa", price: "$", what: "North Shore shave ice since 1951.", order: "A large shave ice, or the Ichiban special", hours: "Daily 10 AM–6 PM", open: daily, book: "Walk-up; expect a line", href: "https://www.matsumotoshaveice.com/" },
+          // VERIFY before invitations: Haleiwa Seafood's hours and that the katsu is still on the menu. Its own menu (updated January 2024) lists an ahi katsu plate and burger, not pork. Source: haleiwaseafood.com.
+          { name: "Haleiwa Seafood", area: "Haleʻiwa", at: "haleiwa", price: "$", what: "A Haleʻiwa food truck, and the katsu stop on a North Shore day.", order: "The ahi katsu plate", hours: "Daily from 11 AM", open: daily, book: "Walk-up", href: "https://www.haleiwaseafood.com/" },
+          // VERIFY before invitations: Green World's hours (daily 7 AM–6 PM in late 2026), free tours and tastings. Source: greenworldcoffeefarm.com.
+          { name: "Green World Coffee Farm", area: "Wahiawā, on the drive north", at: "wahiawa", price: "$", what: "A working coffee farm with an espresso bar. Tastings of its coffees and teas are free, and so is a walk through the trees.", order: "A tasting first, then a coffee from the bar", hours: "Daily 7 AM–6 PM", open: daily, book: "Walk-in; farm tours free, first come, first served", href: "https://www.greenworldcoffeefarm.com/" },
         ],
       },
     ] satisfies { title: string; places: Place[] }[],
+    /**
+     * Poke, from Foodland's seafood counter, with a drawing of each kind.
+     * `kinds[].id` picks the drawing in components/PokeBowls.tsx.
+     * VERIFY before invitations: the flavors (they vary by store and day; the
+     * shop's own listings in late 2026 included shoyu, spicy, limu and Hawaiian
+     * style ʻahi, tako three ways and hot shoyu), and Foodland Farms Ala Moana's
+     * hours (6 AM–10 PM). Sources: foodland.com/hawaiis-home-for-poke; shop.foodland.com.
+     */
+    poke: {
+      title: "Poke, from Foodland",
+      lede: "Ask anyone here where to buy poke and you will often hear the name of a supermarket. Foodland’s seafood counter makes it fresh every day: buy it by the pound to share, or as a bowl over hot rice. Ask for a taste if you can’t decide; the flavors change by store and by day.",
+      store: { id: "foodland-ala-moana", name: "Foodland Farms Ala Moana", area: "Ala Moana Center", at: "ala-moana" as PointKey, hours: "Daily 6 AM–10 PM", href: "https://foodland.com/hawaiis-home-for-poke" },
+      also: "There are Foodlands all over the island, Kailua and Lāʻie among them.",
+      tip: "Buy it the day you eat it, and keep it cold on the way to the beach.",
+      kinds: [
+        { id: "shoyu", name: "Shoyu ʻahi", what: "The classic. ʻAhi tuna in shoyu (soy sauce) and sesame oil, with sweet onion and green onion." },
+        { id: "spicy", name: "Spicy ʻahi", what: "ʻAhi in a creamy, gently hot mayonnaise sauce, often with orange flecks of masago, or fish roe." },
+        { id: "limu", name: "Limu ʻahi", what: "ʻAhi with limu, a crunchy local seaweed, and a pinch of Hawaiian salt." },
+        { id: "hawaiian", name: "Hawaiian style", what: "The oldest way: ʻahi with Hawaiian salt, limu and ʻinamona, roasted crushed kukui nut." },
+        { id: "tako", name: "Tako", what: "Octopus, sliced and a little chewy. Foodland makes it Hawaiian style, with kim chee, or with limu." },
+        { id: "hot-shoyu", name: "Hot shoyu ʻahi", what: "Foodland’s newest: shoyu with gochujang, ʻinamona, sesame oil, Hawaiian salt and Thai chilis." },
+      ] as const,
+    },
     menuTitle: "On the menu",
     menu: [
-      { word: "Poke", means: "cubes of raw fish, usually ʻahi tuna, dressed with soy sauce, sesame and onion" },
       { word: "Plate lunch", means: "rice by the scoop, macaroni salad and a main" },
       { word: "Spam musubi", means: "rice topped with pan-fried Spam and wrapped in nori" },
       { word: "Kālua pig", means: "smoky pulled pork, traditionally cooked in an underground oven" },
@@ -167,7 +203,7 @@ export const island = {
    */
   explore: {
     /**
-     * What is open on which day of the wedding weekend, at the top of the
+     * What is open on which day of the wedding week, at the top of the
      * chapter. Each line is short and points to the passage below (or in
      * Eating) that tells it in full, by that passage's `id`.
      */
@@ -186,61 +222,61 @@ export const island = {
     passages: [
       {
         // VERIFY before invitations: tour names and lengths, the Ocean Voyage’s Sunday/holiday rule, and how far ahead UTV tours sell out. Source: kualoa.com.
-        id: "kualoa-tours",
+        id: "kualoa-tours", at: "kualoa",
         title: "More of Kualoa",
         text: "If you would like to see more of the ranch, Kualoa runs its own tours. The ninety-minute Movie Sites & Ranch Tour visits Kaʻaʻawa Valley. The Ocean Voyage (not on Sundays or federal holidays) crosses a Hawaiian fishpond the ranch dates to about eight hundred years ago, and there are a farm tour, horseback rides and UTV tours. The UTVs sell out weeks ahead, so book early at kualoa.com.",
       },
       {
         // VERIFY before invitations: the loop trail and Keaniani lookout are open. Source: dlnr.hawaii.gov/dsp (Ahupuaʻa ʻO Kahana State Park).
-        id: "kahana",
+        id: "kahana", at: "kahana",
         title: "Kahana Valley",
         text: "Five miles up the road, Ahupuaʻa ʻO Kahana is a “living park”, where families still make their homes in the valley. An easy one-mile loop climbs to Keaniani lookout, over the bay. Huilua Fishpond, on the east side of the bay, is a National Historic Landmark and one of the few survivors of the roughly ninety-seven fishponds that once lined Oʻahu’s coast. Kahana is one of the wettest valleys on the island, so stay on the trail and keep out of the stream, above all if you have a cut.",
       },
       {
         // VERIFY before invitations: hours (8:30 AM–4:30 PM, last entry 4:15) and admission ($10 adults). Source: byodo-in.com.
-        id: "byodo-in",
+        id: "byodo-in", at: "kaneohe",
         title: "Byodo-In Temple",
         text: "At the foot of the Koʻolau in Kāneʻohe, the Byodo-In Temple is a smaller copy of the nearly thousand-year-old Byodo-In at Uji, in Japan. The temple is open daily from 8:30 AM to 4:30 PM (last entry 4:15), and admission is $10 for adults. It sits within a memorial park, so dress as you would for a place of worship and leave the beachwear in the car.",
       },
       {
         // VERIFY before invitations: hours (9 AM–4 PM), closed Thursdays, free entry. Source: honolulu.gov/parks (Honolulu Botanical Gardens).
-        id: "hoomaluhia",
+        id: "hoomaluhia", at: "kaneohe",
         title: "Hoʻomaluhia Botanical Garden",
-        text: "Hoʻomaluhia is four hundred acres of garden under the Koʻolau, planted by region of the tropical world around a 32-acre lake. The Army Corps of Engineers built it to keep Kāneʻohe from flooding, and it is free. It is open from 9 AM to 4 PM but closed every Thursday, so save it for the weekend.",
+        text: "Hoʻomaluhia is four hundred acres of garden under the Koʻolau, planted by region of the tropical world around a 32-acre lake. The Army Corps of Engineers built it to keep Kāneʻohe from flooding, and it is free. It is open from 9 AM to 4 PM but closed every Thursday, so plan it for another day.",
       },
       {
         // VERIFY before invitations: Kailua Beach lifeguard hours (8 AM–6:30 PM), Lanikai’s holiday parking closures and planned signs, TheBus 671. Sources: Honolulu Ocean Safety (honolulu.gov/ocean); honolulu.gov/dts; thebus.org.
-        id: "kailua",
+        id: "kailua", at: "kailua",
         title: "Kailua and Lanikai",
         text: "Start at Kailua Beach, which has a parking lot and lifeguards every day from 8 AM to 6:30 PM. Lanikai, around the point, has no lifeguard and almost no parking: the city closes its streets to parking from 10 AM to 3 PM on many holiday weekends and is planning permanent no-parking signs along the loop. Park in Kailua and walk, or take TheBus 671, which loops through Lanikai. The Lanikai Pillbox hike up Kaʻiwa Ridge is about a mile there and back, steep at first and without shade, to concrete lookouts built in 1943. Skip it after rain; the trail gets slippery.",
       },
       {
         // VERIFY before invitations: no commercial activity in Kāneʻohe Bay on Sundays and federal holidays, and which tours hold a state permit. Source: DLNR Division of Boating and Ocean Recreation, HAR §13-256 (Kāneʻohe Bay Ocean Waters).
-        id: "sandbar",
+        id: "sandbar", at: "heeia",
         title: "Ahu o Laka, the sandbar",
-        text: "Ahu o Laka is a sandbar in the middle of Kāneʻohe Bay that rises from the water at low tide and is awash at high tide. To go with a tour, choose one that holds a state permit for Kāneʻohe Bay. No commercial boat may run in the bay on Sundays or federal holidays, and on our weekend that means Sunday, October 8 and Monday, October 9, Columbus Day. Saturday is your day.",
+        text: "Ahu o Laka is a sandbar in the middle of Kāneʻohe Bay that rises from the water at low tide and is awash at high tide. To go with a tour, choose one that holds a state permit for Kāneʻohe Bay. No commercial boat may run in the bay on Sundays or federal holidays, and that week it means Sunday, October 8 and Monday, October 9, Columbus Day. Saturday is your day.",
       },
       {
         // VERIFY before invitations: HIMB’s guided visits (ages five and up) and the ʻOhana Saturday schedule. Source: himb.hawaii.edu.
-        id: "coconut-island",
+        id: "coconut-island", at: "heeia",
         title: "Coconut Island, for families",
         text: "Moku o Loʻe, in Kāneʻohe Bay, is home to the Hawaiʻi Institute of Marine Biology: a working lab, reached only on the institute’s own guided visits, by boat, for ages five and up. One of them, ʻOhana Saturday, is held on the first Saturday of each month, which in October 2028 is the 7th. The island’s coconut palms are credited to Princess Bernice Pauahi Bishop, who planted a grove here in the 1880s. Check the institute’s public tours page nearer the time.",
       },
       {
         // VERIFY before invitations: the trail gate hours (7 AM–6:45 PM). Source: dlnr.hawaii.gov/dsp (Kaiwi State Scenic Shoreline).
-        id: "makapuu",
+        id: "makapuu", at: "makapuu",
         title: "Makapuʻu Point",
         text: "The Makapuʻu Point Lighthouse Trail is two miles there and back on pavement, climbing about 500 feet to a lookout above the red-roofed lighthouse of 1909 (the lighthouse itself is off-limits) and, on a clear day, a view of Molokaʻi and Lānaʻi. In October the gate opens at 7 AM and closes at 6:45 PM. There is no shade, water or restroom, and it can be very windy at the top, so bring a hat and plenty to drink.",
       },
       {
         // VERIFY before invitations: closed Mondays and Tuesdays; reservations open two days ahead at 7 AM HST; walk-in tickets at 6:45 AM; $25 entry (12 and under free) plus online fee; $3 cash parking; last entry 1:30 PM; no cancellations or changes. Source: the City’s reservation site, pros.hnl.info/hanauma-bay.
-        id: "hanauma",
+        id: "hanauma", at: "hanauma",
         title: "Hanauma Bay, with a plan",
         text: "Hanauma Bay is closed every Monday and Tuesday. Visitors from the mainland should reserve: booking opens online two days ahead at 7 AM Hawaiʻi time, and only a few walk-in tickets are handed out at 6:45 AM. For Saturday the 7th, book on Thursday morning; for Sunday, book on the morning of the wedding. As of late 2026, entry is $25 plus a small online fee (children twelve and under are free), parking is $3 in cash, the last entry is at 1:30 PM, and everyone watches a short film before going down to the water. Bookings cannot be canceled or changed, so be sure of your day.",
       },
       {
         // VERIFY before invitations: the Pūpūkea marine-life rule and Waimea Bay/Laniākea lifeguard hours. Sources: dlnr.hawaii.gov/dar (Marine Life Conservation Districts); Honolulu Ocean Safety.
-        id: "north-shore",
+        id: "north-shore", at: "pupukea",
         title: "The North Shore in October",
         text: "In the state’s calendar October is the end of the North Shore’s calmer season, but the first winter swells often arrive this month. Check the surf forecast, ask a lifeguard, and if a high-surf advisory is posted, stay out of the water. On a calm day, Shark’s Cove and Three Tables, inside the Pūpūkea marine reserve, are lovely for snorkeling. There are no lifeguards there, and nothing may be taken from the water. Waimea Bay and Laniākea have lifeguards daily from 8 AM to 6:30 PM.",
       },
@@ -250,7 +286,7 @@ export const island = {
   /** Chapter: in the water. Moved here from the Travel page, which links to it. */
   water: {
     lede:
-      "Most of the weekend is within sight of the sea, and some of it is in it. A few things to know first.",
+      "Most of the week is within sight of the sea, and some of it is in it. A few things to know first.",
     passages: [
       {
         // VERIFY before invitations: the sea temperature (about 80°F in early October) and “one of only two barrier reefs in the state”. Sources: NOAA National Data Buoy Center (Mokapu Point buoy); Hawaiʻi Institute of Marine Biology.

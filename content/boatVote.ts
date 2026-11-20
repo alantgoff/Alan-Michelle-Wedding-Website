@@ -1,6 +1,6 @@
 /**
  * THE FRIENDS' BOAT VOTE — a short list of boat days for our college and
- * high school friends to vote on. It appears at the foot of the Weekend page
+ * high school friends to vote on. It appears at the foot of the Week page
  * only for guests holding that group's invite link; nobody else sees it, or
  * can vote.
  *
@@ -14,12 +14,16 @@
  *
  * {name}, {n} are filled in for you.
  */
+import type { PointKey } from "@/lib/island";
 import type { GroupId } from "./groups";
 
 export type BoatOption = {
   /** A short id, letters and dashes only. Changing it loses the votes cast for it. */
   id: string;
   name: string;
+  /** Where it leaves from: a short name in small type beside a locator map dotted at `at`. */
+  from: string;
+  at: PointKey;
   /** One or two plain sentences. */
   what: string;
   /** Short facts: where it leaves from, how long, how many it holds, what is included. */
@@ -53,6 +57,8 @@ export const boatVote = {
     {
       id: "sandbar",
       name: "Kāneʻohe Bay sandbar",
+      from: "Heʻeia Kea Harbor",
+      at: "heeia",
       what: "A private catamaran out to the sandbar in the middle of Kāneʻohe Bay, with snorkeling and paddleboards.",
       details: [
         "Leaves from Heʻeia Kea Small Boat Harbor, 35–45 minutes from Waikīkī",
@@ -66,6 +72,8 @@ export const boatVote = {
     {
       id: "sunset",
       name: "Waikīkī sunset sail",
+      from: "Waikīkī",
+      at: "waikiki",
       what: "A private catamaran sail off Waikīkī at sunset, with an open bar.",
       details: [
         "Boards from the beach in Waikīkī, a short walk from the hotels",
@@ -78,6 +86,8 @@ export const boatVote = {
     {
       id: "west-side",
       name: "West-side snorkel and dinner",
+      from: "Ko Olina",
+      at: "ko-olina",
       what: "A private catamaran off Ko Olina with snorkeling and cocktails, and dinner on board if we add it.",
       details: [
         "Leaves from Ko Olina Marina, about 50 minutes from Waikīkī",
@@ -91,6 +101,8 @@ export const boatVote = {
     {
       id: "north-shore",
       name: "North Shore sail",
+      from: "Haleʻiwa Harbor",
+      at: "haleiwa",
       what: "A private sail along the North Shore’s surf breaks, with a swim stop when the sea allows.",
       details: [
         "Leaves from Haleʻiwa Harbor, about an hour from Waikīkī",

@@ -6,7 +6,7 @@ import { castVote, VOTER_COOKIE, voteStoreReady } from "@/lib/voteStore";
 
 /**
  * Records a friend's vote for the boat day, from the plain form on the
- * Weekend page (it works without JavaScript), then sends them back to it.
+ * Week page (it works without JavaScript), then sends them back to it.
  *
  * Only a guest holding the group's invite link may vote; anyone else gets
  * the same "not found" as any unknown address, so the vote's existence is
@@ -14,7 +14,7 @@ import { castVote, VOTER_COOKIE, voteStoreReady } from "@/lib/voteStore";
  */
 
 function back(req: NextRequest, status: string) {
-  return NextResponse.redirect(new URL(`/weekend?vote=${status}#boat-vote`, req.url), 303);
+  return NextResponse.redirect(new URL(`/week?vote=${status}#boat-vote`, req.url), 303);
 }
 
 export async function POST(req: NextRequest) {

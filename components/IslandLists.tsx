@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Place, Spot, Weekday } from "@/content/island";
 import { spotPhotos, type SpotPhoto } from "@/content/photos";
+import { IslandDot } from "./IslandDot";
 import { SaveToggle, type MyWeekWords } from "./MyWeek";
 
 const WEEKDAY_NUMBER: Record<Weekday, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
@@ -52,8 +53,8 @@ export function Places({
               <span className="place-name">{p.name}</span>
             )}
             <span className="place-meta">
-              {p.area}
-              {p.price ? ` · ${p.price}` : ""}
+              <IslandDot at={p.at} label={p.area} />
+              {p.price ? <span className="place-price">{p.price}</span> : null}
             </span>
             <SaveToggle item={{ id: placeId(p), name: p.name, note: p.area }} words={save} />
           </p>

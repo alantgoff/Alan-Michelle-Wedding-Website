@@ -1,3 +1,4 @@
+import { IslandDot } from "@/components/IslandDot";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BoatVote } from "@/components/BoatVote";
@@ -5,7 +6,7 @@ import { MoreLink } from "@/components/Guide";
 import { PageHero, Section } from "@/components/Page";
 import { Plumeria } from "@/components/Plumeria";
 import { PrintButton } from "@/components/PrintButton";
-import { weekendPage as copy } from "@/content/activities";
+import { weekPage as copy } from "@/content/activities";
 import { boatVote } from "@/content/boatVote";
 import { heldGroups, visibleActivities } from "@/content/visibleActivities";
 import { fill } from "@/lib/fill";
@@ -15,10 +16,10 @@ export const metadata: Metadata = { title: copy.tab };
 export const dynamic = "force-dynamic";
 
 /**
- * The weekend, in order: the one full schedule on the site. Travel's chart
+ * The week, in order: the one full schedule on the site. Travel's chart
  * and the home page only point here.
  */
-export default async function Weekend({
+export default async function Week({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -70,7 +71,7 @@ export default async function Weekend({
                       <div>
                         <strong>{a.time}</strong>
                         <br />
-                        <small>{a.location}</small>
+                        {a.at ? <IslandDot at={a.at} label={a.location} /> : <small>{a.location}</small>}
                       </div>
                       <div>
                         {mine ? (

@@ -23,7 +23,7 @@ export const dynamic = "force-dynamic";
 // Each card previews the photo from the page it links to.
 const cardPhoto: Record<string, PhotoKey> = {
   travel: "travel",
-  weekend: "activities",
+  week: "activities",
   island: "island",
   story: "story",
   "dress-code": "dressCode",
@@ -83,7 +83,7 @@ export default async function Home({
             <p className="hero-first">
               {/* A plain link on purpose: only a real page load sets :target,
                   which is what makes the event glow when the guest lands on it. */}
-              <a href={`/weekend#${anchorFor(first.title)}`}>{firstLine}</a>
+              <a href={`/week#${anchorFor(first.title)}`}>{firstLine}</a>
             </p>
           ) : null}
           <h1>
@@ -96,8 +96,8 @@ export default async function Home({
             <span>{site.weddingDate}</span>
             <span>{site.location}</span>
             {held.length > 0 && !first ? (
-              <Link className="hero-weekend" href="/weekend">
-                {home.seeWeekend}
+              <Link className="hero-weekend" href="/week">
+                {home.seeWeek}
               </Link>
             ) : null}
           </div>

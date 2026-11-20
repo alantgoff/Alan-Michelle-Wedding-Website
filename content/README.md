@@ -60,7 +60,7 @@ If you are not sure of something new, leave it out.
 - **`site.ts`**: names, date, ceremony time, venue, the RSVP line, the menu (`nav`), the footer,
   the 404 page, and the guide labels. Update this first, including `isoDate`.
 - **`home.ts`**: the home page, the countdown and the welcome card.
-- **`activities.ts`**: the Weekend page. Each event has an `audience`: `everyone`, `family`,
+- **`activities.ts`**: the Week page. Each event has an `audience`: `everyone`, `family`,
   `college` or `wedding-party`. TypeScript catches invalid values, and a guest never sees an event
   that is not for them. This is the only full schedule on the site. An event's `date` is a day name
   within three days of the wedding ("Thursday") or, earlier in the week, its date ("2028-10-02");

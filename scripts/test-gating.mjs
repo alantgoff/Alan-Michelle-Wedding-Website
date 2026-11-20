@@ -1,7 +1,7 @@
 /**
  * Privacy test for the invite-link gating.
  *
- * Asserts that the raw HTML of /weekend, /travel and the home page contains
+ * Asserts that the raw HTML of /week, /travel and the home page contains
  * ONLY the open events plus the private events of the groups the cookie holds.
  * Run against a running server: `npm start` in one shell, `npm run test:gating`
  * in another. Keep the slugs below in step with content/groups.ts.
@@ -15,14 +15,14 @@ const privateEvents = {
 };
 const slugs = { family: "family-2a6u46wevkmc", college: "college-4uwudjry68or", "wedding-party": "party-4ln6lu72u2wd" };
 const all = Object.values(privateEvents);
-const pages = ["/weekend", "/travel", "/"];
+const pages = ["/week", "/travel", "/"];
 
-// /weekend lists every event the visitor may see. The home page names only
+// /week lists every event the visitor may see. The home page names only
 // the earliest of the visitor's own events, and the Travel chart only those
 // tied to a place on it, so there the rule is one-sided: nothing outside the
 // visitor's groups may appear.
 function check(html, allowed, context) {
-  const listsAll = context.includes("/weekend");
+  const listsAll = context.includes("/week");
   for (const event of all) {
     const present = html.includes(event);
     const shouldBePresent = allowed.includes(event);
@@ -36,7 +36,7 @@ function check(html, allowed, context) {
   // The "Just for ..." mark only ever appears beside the visitor's own events.
   // Count rendered marks (the streamed payload repeats text, not markup), and
   // separately make sure no label text at all reaches an untagged visitor.
-  if (context.includes("/weekend")) {
+  if (context.includes("/week")) {
     const marks = (html.match(/class="activity-for"/g) || []).length;
     if (marks !== allowed.length) throw new Error(`${context}: ${marks} "Just for" marks, expected ${allowed.length}`);
     if (!allowed.length && /Just for (family|our college and high school friends|the wedding party)/.test(html)) {
@@ -51,8 +51,12 @@ async function html(path, cookie) {
 
 // 0. The page's old address still lands on it.
 const old = await fetch(`${base}/activities`, { redirect: "manual" });
-if (old.status !== 308 || !old.headers.get("location")?.endsWith("/weekend")) {
-  throw new Error(`/activities should redirect permanently to /weekend, got ${old.status} ${old.headers.get("location")}`);
+if (old.status !== 308 || !old.headers.get("location")?.endsWith("/week")) {
+  throw new Error(`/activities should redirect permanently to /week, got ${old.status} ${old.headers.get("location")}`);
+}
+const older = await fetch(`${base}/weekend`, { redirect: "manual" });
+if (older.status !== 308 || !older.headers.get("location")?.endsWith("/week")) {
+  throw new Error(`/weekend should redirect permanently to /week, got ${older.status} ${older.headers.get("location")}`);
 }
 
 // 1. No cookie at all: open events only.
@@ -107,12 +111,12 @@ for (const [who, cookie] of [
   ["wedding party", await cookieFor(slugs["wedding-party"])],
   ["forged", "wedding_group=college"],
 ]) {
-  if ((await html("/weekend", cookie)).includes(voteTitle)) throw new Error(`${who}: saw the friends' boat vote`);
+  if ((await html("/week", cookie)).includes(voteTitle)) throw new Error(`${who}: saw the friends' boat vote`);
   const res = await vote(cookie);
   if (res.status !== 404) throw new Error(`${who}: the vote answered ${res.status}, expected 404`);
 }
 const friends = await cookieFor(slugs.college);
-if (!(await html("/weekend", friends)).includes(voteTitle)) throw new Error("college: the boat vote is missing");
+if (!(await html("/week", friends)).includes(voteTitle)) throw new Error("college: the boat vote is missing");
 if ((await vote(friends)).status !== 303) throw new Error("college: a vote should be answered with a redirect back");
 
 console.log("PASS: open events visible to all, private events only via valid invite slugs, links accumulate, the boat vote only for its group.");

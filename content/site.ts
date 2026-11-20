@@ -15,7 +15,7 @@ export const site = {
   isoDate: "2028-10-06T16:00:00-10:00",
   // TODO: ceremony time. When it is set, write it as it should read on its
   // own, e.g. "Ceremony at 4:00 PM". It appears on the home page, the Travel
-  // chart and in the FAQ. (The Weekend page's time is in content/activities.ts.)
+  // chart and in the FAQ. (The Week page's time is in content/activities.ts.)
   ceremonyTime: "Ceremony time to come",
   venue: "Palikū Gardens at Kualoa Ranch",
   // Palikū Gardens is in Kualoa itself. Kaʻaʻawa is the next land division
@@ -27,9 +27,9 @@ export const site = {
   coordinates: { lat: 21.5205, lng: -157.8378 },
   tagline: "A celebration where the mountains meet the sea.",
   /** Shown in link previews and to search engines (which are asked not to list the site). */
-  description: "Wedding weekend at Palikū Gardens, Kualoa Ranch, Kualoa, Oʻahu",
+  description: "Wedding week at Palikū Gardens, Kualoa Ranch, Kualoa, Oʻahu",
   welcome:
-    "We cannot wait to gather our favorite people on Oʻahu. This site will hold everything you need for the weekend; a few details are still to come, and we will add them as they are settled.",
+    "We cannot wait to gather our favorite people on Oʻahu. This site will hold everything you need for the week; a few details are still to come, and we will add them as they are settled.",
 
   /**
    * RSVP. The decision so far is that RSVPs are collected somewhere other
@@ -40,7 +40,7 @@ export const site = {
   /** The menu at the top of every page, in order. `href` is the page's address without the slash. */
   nav: [
     { href: "", label: "Home" },
-    { href: "weekend", label: "Weekend" },
+    { href: "week", label: "Week" },
     { href: "travel", label: "Travel" },
     { href: "island", label: "Island" },
     { href: "story", label: "Our story" },

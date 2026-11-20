@@ -1,3 +1,4 @@
+import { IslandDot } from "@/components/IslandDot";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CoastMap } from "@/components/CoastMap";
@@ -15,7 +16,7 @@ import { fill } from "@/lib/fill";
 import { crossings } from "@/lib/flying";
 
 // The chart lists what happens at each place, filtered by the visitor's
-// invite group, so this page is rendered per request like the Weekend is.
+// invite group, so this page is rendered per request like the Week is.
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: travel.page.tab };
 
@@ -103,7 +104,10 @@ export default async function Travel() {
                 <span className="stay-number">{item.minutes}</span>
                 <span className="stay-unit">{copy.minutesUnit}</span>
               </p>
-              <h3>{item.title}</h3>
+              <div className="stay-head">
+                <h3>{item.title}</h3>
+                <IslandDot at={item.at} label={item.title} hideLabel />
+              </div>
               <p>{item.text}</p>
             </article>
           ))}

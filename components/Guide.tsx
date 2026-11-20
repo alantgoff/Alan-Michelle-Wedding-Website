@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Passage } from "@/content/island";
 import { site } from "@/content/site";
+import { IslandDot } from "./IslandDot";
 import { SaveToggle, type MyWeekWords } from "./MyWeek";
 import { Reveal } from "./Reveal";
 
@@ -75,10 +76,11 @@ export function Passages({ items, save }: { items: readonly PassageItem[]; save?
     <div className="passages">
       {items.map((item) => (
         <article className="passage" key={item.title} id={item.id}>
-          {save && item.id ? (
+          {(save && item.id) || item.at ? (
             <div className="passage-head">
               <h3>{item.title}</h3>
-              <SaveToggle item={{ id: item.id, name: item.title }} words={save} />
+              {item.at ? <IslandDot at={item.at} label={item.title} hideLabel /> : null}
+              {save && item.id ? <SaveToggle item={{ id: item.id, name: item.title }} words={save} /> : null}
             </div>
           ) : (
             <h3>{item.title}</h3>

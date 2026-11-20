@@ -1341,7 +1341,7 @@ h3 {
 .place-head {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 2px 14px;
 }
 .place-head .save-toggle {
@@ -1470,7 +1470,7 @@ a.place-name:hover {
   }
 }
 
-/* The Island page's "plan around the weekend": a short day-by-day index. */
+/* The Island page's "plan your free days": a short day-by-day index. */
 .by-day {
   max-width: 920px;
   margin: 0 0 clamp(36px, 5vw, 60px);
@@ -3972,4 +3972,261 @@ footer {
 .open-on[data-day="5"] .place[data-open]:not([data-open~="5"]) > .place-closed,
 .open-on[data-day="6"] .place[data-open]:not([data-open~="6"]) > .place-closed {
   display: block;
+}
+
+/* ---------- Little locator maps ------------------------------- */
+
+/* Oʻahu the size of a word, with a dot on the place; the name beside it in
+   small grey type. Used wherever a location would otherwise be a bare name. */
+.island-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  vertical-align: middle;
+}
+.island-dot svg {
+  flex: none;
+  width: 44px;
+  height: auto;
+  overflow: visible;
+}
+.island-dot-land {
+  fill: var(--sand);
+  stroke: var(--ink-line);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.island-dot-halo {
+  fill: color-mix(in srgb, var(--lagoon) 22%, transparent);
+}
+.island-dot-mark {
+  fill: var(--lagoon);
+  stroke: var(--white);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+.island-dot-name {
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+.island-dot-bare svg {
+  width: 58px;
+}
+.place-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px 10px;
+}
+.place-price {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.stay-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.passage-head .island-dot {
+  margin-left: auto;
+}
+.passage-head .island-dot + .save-toggle {
+  margin-left: 0;
+}
+.boat-option-from {
+  margin: 4px 0 6px;
+}
+.activity .island-dot {
+  margin-top: 4px;
+}
+
+/* ---------- Poke, from Foodland (The island) ------------------- */
+
+.poke {
+  margin: clamp(36px, 5vw, 56px) 0 0;
+  padding: clamp(22px, 3vw, 32px) clamp(18px, 3vw, 34px) clamp(18px, 2.5vw, 26px);
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  /* the drawings' own colours: decorative only, never text */
+  --poke-ahi: #c4525b;
+  --poke-spicy: #e48862;
+  --poke-sheen: #f4bcb6;
+  --poke-shoyu: #6b4128;
+  --poke-hot: #9c3423;
+  --poke-green: #5c8a45;
+  --poke-green-in: #d6e8bf;
+  --poke-limu: #3d5a35;
+  --poke-nut: #7b5a3a;
+  --poke-tako: #8c3a52;
+  --poke-tako-in: #f4e1dc;
+  --poke-roe: #ef7d2a;
+}
+.poke h3 {
+  margin: 0 0 8px;
+  font-size: clamp(1.35rem, 2vw, 1.6rem);
+}
+.poke-lede {
+  max-width: 64ch;
+  margin: 0 0 14px;
+}
+.poke-store {
+  padding: 12px 0 14px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  scroll-margin-top: calc(var(--nav-h) + 20px);
+}
+.poke-store p {
+  margin: 0;
+}
+.poke-store .place-when {
+  margin-top: 4px;
+}
+.poke-kinds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  gap: 18px clamp(20px, 3vw, 36px);
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.poke-kinds li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.poke-kinds h4 {
+  margin: 0 0 2px;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+.poke-kinds p {
+  margin: 0;
+  font-size: 0.92rem;
+}
+.poke-tip {
+  margin: 18px 0 0;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--muted);
+}
+.poke-art {
+  flex: none;
+  width: 124px;
+  height: 124px;
+}
+@media (max-width: 480px) {
+  .poke-art {
+    width: 104px;
+    height: 104px;
+  }
+}
+.poke-bowl {
+  fill: var(--paper);
+}
+.poke-shade {
+  fill: var(--ink-line);
+  opacity: 0.06;
+}
+.poke-rim,
+.poke-rim-in,
+.poke-rim-ticks {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-linecap: round;
+}
+.poke-rim {
+  stroke-width: 1.6;
+}
+.poke-rim-in {
+  stroke-width: 0.8;
+}
+.poke-rim-ticks {
+  stroke-width: 0.9;
+  opacity: 0.7;
+}
+.poke-sauce {
+  fill: var(--poke-shoyu);
+  opacity: 0.3;
+}
+.poke-sauce-hot {
+  fill: var(--poke-hot);
+  opacity: 0.35;
+}
+.poke-cubes {
+  fill: var(--poke-ahi);
+  stroke: var(--ink-line);
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+  stroke-opacity: 0.6;
+}
+.poke-cubes-spicy {
+  fill: var(--poke-spicy);
+}
+.poke-sheen {
+  fill: none;
+  stroke: var(--poke-sheen);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+.poke-drizzle {
+  fill: none;
+  stroke: #f7d9b2;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+.poke-limu {
+  fill: none;
+  stroke: var(--poke-limu);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.poke-onion {
+  fill: #f8f3e8;
+  stroke: #a59a86;
+  stroke-width: 0.45;
+}
+.poke-green {
+  fill: var(--poke-green-in);
+  stroke: var(--poke-green);
+  stroke-width: 0.9;
+}
+.poke-sesame {
+  fill: none;
+  stroke: #f1e8d0;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+.poke-masago {
+  fill: var(--poke-roe);
+}
+.poke-salt {
+  fill: #ffffff;
+  stroke: #8f9a9a;
+  stroke-width: 0.35;
+}
+.poke-inamona {
+  fill: var(--poke-nut);
+}
+.poke-tako {
+  fill: var(--poke-tako-in);
+  stroke: var(--poke-tako);
+  stroke-width: 1.8;
+}
+.poke-cups {
+  fill: #e4aab6;
+}
+.poke-chili {
+  fill: #f6c9b6;
+  stroke: #c4302b;
+  stroke-width: 1;
+}
+.poke-chili-seeds {
+  stroke: #f3e0a0;
+  stroke-width: 0.8;
+  stroke-linecap: round;
 }
