@@ -60,10 +60,26 @@ export const home = {
   /** The cards at the foot of the page, one per page in the menu. */
   cardGo: "Explore →",
 
-  /** The number that counts down to the day. */
+  /** The live line beside the countdown. {clock}, {home}, {time}, {hours}… are filled in for you. */
+  now: {
+    lead: "Right now at Kualoa it is",
+    yours: "({home} where you are)",
+    dark: "Still dark over the bay; the sun comes up at {time}.",
+    hour: "hour",
+    hours: "hours",
+    left: "{hours} {unit}{minutes} of daylight left.",
+    minutes: " and {minutes} minutes",
+    setting: "The sun sets at {time}, and drops behind the ridge at Kualoa before that.",
+    gone: "The sun went down at {time}; the bay is under stars.",
+  },
+
+  /** The number that counts down. Tap it and it counts in weeks, then full moons. */
   countdown: {
     day: "day until we celebrate",
     days: "days until we celebrate",
+    weeks: "weeks until we celebrate",
+    moons: "full moons until we celebrate",
+    another: "Count another way",
     today: { word: "Today", line: "see you on the lawn" },
     after: { word: "Married", line: "and so glad you were there" },
   },

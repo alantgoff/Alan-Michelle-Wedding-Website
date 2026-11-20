@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Countdown } from "@/components/Countdown";
 import { Horizon } from "@/components/ink/Horizon";
 import { Logo } from "@/components/Logo";
+import { NowAtKualoa } from "@/components/NowAtKualoa";
 import { PhotoBackdrop } from "@/components/PhotoFrame";
 import { Reveal } from "@/components/Reveal";
 import { PlumeriaBurst } from "@/components/PlumeriaBurst";
@@ -139,6 +140,7 @@ export default async function Home({
       <section className="facts">
         <div>
           <Countdown target={site.isoDate} />
+          <NowAtKualoa />
         </div>
         <div>
           <p className="kicker">{home.facts.kicker}</p>

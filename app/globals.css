@@ -3363,3 +3363,288 @@ footer {
     height: 0.7in;
   }
 }
+
+/* ---------- Restored widgets: countdown toggle, live line, flight chart, kōlea ---------- */
+.countdown-turn {
+  display: block;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.countdown-turn strong {
+  animation: count-turn 0.5s ease-out;
+}
+.countdown-turn:hover span {
+  color: var(--lagoon);
+}
+.countdown-turn:focus-visible {
+  outline: 2px solid var(--lagoon);
+  outline-offset: 8px;
+}
+@keyframes count-turn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.now {
+  margin: 34px 0 0;
+  max-width: 38ch;
+  min-height: 5.1em;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.now strong {
+  font-weight: 600;
+  color: var(--deep);
+  font-variant-numeric: tabular-nums;
+}
+.flying {
+  margin-bottom: clamp(30px, 4.4vw, 56px);
+}
+.flying h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+.flying > p {
+  max-width: 62ch;
+  margin: 0;
+}
+.flying-pick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 16px;
+  margin-top: 20px !important;
+}
+.flying-pick label {
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.flying-pick select {
+  min-height: 46px;
+  padding: 8px 40px 8px 16px;
+  font-family: var(--display);
+  font-size: 1.3rem;
+  color: var(--deep);
+  background: var(--white)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2316696e' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat right 15px center / 12px;
+  border: 1px solid color-mix(in srgb, var(--deep) 26%, transparent);
+  border-radius: 3px;
+  appearance: none;
+  cursor: pointer;
+}
+.flying-chart {
+  display: block;
+  width: 100%;
+  max-width: 860px;
+  height: auto;
+  margin-top: 8px;
+  overflow: visible;
+}
+.flying-miles text {
+  font-family: var(--body);
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  fill: var(--muted);
+}
+.flying-home {
+  font-family: var(--display);
+  font-size: 19px;
+  font-style: italic;
+  fill: var(--ink-line);
+}
+.flying-path {
+  vector-effect: none;
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+}
+.flying-result {
+  min-height: 9.5em;
+  margin-top: 6px;
+}
+.flying-result p {
+  margin: 0;
+}
+.flying-figure {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.3;
+}
+.flying-number {
+  font-size: 1.9em;
+  line-height: 1;
+  color: var(--ink-line);
+  font-variant-numeric: lining-nums;
+}
+.flying-result ul {
+  max-width: 62ch;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.flying-result li {
+  padding: 9px 0;
+  border-top: 1px solid var(--rule);
+}
+.flying-prompt {
+  font-style: italic;
+  color: var(--muted);
+}
+.flying-table {
+  max-width: 640px;
+  margin-top: 14px;
+}
+.flying-table summary {
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 0.92rem;
+  color: var(--lagoon);
+  cursor: pointer;
+  border-bottom: 1px solid color-mix(in srgb, var(--lagoon) 45%, transparent);
+  list-style: none;
+}
+.flying-table summary::-webkit-details-marker {
+  display: none;
+}
+.flying-table table {
+  width: 100%;
+  margin-top: 14px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.flying-table th,
+.flying-table td {
+  padding: 8px 12px 8px 0;
+  text-align: left;
+  font-weight: 400;
+  border-top: 1px solid var(--rule);
+}
+.flying-table thead th {
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+  border-top: 0;
+}
+.flying-table td {
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 620px) {
+  .flying-miles text {
+    font-size: 26px;
+    translate: 0 5px;
+  }
+  .flying-miles text:nth-child(even) {
+    display: none;
+  }
+  .flying-home {
+    font-size: 30px;
+  }
+}
+@media (scripting: none) {
+  .flying-pick,
+  .flying-chart,
+  .flying-result {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flying-path {
+    animation: flying-draw 0.9s ease-out both;
+  }
+  .flying-bird,
+  .flying-home {
+    animation: flying-arrive 0.5s ease-out 0.55s both;
+  }
+}
+@keyframes flying-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes flying-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.kolea {
+  display: grid;
+  grid-template-columns: clamp(130px, 18vw, 230px) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 64px);
+  align-items: center;
+  max-width: 1400px;
+  padding: clamp(36px, 5vw, 64px) var(--gutter);
+  border-top: 1px solid var(--rule);
+}
+.kolea-bird {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.kolea-bird:disabled {
+  cursor: default;
+  opacity: 1;
+}
+.kolea-bird svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.kolea h3 {
+  margin: 0 0 8px;
+  font-size: clamp(1.45rem, 2.2vw, 1.75rem);
+}
+.kolea p {
+  max-width: 62ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+@media (max-width: 620px) {
+  .kolea {
+    grid-template-columns: 1fr;
+  }
+  .kolea-bird {
+    width: 170px;
+  }
+}
+@media print {
+  .flying-pick,
+  .flying-prompt {
+    display: none !important;
+  }
+  .kolea {
+    break-inside: avoid;
+  }
+  .flying {
+    display: none !important;
+  }
+}
+

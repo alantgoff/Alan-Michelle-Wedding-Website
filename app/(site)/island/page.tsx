@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Chapter, Contents, Passages, type ChapterRef } from "@/components/Guide";
 import { Places } from "@/components/IslandLists";
+import { Kolea } from "@/components/Kolea";
 import { PageHero } from "@/components/Page";
 import { island } from "@/content/island";
 
@@ -69,6 +70,8 @@ export default function Island() {
       <Chapter chapter={chapter("rules")} lede={island.rules.lede}>
         <Passages items={island.rules.passages} />
       </Chapter>
+
+      <Kolea title={island.kolea.title} text={island.kolea.text} watch={island.kolea.watch} />
 
       <Chapter chapter={chapter("venue")}>
         <Passages items={island.venue.passages} />

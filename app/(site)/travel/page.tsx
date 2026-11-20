@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CoastMap } from "@/components/CoastMap";
+import { FlyingFrom } from "@/components/FlyingFrom";
 import { Chapter, Contents, MoreLink, Passages, type ChapterRef } from "@/components/Guide";
 import { CrossingGlyph } from "@/components/ink/CrossingGlyph";
 import { PackingList } from "@/components/PackingList";
 import { PageHero } from "@/components/Page";
 import { PrintButton } from "@/components/PrintButton";
 import { WeatherPanel } from "@/components/WeatherPanel";
+import { flying } from "@/content/flying";
 import { travel } from "@/content/travel";
 import { visibleActivities } from "@/content/visibleActivities";
 import { fill } from "@/lib/fill";
+import { crossings } from "@/lib/flying";
 
 // The chart lists what happens at each place, filtered by the visitor's
 // invite group, so this page is rendered per request like the Weekend is.
@@ -32,6 +35,7 @@ const minutes = Object.fromEntries(travel.stays.map((s) => [s.id, s.minutes]));
 
 export default async function Travel() {
   const activities = await visibleActivities();
+  const far = crossings();
 
   return (
     <>
@@ -59,6 +63,16 @@ export default async function Travel() {
       </Chapter>
 
       <Chapter chapter={chapter("getting-there")}>
+        <FlyingFrom
+          rows={far.rows}
+          sunset={far.sunset}
+          title={flying.title}
+          intro={flying.intro}
+          prompt={flying.prompt}
+          tableLabel={flying.tableLabel}
+          words={flying.words}
+        />
+
         <Passages items={[...travel.beforeYouFly, ...travel.gettingThere]} />
 
         <div className="crossings-block" id="crossings">

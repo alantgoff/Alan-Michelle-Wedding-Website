@@ -262,6 +262,14 @@ export const island = {
     ] satisfies Passage[],
   },
 
+  /** A bird guests will meet on any lawn here, drawn so it walks when tapped. */
+  kolea: {
+    title: "Look down: the kōlea",
+    watch: "Watch the kōlea take a few steps",
+    // VERIFY before invitations: migration distance and timing. Source: dlnr.hawaii.gov (Pacific golden plover).
+    text: "On almost any lawn on this island you will see a small, speckled-gold bird standing very still. It is the Pacific golden plover. It flies about three thousand miles nonstop from Alaska to spend the winter here, and comes back to the same patch of grass year after year.",
+  },
+
   /** Chapter: about the venue. Three facts, nothing more. */
   venue: {
     passages: [
