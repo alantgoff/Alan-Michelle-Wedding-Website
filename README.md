@@ -110,7 +110,8 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 ## Small things guests may notice
 
 - The home page greets guests who arrived through their invite link by group, and shows the
-  time and the light at the venue right now.
+  time and the light at the venue right now. Tapping the countdown turns days into weeks, then
+  full moons.
 - Sunrise and sunset come from `lib/sun.ts`, computed for the venue's coordinates in
   `content/site.ts`; the wedding-day sunset on the home page needs no editing.
 - `/wedding.ics` is the "Add to calendar" file. It is an all-day event until the ceremony time is
@@ -118,6 +119,15 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - On a phone the menu folds behind a "Menu" button, so the header is one short row. Without
   JavaScript the links simply show.
 - The packing list on Travel remembers ticks in the guest's own browser. Nothing is sent anywhere.
+- Travel has a "flying from" picker: choose a city to see the miles, how far to set the watch, and
+  what time the wedding-day sunset is back home. It remembers the city on that device.
+- On The island, "Open on…" is a row of days from the Saturday before the wedding to the Sunday
+  after: tap one and the restaurants closed that day fade, with a line saying so. It reads each
+  place's `open` days in `content/island.ts`, so keep those in step with `hours`.
+- "My week", also on The island, is a list guests build by tapping Save on a restaurant or a day
+  out. It lives in their browser only (localStorage) and links back down to each entry.
+- The kōlea on The island walks a few steps when tapped, and stays still for anyone who has asked
+  their device for reduced motion.
 - A wrong URL lands on a "past the reef" page rather than a bare 404.
 - Opening an invite link plays a short welcome: the logo rises out of its own waves, greets the
   guest's group by name, and lifts away to the home page. It plays once, a tap skips it, and anyone
@@ -125,7 +135,11 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - Tapping the logo at the top of the home page scatters plumeria down the screen.
 - The Weekend page shows each day's real date and that evening's sunset, and lists events in time order.
 - Every page banner closes with a drawing of the coast in the logo's navy line (`components/ink/`),
-  and the banner photograph drifts very slowly, with pools of sunlight that come and go.
+  and the banner photograph drifts very slowly, with pools of sunlight that come and go. The
+  drawings are engraved by hand in SVG: hatched shade on the ridges, a far range behind, trees and
+  stipple at the foot. The coast map on Travel draws both ranges as hachured relief, and the three
+  road crossings show their tunnels. The fine detail (hatching, stipple) was generated once and
+  pasted in as path data, so nothing is computed when a page loads.
 - Our story is set like a small book: fourteen chapters on a spine, each with its photographs mounted
   as plates with paper corners. Add `text` to a chapter in `content/story.ts` and it opens with a drop cap; add
   `notes` and they appear in the margin, initialled, one voice each.

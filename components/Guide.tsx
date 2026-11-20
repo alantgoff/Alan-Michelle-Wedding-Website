@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Passage } from "@/content/island";
 import { site } from "@/content/site";
+import { SaveToggle, type MyWeekWords } from "./MyWeek";
 import { Reveal } from "./Reveal";
 
 /**
@@ -65,13 +66,23 @@ export function Chapter({
   );
 }
 
-/** Short titled passages in two easy columns, ruled like a printed page. */
-export function Passages({ items }: { items: readonly PassageItem[] }) {
+/**
+ * Short titled passages in two easy columns, ruled like a printed page. With
+ * `save`, each passage that has an id gets a Save button for My week.
+ */
+export function Passages({ items, save }: { items: readonly PassageItem[]; save?: Pick<MyWeekWords, "save" | "saved" | "saveLabel"> }) {
   return (
     <div className="passages">
       {items.map((item) => (
         <article className="passage" key={item.title} id={item.id}>
-          <h3>{item.title}</h3>
+          {save && item.id ? (
+            <div className="passage-head">
+              <h3>{item.title}</h3>
+              <SaveToggle item={{ id: item.id, name: item.title }} words={save} />
+            </div>
+          ) : (
+            <h3>{item.title}</h3>
+          )}
           <p>{item.text}</p>
           {item.link ? <MoreLink href={item.link.href} label={item.link.label} /> : null}
         </article>

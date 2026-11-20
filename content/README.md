@@ -68,7 +68,10 @@ If you are not sure of something new, leave it out.
 - **`travel.ts`**: getting there, the three roads, the rules of the road, where to stay, the
   weather link, packing, the two-minute version at the top, and the words on the drawn coast map.
 - **`island.ts`**: where to eat (`eat.groups`, one line per place), planning free days (with "Plan
-  your free days"), in the water, rules worth knowing, and three facts about the venue.
+  your free days"), in the water, rules worth knowing, and three facts about the venue. Each
+  restaurant's `open` lists the days it opens (`daily`, `except("Mon")` or the days by name) for
+  the "Open on…" filter; leave it out when the hours aren't known. The words for that filter and
+  for "My week" are in `eat.openOn` and `myWeek`.
 - **`boatVote.ts`**: the friends' boat vote (only that group sees it): the options, the words, and
   an optional closing date. Changing an option's `id` loses the votes cast for it.
 - **`faq.ts`**: questions and answers. Keep each answer short; where a fact is told in full on

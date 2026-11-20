@@ -1,13 +1,48 @@
 import Image from "next/image";
-import type { Place, Spot } from "@/content/island";
+import type { Place, Spot, Weekday } from "@/content/island";
 import { spotPhotos, type SpotPhoto } from "@/content/photos";
+import { SaveToggle, type MyWeekWords } from "./MyWeek";
 
-/** Restaurants, one compact row each: name, where, what to order, when, booking. */
-export function Places({ places, labels }: { places: readonly Place[]; labels: { order: string } }) {
+const WEEKDAY_NUMBER: Record<Weekday, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+/** A place's open days as weekday numbers (0 = Sunday), or null when its hours aren't known. */
+export function openNumbers(p: Place): number[] | null {
+  return p.open ? p.open.map((d) => WEEKDAY_NUMBER[d]) : null;
+}
+
+/** "Helena’s Hawaiian Food" → "helenas-hawaiian-food", for the anchor My week links to. */
+export function placeId(p: Place): string {
+  return (
+    p.id ??
+    p.name
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f\u02bb\u2019']/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+  );
+}
+
+/**
+ * Restaurants, one compact row each: name, where, what to order, when,
+ * booking, and a Save button for My week. `data-open` lists the weekdays it
+ * opens, for the "Open on…" filter; the closed line shows only when the filter
+ * fades the place.
+ */
+export function Places({
+  places,
+  labels,
+  save,
+}: {
+  places: readonly Place[];
+  labels: { order: string; closed: string };
+  save: Pick<MyWeekWords, "save" | "saved" | "saveLabel">;
+}) {
   return (
     <ul className="places">
       {places.map((p) => (
-        <li className="place" key={p.name} id={p.id}>
+        <li className="place" key={p.name} id={placeId(p)} data-open={openNumbers(p)?.join(" ")}>
+          {p.open ? <p className="place-closed">{labels.closed}</p> : null}
           <p className="place-head">
             {p.href ? (
               <a className="place-name" href={p.href} target="_blank" rel="noreferrer">
@@ -20,6 +55,7 @@ export function Places({ places, labels }: { places: readonly Place[]; labels: {
               {p.area}
               {p.price ? ` · ${p.price}` : ""}
             </span>
+            <SaveToggle item={{ id: placeId(p), name: p.name, note: p.area }} words={save} />
           </p>
           <p className="place-what">{p.what}</p>
           {p.order ? (
