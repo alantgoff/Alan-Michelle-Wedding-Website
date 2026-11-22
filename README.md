@@ -139,10 +139,14 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - The places on the site are our picks, and the site says so: a small ink seal (a plumeria in a
   ring, `components/Seal.tsx`) and "Our picks" head each list of places, with one line saying it
   is not a directory (`content/picks.ts`). The same seal marks the days we planned something on.
-- The island opens with our picks on a drawn map (`components/PicksMap.tsx`): the island in six
-  parts, each a numbered pin; choose one and its restaurants and days out open beside the chart,
-  with "Add to my week" on each, and every pick is a dot on it that "Open on…" fades on days it
-  is closed. A Map/List switch shows the full list instead (`components/IslandViews.tsx`); the
+- The island opens with our picks on a drawn map (`components/PicksMap.tsx`). Choose a part of
+  the island and the chart zooms to a close-up of it, a simple drawing of that stretch (Waikīkī
+  between the Ala Wai and the sea, Kapahulu Avenue, Lēʻahi...) with each pick a numbered pin. The
+  list beside it (below it on a phone) scrolls on its own, so the map stays in view: tap a pin and
+  the list brings up its card; point at a card and its pin lights. "Whole island" goes back to the
+  overview, with the main roads and each part a pin. "Open on…" fades the pins and cards closed on
+  the day you pick. The close-ups are drawn in `components/region-maps.ts` (coast, roads, labels,
+  and `spots` placing each pick by its id; a pick without a spot sits at its neighborhood). A Map/List switch shows the full list instead (`components/IslandViews.tsx`); the
   choice is remembered, links into the list (like `/island#hanauma`) switch to it, and without
   JavaScript the list is all there is. The parts are `explorer.regions` in `content/island.ts`;
   a place joins a part by its `at` point. The chart is the same drawing as Travel's coast map

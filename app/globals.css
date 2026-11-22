@@ -5053,22 +5053,435 @@ footer {
 .pick .place-what {
   font-size: 0.97rem;
 }
-/* On a phone the parts of the island sit two to a row, short, so the
-   chosen part's picks start soon after the chart. */
-@media (max-width: 560px) {
-  .picks-map .coast-index {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+/* ---------- The picks map: close-ups and the list beside them ---- */
+
+/* The close-up maps, in the coast chart's pen and colours. */
+.rm-land {
+  fill: var(--sand);
+  stroke: var(--ink-line);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.rm-coast {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 0.9;
+  opacity: 0.3;
+  vector-effect: non-scaling-stroke;
+}
+.rm-water {
+  fill: color-mix(in srgb, var(--sky) 40%, var(--white));
+  stroke: var(--ink-line);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+.rm-park {
+  fill: color-mix(in srgb, var(--seagrass) 22%, var(--sand));
+  stroke: color-mix(in srgb, var(--seagrass) 70%, transparent);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.rm-field {
+  fill: none;
+  stroke: color-mix(in srgb, var(--seagrass) 75%, transparent);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.rm-canal-edge {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 9;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.rm-canal {
+  fill: none;
+  stroke: color-mix(in srgb, var(--sky) 55%, var(--white));
+  stroke-width: 6.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.rm-hachure {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 0.9;
+  opacity: 0.5;
+  vector-effect: non-scaling-stroke;
+}
+.rm-crest {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 1.5;
+  opacity: 0.8;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.rm-crater {
+  fill: color-mix(in srgb, var(--seagrass) 14%, var(--sand));
+  stroke: var(--ink-line);
+  stroke-width: 1.1;
+  vector-effect: non-scaling-stroke;
+}
+.rm-shoal {
+  fill: color-mix(in srgb, var(--sand) 70%, transparent);
+  stroke: var(--ink-line);
+  stroke-width: 1.4;
+  stroke-dasharray: 0.1 6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.rm-block {
+  fill: var(--paper);
+  stroke: var(--ink-line);
+  stroke-width: 0.9;
+  vector-effect: non-scaling-stroke;
+}
+.rm-street {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 1.4;
+  opacity: 0.75;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.rm-road-edge {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.rm-road {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.rm-trail {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 1.6;
+  stroke-dasharray: 4 5;
+  vector-effect: non-scaling-stroke;
+}
+.rm-label {
+  font-family: var(--body);
+  fill: var(--deep);
+  paint-order: stroke;
+  stroke: color-mix(in srgb, var(--sand) 85%, transparent);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.rm-label-place {
+  font-family: var(--display);
+  font-size: 26px;
+  letter-spacing: 0.22em;
+}
+.rm-label-street {
+  font-size: 16px;
+  font-style: italic;
+  fill: var(--muted);
+}
+.rm-label-water {
+  font-family: var(--display);
+  font-size: 22px;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  fill: var(--lagoon);
+  stroke: none;
+}
+.rm-label-feature {
+  font-size: 17px;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+.rm-label-small {
+  font-size: 15px;
+  font-style: italic;
+  fill: var(--muted);
+}
+.rm-star path {
+  fill: var(--sun);
+  stroke: var(--deep);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+.rm-label-star {
+  font-family: var(--display);
+  font-size: 20px;
+  font-style: italic;
+}
+
+/* Pins for the picks on a close-up: numbered, the name on hover or when chosen. */
+.pick-pin {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  z-index: 1;
+}
+.pick-pin-n {
+  position: absolute;
+  inset: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--deep);
+  font-family: var(--body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--deep);
+  transition: background 0.2s, transform 0.2s, opacity 0.25s;
+}
+.pick-pin-out .pick-pin-n {
+  border-radius: 5px;
+}
+.pick-pin-name {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 2px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 2px 8px;
+  background: var(--deep);
+  border-radius: 2px;
+  font-family: var(--body);
+  font-size: 0.74rem;
+  color: var(--white);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.pick-pin:hover,
+.pick-pin[aria-pressed="true"],
+.pick-pin:focus-visible {
+  z-index: 3;
+}
+.pick-pin:hover .pick-pin-name,
+.pick-pin[aria-pressed="true"] .pick-pin-name,
+.pick-pin:focus-visible .pick-pin-name {
+  opacity: 1;
+}
+.pick-pin[aria-pressed="true"] .pick-pin-n {
+  background: var(--lagoon);
+  color: var(--white);
+  transform: scale(1.15);
+}
+.pick-pin:focus-visible {
+  outline: 2px solid var(--lagoon);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+.open-on[data-day="0"] .pick-pin[data-open]:not([data-open~="0"]),
+.open-on[data-day="1"] .pick-pin[data-open]:not([data-open~="1"]),
+.open-on[data-day="2"] .pick-pin[data-open]:not([data-open~="2"]),
+.open-on[data-day="3"] .pick-pin[data-open]:not([data-open~="3"]),
+.open-on[data-day="4"] .pick-pin[data-open]:not([data-open~="4"]),
+.open-on[data-day="5"] .pick-pin[data-open]:not([data-open~="5"]),
+.open-on[data-day="6"] .pick-pin[data-open]:not([data-open~="6"]) {
+  opacity: 0.3;
+}
+.picks-whole {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 4;
+  min-height: 34px;
+  padding: 4px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--white);
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--deep);
+  cursor: pointer;
+}
+.picks-whole:hover,
+.picks-whole:focus-visible {
+  border-color: var(--lagoon);
+  outline: none;
+}
+.picks-hint {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  margin: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--white) 88%, transparent);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* The list beside the map scrolls on its own, so the map stays in view. */
+.coast-panel.picks-panel {
+  position: relative;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-top: 90px;
+}
+.picks-panel-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 18px clamp(18px, 2.4vw, 28px) 12px;
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+}
+.picks-panel-head .coast-panel-name {
+  margin-top: 4px;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+}
+.picks-panel-body {
+  padding: 4px clamp(18px, 2.4vw, 28px) 24px;
+}
+.pick .place-head {
+  gap: 2px 10px;
+}
+.pick-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--deep);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--deep);
+}
+.pick-out .pick-n {
+  border-radius: 4px;
+}
+.pick.is-active {
+  background: color-mix(in srgb, var(--aqua) 12%, transparent);
+  box-shadow: -10px 0 0 color-mix(in srgb, var(--aqua) 12%, transparent), 10px 0 0 color-mix(in srgb, var(--aqua) 12%, transparent);
+}
+.pick.is-active .pick-n {
+  background: var(--lagoon);
+  border-color: var(--lagoon);
+  color: var(--white);
+}
+.coast-index-short {
+  display: none;
+}
+
+@media (min-width: 980px) {
+  .picks-map {
+    grid-template-columns: minmax(0, 1.2fr) minmax(330px, 0.8fr);
+    height: clamp(540px, calc(100vh - var(--nav-h) - var(--jump-h) - 36px), 860px);
+    align-items: stretch;
+  }
+  .picks-map .coast-chart-column {
+    position: static;
+    overflow-y: auto;
+  }
+  .picks-panel {
+    height: 100%;
+  }
+}
+@media (max-width: 979px) {
+  .picks-panel {
+    max-height: min(62vh, 620px);
+  }
+  /* The parts of the island as one row of chips under the chart. */
+  .picks-map .picks-index {
+    display: flex;
     gap: 6px;
-    margin-top: 12px;
+    margin-top: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
   }
-  .picks-map .coast-index-item {
-    padding: 7px 10px;
+  .picks-map .picks-index::-webkit-scrollbar {
+    display: none;
   }
-  .picks-map .coast-index-name {
-    font-size: 0.98rem;
+  .picks-map .picks-index .coast-index-item {
+    flex: none;
+    width: auto;
+    padding: 6px 12px;
+    border-radius: 999px;
   }
-  .picks-map .coast-index-kind {
-    font-size: 0.58rem;
-    letter-spacing: 0.1em;
+  .picks-map .picks-index .coast-index-kind,
+  .picks-map .picks-index .coast-index-name {
+    display: none;
+  }
+  .picks-map .picks-index .coast-index-short {
+    display: inline;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+  .picks-map {
+    gap: 14px;
+  }
+}
+@media (max-width: 560px) {
+  .rm-label-street,
+  .rm-label-small {
+    display: none;
+  }
+  .rm-label-place {
+    font-size: 34px;
+  }
+  .rm-label-water {
+    font-size: 28px;
+  }
+  .pick-pin {
+    width: 26px;
+    height: 26px;
+    margin: -13px 0 0 -13px;
+  }
+  .pick-pin-n {
+    font-size: 0.64rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pick-pin-n,
+  .pick-pin-name {
+    transition: none;
+  }
+}
+.rm-north path {
+  fill: var(--ink-line);
+}
+.rm-north text {
+  font-family: var(--display);
+  font-size: 22px;
+  fill: var(--deep);
+}
+.ov-road.rm-road-edge {
+  stroke-width: 4.4;
+  opacity: 0.8;
+}
+.ov-road.rm-road {
+  stroke-width: 2.2;
+}
+.ov-label.rm-label-small {
+  font-size: 15px;
+}
+@media (max-width: 760px) {
+  .ov-label {
+    display: none;
+  }
+}
+@media (max-width: 560px) {
+  .picks-whole {
+    left: 8px;
+    top: 8px;
+    min-height: 30px;
+    padding: 2px 10px;
+    font-size: 0.72rem;
   }
 }

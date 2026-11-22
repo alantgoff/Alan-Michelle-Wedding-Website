@@ -10,6 +10,7 @@ import { openNumbers, placeId } from "./plannable";
 
 export type PickPlace = {
   id: string;
+  at: PointKey;
   name: string;
   href?: string;
   area: string;
@@ -20,7 +21,7 @@ export type PickPlace = {
   book?: string;
   open: number[] | null;
 };
-export type PickOut = { id: string; title: string; first: string; rest: string; open: number[] | null };
+export type PickOut = { id: string; at: PointKey; title: string; first: string; rest: string; open: number[] | null };
 export type PickRegion = { id: string; name: string; short: string; note: string; eat: PickPlace[]; out: PickOut[] };
 /** A dot on the map for each point with picks; `open` is null if any of them has no known days. */
 export type PickDot = { key: PointKey; x: number; y: number; region: string; open: number[] | null };
@@ -36,7 +37,7 @@ export function picksByRegion(): { regions: PickRegion[]; dots: PickDot[] } {
   const regionOf = (at: PointKey | undefined) => regions.find((r) => at && (r.points as PointKey[]).includes(at));
   const order = (at: PointKey | undefined, r: (typeof regions)[number]) => (r.points as PointKey[]).indexOf(at!);
 
-  const places: (PickPlace & { at: PointKey })[] = island.eat.groups.flatMap((g) =>
+  const places: PickPlace[] = island.eat.groups.flatMap((g) =>
     (g.places as Place[]).map((p) => ({
       id: placeId(p),
       name: p.name,
@@ -63,8 +64,8 @@ export function picksByRegion(): { regions: PickRegion[]; dots: PickDot[] } {
     name: r.name,
     short: r.short,
     note: r.note,
-    eat: places.filter((p) => regionOf(p.at)?.id === r.id).sort((a, b) => order(a.at, r) - order(b.at, r)).map(({ at: _at, ...p }) => p),
-    out: outs.filter((p) => regionOf(p.at)?.id === r.id).sort((a, b) => order(a.at, r) - order(b.at, r)).map(({ at: _at, ...p }) => p),
+    eat: places.filter((p) => regionOf(p.at)?.id === r.id).sort((a, b) => order(a.at, r) - order(b.at, r)),
+    out: outs.filter((p) => regionOf(p.at)?.id === r.id).sort((a, b) => order(a.at, r) - order(b.at, r)),
   }));
 
   // One dot per point that has picks.

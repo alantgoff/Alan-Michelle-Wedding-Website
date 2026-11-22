@@ -92,6 +92,8 @@ export const island = {
   explorer: {
     views: { label: "Show our picks as", map: "Map", list: "List" },
     indexLabel: "Parts of the island",
+    whole: "Whole island",
+    wholeHint: "Tap a part of the island to see it close up.",
     eat: "Eat",
     out: "Days out",
     more: "More",

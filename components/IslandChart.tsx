@@ -14,7 +14,7 @@ import { ISLAND } from "@/lib/island";
  * toward its ends. Strokes are spaced along the spine and jittered by index,
  * so the drawing is the same on every render.
  */
-function hachureRange(spine: number[][], west: number, east: number, step = 5): string {
+export function hachureRange(spine: number[][], west: number, east: number, step = 5): string {
   const parts: string[] = [];
   let total = 0;
   const lengths = spine.slice(1).map(([x, y], i) => Math.hypot(x - spine[i][0], y - spine[i][1]));
@@ -48,7 +48,7 @@ function hachureRange(spine: number[][], west: number, east: number, step = 5): 
  * sides of each. `side` 1 runs east of a south-running spine, -1 west; `turn`
  * swings the spurs toward the coast they fall to (radians).
  */
-function spurs(spine: number[][], side: 1 | -1, every: number, reach: number, turn: number): { ridges: string; ticks: string } {
+export function spurs(spine: number[][], side: 1 | -1, every: number, reach: number, turn: number): { ridges: string; ticks: string } {
   const ridges: string[] = [];
   const ticks: string[] = [];
   let carried = every / 2;
