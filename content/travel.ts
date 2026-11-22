@@ -27,8 +27,6 @@ export type Stay = {
   recommended?: boolean;
 };
 
-export type Crossing = { id: "h3" | "likelike" | "pali"; title: string; label: string; text: string };
-
 /** A place on the drawn coast. The drawing itself (pins, positions) is in components/CoastMap.tsx. */
 export type MapPlace = {
   name: string;
@@ -53,7 +51,6 @@ export const travel = {
    weather: "Weather",
    pack: "What to pack",
   },
-  crossingsTitle: "Choose your crossing",
   /** Under the big number on each place to stay. */
   minutesUnit: "minutes to the gardens",
   /** The small label on the place we recommend. */
@@ -85,7 +82,7 @@ export const travel = {
    },
    {
     title: "Stay in Waikīkī",
-    text: "It has the most rooms, restaurants and evenings out on the island. There is no hotel at Kualoa, {waikiki} minutes away over the mountains.",
+    text: "It has the most rooms, restaurants and evenings out on the island, and the wedding-day shuttle leaves from there. Kualoa is {waikiki} minutes away over the mountains and has no hotel of its own.",
     link: { href: "#stay", label: "Where to stay" },
    },
    {
@@ -101,115 +98,117 @@ export const travel = {
   ],
  },
 
- /** Before the flight. */
- beforeYouFly: [
-  {
-   // VERIFY before invitations: REAL ID enforcement, children under 18, the ID-verification fee ($45) and its ten days. Source: tsa.gov (REAL ID; "Acceptable identification at the checkpoint"; TSA ConfirmID).
-   title: "Bring the right ID",
-   text: "Every adult needs a REAL ID–compliant license, a passport or another ID on TSA’s list to board; TSA has enforced this since May 2025. TSA does not ask children under 18 for ID on domestic flights, though your airline may have its own rules. If your ID is not accepted, TSA can try to confirm who you are for a fee ($45 when we checked in 2026), good for ten days from your travel date, but it is not guaranteed. Please check yours now, while there is plenty of time.",
-  },
-  {
-   // VERIFY before invitations: Akamai Arrival name, five-day window, one form per household. Source: Hawaiʻi Department of Agriculture, hdoa.hawaii.gov (Plant Quarantine, Akamai Arrival).
-   title: "The agriculture form, now on your phone",
-   text: "Hawaiʻi asks everyone flying in from the mainland to declare any fresh fruit, vegetables, plants, seeds or animals they carry. The form is digital now, called Akamai Arrival, on every domestic flight. Fill it out up to five days before you fly, or on the plane if you have Wi-Fi, and send it even if you have nothing to declare. One adult can file for a household that shares an address and a place to stay.",
-  },
- ] satisfies PassageItem[],
-
  /**
-  * Arriving: the week, the shuttle, the airport.
+  * Getting there, in the order a guest meets it: before the flight, landing,
+  * driving on the island, the wedding day, and the flight home. Each group is
+  * a small heading on the page with its notes under it.
   * TODO: shuttle pickup times and where it stops in Waikīkī.
   */
- gettingThere: [
+ journey: [
   {
-   id: "make-a-week",
-   title: "Make a week of it",
-   text: "We hope you will treat this as a vacation, not only a wedding. If you can, arrive the weekend before (Saturday, September 30 or Sunday, October 1) and fly home the Saturday or Sunday after the wedding (October 7 or 8). To thank you for coming, we will organize a few things to do together, a turtle snorkel among them, and leave plenty of time to enjoy Hawaiʻi your own way.",
-   link: { href: "/week", label: "What we have planned" },
+   id: "before-you-fly",
+   title: "Before you fly",
+   items: [
+    {
+     id: "make-a-week",
+     title: "Make a week of it",
+     text: "We hope you will treat this as a vacation, not only a wedding. If you can, arrive the weekend before (Saturday, September 30 or Sunday, October 1) and fly home the Saturday or Sunday after the wedding (October 7 or 8). To thank you for coming, we will organize a few things to do together, a turtle snorkel among them, and leave plenty of time to enjoy Hawaiʻi your own way.",
+     link: { href: "/week", label: "What we have planned" },
+    },
+    {
+     // VERIFY before invitations: REAL ID enforcement, children under 18, the ID-verification fee ($45) and its ten days. Source: tsa.gov (REAL ID; "Acceptable identification at the checkpoint"; TSA ConfirmID).
+     id: "right-id",
+     title: "Bring the right ID",
+     text: "Every adult needs a REAL ID–compliant license, a passport or another ID on TSA’s list to board; TSA has enforced this since May 2025. TSA does not ask children under 18 for ID on domestic flights, though your airline may have its own rules. If your ID is not accepted, TSA can try to confirm who you are for a fee ($45 when we checked in 2026), good for ten days from your travel date, but it is not guaranteed. Please check yours now, while there is plenty of time.",
+    },
+    {
+     // VERIFY before invitations: Akamai Arrival name, five-day window, one form per household. Source: Hawaiʻi Department of Agriculture, hdoa.hawaii.gov (Plant Quarantine, Akamai Arrival).
+     title: "The agriculture form, now on your phone",
+     text: "Hawaiʻi asks everyone flying in from the mainland to declare any fresh fruit, vegetables, plants, seeds or animals they carry. The form is digital now, called Akamai Arrival, on every domestic flight. Fill it out up to five days before you fly, or on the plane if you have Wi-Fi, and send it even if you have nothing to declare. One adult can file for a household that shares an address and a place to stay.",
+    },
+   ],
   },
   {
-   id: "shuttle",
-   title: "The wedding-day shuttle",
-   text: "We have booked a shuttle with room for 65 guests between Waikīkī and Kualoa Ranch on the wedding day, so nobody needs to drive to the wedding, or home from it. Pickup times and where it stops are to come.",
+   id: "when-you-land",
+   title: "When you land",
+   items: [
+    {
+     // VERIFY before invitations: the consolidated rental car facility and walking access from Terminal 2. Source: airports.hawaii.gov/hnl (Rental cars).
+     title: "Land, then collect the car",
+     text: "You will fly into Honolulu (HNL). The airport’s ten rental companies share one building: a short walk from most of Terminal 2’s baggage claim, and a shuttle ride from everywhere else. A car is the easiest way to get around during the week. On the wedding day, if you are staying in Waikīkī, the shuttle means you can leave it parked.",
+    },
+    {
+     id: "island-time",
+     title: "Island time, quite literally",
+     text: "Hawaiʻi never changes its clocks. In early October the mainland is still on daylight time, so Kualoa runs three hours behind the West Coast and six behind the East. Flying west is the gentle direction: your body catches up by about an hour and a half a day. Spend your first afternoon outside in real daylight, keep naps short, drink plenty of water, and stay up until a local bedtime. If you wake before dawn anyway, take it as an invitation: on the windward side the sun comes up out of the sea at about 6:24.",
+    },
+   ],
   },
   {
-   // VERIFY before invitations: the consolidated rental car facility and walking access from Terminal 2. Source: airports.hawaii.gov/hnl (Rental cars).
-   title: "Land, then collect the car",
-   text: "You will fly into Honolulu (HNL). The airport’s ten rental companies share one building: a short walk from most of Terminal 2’s baggage claim, and a shuttle ride from everywhere else. From there to Kualoa is about twenty-one miles, around forty minutes on a clear road and longer at the wrong hour. A car is the easiest way to manage this side of the island.",
+   id: "driving",
+   title: "Driving on Oʻahu",
+   items: [
+    {
+     title: "How people drive here",
+     text: "Outside town the roads are mostly one lane each way and rarely faster than thirty-five. Let people in, wave a car or two out of a side street, and go easy on the horn: nobody here uses it much.",
+    },
+    {
+     // VERIFY before invitations: the hands-free phone law and the child-seat law (ages, height). Source: Hawaiʻi DOT, hidot.hawaii.gov (Highway Safety: distracted driving; child passenger safety), HRS §291C-137 and §291-11.5.
+     id: "car-seats",
+     title: "Two rules worth knowing",
+     text: "In Hawaiʻi a driver may not hold a phone at all, even at a red light. Children under ten ride in a car seat or booster unless they are at least seven and taller than four feet nine, and babies under two ride rear-facing. If little ones are coming, please bring their seats or reserve them with the car.",
+    },
+    {
+     // VERIFY before invitations: GoAkamai still runs live traffic cameras (Hawaiʻi DOT). Source: goakamai.org.
+     id: "traffic",
+     title: "Check the traffic before you go",
+     text: "The state’s Department of Transportation runs a traffic site called GoAkamai (akamai is Hawaiian for smart), with live cameras all over Oʻahu, including the highways over the mountains. It is worth a look before any drive across the island.",
+     link: { href: "https://goakamai.org", label: "GoAkamai live traffic" },
+    },
+   ],
   },
   {
-   // VERIFY before invitations: GoAkamai.org still runs live cameras. Source: goakamai.org (Hawaiʻi DOT).
-   title: "Before you set out",
-   text: "GoAkamai.org, the state’s traffic site, shows live cameras all over Oʻahu, including the roads over the Koʻolau. It is worth a look before any drive across the island.",
-  },
- ] satisfies PassageItem[],
-
- /** The three roads over the mountains. `id` picks the little drawing. */
- crossingsIntro:
-  "The Koʻolau stand between the airport and us, and there are three ways over. All three end up on the same coast road.",
- crossings: [
-  {
-   id: "h3",
-   title: "The H-3",
-   label: "The dramatic one",
-   text: "The newest way over the mountains, opened in 1997. It runs through the longest road tunnels in Hawaiʻi and comes out high above Haʻikū Valley, with Kāneʻohe Bay laid out in front of you.",
-  },
-  {
-   id: "likelike",
-   title: "The Likelike",
-   label: "The ranch’s own route",
-   // VERIFY before invitations: the route Kualoa Ranch recommends from Waikīkī. Source: kualoa.com (Directions).
-   text: "What Kualoa Ranch suggests from Waikīkī: up through the Wilson Tunnel, opened in 1960, down into Kāneʻohe, then north along Kahekili Highway.",
-  },
-  {
-   id: "pali",
-   title: "The Pali",
-   label: "The one with a view",
-   // VERIFY before invitations: Pali Lookout hours (6 AM–6 PM) and the parking fee. Source: dlnr.hawaii.gov/dsp (Nuʻuanu Pali State Wayside).
-   text: "Worth taking once, in daylight. Stop at the Nuʻuanu Pali lookout, twelve hundred feet up, where the wind is usually strong enough to lean on. It is open from six in the morning to six at night, and visitors pay a small fee to park.",
-  },
- ] satisfies Crossing[],
-
- /** The road itself, the wedding afternoon, the way home, and the rules of the road. */
- road: [
-  {
-   // VERIFY before invitations: parking at the gardens (three tiers, about 80 cars). Source: Kualoa Ranch's Palikū Gardens venue sheet, or ask the ranch.
-   id: "last-ten-minutes",
-   title: "The last ten minutes",
-   text: "At the Hygienic Store in Kahaluʻu, Kahekili Highway becomes Kamehameha Highway and the coast opens up. About ten minutes on, the road rounds the point past Mokoliʻi and the ranch is on your left. Parking at the gardens is in three tiers, with room for about 80 cars between them, so please take the shuttle or share a car. We will send the exact turn, and where to park, closer to the day.",
+   id: "wedding-day",
+   title: "The wedding day",
+   items: [
+    {
+     id: "shuttle",
+     title: "The wedding-day shuttle",
+     text: "We have booked a shuttle with room for 65 guests between Waikīkī and Kualoa Ranch on the wedding day, so nobody needs to drive to the wedding, or home from it. Pickup times and where it stops are to come.",
+    },
+    {
+     // VERIFY before invitations: the route Kualoa Ranch recommends from Waikīkī (kualoa.com, Directions), and parking at the gardens (three tiers, about 80 cars; Kualoa Ranch's Palikū Gardens venue sheet, or ask the ranch).
+     id: "the-drive",
+     title: "If you drive: the way to the ranch",
+     text: "Kualoa Ranch suggests this way from Waikīkī: the Likelike Highway up through the Wilson Tunnel and down into Kāneʻohe, then north on Kahekili Highway. At the Hygienic Store in Kahaluʻu, Kahekili Highway becomes Kamehameha Highway and the coast opens up. About ten minutes on, the road rounds the point past Mokoliʻi, the little island offshore, and the ranch is on your left. Parking at the gardens is in three tiers, with room for about 80 cars between them, so please take the shuttle or share a car. We will send the exact turn, and where to park, closer to the day.",
+    },
+    {
+     id: "wedding-afternoon",
+     title: "Leave early",
+     text: "If you are driving yourself, leave more time than your map suggests. For the island, our wedding day is an ordinary Friday: schools are in session, and the afternoon traffic over the mountains flows toward the windward side, the same way you will be going. Along this coast there is one road and little way around a slow stretch. Once the ceremony time is set, we will tell you when to leave Waikīkī.",
+    },
+    {
+     // VERIFY before invitations: the ranch's music curfew (ten o'clock) and the last Route 60 bus. Sources: Kualoa Ranch event rules; thebus.org (Route 60 timetable).
+     id: "getting-home",
+     title: "Getting home from the reception",
+     text: "The shuttle will bring you back to Waikīkī. If you drive instead, please settle your way home before you come: a designated driver or a shared car is safest. The ranch asks that music end by ten. Rideshare cars are few out here at night, and even one reserved ahead is not guaranteed to arrive. When we checked in 2026, the last town-bound bus on Route 60 passed Kualoa a little after eleven; it is a long ride to Ala Moana, with a transfer for Waikīkī.",
+    },
+   ],
   },
   {
-   title: "On the wedding afternoon",
-   text: "If you are driving yourself, leave more time than your map suggests. For the island, our wedding day is an ordinary Friday: schools are in session, and the afternoon traffic over the mountains flows toward the windward side, the same way you will be going. Along this coast there is one road and little way around a slow stretch. Once the ceremony time is set, we will tell you when to leave Waikīkī.",
+   id: "going-home",
+   title: "Going home",
+   items: [
+    {
+     // VERIFY before invitations: the USDA pre-departure inspection, the lei exclusions, and which fruit may travel. Sources: aphis.usda.gov (Traveling from Hawaiʻi to the mainland); hdoa.hawaii.gov.
+     // This is the site's one full version of the lei and fruit rules: The island page and the FAQ link here.
+     id: "flying-home",
+     title: "Flying home",
+     text: "On the way back, your bags go through a USDA agricultural check before you reach the airline counter, so leave yourself a little extra time at the airport. Fresh flower lei are welcome as long as they hold no berries or hala (pandanus) fruit, no jade vine or maunaloa flowers, and nothing from citrus or its relatives. That includes mock orange, whose flowers and leaves are sometimes used in lei, so ask the lei maker. Pineapple and coconut can come too, and coffee beans in any amount. Most other fresh fruit stays on the island; papaya and banana travel only if treated at a USDA-approved facility and packed in sealed, stamped boxes.",
+    },
+   ],
   },
-  {
-   // VERIFY before invitations: the ranch's music curfew (ten o'clock) and the last Route 60 bus. Sources: Kualoa Ranch event rules; thebus.org (Route 60 timetable).
-   id: "getting-home",
-   title: "Getting home from the reception",
-   text: "The shuttle will bring you back to Waikīkī. If you drive instead, please settle your way home before you come: a designated driver or a shared car is safest. The ranch asks that music end by ten. Rideshare cars are few out here at night, and even one reserved ahead is not guaranteed to arrive. When we checked in 2026, the last town-bound bus on Route 60 passed Kualoa a little after eleven; it is a long ride to Ala Moana, with a transfer for Waikīkī.",
-  },
-  {
-   title: "Driving here",
-   text: "Once you reach the coast road it is mostly one lane each way and rarely faster than thirty-five. Let people in, wave a car or two out of a side street, and go easy on the horn: nobody here uses it much.",
-  },
-  {
-   // VERIFY before invitations: the hands-free phone law and the child-seat law (ages, height). Source: Hawaiʻi DOT, hidot.hawaii.gov (Highway Safety: distracted driving; child passenger safety), HRS §291C-137 and §291-11.5.
-   id: "car-seats",
-   title: "Two rules worth knowing",
-   text: "In Hawaiʻi a driver may not hold a phone at all, even at a red light. Children under ten ride in a car seat or booster unless they are at least seven and taller than four feet nine, and babies under two ride rear-facing. If little ones are coming, please bring their seats or reserve them with the car.",
-  },
-  {
-   id: "island-time",
-   title: "Island time, quite literally",
-   text: "Hawaiʻi never changes its clocks. In early October the mainland is still on daylight time, so Kualoa runs three hours behind the West Coast and six behind the East. Flying west is the gentle direction: your body catches up by about an hour and a half a day. Spend your first afternoon outside in real daylight, keep naps short, drink plenty of water, and stay up until a local bedtime. If you wake before dawn anyway, take it as an invitation: on the windward side the sun comes up out of the sea at about 6:24.",
-  },
-  {
-   // VERIFY before invitations: the USDA pre-departure inspection, the lei exclusions, and which fruit may travel. Sources: aphis.usda.gov (Traveling from Hawaiʻi to the mainland); hdoa.hawaii.gov.
-   // This is the site's one full version of the lei and fruit rules: The island page and the FAQ link here.
-   id: "flying-home",
-   title: "Flying home",
-   text: "On the way back, your bags go through a USDA agricultural check before you reach the airline counter, so leave yourself a little extra time at the airport. Fresh flower lei are welcome as long as they hold no berries or hala (pandanus) fruit, no jade vine or maunaloa flowers, and nothing from citrus or its relatives. That includes mock orange, whose flowers and leaves are sometimes used in lei, so ask the lei maker. Pineapple and coconut can come too, and coffee beans in any amount. Most other fresh fruit stays on the island; papaya and banana travel only if treated at a USDA-approved facility and packed in sealed, stamped boxes.",
-  },
- ] satisfies PassageItem[],
+ ] satisfies { id: string; title: string; items: PassageItem[] }[],
 
  /**
   * Where to stay: Waikīkī, which we recommend, then the rest nearest first.
@@ -316,7 +315,7 @@ export const travel = {
     kind: "The wall down the middle",
     blurb:
      "The green wall that separates the windward side from town. Every drive to the venue crosses it or runs along its foot, and it is the reason the weather changes in ten minutes.",
-    link: { href: "#crossings", label: "The three ways over" },
+    link: { href: "#the-drive", label: "The drive over" },
    },
    kaneohe: {
     name: "Kāneʻohe",

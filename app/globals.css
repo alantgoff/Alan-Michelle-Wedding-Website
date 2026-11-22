@@ -1060,8 +1060,13 @@ h3 {
   padding: 24px 0 30px;
   border-top: 1px solid var(--rule);
 }
-.passage h3 {
+.passage h3,
+.passage h4 {
   margin: 0 0 10px;
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
   font-size: clamp(1.45rem, 2.2vw, 1.75rem);
 }
 .passage p {
@@ -1992,77 +1997,24 @@ a.place-name:hover {
   cursor: pointer;
 }
 
-/* ---------- Travel: the three crossings -------------------- */
+/* ---------- Travel: the trip in stages -------------------- */
 
-.crossings-block {
-  margin: clamp(30px, 4.4vw, 56px) 0;
-  padding: clamp(28px, 4vw, 48px) 0 clamp(8px, 1vw, 12px);
-  border-top: 1px solid var(--rule);
+.travel-stage {
+  margin: clamp(44px, 5vw, 64px) 0 0;
 }
-.crossings-block h3 {
-  margin: 0 0 10px;
-  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+/* A stage of the trip: clearly above the notes under it, on a phone too. */
+.travel-stage > h3 {
+  margin: 0 0 14px;
+  font-size: clamp(2rem, 3vw, 2.4rem);
 }
-.crossings-block > p {
-  max-width: 62ch;
-  margin: 0;
-}
-.crossings {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
-  gap: 14px;
-  margin: clamp(22px, 3vw, 34px) 0 0;
-  padding: 0;
-  list-style: none;
-}
-.crossing {
-  padding: 22px 26px 26px;
-  background: var(--white);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-}
-.crossing-glyph {
+.travel-stage > h3::before {
+  content: "";
   display: block;
-  width: min(100%, 250px);
-  height: auto;
-  margin: 0 0 14px -4px;
+  width: 44px;
+  height: 2px;
+  margin-bottom: 16px;
+  background: var(--ink-line);
 }
-/* The stretch that runs inside the mountain. */
-.crossing-bore {
-  stroke-dasharray: 3 5;
-}
-/* Relief on the ridge sits back; roads run in a pale cut through it. */
-.crossing-far {
-  opacity: 0.45;
-}
-.crossing-hatch {
-  opacity: 0.6;
-}
-.crossing-flutes,
-.crossing-trees {
-  opacity: 0.55;
-}
-.crossing-stipple {
-  opacity: 0.5;
-}
-.crossing-cut {
-  fill: none;
-  stroke: var(--cream);
-  stroke-width: 6;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-.crossing-shoulder {
-  opacity: 0.45;
-}
-.crossing-portal {
-  fill: var(--ink-line);
-  opacity: 0.85;
-}
-.crossing-wind {
-  opacity: 0.7;
-}
-.crossing .label,
 .onward .label {
   margin: 0;
   font-size: 0.68rem;
@@ -2070,17 +2022,6 @@ a.place-name:hover {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--lagoon);
-}
-.crossing h4 {
-  margin: 8px 0 10px;
-  font-family: var(--display);
-  font-size: 1.7rem;
-  font-weight: 500;
-  line-height: 1.15;
-}
-.crossing p:last-child {
-  margin: 0;
-  text-wrap: pretty;
 }
 
 .water-notes {
@@ -3296,7 +3237,6 @@ footer {
   .weather-grid > div,
   .faq details,
   .postcard,
-  .crossing,
   .menu-words dl > div,
   .packing li,
   .story-moment,
@@ -3327,8 +3267,8 @@ footer {
     padding: 9px 0 11px;
   }
   .passage h3,
-  .stay h3,
-  .crossing h4 {
+  .passage h4,
+  .stay h3 {
     margin-bottom: 4px;
     font-size: 13pt;
   }
@@ -3348,7 +3288,7 @@ footer {
   .chapter-head h2 {
     font-size: 19pt;
   }
-  .crossings-block,
+  .travel-stage,
   .menu-words,
   .water-notes,
   .stay-notes {
@@ -3357,18 +3297,8 @@ footer {
     padding-top: 10px;
     padding-bottom: 0;
   }
-  .crossings {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .crossing,
   .stay {
     padding: 10px 12px 12px;
-  }
-  .crossing-glyph {
-    width: 62%;
-    margin-bottom: 4px;
   }
   .stays {
     grid-template-columns: repeat(3, 1fr);

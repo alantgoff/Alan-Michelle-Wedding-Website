@@ -191,8 +191,7 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   in `components/ink/Horizon.tsx`, with its own phone layout; the motifs are in `InkDefs.tsx`.
   The banner photograph drifts very slowly, with pools of sunlight that come and go. The
   drawings are engraved by hand in SVG: hatched shade on the ridges, a far range behind, trees and
-  stipple at the foot. The coast map on Travel draws both ranges as hachured relief, and the three
-  road crossings show their tunnels. The fine detail (hatching, stipple) was generated once and
+  stipple at the foot. The coast map on Travel draws both ranges as hachured relief. The fine detail (hatching, stipple) was generated once and
   pasted in as path data, so nothing is computed when a page loads.
 - Our story is set like a small book: fourteen chapters on a spine, each with its photographs mounted
   as plates with paper corners. Add `text` to a chapter in `content/story.ts` and it opens with a drop cap; add

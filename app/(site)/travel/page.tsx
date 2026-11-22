@@ -5,7 +5,6 @@ import Link from "next/link";
 import { CoastMap } from "@/components/CoastMap";
 import { FlyingFrom } from "@/components/FlyingFrom";
 import { Chapter, Contents, MoreLink, Passages, type ChapterRef } from "@/components/Guide";
-import { CrossingGlyph } from "@/components/ink/CrossingGlyph";
 import { PackingList } from "@/components/PackingList";
 import { PageHero } from "@/components/Page";
 import { PrintButton } from "@/components/PrintButton";
@@ -75,24 +74,13 @@ export default async function Travel() {
           words={flying.words}
         />
 
-        <Passages items={[...travel.beforeYouFly, ...travel.gettingThere]} />
-
-        <div className="crossings-block" id="crossings">
-          <h3>{copy.crossingsTitle}</h3>
-          <p>{travel.crossingsIntro}</p>
-          <ol className="crossings">
-            {travel.crossings.map((c) => (
-              <li className="crossing" key={c.id}>
-                <CrossingGlyph id={c.id} />
-                <p className="label">{c.label}</p>
-                <h4>{c.title}</h4>
-                <p>{c.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-
-        <Passages items={travel.road} />
+        {/* The trip in order, each stage a small heading with its notes under it. */}
+        {travel.journey.map((stage) => (
+          <section className="travel-stage" id={stage.id} key={stage.id} aria-labelledby={`${stage.id}-title`}>
+            <h3 id={`${stage.id}-title`}>{stage.title}</h3>
+            <Passages items={stage.items} heading="h4" />
+          </section>
+        ))}
       </Chapter>
 
       <Chapter chapter={chapter("stay")}>

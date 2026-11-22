@@ -94,7 +94,7 @@ export const faqGroups: FaqGroup[] = [
         // VERIFY before invitations: the REAL ID rule (with the Travel page's version). Source: tsa.gov.
         q: "Do I need a passport?",
         a: "Not if you are flying from within the United States, but every adult needs a REAL ID–compliant license, a passport or another ID on TSA’s list.",
-        link: { href: "/travel#getting-there", label: "Bring the right ID" },
+        link: { href: "/travel#right-id", label: "Bring the right ID" },
       },
       {
         q: "Will transportation be provided?",
@@ -105,12 +105,12 @@ export const faqGroups: FaqGroup[] = [
       {
         q: "Is there parking at the venue?",
         a: "Some, but not a lot, so please take the shuttle or share a car. We will send the way in, and where to park, closer to the day.",
-        link: { href: "/travel#last-ten-minutes", label: "The last ten minutes" },
+        link: { href: "/travel#the-drive", label: "The way to the ranch, and parking" },
       },
       {
         q: "How long is the drive?",
         a: "Longer than your map will say. On a clear road it is under an hour from Waikīkī or the airport, and the wedding afternoon is a Friday, with the traffic flowing our way. On the wedding day the shuttle does the driving.",
-        link: { href: "/travel#crossings", label: "The roads over the mountains" },
+        link: { href: "/travel#wedding-afternoon", label: "When to leave" },
       },
       {
         q: "How do I get home afterward?",

@@ -66,7 +66,7 @@ If you are not sure of something new, leave it out.
   that is not for them. This is the only full schedule on the site. An event's `date` is a day name
   within three days of the wedding ("Thursday") or, earlier in the week, its date ("2028-10-02");
   until it is set, "Days to be confirmed" lists it at the end.
-- **`travel.ts`**: getting there, the three roads, the rules of the road, where to stay, the
+- **`travel.ts`**: getting there as `journey`, in the order a guest meets it (before you fly, when you land, driving on Oʻahu, the wedding day, going home; each stage a heading on the page), where to stay, the
   weather link, packing, the two-minute version at the top, and the words on the drawn coast map.
 - **`island.ts`**: where to eat (`eat.groups`, one line per place), planning free days (with "Plan
   your free days"), in the water, rules worth knowing, and three facts about the venue. Each

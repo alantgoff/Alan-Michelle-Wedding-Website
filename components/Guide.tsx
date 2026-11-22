@@ -73,19 +73,28 @@ export function Chapter({
  * Short titled passages in two easy columns, ruled like a printed page. With
  * `plan`, each passage that has an id gets "Add to my week".
  */
-export function Passages({ items, plan = false }: { items: readonly PassageItem[]; plan?: boolean }) {
+export function Passages({
+  items,
+  plan = false,
+  heading: H = "h3",
+}: {
+  items: readonly PassageItem[];
+  plan?: boolean;
+  /** "h4" when the passages sit under a heading of their own. */
+  heading?: "h3" | "h4";
+}) {
   return (
     <div className="passages">
       {items.map((item) => (
         <article className="passage" key={item.title} id={item.id}>
           {(plan && item.id) || item.at ? (
             <div className="passage-head">
-              <h3>{item.title}</h3>
+              <H>{item.title}</H>
               {item.at ? <IslandDot at={item.at} label={item.title} hideLabel /> : null}
               {plan && item.id ? <AddToWeek id={item.id} /> : null}
             </div>
           ) : (
-            <h3>{item.title}</h3>
+            <H>{item.title}</H>
           )}
           <p>{item.text}</p>
           {item.link ? <MoreLink href={item.link.href} label={item.link.label} /> : null}
