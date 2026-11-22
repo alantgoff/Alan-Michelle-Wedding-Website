@@ -44,10 +44,25 @@
 }
 html {
   scroll-behavior: smooth;
-  /* Anything scrolled into view — a focused control, a #link target — lands
-     below the sticky header rather than under it. */
-  scroll-padding-top: calc(var(--nav-h) + var(--jump-h) + 12px);
   -webkit-text-size-adjust: 100%;
+}
+/* Anything scrolled into view (a #link target, a focused control) lands below
+   the sticky header and section bar rather than under them. This is set on the
+   targets, not as the page's scroll-padding: after a click to another page,
+   Next.js reads that padding, finds the new page's top tucked under it, and
+   scrolls the page down. The sticky bars' own links need no room. */
+:where([id], a[href], button, input, select, textarea, summary, [tabindex]) {
+  scroll-margin-top: var(--clearance);
+}
+:where(.nav, .contents, .picks-panel) :where(a[href], button, input, select, summary, [tabindex], [id]) {
+  scroll-margin-top: 0;
+}
+/* After a click to another page, Next.js may bring the new page's first element
+   into view; the banner's margin makes that the very top, not a row under the
+   header. */
+.page-hero,
+.hero {
+  scroll-margin-top: var(--nav-h);
 }
 body {
   margin: 0;
@@ -190,7 +205,7 @@ h3 {
 }
 /* A passage someone linked to glows briefly as the page lands on it. */
 .passage:target {
-  scroll-margin-top: 8px;
+  scroll-margin-top: calc(var(--clearance) + 8px);
   animation: passage-glow 2.4s ease-out;
 }
 @keyframes passage-glow {
@@ -435,7 +450,7 @@ h3 {
   font-size: clamp(1.15rem, min(2.4vw, 3.5svh), 2rem);
   line-height: 1.35;
   margin: clamp(14px, 2.4svh, 26px) 0 0;
-  max-width: 30ch;
+  max-width: 14.3em; /* em, not ch, so the font swap does not move it */
   text-wrap: balance;
   /* Deep sea, not lagoon: at this size the accent teal falls under 4.5:1
      where the photograph is light, and the tagline is not large text. */
@@ -835,7 +850,9 @@ h3 {
   font-family: var(--display);
   font-size: clamp(1.15rem, 2.1vw, 1.65rem);
   line-height: 1.45;
-  max-width: 46ch;
+  /* In em, not ch: a ch is the "0" of whichever font has loaded, so the box
+     would change width when the web font swaps in and the banner would jump. */
+  max-width: 23em;
   margin: 18px 0 0;
   text-wrap: balance;
 }
@@ -901,6 +918,10 @@ h3 {
 }
 :root:has(.jump) {
   --jump-h: 52px;
+}
+/* How far below the top a scrolled-to thing should land. */
+:root {
+  --clearance: calc(var(--nav-h) + var(--jump-h) + 12px);
 }
 .contents {
   position: sticky;
@@ -1159,8 +1180,8 @@ h3 {
 .activity:target {
   box-shadow: inset 3px 0 0 var(--lagoon);
   animation: own-glow 3s ease-out;
-  /* Room above for the day's heading, on top of the page's scroll padding. */
-  scroll-margin-top: 3.5rem;
+  /* Room above for the day's heading, on top of the usual clearance. */
+  scroll-margin-top: calc(var(--clearance) + 3.5rem);
 }
 @keyframes own-glow {
   /* A cool shallows tint held while the scroll lands, settling into the sand
@@ -1213,7 +1234,7 @@ h3 {
 /* The friends' boat vote: one card per boat, a radio on its name, the
    running count underneath. A plain form, so it works without script. */
 .boat-vote {
-  scroll-margin-top: 8px;
+  scroll-margin-top: calc(var(--clearance) + 8px);
 }
 .boat-vote h2 {
   margin: 8px 0 16px;
@@ -1385,7 +1406,7 @@ h3 {
 .place {
   padding: 16px 0 18px;
   border-top: 1px solid var(--rule);
-  scroll-margin-top: 8px;
+  scroll-margin-top: calc(var(--clearance) + 8px);
 }
 .place p {
   margin: 0;
@@ -1456,7 +1477,7 @@ a.place-name:hover {
   border: 1px solid var(--rule);
   border-radius: 3px;
   overflow: hidden;
-  scroll-margin-top: 8px;
+  scroll-margin-top: calc(var(--clearance) + 8px);
 }
 .spot-photo {
   margin: 0;
@@ -3699,7 +3720,7 @@ footer {
   margin: 0;
 }
 .passage[id] {
-  scroll-margin-top: 8px;
+  scroll-margin-top: calc(var(--clearance) + 8px);
 }
 /* Arriving from My week: a brief wash that fades. */
 .place:target,
@@ -3918,7 +3939,7 @@ footer {
   padding: 12px 0 14px;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
-  scroll-margin-top: 8px;
+  scroll-margin-top: calc(var(--clearance) + 8px);
 }
 .poke-store p {
   margin: 0;
@@ -4165,7 +4186,7 @@ footer {
    this margin makes them land just under the section bar either way. */
 .chapter,
 .faq-group {
-  scroll-margin-top: 16px;
+  scroll-margin-top: calc(var(--clearance) + 16px);
 }
 
 /* ---------- My week, day by day ------------------------------ */
