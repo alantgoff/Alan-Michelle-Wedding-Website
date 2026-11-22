@@ -84,7 +84,8 @@ export function spurs(spine: number[][], side: 1 | -1, every: number, reach: num
   return { ridges: ridges.join(" "), ticks: ticks.join(" ") };
 }
 
-export function CoastChart() {
+/** `quiet`: the calmer version used under the picks map, with flat water, no dry-brush grain and a soft band of shallows along the shore. */
+export function CoastChart({ quiet = false }: { quiet?: boolean } = {}) {
   // The Koʻolau run down the windward side, Kahuku to Makapuʻu.
   const koolau = [
     [636, 196],
@@ -105,7 +106,7 @@ export function CoastChart() {
   ];
 
   return (
-    <svg className="coast-chart" viewBox="0 0 1000 720" role="presentation" aria-hidden="true" focusable="false">
+    <svg className={quiet ? "coast-chart is-quiet" : "coast-chart"} viewBox="0 0 1000 720" role="presentation" aria-hidden="true" focusable="false">
       <defs>
         <pattern id="coast-swell" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
           <path className="coast-chart-swell" d="M0 13 h26" />
@@ -113,10 +114,17 @@ export function CoastChart() {
       </defs>
 
       <rect className="coast-chart-water" x="0" y="0" width="1000" height="720" />
-      <rect x="0" y="0" width="1000" height="720" fill="url(#coast-swell)" opacity="0.55" />
+      {quiet ? (
+        <>
+          <path className="rm-shallows-2" d={ISLAND} />
+          <path className="rm-shallows-1" d={ISLAND} />
+        </>
+      ) : (
+        <rect x="0" y="0" width="1000" height="720" fill="url(#coast-swell)" opacity="0.55" />
+      )}
 
       {/* Everything from here is line work, drawn with the site's one pen. */}
-      <g filter="url(#ink)">
+      <g filter={quiet ? undefined : "url(#ink)"}>
       {/* the island, drawn twice so the line looks pressed by hand */}
       <path className="coast-chart-land" d={ISLAND} />
       <path className="coast-chart-outline" d={ISLAND} transform="translate(4 3) rotate(0.5 500 360)" />

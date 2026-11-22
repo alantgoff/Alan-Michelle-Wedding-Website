@@ -45,7 +45,7 @@ const OVERVIEW_ROADS = [
   "M300 556 C260 540 230 520 210 490 C190 460 170 420 158 380",
 ];
 const OVERVIEW_LABELS: { x: number; y: number; t: string; k: string; r?: number; a?: "start" | "middle" | "end" }[] = [
-  { x: 392, y: 196, t: "Haleʻiwa", k: "small" },
+  { x: 420, y: 196, t: "Haleʻiwa", k: "small", a: "end" },
   { x: 420, y: 352, t: "Wahiawā", k: "small", a: "end" },
   { x: 128, y: 286, t: "Kaʻena Point", k: "small", a: "start" },
   { x: 232, y: 400, t: "Waiʻanae Range", k: "small", r: 62 },
@@ -120,7 +120,7 @@ export function PicksMap({ regions, dots, words, labels }: { regions: PickRegion
         <div className="coast-canvas picks-canvas">
           {zoomed && REGION_MAPS[region.id] ? (
             <>
-              <RegionChart map={REGION_MAPS[region.id]} />
+              <RegionChart id={region.id} map={REGION_MAPS[region.id]} />
               {picks.map((p, i) => {
                 const [x, y] = spotOf(region.id, p.id, p.at, i);
                 return (
@@ -151,20 +151,20 @@ export function PicksMap({ regions, dots, words, labels }: { regions: PickRegion
             </>
           ) : (
             <>
-              <CoastChart />
+              <CoastChart quiet />
               <svg className="picks-dots" viewBox="0 0 1000 720" aria-hidden="true" focusable="false">
                 {/* the main roads, and a few names to steer by */}
-                <g filter="url(#ink)">
+                <g>
                   {OVERVIEW_ROADS.map((d) => (
-                    <g key={d}>
-                      <path className="rm-road-edge ov-road" d={d} />
-                      <path className="rm-road ov-road" d={d} />
-                    </g>
+                    <path key={`c${d}`} className="rm-road-case rm-highway ov-road" d={d} />
+                  ))}
+                  {OVERVIEW_ROADS.map((d) => (
+                    <path key={`f${d}`} className="rm-road-fill rm-highway ov-road" d={d} />
                   ))}
                   <path className="rm-crater" d="M656 586 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0" />
                 </g>
                 {OVERVIEW_LABELS.map((l) => (
-                  <text key={l.t} className={`rm-label ov-label rm-label-${l.k}`} x={l.x} y={l.y} textAnchor={l.a ?? "middle"} transform={l.r ? `rotate(${l.r} ${l.x} ${l.y})` : undefined}>
+                  <text key={l.t} className={`rm-label ov-label rm-label-${l.k === "small" || l.k === "feature" ? "area" : l.k}`} x={l.x} y={l.y} textAnchor={l.a ?? "middle"} transform={l.r ? `rotate(${l.r} ${l.x} ${l.y})` : undefined}>
                     {l.t}
                   </text>
                 ))}

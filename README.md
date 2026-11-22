@@ -145,8 +145,13 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   list beside it (below it on a phone) scrolls on its own, so the map stays in view: tap a pin and
   the list brings up its card; point at a card and its pin lights. "Whole island" goes back to the
   overview, with the main roads and each part a pin. "Open on…" fades the pins and cards closed on
-  the day you pick. The close-ups are drawn in `components/region-maps.ts` (coast, roads, labels,
-  and `spots` placing each pick by its id; a pick without a spot sits at its neighborhood). A Map/List switch shows the full list instead (`components/IslandViews.tsx`); the
+  the day you pick. The close-ups are drawn in `components/region-maps.ts` and rendered by
+  `components/RegionChart.tsx`: flat water with a lighter band of shallows, roads by kind
+  (`highway`, `major`, `street`, `trail`) with their names written along them, landmarks as small
+  icons (`components/map-icons.ts`), neighborhood and water names, and `spots` placing each pick
+  by its id (a pick without a spot sits at its neighborhood). Positions are stylized, not to
+  scale. A road's path must run left to right (or top to bottom) so its name reads upright; on a
+  phone the road and landmark names hide and the neighborhood names grow. A Map/List switch shows the full list instead (`components/IslandViews.tsx`); the
   choice is remembered, links into the list (like `/island#hanauma`) switch to it, and without
   JavaScript the list is all there is. The parts are `explorer.regions` in `content/island.ts`;
   a place joins a part by its `at` point. The chart is the same drawing as Travel's coast map

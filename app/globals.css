@@ -5056,165 +5056,6 @@ footer {
 
 /* ---------- The picks map: close-ups and the list beside them ---- */
 
-/* The close-up maps, in the coast chart's pen and colours. */
-.rm-land {
-  fill: var(--sand);
-  stroke: var(--ink-line);
-  stroke-width: 2.2;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-.rm-coast {
-  fill: none;
-  stroke: var(--ink-line);
-  stroke-width: 0.9;
-  opacity: 0.3;
-  vector-effect: non-scaling-stroke;
-}
-.rm-water {
-  fill: color-mix(in srgb, var(--sky) 40%, var(--white));
-  stroke: var(--ink-line);
-  stroke-width: 1.2;
-  vector-effect: non-scaling-stroke;
-}
-.rm-park {
-  fill: color-mix(in srgb, var(--seagrass) 22%, var(--sand));
-  stroke: color-mix(in srgb, var(--seagrass) 70%, transparent);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-.rm-field {
-  fill: none;
-  stroke: color-mix(in srgb, var(--seagrass) 75%, transparent);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-.rm-canal-edge {
-  fill: none;
-  stroke: var(--ink-line);
-  stroke-width: 9;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-.rm-canal {
-  fill: none;
-  stroke: color-mix(in srgb, var(--sky) 55%, var(--white));
-  stroke-width: 6.4;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-.rm-hachure {
-  fill: none;
-  stroke: var(--ink-line);
-  stroke-width: 0.9;
-  opacity: 0.5;
-  vector-effect: non-scaling-stroke;
-}
-.rm-crest {
-  fill: none;
-  stroke: var(--ink-line);
-  stroke-width: 1.5;
-  opacity: 0.8;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-.rm-crater {
-  fill: color-mix(in srgb, var(--seagrass) 14%, var(--sand));
-  stroke: var(--ink-line);
-  stroke-width: 1.1;
-  vector-effect: non-scaling-stroke;
-}
-.rm-shoal {
-  fill: color-mix(in srgb, var(--sand) 70%, transparent);
-  stroke: var(--ink-line);
-  stroke-width: 1.4;
-  stroke-dasharray: 0.1 6;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-.rm-block {
-  fill: var(--paper);
-  stroke: var(--ink-line);
-  stroke-width: 0.9;
-  vector-effect: non-scaling-stroke;
-}
-.rm-street {
-  fill: none;
-  stroke: var(--ink-line);
-  stroke-width: 1.4;
-  opacity: 0.75;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-.rm-road-edge {
-  fill: none;
-  stroke: var(--ink-line);
-  stroke-width: 6;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-.rm-road {
-  fill: none;
-  stroke: var(--paper);
-  stroke-width: 3.4;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-.rm-trail {
-  fill: none;
-  stroke: var(--ink-line);
-  stroke-width: 1.6;
-  stroke-dasharray: 4 5;
-  vector-effect: non-scaling-stroke;
-}
-.rm-label {
-  font-family: var(--body);
-  fill: var(--deep);
-  paint-order: stroke;
-  stroke: color-mix(in srgb, var(--sand) 85%, transparent);
-  stroke-width: 4px;
-  stroke-linejoin: round;
-}
-.rm-label-place {
-  font-family: var(--display);
-  font-size: 26px;
-  letter-spacing: 0.22em;
-}
-.rm-label-street {
-  font-size: 16px;
-  font-style: italic;
-  fill: var(--muted);
-}
-.rm-label-water {
-  font-family: var(--display);
-  font-size: 22px;
-  font-style: italic;
-  letter-spacing: 0.12em;
-  fill: var(--lagoon);
-  stroke: none;
-}
-.rm-label-feature {
-  font-size: 17px;
-  font-style: italic;
-  letter-spacing: 0.04em;
-}
-.rm-label-small {
-  font-size: 15px;
-  font-style: italic;
-  fill: var(--muted);
-}
-.rm-star path {
-  fill: var(--sun);
-  stroke: var(--deep);
-  stroke-width: 1.4;
-  vector-effect: non-scaling-stroke;
-}
-.rm-label-star {
-  font-family: var(--display);
-  font-size: 20px;
-  font-style: italic;
-}
-
 /* Pins for the picks on a close-up: numbered, the name on hover or when chosen. */
 .pick-pin {
   position: absolute;
@@ -5428,16 +5269,6 @@ footer {
   }
 }
 @media (max-width: 560px) {
-  .rm-label-street,
-  .rm-label-small {
-    display: none;
-  }
-  .rm-label-place {
-    font-size: 34px;
-  }
-  .rm-label-water {
-    font-size: 28px;
-  }
   .pick-pin {
     width: 26px;
     height: 26px;
@@ -5453,29 +5284,6 @@ footer {
     transition: none;
   }
 }
-.rm-north path {
-  fill: var(--ink-line);
-}
-.rm-north text {
-  font-family: var(--display);
-  font-size: 22px;
-  fill: var(--deep);
-}
-.ov-road.rm-road-edge {
-  stroke-width: 4.4;
-  opacity: 0.8;
-}
-.ov-road.rm-road {
-  stroke-width: 2.2;
-}
-.ov-label.rm-label-small {
-  font-size: 15px;
-}
-@media (max-width: 760px) {
-  .ov-label {
-    display: none;
-  }
-}
 @media (max-width: 560px) {
   .picks-whole {
     left: 8px;
@@ -5484,4 +5292,300 @@ footer {
     padding: 2px 10px;
     font-size: 0.72rem;
   }
+}
+
+/* ---------- The picks maps, drawn to be read ---------------------- */
+
+/* A calm base: flat sea, a lighter band of shallows along every shore,
+   warm paper land, crisp lines. Sizes are in the map's own units, so they
+   scale with it. */
+.region-chart,
+.coast-chart.is-quiet {
+  --map-sea: #cfe2ea;
+  --map-shallow-1: #dbeaf0;
+  --map-shallow-2: #e6f0f3;
+  --map-land: #f8f3e8;
+  --map-park: #dfe8d2;
+  --map-sand: #f1e2bd;
+  --map-text: #183a44;
+  --map-soft: #4b6168;
+}
+.rm-sea {
+  fill: var(--map-sea);
+}
+.coast-chart.is-quiet .coast-chart-water {
+  fill: var(--map-sea);
+}
+.rm-shallows-2 {
+  fill: none;
+  stroke: var(--map-shallow-1);
+  stroke-width: 56;
+  stroke-linejoin: round;
+}
+.rm-shallows-1 {
+  fill: none;
+  stroke: var(--map-shallow-2);
+  stroke-width: 26;
+  stroke-linejoin: round;
+}
+.rm-land {
+  fill: var(--map-land);
+}
+.coast-chart.is-quiet .coast-chart-land {
+  fill: var(--map-land);
+  stroke-width: 1.8;
+}
+.coast-chart.is-quiet .coast-chart-outline,
+.coast-chart.is-quiet .coast-chart-shallows {
+  display: none;
+}
+.coast-chart.is-quiet .coast-chart-hachure {
+  opacity: 0.28;
+}
+.coast-chart.is-quiet .coast-chart-spur {
+  opacity: 0.35;
+}
+.rm-coastline {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.rm-water {
+  fill: var(--map-sea);
+  stroke: var(--ink-line);
+  stroke-width: 1.4;
+}
+.rm-park {
+  fill: var(--map-park);
+}
+.rm-hotels {
+  fill: color-mix(in srgb, var(--ink-line) 7%, var(--map-land));
+}
+.rm-beach {
+  fill: none;
+  stroke: var(--map-sand);
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+.rm-field {
+  fill: none;
+  stroke: #c9d6b6;
+  stroke-width: 3;
+}
+.rm-canal-edge {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 15;
+  stroke-linecap: round;
+}
+.rm-canal {
+  fill: none;
+  stroke: var(--map-sea);
+  stroke-width: 11;
+  stroke-linecap: round;
+}
+.rm-ridge-band {
+  fill: none;
+  stroke: #e7e3d0;
+  stroke-width: 70;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rm-hachure {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 1.2;
+  opacity: 0.22;
+}
+.rm-crest {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 2;
+  opacity: 0.45;
+  stroke-linejoin: round;
+}
+.rm-crater {
+  fill: #ebe5cf;
+  stroke: var(--ink-line);
+  stroke-width: 1.6;
+  stroke-opacity: 0.55;
+}
+.rm-shoal {
+  fill: var(--map-shallow-2);
+  stroke: var(--ink-line);
+  stroke-width: 2.4;
+  stroke-dasharray: 0.1 9;
+  stroke-linecap: round;
+}
+
+/* Roads: a cased line, heavier for bigger roads. */
+.rm-road-case,
+.rm-road-fill {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rm-road-case.rm-highway {
+  stroke: var(--ink-line);
+  stroke-width: 15;
+}
+.rm-road-fill.rm-highway {
+  stroke: #ffe8b5;
+  stroke-width: 10;
+}
+.rm-road-case.rm-major {
+  stroke: #6f7f84;
+  stroke-width: 11;
+}
+.rm-road-fill.rm-major {
+  stroke: #ffffff;
+  stroke-width: 7.5;
+}
+.rm-road-case.rm-street {
+  stroke: #b8b2a3;
+  stroke-width: 7;
+}
+.rm-road-fill.rm-street {
+  stroke: #ffffff;
+  stroke-width: 4.5;
+}
+.rm-trail {
+  fill: none;
+  stroke: #8a5a3c;
+  stroke-width: 3;
+  stroke-dasharray: 7 6;
+  stroke-linecap: round;
+}
+
+/* Names, in a clear order of size; a halo keeps each off what is under it. */
+.rm-label {
+  font-family: var(--body);
+  fill: var(--map-text);
+  paint-order: stroke;
+  stroke: var(--map-land);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+.rm-label-place {
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+.rm-label-area {
+  font-size: 19px;
+  font-style: italic;
+  fill: var(--map-soft);
+}
+.rm-label-water {
+  font-family: var(--display);
+  font-size: 26px;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  fill: #155e69;
+  stroke: var(--map-sea);
+}
+.rm-road-name {
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  fill: #3c4f55;
+  stroke: #ffffff;
+  stroke-width: 5px;
+}
+.rm-road-name-highway {
+  font-weight: 600;
+  fill: var(--ink-line);
+  stroke: #ffe8b5;
+}
+.rm-label-landmark {
+  font-size: 19px;
+  fill: var(--map-text);
+}
+.rm-label-star {
+  font-family: var(--display);
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 600;
+}
+.rm-badge {
+  fill: #ffffff;
+  stroke: var(--ink-line);
+  stroke-width: 1.6;
+}
+.rm-icon {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.rm-icon-fill {
+  fill: var(--ink-line);
+  stroke: none;
+}
+.rm-star path {
+  fill: var(--sun);
+  stroke: var(--deep);
+  stroke-width: 1.6;
+}
+.rm-north path {
+  fill: var(--ink-line);
+}
+.rm-north text {
+  font-family: var(--display);
+  font-size: 24px;
+  fill: var(--map-text);
+}
+.rm-road-case.ov-road {
+  stroke-width: 8;
+}
+.rm-road-fill.ov-road {
+  stroke-width: 4.6;
+}
+.ov-label {
+  font-size: 18px;
+}
+.pick-pin-n {
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+/* On a phone the map is small: names grow in the map's own units, road and
+   landmark names give way to their lines and icons, and the map runs to the
+   edges of the screen. */
+@media (max-width: 760px) {
+  .rm-label-place {
+    font-size: 38px;
+  }
+  .rm-label-water {
+    font-size: 30px;
+  }
+  .rm-label-area,
+  .rm-label-landmark,
+  .rm-road-name,
+  .ov-label {
+    display: none;
+  }
+  .rm-label-star {
+    font-size: 30px;
+  }
+  .rm-badge {
+    transform: scale(1.35);
+  }
+  .rm-icon {
+    transform: scale(1.35);
+  }
+}
+@media (max-width: 560px) {
+  .picks-map .picks-canvas {
+    width: calc(100% + 2 * var(--gutter));
+    max-width: none;
+    margin: 0 calc(-1 * var(--gutter));
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+}
+.coast-chart.is-quiet .coast-chart-water-label {
+  display: none;
 }
