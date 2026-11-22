@@ -1,8 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Seal } from "./Seal";
 
-export type JumpItem = { id: string; label: string; numeral?: string };
+export type JumpItem = {
+  id: string;
+  label: string;
+  numeral?: string;
+  /** A small seal after the label: on the Week page, a day with something we planned. */
+  mark?: boolean;
+  /** What the mark means, for screen readers. */
+  markLabel?: string;
+};
 
 /**
  * "On this page": the page's sections in a row that sticks under the header,
@@ -77,6 +86,11 @@ export function JumpBar({ items, label }: { items: JumpItem[]; label: string }) 
                 </span>
               ) : null}
               {item.label}
+              {item.mark ? (
+                <span className="jump-mark" role="img" aria-label={item.markLabel}>
+                  <Seal className="seal jump-seal" />
+                </span>
+              ) : null}
             </a>
           </li>
         ))}

@@ -24,7 +24,7 @@ export const utility = {
     pack: "Packing list",
   },
   open: {
-    lede: "Pick a day and the restaurants closed that day fade. Tap a name for the full entry on The island.",
+    lede: "Our restaurant picks. Pick a day and the ones closed that day fade; tap a name for the full entry on The island.",
   },
   sun: {
     lede: "At the gardens, each day of the week we suggest.",

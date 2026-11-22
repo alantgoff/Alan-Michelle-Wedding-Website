@@ -4758,3 +4758,317 @@ footer {
     display: inline;
   }
 }
+
+/* ---------- Our seal: "from us" ------------------------------- */
+
+.seal {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
+.our-picks {
+  margin: 0 0 18px;
+}
+.our-picks-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 0.74rem;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.our-picks-label .seal {
+  width: 26px;
+  height: 26px;
+}
+.our-picks-line {
+  max-width: 60ch;
+  margin: 6px 0 0;
+  font-family: var(--display);
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+  color: var(--deep);
+}
+.stay-badge .seal {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+}
+.add-plan-from {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 2px;
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.add-plan-from .seal {
+  width: 18px;
+  height: 18px;
+}
+
+/* The Week page: days with something we planned carry the seal. */
+.jump-mark {
+  display: inline-flex;
+  margin-left: 2px;
+}
+.jump-seal {
+  width: 15px;
+  height: 15px;
+}
+.contents a[aria-current] .jump-seal circle:first-child {
+  fill: var(--white);
+}
+.activity-day-ours {
+  padding-left: clamp(14px, 2vw, 22px);
+  border-left: 3px solid var(--lagoon);
+}
+.activity-day-free {
+  padding-left: clamp(14px, 2vw, 22px);
+  border-left: 3px solid color-mix(in srgb, var(--deep) 10%, transparent);
+}
+.activity-day-free .activity-day-head h2 {
+  color: var(--muted);
+}
+.day-ours {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.week-strip-ours {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+}
+.week-strip-ours > span {
+  position: relative;
+  display: inline-flex;
+}
+.week-strip-ours .seal {
+  width: 19px;
+  height: 19px;
+}
+.week-strip-own {
+  position: absolute;
+  right: -9px;
+  top: -5px;
+  width: 13px;
+  height: 13px;
+}
+.week-strip-days a.is-ours {
+  border-color: color-mix(in srgb, var(--lagoon) 45%, transparent);
+}
+.week-strip-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 10px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.week-strip-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.week-strip-legend .seal {
+  width: 17px;
+  height: 17px;
+}
+.week-strip-legend i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lagoon);
+}
+/* On the Week page the strip sits under the section bar, inside the page gutter. */
+.week-strip + .section,
+.week-strip + section {
+  padding-top: clamp(28px, 4vw, 48px);
+}
+.stay-badge {
+  display: flex;
+  align-items: center;
+}
+
+/* ---------- Our picks: a map or a list (The island) ----------- */
+
+/* Without JavaScript the list shows; once a view is chosen, only that one. */
+.island-views:not([data-view="map"]) .views-map,
+.island-views[data-view="map"] .views-list {
+  display: none;
+}
+.views-toggle {
+  display: inline-flex;
+  gap: 2px;
+  margin: 0 0 22px;
+  padding: 3px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--white);
+}
+.views-toggle button {
+  min-width: 72px;
+  min-height: 36px;
+  padding: 4px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--deep);
+  cursor: pointer;
+}
+.views-toggle button[aria-pressed="true"] {
+  background: var(--lagoon);
+  color: var(--white);
+}
+.views-toggle button:focus-visible {
+  outline: 2px solid var(--lagoon);
+  outline-offset: 2px;
+}
+.views-section + .views-section {
+  margin-top: clamp(44px, 6vw, 72px);
+}
+.views-title {
+  margin: 0 0 8px;
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+}
+.views-lede {
+  max-width: 64ch;
+  margin: 0 0 22px;
+  color: var(--deep);
+}
+
+/* The picks map: every pick a dot; the chosen part's dots filled. */
+.picks-dots {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.picks-dot {
+  fill: var(--white);
+  stroke: var(--ink-line);
+  stroke-width: 1.6;
+  vector-effect: non-scaling-stroke;
+  transition: fill 0.2s, opacity 0.25s;
+}
+.picks-dot.is-on {
+  fill: var(--lagoon);
+}
+.open-on[data-day="0"] .picks-dot[data-open]:not([data-open~="0"]),
+.open-on[data-day="1"] .picks-dot[data-open]:not([data-open~="1"]),
+.open-on[data-day="2"] .picks-dot[data-open]:not([data-open~="2"]),
+.open-on[data-day="3"] .picks-dot[data-open]:not([data-open~="3"]),
+.open-on[data-day="4"] .picks-dot[data-open]:not([data-open~="4"]),
+.open-on[data-day="5"] .picks-dot[data-open]:not([data-open~="5"]),
+.open-on[data-day="6"] .picks-dot[data-open]:not([data-open~="6"]) {
+  opacity: 0.22;
+}
+.picks-pin .coast-pin-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  font-family: var(--body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--deep);
+}
+.picks-pin[aria-pressed="true"] .coast-pin-mark {
+  color: var(--white);
+}
+.picks-kind {
+  margin: 24px 0 0;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lagoon);
+}
+.picks-cards {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pick .place-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+.pick-meta {
+  margin-top: 2px !important;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+.pick-more summary {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--lagoon);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.pick-more[open] summary {
+  margin-bottom: 4px;
+}
+.pick-more p {
+  font-size: 0.95rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .picks-dot {
+    transition: none;
+  }
+}
+.coast-pin[data-side="below"] .coast-pin-name {
+  left: 50%;
+  top: calc(50% + 14px);
+  transform: translateX(-50%);
+}
+.pick {
+  padding: 12px 0 14px;
+}
+.pick .place-what {
+  font-size: 0.97rem;
+}
+/* On a phone the parts of the island sit two to a row, short, so the
+   chosen part's picks start soon after the chart. */
+@media (max-width: 560px) {
+  .picks-map .coast-index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .picks-map .coast-index-item {
+    padding: 7px 10px;
+  }
+  .picks-map .coast-index-name {
+    font-size: 0.98rem;
+  }
+  .picks-map .coast-index-kind {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+  }
+}

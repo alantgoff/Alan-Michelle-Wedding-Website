@@ -28,6 +28,8 @@ export const myWeek = {
   move: "Move",
   moveLabel: "Move {name} to another day",
   addPlan: "Add a plan",
+  /** Over the list in "Add a plan". */
+  fromPicks: "From our picks",
   addPlanLabel: "Add a plan to {day}",
   filter: "Find a place",
   eat: "Eat",
@@ -47,6 +49,10 @@ export const myWeek = {
   stripEmpty: "Tap “Add to my week” on any restaurant or day out and pick a day. Your plans then sit on the Week page, beside ours.",
   stripLink: "Plan your week",
   stripLabel: "My week, day by day",
+  /** The key under the strip where our events are marked. */
+  legendOurs: "Planned by us",
+  legendYours: "Your plans",
+  forYou: "Just for you",
 
   /**
    * Notes on the Week page under the days they apply to, from the facts on

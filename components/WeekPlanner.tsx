@@ -7,6 +7,8 @@ import { place, read, readOnServer, remove, subscribe, type Saved } from "@/lib/
 import type { Plannable } from "@/lib/plannable";
 import type { WeekDay } from "@/lib/week";
 import { IslandDot } from "./IslandDot";
+import { Plumeria } from "./Plumeria";
+import { Seal } from "./Seal";
 
 /**
  * My week, built around the days.
@@ -307,6 +309,10 @@ function AddPlan({ day }: { day: WeekDay }) {
           {words.done}
         </button>
       </div>
+      <p className="add-plan-from">
+        <Seal />
+        {words.fromPicks}
+      </p>
       {group("eat", words.eat)}
       {group("out", words.out)}
     </div>
@@ -355,8 +361,16 @@ export function Unplaced() {
   );
 }
 
-/** The week as a strip of days, each with a dot per plan, linking to that day on the Week page. */
-export function WeekStrip() {
+/** By day ("2028-10-05"): something we planned that day, and whether any of it is just for this guest. */
+export type Ours = Record<string, { own: boolean }>;
+
+/**
+ * The week as a strip of days, each with a dot per plan, linking to that day
+ * on the Week page. Given `ours` (worked out on the server from the events
+ * this visitor may see), a day we planned something on carries our seal, and
+ * a pressed plumeria if it is just for them.
+ */
+export function WeekStrip({ ours }: { ours?: Ours }) {
   const { days, words } = usePlanner();
   const saved = useSaved();
   if (saved === null) return null;
@@ -375,15 +389,26 @@ export function WeekStrip() {
       <ol className="week-strip-days">
         {days.map((d) => {
           const on = saved.filter((s) => s.day === d.iso);
+          const us = ours?.[d.iso];
           return (
             <li key={d.iso}>
               <a
                 href={`/week#day-${d.iso}`}
-                className={d.offset === 0 ? "is-wedding" : undefined}
+                className={[d.offset === 0 ? "is-wedding" : "", us ? "is-ours" : ""].join(" ").trim() || undefined}
                 title={on.map((s) => s.name).join(", ") || undefined}
               >
                 <span className="week-strip-wd">{d.short}</span>
                 <span className="week-strip-date">{d.date}</span>
+                {ours ? (
+                  <span className="week-strip-ours">
+                    {us ? (
+                      <span role="img" aria-label={us.own ? `${words.legendOurs}, ${words.forYou}` : words.legendOurs}>
+                        <Seal />
+                        {us.own ? <Plumeria className="week-strip-own" /> : null}
+                      </span>
+                    ) : null}
+                  </span>
+                ) : null}
                 <span className="week-strip-dots" aria-label={on.length ? (on.length === 1 ? words.plansOne : fill(words.plans, { n: on.length })) : undefined}>
                   {on.slice(0, 4).map((s) => (
                     <i key={s.id} />
@@ -395,6 +420,18 @@ export function WeekStrip() {
           );
         })}
       </ol>
+      {ours ? (
+        <p className="week-strip-legend">
+          <span>
+            <Seal />
+            {words.legendOurs}
+          </span>
+          <span>
+            <i />
+            {words.legendYours}
+          </span>
+        </p>
+      ) : null}
       {count === 0 ? <p className="week-strip-empty">{words.stripEmpty}</p> : <p className="week-strip-note">{words.note}</p>}
     </aside>
   );

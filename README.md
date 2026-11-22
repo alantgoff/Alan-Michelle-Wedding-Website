@@ -136,6 +136,17 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
 - Wherever the site names a place (a restaurant, an event, a stay, a boat, a day out), a little
   map of Oʻahu sits beside it with a dot where it is (`components/IslandDot.tsx`). The points are
   named in `lib/island.ts`; content files pick one with `at`.
+- The places on the site are our picks, and the site says so: a small ink seal (a plumeria in a
+  ring, `components/Seal.tsx`) and "Our picks" head each list of places, with one line saying it
+  is not a directory (`content/picks.ts`). The same seal marks the days we planned something on.
+- The island opens with our picks on a drawn map (`components/PicksMap.tsx`): the island in six
+  parts, each a numbered pin; choose one and its restaurants and days out open beside the chart,
+  with "Add to my week" on each, and every pick is a dot on it that "Open on…" fades on days it
+  is closed. A Map/List switch shows the full list instead (`components/IslandViews.tsx`); the
+  choice is remembered, links into the list (like `/island#hanauma`) switch to it, and without
+  JavaScript the list is all there is. The parts are `explorer.regions` in `content/island.ts`;
+  a place joins a part by its `at` point. The chart is the same drawing as Travel's coast map
+  (`components/IslandChart.tsx`).
 - The island has a poke section for Foodland's counter, with a drawing of each kind
   (`components/PokeBowls.tsx`; the drawings' path data is in `components/poke-art.ts`).
 - My week is planned by the day. "Add to my week" on any restaurant, day out or Foodland asks
@@ -154,6 +165,10 @@ in `components/Logo.tsx`. The three images in `app/` are flat files and need reg
   guest's group by name, and lifts away to the home page. It plays once, a tap skips it, and anyone
   who has asked their device for reduced motion goes straight to the page.
 - Tapping the logo at the top of the home page scatters plumeria down the screen.
+- On the Week page, the days we planned something on carry our seal: in the week strip at the top
+  (with a pressed plumeria if it is just for the guest's group), in the "Day by day" row, and as
+  a lagoon edge and "Planned by us" on the day itself. The marks come only from the events that
+  guest may see (`lib/ours.ts`), and `npm run test:gating` checks it.
 - The Week page shows all nine days of the week we suggest, each with its real date and that
   evening's sunset, and lists our events in time order; events with no day yet sit under "Dates
   to come" at the end.

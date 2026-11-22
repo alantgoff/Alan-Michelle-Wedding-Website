@@ -76,6 +76,10 @@ If you are not sure of something new, leave it out.
   for the filter are in `eat.openOn`. The poke section is `eat.poke`; each kind's
   `id` picks its drawing. Every place has `at`, the point its little island map is dotted at:
   one of the names in `lib/island.ts` (add a new point there if a place isn't near one).
+- **`picks.ts`**: "Our picks" and the line under it that says this is not a directory.
+- In **`island.ts`**, `explorer` is the picks map: its words and the six parts of the island
+  (`regions`), each with the points (`lib/island.ts`) it covers. A place shows in the part that
+  covers its `at`.
 - **`myWeek.ts`**: the words for planning the week day by day, and the notes shown under the
   days they apply to on the Week page (`notes`: e.g. "Hanauma Bay is closed" on Mondays and
   Tuesdays). Keep those in step with the facts on The island.

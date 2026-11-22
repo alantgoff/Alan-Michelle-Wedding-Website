@@ -80,13 +80,15 @@ export const weekPage = {
  /** Every day of the week we suggest is shown; a day with nothing of ours says so. */
  free: "Nothing planned by us: the day is yours.",
  weddingDay: "Wedding day",
+ /** Beside the seal, on each day that has something we planned. */
+ plannedByUs: "Planned by us",
  /** Added to the intro: My week lives in each day below. */
  planNote: "Add your own plans to any day; they stay on this device.",
  /** Events whose day is not set yet, after the week. */
  datesToCome: "Dates to come",
  datesToComeShort: "Dates to come",
  freeTime: {
-  text: "Free time between the gatherings? The island page has what is open on which day, and where to go.",
+  text: "Free time between the gatherings? The island page has our picks for where to eat and what to do, and what is open on which day.",
   link: "A free day, in full",
  },
 };

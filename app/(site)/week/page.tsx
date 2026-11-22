@@ -7,12 +7,14 @@ import { JumpBar, type JumpItem } from "@/components/JumpBar";
 import { PageHero, Section } from "@/components/Page";
 import { Plumeria } from "@/components/Plumeria";
 import { PrintButton } from "@/components/PrintButton";
-import { DayPlans, PlannerProvider, Unplaced } from "@/components/WeekPlanner";
+import { Seal } from "@/components/Seal";
+import { DayPlans, PlannerProvider, Unplaced, WeekStrip } from "@/components/WeekPlanner";
 import { weekPage as copy, type Activity } from "@/content/activities";
 import { boatVote } from "@/content/boatVote";
 import { myWeek } from "@/content/myWeek";
 import { heldGroups, visibleActivities } from "@/content/visibleActivities";
 import { fill } from "@/lib/fill";
+import { oursByDay } from "@/lib/ours";
 import { plannable } from "@/lib/plannable";
 import { suggestedWeek } from "@/lib/week";
 import { anchorFor, minutesOf, weekendDay } from "@/lib/weekend";
@@ -63,7 +65,10 @@ export default async function Week({
   const intro = `${own === 0 ? copy.intro : `${copy.intro} ${own === 1 ? copy.mineOne : copy.mineMany}`} ${copy.planNote}`;
   const voting = held.some((g) => g.id === boatVote.audience);
 
-  const jump: JumpItem[] = days.map((d) => ({ id: `day-${d.iso}`, label: d.short }));
+  // Days we have planned something on, from the events this visitor may see.
+  const ours = oursByDay(visible, held);
+
+  const jump: JumpItem[] = days.map((d) => ({ id: `day-${d.iso}`, label: d.short, mark: Boolean(ours[d.iso]), markLabel: copy.plannedByUs }));
   if (undated.length) jump.push({ id: "day-to-come", label: copy.datesToComeShort });
   if (voting) jump.push({ id: "boat-vote", label: boatVote.short });
 
@@ -95,13 +100,18 @@ export default async function Week({
     <PlannerProvider days={week} words={myWeek} catalog={plannable()}>
       <PageHero kicker={copy.kicker} title={copy.title} intro={intro} photo="activities" scene="week" />
       <JumpBar items={jump} label={copy.contents} />
+      <WeekStrip ours={ours} />
       <Section>
         <Unplaced />
         {days.map((d) => {
           const events = visible.filter((a) => isoOf(a) === d.iso).sort(byTime);
           const notes = d.offset === 0 ? [] : myWeek.notes.filter((n) => n.days.includes(WEEKDAYS[d.weekday]));
           return (
-            <div className={d.offset === 0 ? "activity-day activity-day-wedding" : "activity-day"} key={d.iso} id={`day-${d.iso}`}>
+            <div
+              className={["activity-day", d.offset === 0 ? "activity-day-wedding" : "", events.length ? "activity-day-ours" : "activity-day-free"].join(" ").replace(/\s+/g, " ").trim()}
+              key={d.iso}
+              id={`day-${d.iso}`}
+            >
               <div className="activity-day-head">
                 <h2>
                   {d.label}
@@ -109,6 +119,12 @@ export default async function Week({
                 </h2>
                 <p className="activity-sun">{fill(copy.sunset, { time: d.sunset })}</p>
               </div>
+              {events.length ? (
+                <p className="day-ours">
+                  <Seal />
+                  {copy.plannedByUs}
+                </p>
+              ) : null}
               {events.length ? events.map(event) : <p className="day-free">{copy.free}</p>}
               {notes.length ? (
                 <ul className="day-notes">

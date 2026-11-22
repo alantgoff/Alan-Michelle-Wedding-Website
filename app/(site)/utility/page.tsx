@@ -16,8 +16,9 @@ import { myWeek } from "@/content/myWeek";
 import { site } from "@/content/site";
 import { travel } from "@/content/travel";
 import { utility as copy } from "@/content/utility";
-import { visibleActivities } from "@/content/visibleActivities";
+import { heldGroups, visibleActivities } from "@/content/visibleActivities";
 import { crossings } from "@/lib/flying";
+import { oursByDay } from "@/lib/ours";
 import { openNumbers, plannable } from "@/lib/plannable";
 import { suggestedWeek } from "@/lib/week";
 
@@ -47,7 +48,7 @@ const chapter = (id: string) => CHAPTERS.find((c) => c.id === id)!;
  * is chosen on Travel, and so on.
  */
 export default async function Utility() {
-  const activities = await visibleActivities();
+  const [activities, held] = await Promise.all([visibleActivities(), heldGroups()]);
   const far = crossings();
   const days = suggestedWeek();
   const places: Place[] = island.eat.groups.flatMap((g): Place[] => g.places);
@@ -68,7 +69,7 @@ export default async function Utility() {
       </Chapter>
 
       <Chapter chapter={chapter("my-week")}>
-        <WeekStrip />
+        <WeekStrip ours={oursByDay(activities, held)} />
         <WeekAgenda />
       </Chapter>
 

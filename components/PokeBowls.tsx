@@ -1,5 +1,7 @@
 import { POKE_ART, type PokeKind } from "./poke-art";
 import { IslandDot } from "./IslandDot";
+import { picks } from "@/content/picks";
+import { OurPicks } from "./OurPicks";
 import { AddToWeek } from "./WeekPlanner";
 import type { PointKey } from "@/lib/island";
 
@@ -56,7 +58,8 @@ type Poke = {
 /** The poke section on The island: where to buy it, then a drawing of each kind. */
 export function PokeBowls({ poke }: { poke: Poke }) {
   return (
-    <section className="poke" id="poke" aria-labelledby="poke-title">
+    <section className="poke" aria-labelledby="poke-title">
+      <OurPicks label={picks.poke} />
       <h3 id="poke-title">{poke.title}</h3>
       <p className="poke-lede">{poke.lede}</p>
       <div className="poke-store" id={poke.store.id}>

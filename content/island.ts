@@ -70,15 +70,44 @@ export const island = {
     tab: "The island",
     kicker: "Where we are",
     title: "The island",
-    intro: "Where to eat, the best spots, planning a free day, and what to know before you go in the water.",
+    intro: "Our picks for where to eat and what to do, on a map or as a list, and what to know before you go in the water.",
     chapters: {
+      picks: "Our picks",
+      poke: "Poke",
       eat: "Where to eat",
       spots: "The best spots",
-      explore: "Plan your free days",
+      explore: "Days out",
       water: "In the water",
       rules: "Rules worth knowing",
       venue: "About the venue",
     },
+  },
+
+  /**
+   * The picks map at the top of the page: the island in five parts. Each part
+   * shows the restaurants and days out whose `at` point is one of its
+   * `points` (lib/island.ts), so a new place lands in the right part by
+   * itself. `places` names each point where it heads a group of cards.
+   */
+  explorer: {
+    views: { label: "Show our picks as", map: "Map", list: "List" },
+    indexLabel: "Parts of the island",
+    eat: "Eat",
+    out: "Days out",
+    more: "More",
+    order: "Order",
+    eatCount: "{n} to eat",
+    eatOne: "1 to eat",
+    outCount: "{n} days out",
+    outOne: "1 day out",
+    regions: [
+      { id: "waikiki", name: "Waikīkī, Kapahulu and Kaimukī", short: "Waikīkī", note: "Where we recommend staying, and the neighborhoods next door: breakfast, poke, dinners and malasadas.", points: ["waikiki", "kapahulu", "kaimuki"] },
+      { id: "town", name: "Ala Moana and downtown", short: "Town", note: "A short ride west: shave ice, Foodland’s poke counter, and two kitchens the James Beard Foundation has honored.", points: ["moiliili", "ala-moana", "chinatown", "kalihi"] },
+      { id: "southeast", name: "The southeast shore", short: "Southeast", note: "Snorkeling at Hanauma Bay and the lighthouse walk at Makapuʻu.", points: ["hanauma", "makapuu"] },
+      { id: "windward", name: "Kailua and Kāneʻohe", short: "Kailua & Kāneʻohe", note: "Our side of the mountains: beaches, gardens, a temple and the bay.", points: ["kailua", "lanikai", "kaneohe", "heeia", "waiahole"] },
+      { id: "kualoa", name: "Kualoa and up the coast", short: "Kualoa", note: "Around the venue, and the valley up the road.", points: ["kualoa", "kahana", "laie"] },
+      { id: "north", name: "The North Shore", short: "North Shore", note: "Shrimp trucks, shave ice and big-wave beaches, with a coffee farm on the drive up.", points: ["haleiwa", "pupukea", "kahuku", "turtle-bay", "wahiawa"] },
+    ] satisfies { id: string; name: string; short: string; note: string; points: PointKey[] }[],
   },
 
   /**
@@ -162,7 +191,7 @@ export const island = {
       title: "Poke, from Foodland",
       short: "Poke",
       lede: "Ask anyone here where to buy poke and you will often hear the name of a supermarket. Foodland’s seafood counter makes it fresh every day: buy it by the pound to share, or as a bowl over hot rice. Ask for a taste if you can’t decide; the flavors change by store and by day.",
-      store: { id: "foodland-ala-moana", name: "Foodland Farms Ala Moana", area: "Ala Moana Center", at: "ala-moana" as PointKey, hours: "Daily 6 AM–10 PM", href: "https://foodland.com/hawaiis-home-for-poke" },
+      store: { id: "foodland-ala-moana", name: "Foodland Farms Ala Moana", area: "Ala Moana Center", at: "ala-moana" as PointKey, what: "Poke by the pound or in a bowl, from the seafood counter.", hours: "Daily 6 AM–10 PM", href: "https://foodland.com/hawaiis-home-for-poke" },
       also: "There are Foodlands all over the island, Kailua and Lāʻie among them.",
       tip: "Buy it the day you eat it, and keep it cold on the way to the beach.",
       kinds: [

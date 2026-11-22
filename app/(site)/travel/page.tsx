@@ -1,4 +1,5 @@
 import { IslandDot } from "@/components/IslandDot";
+import { Seal } from "@/components/Seal";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CoastMap } from "@/components/CoastMap";
@@ -99,7 +100,12 @@ export default async function Travel() {
         <div className="stays">
           {travel.stays.map((item) => (
             <article className={item.recommended ? "stay stay-recommended" : "stay"} key={item.id}>
-              {item.recommended ? <p className="stay-badge">{copy.recommended}</p> : null}
+              {item.recommended ? (
+                <p className="stay-badge">
+                  <Seal />
+                  {copy.recommended}
+                </p>
+              ) : null}
               <p className="stay-minutes">
                 <span className="stay-number">{item.minutes}</span>
                 <span className="stay-unit">{copy.minutesUnit}</span>

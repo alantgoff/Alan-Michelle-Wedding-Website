@@ -95,7 +95,17 @@ for (const group of Object.keys(privateEvents)) {
   }
 }
 
-// 5. The friends' boat vote is shown, and takes votes, only with that group's own link.
+// 5. The Week page marks the days we planned something on with our seal, and
+// only from events the visitor may see: Thursday (the family dinner, the
+// Thursday before the wedding) is marked for family and for no one else.
+const thursday = 'id="day-2028-10-05"';
+const markedThursday = (page) => new RegExp(`class="[^"]*activity-day-ours[^"]*" ${thursday}`).test(page);
+const famCookie = (await fetch(`${base}/i/${slugs.family}`, { redirect: "manual" })).headers.get("set-cookie").split(";")[0];
+if (markedThursday(await html("/week"))) throw new Error("untagged /week: Thursday is marked as ours, which gives away the family dinner");
+if (markedThursday(await html("/week", "wedding_group=family"))) throw new Error("forged cookie /week: Thursday is marked as ours");
+if (!markedThursday(await html("/week", famCookie))) throw new Error("family /week: Thursday should carry our seal");
+
+// 6. The friends' boat vote is shown, and takes votes, only with that group's own link.
 const voteTitle = "Help choose our boat day";
 const cookieFor = async (slug) =>
   (await fetch(`${base}/i/${slug}`, { redirect: "manual" })).headers.get("set-cookie").split(";")[0];
@@ -120,4 +130,4 @@ const friends = await cookieFor(slugs.college);
 if (!(await html("/week", friends)).includes(voteTitle)) throw new Error("college: the boat vote is missing");
 if ((await vote(friends)).status !== 303) throw new Error("college: a vote should be answered with a redirect back");
 
-console.log("PASS: open events visible to all, private events only via valid invite slugs, links accumulate, the boat vote only for its group.");
+console.log("PASS: open events visible to all, private events only via valid invite slugs, links accumulate, day marks follow what the visitor may see, the boat vote only for its group.");
